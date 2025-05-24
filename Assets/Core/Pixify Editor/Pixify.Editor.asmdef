@@ -1,0 +1,20 @@
+{
+    "name": "Pixify.Editor",
+    "rootNamespace": "Pixify.Editor",
+    "references": [
+        "GUID:b0589b58c1593d7469e35a172dc83873",
+        "GUID:002c1bbed08fa44d282ef34fd5edb138",
+        "GUID:b8e24fd1eb19b4226afebb2810e3c19b"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

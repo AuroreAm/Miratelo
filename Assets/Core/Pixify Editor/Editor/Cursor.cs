@@ -1,0 +1,71 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+using UnityEditor.IMGUI.Controls;
+using System.Linq;
+using System.Reflection;
+
+namespace Pixify.Editor
+{
+    /// <summary>
+    /// Editor cursor to find all types specified in filter
+    /// </summary>
+    public class Cursor <T>
+    {
+        public Dictionary <string, Type[]> Types;
+        Type Filter;
+        public SearchField Search;
+        string searchQuerry = "";
+        Vector2 scroll;
+        public Action<Type> Add;
+
+        public Cursor(Action<Type> Ev)
+        {
+            Search = new SearchField();
+            Filter = typeof(T);
+            if (Types == null)
+                FetchTypes();
+            Add += Ev;
+        }
+
+        public void GUI()
+        {
+            GUILayout.Label(Filter.Name, PixStyle.o.Title1);
+
+            searchQuerry = Search.OnGUI(searchQuerry);
+
+            scroll = GUILayout.BeginScrollView(scroll, GUILayout.Height(128));
+
+            Rect Section;
+            for (int i = 0; i < Types.Count; i++)
+            {
+                var Key = Types.ElementAt(i).Key;
+
+                Section = EditorGUILayout.BeginVertical();
+                EditorGUI.DrawRect(Section, new Color(.2f, .2f, .2f));
+                GUILayout.Label ( Key, PixStyle.o.Title2 );
+
+                for (int j = 0; j < Types[Key].Length; j++)
+                if (Types[Key][j].IsSubclassOf(Filter) && !Types[Key][j].IsAbstract && GUILayout.Button(Types[Key][j].Name))
+                {
+                    Add?.Invoke(Types[Key][j]);
+                }
+
+                EditorGUILayout.EndVertical();
+            }
+            GUILayout.EndScrollView();
+        }
+
+        void FetchTypes()
+        {
+            List<Type> TypeList = new List<Type>();
+            foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
+                TypeList.AddRange(a.GetTypes().Where(type => type.IsSubclassOf(Filter)));
+
+            Types = TypeList.GroupBy( x=> x.GetCustomAttributes (typeof (CategoryAttribute), true).OfType<CategoryAttribute>().FirstOrDefault()?.Name).ToDictionary ( x => x.Key, x => x.ToArray() );
+
+            Types.Remove (string.Empty);
+        }
+    }
+}

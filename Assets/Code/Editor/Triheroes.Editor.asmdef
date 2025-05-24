@@ -1,0 +1,19 @@
+{
+    "name": "Triheroes.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:32af9b4450a68ba478d15426d6bea7d7",
+        "GUID:b0589b58c1593d7469e35a172dc83873"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

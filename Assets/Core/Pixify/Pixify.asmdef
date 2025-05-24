@@ -1,0 +1,17 @@
+{
+    "name": "Pixify",
+    "rootNamespace": "Pixify",
+    "references": [
+        "GUID:e9745f6a32442194c8dc5a43e9ab86f9",
+        "GUID:b8e24fd1eb19b4226afebb2810e3c19b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
