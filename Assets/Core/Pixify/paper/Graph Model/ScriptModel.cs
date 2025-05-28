@@ -8,12 +8,13 @@ namespace Pixify
 {
     [Serializable]
     [CreateAssetMenu(menuName = "Pixify/Script")]
-    public class ScriptModel : NodeGraph
+    public class ScriptModel : ScriptableObject
     {
         [HideInInspector]
         public Vector2 pan;
 
         [HideInInspector]
-        public ScriptRoot Root;
+        [SerializeReference]
+        public ActionModel Root;
     }
 }

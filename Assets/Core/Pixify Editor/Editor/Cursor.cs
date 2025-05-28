@@ -44,12 +44,20 @@ namespace Pixify.Editor
 
                 Section = EditorGUILayout.BeginVertical();
                 EditorGUI.DrawRect(Section, new Color(.2f, .2f, .2f));
-                GUILayout.Label ( Key, PixStyle.o.Title2 );
 
+                List<Type> TypeList = new List<Type>();
                 for (int j = 0; j < Types[Key].Length; j++)
-                if (Types[Key][j].IsSubclassOf(Filter) && !Types[Key][j].IsAbstract && GUILayout.Button(Types[Key][j].Name))
+                if ( Types[Key][j].Name.ToLower().Contains ( searchQuerry.ToLower() ) )
+                    TypeList.Add ( Types[Key][j] );
+
+                if ( TypeList.Count > 0 )
                 {
-                    Add?.Invoke(Types[Key][j]);
+                    GUILayout.Label ( Key, PixStyle.o.Title2 );
+                    for (int j = 0; j < TypeList.Count; j++)
+                    if (TypeList[j].IsSubclassOf(Filter) && !TypeList[j].IsAbstract && GUILayout.Button(TypeList[j].Name))
+                    {
+                        Add?.Invoke(TypeList[j]);
+                    }
                 }
 
                 EditorGUILayout.EndVertical();

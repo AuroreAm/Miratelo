@@ -5,7 +5,7 @@ using XNodeEditor;
 using XNode;
 namespace Pixify.Editor
 {
-    [CustomNodeEditor (typeof (DecoratorModel))]
+    /*[CustomNodeEditor (typeof (DecoratorModel))]
     public class DecoratorModelEditor : ActionModelEditor
     {
         public override void OnBodyGUI()
@@ -13,5 +13,5 @@ namespace Pixify.Editor
             base.OnBodyGUI();
             NodeEditorGUILayout.PortField(new Vector2(GetWidth() - 24, 12), Target.GetOutputPort("Out"));
         }
-    }
+    }*/
 }

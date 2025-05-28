@@ -8,7 +8,7 @@ using System;
 
 namespace Pixify.Editor
 {
-    [CustomNodeEditor (typeof (ActionModel))]
+    /*[CustomNodeEditor (typeof (ActionModel))]
     public class ActionModelEditor : XNodeEditor.NodeEditor
     {
         public ActionModel Target;
@@ -41,5 +41,5 @@ namespace Pixify.Editor
             Target.Tag = EditorGUILayout.TextField("Tag", Target.Tag);
             EditorUtility.SetDirty(Target);
         }
-    }
+    }*/
 }

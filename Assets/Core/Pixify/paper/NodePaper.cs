@@ -19,6 +19,7 @@ namespace Pixify
         [HideInInspector]
         string StrNodeJson;
 
+        public bool Valid => !string.IsNullOrEmpty (StrNodeType) && Type.GetType (StrNodeType) != null;
         #if UNITY_EDITOR
         // used by node editors to edit the blueprint
         public node blueprint;
@@ -46,6 +47,16 @@ namespace Pixify
             blueprint = (node) Activator.CreateInstance (t);
             return this;
         }
+
+        public NodePaper Copy()
+        {
+            var n = new NodePaper();
+            n.StrNodeType = StrNodeType;
+            n.StrNodeJson = StrNodeJson;
+            n.blueprint = Pixify.CopyWithExport(blueprint);
+            return n;
+        }
+
         #endif
 
         public void OnAfterDeserialize()

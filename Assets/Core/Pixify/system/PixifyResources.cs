@@ -20,9 +20,10 @@ namespace Pixify
 
         public GUIStyle Title1;
         public GUIStyle Title2;
-        
         public GUIStyle Title3;
         public GUIStyle Subtitle1;
+
+        public GUIStyle TextMiddleLeft;
 
         public PixStyle ()
         {
@@ -39,6 +40,9 @@ namespace Pixify
             Title3.alignment = TextAnchor.UpperLeft;
             Subtitle1 = new GUIStyle (Title1);
             Subtitle1.fontSize = 8;
+
+            TextMiddleLeft = new GUIStyle (Base);
+            TextMiddleLeft.alignment = TextAnchor.MiddleLeft;
         }
 
     }

@@ -6,12 +6,12 @@ using System;
 namespace Pixify
 {
     public enum Comparator { less, more, equal, lessEqual, moreEqual }
-    public static class Pix
+    public static class Pixify
     {
         public static T CopyWithExport<T>(T a)
         {
             T b = (T)Activator.CreateInstance(a.GetType());
-            foreach (FieldInfo fi in a.GetType().GetFields())
+            foreach ( FieldInfo fi in a.GetType().GetFields( BindingFlags.Public | BindingFlags.Instance) )
             {
                 if (fi.IsPublic && fi.GetCustomAttribute<ExportAttribute>() != null)
                     fi.SetValue(b, fi.GetValue(a));

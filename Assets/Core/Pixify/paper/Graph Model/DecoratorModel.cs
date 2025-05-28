@@ -6,17 +6,16 @@ namespace Pixify
 {
     public class DecoratorModel : ActionModel
     {
-        [Output]
-        int Out;
+        [SerializeReference]
+        public List <ActionModel> Child;
+
+        public DecoratorModel ()
+        {
+            Child = new List<ActionModel>();
+        }
 
         public override action CreateNode(Character c)
         {
-            // fetch all child model
-            List <ActionModel> Child = new List<ActionModel>();
-            var Connections = GetPort("Out").GetConnections();
-            for (int i = 0; i < Connections.Count; i++)
-                Child.Add ( Connections[i].node as ActionModel);
-            
             // create the nodes from the child models
             List <action> _o = new List<action> ();
             foreach (var n in Child)
@@ -29,5 +28,19 @@ namespace Pixify
             c.ConnectNode (d);
             return d;
         }
+
+        #if UNITY_EDITOR
+        public override ActionModel Copy()
+        {
+            var n = new DecoratorModel();
+            n.Tag = Tag;
+            n.BluePrintPaper = BluePrintPaper.Copy();
+
+            n.Child = new List<ActionModel>();
+            foreach (var c in Child)
+                n.Child.Add(c.Copy());
+            return n;
+        }
+        #endif
     }
 }

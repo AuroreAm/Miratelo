@@ -1,6 +1,8 @@
 Task feature list to do for Triheroes Mighty
 0 - Pixify more features
     - Change Pixify serialization from using XNode to using a general scriptable object
+        - new UI
+        - new editor
     - add a way for child action to change decorator states
     - add decorator : selector, random, wait, condition
     - add orphan node for entities that don't need a gameobject

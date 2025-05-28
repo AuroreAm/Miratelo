@@ -6,20 +6,18 @@ using XNode;
 
 namespace Pixify
 {
-    public class ActionModel : Node, IComparable<ActionModel>
+    [Serializable]
+    public class ActionModel
     {
         public String Tag;
-
-        [Input]
-        int In;
+        public bool Valid => BluePrintPaper.Valid;
 
         [SerializeField]
         public NodePaper BluePrintPaper;
 
-        // instancied nodes from ActionModels are executed from top to bottom
-        public int CompareTo(ActionModel other)
+        public ActionModel ()
         {
-            if (position.y < other.position.y) return -1; else return 1;
+            BluePrintPaper = new NodePaper();
         }
 
         /// <summary>
@@ -32,5 +30,18 @@ namespace Pixify
             c.ConnectNode ( n );
             return n;
         }
+
+        #if UNITY_EDITOR
+        /// <summary>
+        /// Create a copy of the node
+        /// </summary>
+        public virtual ActionModel Copy()
+        {
+            var n = new ActionModel();
+            n.Tag = Tag;
+            n.BluePrintPaper = BluePrintPaper.Copy();
+            return n;
+        }
+        #endif
     }
 }

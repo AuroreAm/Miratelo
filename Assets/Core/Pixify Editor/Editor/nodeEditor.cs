@@ -47,6 +47,7 @@ namespace Pixify.Editor
         public static void NodeGUI (node node, UnityEngine.Object Host)
         {
             EditorGUI.BeginChangeCheck();
+            Undo.RecordObject(Host, "Node Edit");
             // Y is the class that is being inspected
             foreach (FieldInfo fi in node.GetType().GetFields())
             {

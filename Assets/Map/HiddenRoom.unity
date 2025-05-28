@@ -170,7 +170,7 @@ MonoBehaviour:
   OverrideParameters:
   - id: 0
   OverrideController:
-    Script: {fileID: 11400000, guid: f41bdd8099f465f40b0d40b6dfa89a85, type: 2}
+    Script: {fileID: 11400000, guid: 80610b60fcb30ed40b31411ceb565ae9, type: 2}
   references:
     version: 1
     00000000:

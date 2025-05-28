@@ -53,9 +53,9 @@ namespace Pixify
                 ActionModel root = null;
                 if (Script) 
                 {
-                    root = Script.Root.GetRoot();
+                    root = Script.Root;
 
-                    if (root != null)
+                    if (root !=null || root.Valid)
                     {
                         m_character_controller c = character.RequireModule ( typeof ( m_character_controller ) ) as m_character_controller;
                         // set the character controller root
