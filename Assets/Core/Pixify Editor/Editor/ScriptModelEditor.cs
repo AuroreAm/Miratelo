@@ -1,3 +1,4 @@
+/*
 using System;
 using UnityEngine;
 using UnityEditor;
@@ -63,7 +64,7 @@ namespace Pixify.Editor
         AreaTree Main;
         AreaRelative ActionList;
         AreaRelative ActionLibrary;
-        AreaRelative Clipboard;
+        AreaRelative Clipboard;     
         AreaRelative Command;
         AreaRelative NodeInspector;
 
@@ -406,3 +407,5 @@ namespace Pixify.Editor
 
     }
 }
+
+*/

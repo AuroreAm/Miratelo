@@ -117,6 +117,15 @@ namespace Pixify.Editor
             /// implementation of this element GUI drawing
             /// </summary>
             public abstract void Draw();
+
+            // utility function to draw a border
+            public void DrawBorder (Color borderColor, float borderWidth)
+            {
+                EditorGUI.DrawRect (new Rect (Rect.x, Rect.y, borderWidth, Rect.height), borderColor);
+                EditorGUI.DrawRect (new Rect (Rect.x + Rect.width - borderWidth, Rect.y, borderWidth, Rect.height), borderColor);
+                EditorGUI.DrawRect (new Rect (Rect.x, Rect.y, Rect.width, borderWidth), borderColor);
+                EditorGUI.DrawRect (new Rect (Rect.x, Rect.y + Rect.height - borderWidth, Rect.width, borderWidth), borderColor);
+            }
         }
 
         /// <summary>
@@ -139,6 +148,11 @@ namespace Pixify.Editor
                 }
 
                 GUILayout.EndArea ();
+            }
+
+            public Area ( params Element[] E )
+            {
+                Add ( E );
             }
 
             public void Add ( params Element[] E )
@@ -197,6 +211,8 @@ namespace Pixify.Editor
 
         public class AreaFull : Area
         {
+            public AreaFull ( params Element[] E ) : base ( E ) {}
+
             protected override Vector2 GetDefPos(Vector2 DefParentSize)
             {
                 SetDefPosChildren ( DefParentSize );
@@ -212,12 +228,9 @@ namespace Pixify.Editor
 
         public class AreaRelative : Area
         {
-            protected Rect RelativeFactor;
+            public Rect RelativeFactor = new Rect(0, 0, 1, 1);
 
-            public AreaRelative (Rect factor)
-            {
-                RelativeFactor = factor;
-            }
+            public AreaRelative ( params Element [] E ) : base ( E ) {}
 
             protected override Vector2 GetDefPos (Vector2 DefParentSize)
             {
@@ -240,23 +253,22 @@ namespace Pixify.Editor
 
         public class AreaRelativePadded : AreaRelative
         {
-            public float Pad;
-
-            public AreaRelativePadded ( Rect factor, float pad ) : base ( factor )
-            {
-                Pad = pad;
-            }
+            /// <summary>
+            /// Padding of the area, x: left, y: right, z: top, w: bottom
+            /// </summary>
+            public Vector4 Pad;
+            public AreaRelativePadded ( params Element [] E ) : base ( E ) {}
 
             protected override Vector2 GetDefPos(Vector2 DefParentSize)
             {
-                Rect area = new Rect (new Vector2 ( DefParentSize.x * RelativeFactor.x + Pad, DefParentSize.y * RelativeFactor.y + Pad ), new Vector2 ( DefParentSize.x * RelativeFactor.width, DefParentSize.y * RelativeFactor.height ) );
+                Rect area = new Rect (new Vector2 ( DefParentSize.x * RelativeFactor.x + Pad.x, DefParentSize.y * RelativeFactor.y + Pad.z ), new Vector2 ( DefParentSize.x * RelativeFactor.width, DefParentSize.y * RelativeFactor.height ) );
                 SetDefPosChildren (area.size);
                 return area.position;
             }
 
             protected override Vector2 GetDefSize(Vector2 DefParentSize)
             {
-                Vector2 size =  new Vector2 ( DefParentSize.x * RelativeFactor.width - Pad * 2, DefParentSize.y * RelativeFactor.height - Pad * 2 );
+                Vector2 size =  new Vector2 ( DefParentSize.x * RelativeFactor.width - Pad.x - Pad.y, DefParentSize.y * RelativeFactor.height - Pad.z - Pad.w );
                 SetDefSizeChildren (size);
                 return size;
             }
@@ -304,19 +316,36 @@ namespace Pixify.Editor
             }
         }
 
+        public class AreaPaddedHor : Area
+        {
+            public float PaddingLeft;
+            public float PaddingRight;
+            public float y;
+            public float height;
+
+            public AreaPaddedHor (params Element [] E) : base ( E ) {}
+
+            protected override Vector2 GetDefPos(Vector2 DefParentSize)
+            {
+                Vector2 size = new Vector2 ( DefParentSize.x - PaddingLeft - PaddingRight, height );
+                SetDefPosChildren (size);
+                return new Vector2 (PaddingLeft, 0);
+            }
+
+            protected override Vector2 GetDefSize(Vector2 DefParentSize)
+            {
+                Vector2 size = new Vector2 ( DefParentSize.x - PaddingLeft - PaddingRight, height );
+                SetDefSizeChildren (size);
+                return size;
+            }
+        }
+
         public abstract class ElementPaddedHor : Element
         {
             public float PaddingLeft;
             public float PaddingRight;
             public float y;
             public float height;
-            public ElementPaddedHor(float paddingLeft, float paddingRight, float y, float height)
-            {
-                PaddingLeft = paddingLeft;
-                PaddingRight = paddingRight;
-                this.y = y;
-                this.height = height;
-            }
 
             protected override Vector2 GetDefPos(Vector2 DefParentSize)
             {

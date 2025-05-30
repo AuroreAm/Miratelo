@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [Category("Player Controller")]
+    [Category("player controller")]
     public class pc_move : action
     {
         [Depend]
@@ -34,7 +34,7 @@ namespace Triheroes.Code
         }
     }
 
-    [Category("Player Controller")]
+    [Category("player controller")]
     public class pc_fall : action
     {
         [Depend]

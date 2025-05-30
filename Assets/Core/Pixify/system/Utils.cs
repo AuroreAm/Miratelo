@@ -74,4 +74,12 @@ namespace Pixify
             }
         }
     }
+
+    public static class Vector4Extensions
+    {
+        public static Vector4 Uniform (float x)
+        {
+            return new Vector4 (x, x, x, x);
+        }
+    }
 }

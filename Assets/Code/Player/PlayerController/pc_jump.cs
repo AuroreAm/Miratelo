@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [Category("transition")]
+    [Category("player controller")]
     public class t_jump_complex : action
     {
         [Depend]
@@ -29,7 +29,7 @@ namespace Triheroes.Code
         }
     }
 
-    [Category("Player Controller")]
+    [Category("player controller")]
     public class pc_jump : action
     {
         [Depend]

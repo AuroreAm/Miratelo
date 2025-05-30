@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [Category("Transition")]
+    [Category("actor")]
     public class t_move : action
     {
         [Depend]
@@ -22,7 +22,7 @@ namespace Triheroes.Code
         }
     }
 
-    [Category("Transition")]
+    [Category("actor")]
     public class t_fall : action
     {
         [Depend]

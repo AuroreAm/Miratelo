@@ -8,6 +8,20 @@ using System.Reflection;
 
 namespace Pixify.Editor
 {
+    public static class Cursor
+    {
+        public static Dictionary<string, Type[]> FetchTypesByCategory (Type filter)
+        {
+            List<Type> TypeList = new List<Type>();
+            foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
+                TypeList.AddRange(a.GetTypes().Where(type => type.IsSubclassOf(filter)));
+
+            Dictionary <string, Type[]>  Types = TypeList.GroupBy( x=> x.GetCustomAttributes (typeof (CategoryAttribute), true).OfType<CategoryAttribute>().FirstOrDefault()?.Name).ToDictionary ( x => x.Key, x => x.ToArray() );
+
+            Types.Remove (string.Empty);
+            return Types;
+        }
+    }
     /// <summary>
     /// Editor cursor to find all types specified in filter
     /// </summary>

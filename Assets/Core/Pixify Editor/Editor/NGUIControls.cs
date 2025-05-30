@@ -50,6 +50,42 @@ namespace Pixify.Editor
             }
         }
 
+        public class AreaRow : Area
+        {
+            public float y;
+            public float height;
+
+            public AreaRow (float y, float height)
+            {
+                this.y = y;
+                this.height = height;
+            }
+
+            protected override Vector2 GetDefPos(Vector2 DefParentSize)
+            {
+                return new Vector2 (0, y);
+            }
+
+            protected override Vector2 GetDefSize(Vector2 DefParentSize)
+            {
+                Vector2 defSize = new Vector2 (0,height);
+
+                float w = 0;
+                for (int i = 0; i < Children.Count; i++)
+                {
+                    Children [i].SetDefSize ( defSize );
+                    Children [i].SetDefPos ( defSize );
+                    Children [i].TweakDefPos ( new Vector2 (w,0) );
+                    w += Children [i].DefRect.width;
+                }
+
+                defSize = new Vector2 (w,height);
+                SetDefSizeChildren (defSize);
+
+                return defSize;
+            }
+        }
+
         public class Scroll : ELementFull
         {
             Element Main;
@@ -105,7 +141,7 @@ namespace Pixify.Editor
 
         public class ColorFull : ELementFull
         {
-            public Color color;
+            Color color;
 
             public ColorFull (Color color)
             {
@@ -115,6 +151,45 @@ namespace Pixify.Editor
             public override void Draw()
             {
                 EditorGUI.DrawRect (Rect, color);
+            }
+        }
+
+        /// <summary>
+        /// color covering the whole area, with an accent on top
+        /// </summary>
+        public class ColorFullA : ColorFull
+        {
+            Color accent;
+
+            public ColorFullA (Color color) : base (color)
+            {
+                accent = color * 2;
+            }
+
+            public override void Draw()
+            {
+                base.Draw ();
+                // draw one line on top of the color
+                EditorGUI.DrawRect (new Rect (Rect.x, Rect.y, Rect.width, 2), accent);
+            }
+        }
+
+        /// <summary>
+        /// color covering the whole area, with borders
+        /// </summary>
+        public class ColorFullB : ColorFull
+        {
+            Color borderColor;
+
+            public ColorFullB (Color color, Color border) : base (color)
+            {
+                this.borderColor = border;
+            }
+
+            public override void Draw()
+            {
+                base.Draw ();
+                DrawBorder (borderColor, 1);
             }
         }
 
@@ -157,6 +232,30 @@ namespace Pixify.Editor
             protected override Vector2 GetDefPos(Vector2 DefParentSize) => position;
 
             protected override Vector2 GetDefSize(Vector2 DefParentSize) => style.CalcSize(new GUIContent(text));
+        }
+
+        public class ButtonToggle : ELementFull
+        {
+            public string text;
+            public GUIStyle style;
+            public bool on;
+            Color ColorOn; Color ColorOff;
+            public Action OnClick;
+
+            public ButtonToggle(string text, GUIStyle style, Color ColorOn, Color ColorOff)
+            {
+                this.text = text;
+                this.style = style;
+                this.ColorOn = ColorOn;
+                this.ColorOff = ColorOff;
+            }
+
+            public override void Draw()
+            {
+                EditorGUI.DrawRect(Rect, on ? ColorOn : ColorOff);
+                if (GUI.Button ( Rect, text, style ))
+                OnClick?.Invoke ();
+            }
         }
     }
 }
