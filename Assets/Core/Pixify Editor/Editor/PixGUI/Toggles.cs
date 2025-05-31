@@ -1,0 +1,139 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.UIElements;
+using UnityEngine;
+
+namespace Pixify.Editor
+{
+    namespace PixGUI
+    {
+        public class Toggle : Element
+        {
+            public bool state
+            {get { return _state; } set { 
+                if (value == _state) return;
+                _state = value; if (value) OnEnable?.Invoke(); else OnDisable?.Invoke(); 
+                }}
+            bool _state;
+
+            public Element EnabledArea;
+            public Element DisabledArea;
+            public Action OnEnable;
+            public Action OnDisable;
+
+            public Toggle(Element EnabledArea, Element DisabledArea)
+            {
+                this.EnabledArea = EnabledArea;
+                this.DisabledArea = DisabledArea;
+            }
+
+            override protected Vector2 GetInitPos(Vector2 ParentSize)
+            {
+                return base.GetInitPos(ParentSize);
+            }
+
+            protected override Vector2 GetInitSize(Vector2 ParentSize)
+            {
+                Vector2 size = base.GetInitSize(ParentSize);
+                EnabledArea.InitRect(size);
+                DisabledArea.InitRect(size);
+                return size;
+            }
+
+            public override void Draw()
+            {
+                GUILayout.BeginArea ( Transform );
+
+                if (state == true)
+                    EnabledArea.Draw();
+                else
+                    DisabledArea.Draw();
+                    
+                GUILayout.EndArea();
+                
+                if (GUI.Button(Transform, GUIContent.none, GUIStyle.none))
+                    state = !state;
+            }
+        }
+
+        public class SelectionRow : Element
+        {
+            public int Column = 1;
+            public int selected { get; private set; } = -1;
+
+            List<Toggle> Toggles = new List<Toggle>();
+
+            public void Add (params Toggle[] toggle)
+            {
+                int currentToggleLength = Toggles.Count;
+                for (int i = 0; i < toggle.Length; i++)
+                {
+                    Toggles.Add (toggle[i]);
+                    var index = i + currentToggleLength;
+                    toggle[i].OnEnable += () => Select (index);
+                }
+            }
+
+            public Toggle this[int index]
+            {
+                get { return Toggles[index]; }
+            }
+
+            public void Select (int index)
+            {
+                this.selected = index;
+                for (int i = 0; i < Toggles.Count; i++)
+                {
+                    Toggles[i].state = i == index;
+                }
+            }
+
+            protected override Vector2 GetInitPos(Vector2 ParentSize)
+            {
+                return base.GetInitPos ( ParentSize );
+            }
+
+            protected override Vector2 GetInitSize(Vector2 ParentSize)
+            {
+                Vector2 size = base.GetInitSize(ParentSize);
+
+                for (float i = 0, row = 0, column = 0; i < Toggles.Count; i++, column++)
+                {
+                    if (column >= Column)
+                    {
+                        column = 0;
+                        row++;
+                    }
+                    Toggles[(int) i].DefTransform = new DefTransform()
+                    {
+                        RelativeTransform = new Rect( column / (float) Column, row / (float) Column, 1 / (float) Column, 1 / (float) Column),
+                        Position = new Vector2(0, 0),
+                        Size = new Vector2(0, 0)
+                    };
+                    Toggles[(int) i].InitRect(size);
+                }
+
+                return size;
+            }
+            
+
+            public override void Draw()
+            {
+                GUILayout.BeginArea ( Transform );
+                int ToggleCount = Toggles.Count;
+                for (int i = 0; i < ToggleCount; i++)
+                {
+                    if (Toggles [i].on)
+                    Toggles [i].Draw ();
+
+                    if (ToggleCount != Toggles.Count)
+                        break;
+                }
+                GUILayout.EndArea();
+            }
+        }
+
+    }
+}

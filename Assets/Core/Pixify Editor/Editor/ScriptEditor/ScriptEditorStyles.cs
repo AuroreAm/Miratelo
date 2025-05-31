@@ -24,6 +24,7 @@ namespace Pixify.Editor
         public GUIStyle h1;
         public GUIStyle h2;
         public GUIStyle TextMiddleLeft;
+        public GUIStyle TextMiddle;
 
         public ScriptEditorStyles ()
         {
@@ -41,6 +42,9 @@ namespace Pixify.Editor
             
             TextMiddleLeft = new GUIStyle (Base);
             TextMiddleLeft.alignment = TextAnchor.MiddleLeft;
+
+            TextMiddle = new GUIStyle (Base);
+            TextMiddle.alignment = TextAnchor.MiddleCenter;
         }
     }
 }

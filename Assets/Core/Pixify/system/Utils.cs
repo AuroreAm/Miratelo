@@ -77,9 +77,14 @@ namespace Pixify
 
     public static class Vector4Extensions
     {
-        public static Vector4 Uniform (float x)
+        public static Vector2 xy(this Vector4 v)
         {
-            return new Vector4 (x, x, x, x);
+            return new Vector2(v.x, v.y);
+        }
+
+        public static Vector2 zw(this Vector4 v)
+        {
+            return new Vector2( v.z, v.w);
         }
     }
 }
