@@ -249,12 +249,14 @@ namespace Pixify.Editor
     class CommandList : Area
     {
         public static CommandList o;
-        public ScriptModel script;
-        Scroll Scroll;
-        public ActionElementBase Context { get; private set; }
         ActionModel Clipboard;
-        ActionElementBase Root;
         bool IsDragging;
+        ScriptModel script;
+        
+        Scroll Scroll;
+
+        public ActionElementBase Context { get; private set; }
+        public ActionElementBase Root { get; private set; }
 
         public CommandList(ScriptModel script)
         {
@@ -274,7 +276,8 @@ namespace Pixify.Editor
             }
             else if (Context != null)
             {
-            if (Context is DecoratorElement d)
+            UndoRecord ( "Insert Action" );
+            if (Context is DecoratorElement d && d.IsExpanded)
             SelectContext ( d.InsertNewActionElementFromModel ( model ) );
             else
             SelectContext ( Context.parent.InsertNewActionElementFromModel ( model, Context.IndexInParent () + 1 ) );
@@ -364,6 +367,7 @@ namespace Pixify.Editor
 
                 void ApplyDragging ( ActionElementBase TargetContext, bool up )
                 {
+                    UndoRecord ( "Move Action" );
                     // discard if the TargetContext is a descendant of the Context
                     if (Context is DecoratorElement d && TargetContext.IsDescendantOf(d)) return;
 
@@ -383,6 +387,7 @@ namespace Pixify.Editor
             // duplicate action element CTRL+D
             if ( e.type == EventType.KeyDown && e.keyCode == KeyCode.D && e.control && Context != null && Context.parent != null )
             {
+                UndoRecord ( "Duplicate Action" );
                 var Copy = Context.Model.Copy ();
                 SelectContext ( Context.parent.InsertNewActionElementFromModel ( Copy, Context.IndexInParent () + 1 ) );
                 ScriptEditor.CurrentWindow.Repaint ();
@@ -392,6 +397,7 @@ namespace Pixify.Editor
             // delete action element DEL
             if ( e.type == EventType.KeyDown && e.keyCode == KeyCode.Delete && Context != null && Context.parent != null )
             {
+                UndoRecord ( "Delete Action" );
                 Context.parent.RemoveActionElement ( Context );
                 ScriptEditor.CurrentWindow.Repaint ();
                 SelectContext ( null );
@@ -402,6 +408,7 @@ namespace Pixify.Editor
             if ( e.type == EventType.KeyDown && e.keyCode == KeyCode.X && e.control && Context != null && Context.parent != null )
             {
                 Clipboard = Context.Model.Copy ();
+                UndoRecord ( "Cut Action" );
                 Context.parent.RemoveActionElement ( Context );
                 ScriptEditor.CurrentWindow.Repaint ();
                 SelectContext ( null );
@@ -418,17 +425,92 @@ namespace Pixify.Editor
             // paste action element CTRL+V
             if ( e.type == EventType.KeyDown && e.keyCode == KeyCode.V && e.control && Clipboard != null && Context != null && Context.parent != null )
             {
+                UndoRecord ( "Paste Action" );
                 var Copy = Clipboard.Copy ();
-                if (Context is DecoratorElement d2)
+                if (Context is DecoratorElement d2 && d2.IsExpanded)
                 SelectContext ( d2.InsertNewActionElementFromModel ( Copy ) );
                 else
                 SelectContext ( Context.parent.InsertNewActionElementFromModel ( Copy, Context.IndexInParent () + 1 ) );
                 ScriptEditor.CurrentWindow.Repaint ();
                 e.Use ();
             }
+
+            // undo action element CTRL+Z
+            if ( e.type == EventType.KeyDown && e.keyCode == KeyCode.Z && e.control )
+            {
+                Undo ();
+                e.Use ();
+            }
+        }
+
+        
+        // because unity undo redo is hard to predict and requires serialized assets to work, this is a custom undo stack for command list that is not integrated with unity
+        Stack<Record> undoStack = new Stack<Record>();
+
+        void UndoRecord ( string name )
+        {
+            List<int> PathToContext = new List<int>();
+            ActionElementBase contextRecord = null;
+            if (Context != null)
+            {
+                RecursiveFindPath ( Context );
+
+                void RecursiveFindPath ( ActionElementBase a )
+                {
+                    int index = a.IndexInParent ();
+                    if (index != -1)
+                    {
+                        PathToContext.Add ( index );
+                        RecursiveFindPath ( a.parent );
+                    }
+                }
+            }
+
+            var scriptRecord = ScriptableObject.Instantiate (script);
+            var rootRecord = ActionElementBase.CreateActionElementFromModel(scriptRecord.Root);
+
+            if (rootRecord is DecoratorElement d && PathToContext.Count > 0)
+            {
+                DecoratorElement currentLevel = d;
+                // find the path to the context
+                for (int i = PathToContext.Count - 1; i > 0; i--)
+                {
+                    currentLevel = (DecoratorElement) currentLevel.SubContent.Children[PathToContext[i]];
+                }
+                contextRecord = (ActionElementBase) currentLevel.SubContent.Children[PathToContext[0]];
+            }
+            
+            undoStack.Push ( new Record { name = name, script = scriptRecord, context = contextRecord, root = rootRecord } );
+        }
+
+        void Undo ()
+        {
+            if (undoStack.Count == 0) return;
+
+            var record = undoStack.Pop ();
+            script = record.script;
+            Context = record.context;
+            Root = record.root;
+
+            
+            var Scroll2 = new Scroll(Root);
+            Scroll2.spos = Scroll.spos;
+            Remove (Scroll);
+            Scroll = Scroll2;
+            Add(Scroll);
+        }
+
+        struct Record
+        {
+            public string name;
+            public ScriptModel script;
+            public ActionElementBase context;
+            public ActionElementBase root;
         }
     }
 
+
+    [Serializable]
     abstract class ActionElementBase : AreaAutoHeight
     {
         public ActionModel Model { get; private set; }
@@ -543,6 +625,7 @@ namespace Pixify.Editor
     {
         public DecoratorModel SpecialModel { get; private set; }
         public Area SubContent { get; private set; }
+        public bool IsExpanded => SubContent.on;
 
         public DecoratorElement(DecoratorModel model) : base(model)
         {
