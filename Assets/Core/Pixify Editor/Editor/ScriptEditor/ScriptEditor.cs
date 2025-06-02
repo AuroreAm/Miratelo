@@ -161,6 +161,8 @@ namespace Pixify.Editor
             searchQuerry = Search.OnGUI(SearchBar.Transform, searchQuerry);
             GUILayout.EndArea();
 
+            base.Draw();
+
             for (int i = 0; i < Tabs.Count; i++)
             {
                 Tabs.ElementAt(i).Value.on = false;
@@ -169,8 +171,6 @@ namespace Pixify.Editor
 
             if (Tab.selected >= 0)
                 Tabs.ElementAt(Tab.selected).Value.on = true;
-
-            base.Draw();
         }
 
         public abstract class LibraryTab : AreaList
@@ -252,6 +252,7 @@ namespace Pixify.Editor
         public ScriptModel script;
         Scroll Scroll;
         public ActionElementBase Context { get; private set; }
+        ActionModel Clipboard;
         ActionElementBase Root;
         bool IsDragging;
 
@@ -267,9 +268,18 @@ namespace Pixify.Editor
         public void InsertAction(ActionModel model)
         {
             if (Context == null && script.Root == null)
+            {
+                script.Root = model;
                 CreateRoot();
-            else if (Context != null && Context is DecoratorElement d)
-                d.InsertNewActionElementFromModel(model);
+            }
+            else if (Context != null)
+            {
+            if (Context is DecoratorElement d)
+            SelectContext ( d.InsertNewActionElementFromModel ( model ) );
+            else
+            SelectContext ( Context.parent.InsertNewActionElementFromModel ( model, Context.IndexInParent () + 1 ) );
+            ScriptEditor.CurrentWindow.Repaint ();
+            }
         }
 
         void CreateRoot()
@@ -376,6 +386,45 @@ namespace Pixify.Editor
                 var Copy = Context.Model.Copy ();
                 SelectContext ( Context.parent.InsertNewActionElementFromModel ( Copy, Context.IndexInParent () + 1 ) );
                 ScriptEditor.CurrentWindow.Repaint ();
+                e.Use ();
+            }
+
+            // delete action element DEL
+            if ( e.type == EventType.KeyDown && e.keyCode == KeyCode.Delete && Context != null && Context.parent != null )
+            {
+                Context.parent.RemoveActionElement ( Context );
+                ScriptEditor.CurrentWindow.Repaint ();
+                SelectContext ( null );
+                e.Use ();
+            }
+
+            // cut action element CTRL+X
+            if ( e.type == EventType.KeyDown && e.keyCode == KeyCode.X && e.control && Context != null && Context.parent != null )
+            {
+                Clipboard = Context.Model.Copy ();
+                Context.parent.RemoveActionElement ( Context );
+                ScriptEditor.CurrentWindow.Repaint ();
+                SelectContext ( null );
+                e.Use ();
+            }
+
+            // copy action element CTRL+C
+            if ( e.type == EventType.KeyDown && e.keyCode == KeyCode.C && e.control && Context != null )
+            {
+                Clipboard = Context.Model.Copy ();
+                e.Use ();
+            }
+
+            // paste action element CTRL+V
+            if ( e.type == EventType.KeyDown && e.keyCode == KeyCode.V && e.control && Clipboard != null && Context != null && Context.parent != null )
+            {
+                var Copy = Clipboard.Copy ();
+                if (Context is DecoratorElement d2)
+                SelectContext ( d2.InsertNewActionElementFromModel ( Copy ) );
+                else
+                SelectContext ( Context.parent.InsertNewActionElementFromModel ( Copy, Context.IndexInParent () + 1 ) );
+                ScriptEditor.CurrentWindow.Repaint ();
+                e.Use ();
             }
         }
     }
@@ -528,6 +577,11 @@ namespace Pixify.Editor
             var a = CreateActionElementFromModel(model);
             a.SetParent(this, index);
             return a;
+        }
+
+        public void RemoveActionElement(ActionElementBase a)
+        {
+            a.SetParent(null);
         }
 
         /// <summary>
