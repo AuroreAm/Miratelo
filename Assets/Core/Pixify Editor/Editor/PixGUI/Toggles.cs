@@ -23,22 +23,21 @@ namespace Pixify.Editor
             public Action OnEnable;
             public Action OnDisable;
 
+            
+            override sealed public void ResetRect ()
+            { base.ResetRect (); EnabledArea.ResetRect (); DisabledArea.ResetRect (); }
+
             public Toggle(Element EnabledArea, Element DisabledArea)
             {
                 this.EnabledArea = EnabledArea;
                 this.DisabledArea = DisabledArea;
             }
 
-            override protected Vector2 GetInitPos(Vector2 ParentSize)
+            protected override Vector2 GetInitSize(Vector2 ParentSize, DefTransform ParentDefTransform)
             {
-                return base.GetInitPos(ParentSize);
-            }
-
-            protected override Vector2 GetInitSize(Vector2 ParentSize)
-            {
-                Vector2 size = base.GetInitSize(ParentSize);
-                EnabledArea.InitRect(size);
-                DisabledArea.InitRect(size);
+                Vector2 size = base.GetInitSize(ParentSize, ParentDefTransform);
+                EnabledArea.InitRect(size, DefTransform);
+                DisabledArea.InitRect(size, DefTransform);
                 return size;
             }
 
@@ -95,9 +94,9 @@ namespace Pixify.Editor
                 return base.GetInitPos ( ParentSize );
             }
 
-            protected override Vector2 GetInitSize(Vector2 ParentSize)
+            protected override Vector2 GetInitSize(Vector2 ParentSize, DefTransform ParentDefTransform)
             {
-                Vector2 size = base.GetInitSize(ParentSize);
+                Vector2 size = base.GetInitSize(ParentSize, ParentDefTransform);
 
                 for (float i = 0, row = 0, column = 0; i < Toggles.Count; i++, column++)
                 {
@@ -112,7 +111,7 @@ namespace Pixify.Editor
                         Position = new Vector2(0, 0),
                         Size = new Vector2(0, 0)
                     };
-                    Toggles[(int) i].InitRect(size);
+                    Toggles[(int) i].InitRect(size, DefTransform);
                 }
 
                 return size;

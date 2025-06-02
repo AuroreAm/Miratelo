@@ -19,7 +19,8 @@ namespace Pixify.Editor
 
             public void Draw ()
             {
-                Root.InitRect ( new Vector2 ( Screen.width, Screen.height - 20 ) );
+                Root.ResetRect ();
+                Root.InitRect ( new Vector2 ( Screen.width, Screen.height - 20 ), new DefTransform() { RelativeTransform = new Rect(0, 0, 1, 1) } );
                 Root.Draw ();
             }
         }
@@ -39,13 +40,19 @@ namespace Pixify.Editor
             public DefTransform DefTransform = new DefTransform() { RelativeTransform = new Rect(0, 0, 1, 1) };
             public bool on = true;
 
-            public void InitRect ( Vector2 ParentSize ) {
-                Vector2 size = GetInitSize ( ParentSize );
+            public virtual void ResetRect () { Transform = new Rect(); }
+
+            public void InitRect ( Vector2 ParentSize, DefTransform ParentDefTransform ) {
+                Vector2 size = GetInitSize ( ParentSize, ParentDefTransform );
                 Vector2 pos = GetInitPos ( ParentSize );
                 Transform = new Rect ( pos, size );
             }
 
-            protected virtual Vector2 GetInitPos ( Vector2 ParentSize )
+            protected virtual Vector2 GetInitPos ( Vector2 ParentSize ) => DefaultInitPos(ParentSize);
+
+            protected virtual Vector2 GetInitSize ( Vector2 ParentSize, DefTransform ParentDefTransform ) => DefaultInitSize(ParentSize);
+
+            public Vector2 DefaultInitPos(Vector2 ParentSize)
             {
                 Vector2 pos = DefTransform.Position;
                 pos += DefTransform.RelativeTransform.position * ParentSize;
@@ -53,7 +60,7 @@ namespace Pixify.Editor
                 return pos;
             }
 
-            protected virtual Vector2 GetInitSize ( Vector2 ParentSize )
+            public Vector2 DefaultInitSize(Vector2 ParentSize)
             {
                 Vector2 size = DefTransform.Size;
                 size += DefTransform.RelativeTransform.size * ParentSize;
@@ -100,6 +107,9 @@ namespace Pixify.Editor
         public class Area : Element
         {
             public List<Element> Children = new List<Element> ();
+
+            override sealed public void ResetRect ()
+            { base.ResetRect (); foreach (var e in Children) e.ResetRect (); }
 
             public Area ( params Element[] E )
             {
@@ -155,18 +165,18 @@ namespace Pixify.Editor
                 return base.GetInitPos ( ParentSize );
             }
 
-            protected override Vector2 GetInitSize(Vector2 ParentSize)
+            protected override Vector2 GetInitSize(Vector2 ParentSize, DefTransform ParentDefTransform)
             {
-                Vector2 size = base.GetInitSize(ParentSize);
-                InitRectChildren ( size );
+                Vector2 size = base.GetInitSize(ParentSize, ParentDefTransform);
+                InitRectChildren ( size, DefTransform );
                 return size;
             }
 
-            protected void InitRectChildren ( Vector2 ParentSize )
+            protected void InitRectChildren ( Vector2 ParentSize , DefTransform ParentDefTransform )
             {
                 foreach (var e in Children)
                 if (e.on)
-                e.InitRect ( ParentSize );
+                e.InitRect ( ParentSize, ParentDefTransform );
             }
         }
     }

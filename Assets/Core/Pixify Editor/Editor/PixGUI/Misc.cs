@@ -23,6 +23,37 @@ namespace Pixify.Editor
                 GUILayout.EndArea();
             }
         }
+
+        public class Scroll : Element
+        {
+            Element Content;
+            public Vector2 spos;
+
+            public Scroll ( Element content )
+            {
+                Content = content;
+            }
+
+            override sealed public void ResetRect ()
+            { base.ResetRect (); Content.ResetRect (); }
+
+            protected override Vector2 GetInitSize(Vector2 ParentSize, DefTransform ParentDefTransform)
+            {
+                Vector2 size = base.GetInitSize(ParentSize, ParentDefTransform);
+                Content.InitRect(size,DefTransform);
+                return size;
+            }
+
+            public override void Draw()
+            {
+                GUILayout.BeginArea ( Transform );
+                spos = GUI.BeginScrollView ( Transform, spos, Content.Transform );
+                Content.Draw ();
+                GUI.EndScrollView ();
+                GUILayout.EndArea();
+            }
+        }
+
     }
 
 }

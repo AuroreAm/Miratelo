@@ -14,7 +14,7 @@ namespace Pixify.Editor
         {
             List<Type> TypeList = new List<Type>();
             foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
-                TypeList.AddRange(a.GetTypes().Where(type => type.IsSubclassOf(filter)));
+                TypeList.AddRange(a.GetTypes().Where(type => type.IsSubclassOf(filter) && !type.IsAbstract));
 
             Dictionary <string, Type[]>  Types = TypeList.GroupBy( x=> x.GetCustomAttributes (typeof (CategoryAttribute), true).OfType<CategoryAttribute>().FirstOrDefault()?.Name).ToDictionary ( x => x.Key, x => x.ToArray() );
 
