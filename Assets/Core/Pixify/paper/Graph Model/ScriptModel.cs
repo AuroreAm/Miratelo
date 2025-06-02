@@ -11,9 +11,6 @@ namespace Pixify
     public class ScriptModel : ScriptableObject
     {
         [HideInInspector]
-        public Vector2 pan;
-
-        [HideInInspector]
         [SerializeReference]
         public ActionModel Root;
     }

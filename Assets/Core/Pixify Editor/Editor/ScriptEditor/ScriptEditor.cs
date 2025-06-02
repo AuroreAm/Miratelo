@@ -72,9 +72,23 @@ namespace Pixify.Editor
                     new Area(
                         new Box() { ColorA = o.NormalColor },
                         new Label("Description", o.h1).FitContent().Position(new Vector2(2, 2))
-                    ).RelativeTransform(new Rect(.75f, .5f, .25f, .5f)).Padding(new Vector4(8, 8, 8, 8 + 32))
+                    ).RelativeTransform(new Rect(.75f, .5f, .25f, .5f)).Padding(new Vector4(8, 8, 8, 8 + 32)),
+
+                    new Button ( 
+                        new Area (
+                            new Box() { ColorA = o.NormalColor, ColorB = o.BorderColor, BorderWidth = 1 },
+                            new Label("Save", o.TextMiddle) )
+                        , Save 
+                    ).RelativeTransform ( new Rect (.875f, 1, .125f, 0)). Position ( new Vector2 (0, -32)).Size ( new Vector2 (0, 32)).Padding ( new Vector4 (1, 1, 1, 1))
                 )
             );
+        }
+
+        void Save ()
+        {
+            Target.Root = Main.script.Root.Copy ();
+            EditorUtility.SetDirty(Target);
+            Close ();
         }
 
         void OnGUI()
@@ -251,7 +265,7 @@ namespace Pixify.Editor
         public static CommandList o;
         ActionModel Clipboard;
         bool IsDragging;
-        ScriptModel script;
+        public ScriptModel script { get; private set; }
         
         Scroll Scroll;
 
@@ -733,5 +747,4 @@ namespace Pixify.Editor
         }
     }
     #endregion
-
 }
