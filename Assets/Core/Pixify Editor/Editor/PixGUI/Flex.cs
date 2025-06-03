@@ -40,6 +40,8 @@ namespace Pixify.Editor
 
         public class AreaRow : Area
         {
+            public float Spacing;
+
             public AreaRow ( params Element[] E) : base ( E )
             {
                 DefTransform.RelativeTransform = new Rect(0, 0, 0, 1);
@@ -59,7 +61,7 @@ namespace Pixify.Editor
                     {
                         e.DefTransform.Position = new Vector2(w, 0);
                         e.InitRect(size, DefTransform);
-                        w += e.Transform.width;
+                        w += e.Transform.width + Spacing;
                     }
                 }
                 size = new Vector2(w + DefTransform.Padding.z, size.y);

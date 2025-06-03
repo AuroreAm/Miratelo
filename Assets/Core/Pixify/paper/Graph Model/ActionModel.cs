@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using XNode;
 
 namespace Pixify
 {
@@ -25,9 +24,16 @@ namespace Pixify
         /// </summary>
         public virtual action CreateNode (Character c)
         {
+            if ( BluePrintPaper.IsUnique && DecoratorModel.UniqueNodes != null && DecoratorModel.UniqueNodes.TryGetValue (BluePrintPaper.Type, out node n1) )
+            return (action) n1;
+
             var n = BluePrintPaper.CreateNode() as action;
             n.Tag = new SuperKey(Tag);
             c.ConnectNode ( n );
+
+            if ( BluePrintPaper.IsUnique )
+                DecoratorModel.UniqueNodes.Add (BluePrintPaper.Type, n);
+
             return n;
         }
 

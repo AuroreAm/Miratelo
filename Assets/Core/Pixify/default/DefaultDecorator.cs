@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Pixify
 {
+    [NodeTint(0,1,1)]
     public sealed class sequence : decorator
     {
         int ptr;
@@ -44,8 +45,16 @@ namespace Pixify
             if (o[ptr].on)
             o[ptr].iAbort ();
         }
+
+        #if UNITY_EDITOR
+        public override string GetAdditionalInfo()
+        {
+            return $"repeat: {repeat}, reset: {reset}";
+        }
+        #endif
     }
 
+    [NodeTint(0,1,0)]
     public sealed class parallel : decorator
     {
         /// <summary>
@@ -102,6 +111,13 @@ namespace Pixify
                     n.iAbort();
             }
         }
+
+        #if UNITY_EDITOR
+        public override string GetAdditionalInfo()
+        {
+            return $"Stop when first node is stopped: {StopWhenFirstNodeStopped}";
+        }
+        #endif
     }
 
     public sealed class selector : decorator

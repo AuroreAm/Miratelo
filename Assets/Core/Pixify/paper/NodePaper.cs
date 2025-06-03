@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Pixify
 {
+    // NOTE: strNodeType must be a valid type in runtime
     /// <summary>
     /// Contains a blueprint of a node
     /// </summary>
@@ -18,6 +19,8 @@ namespace Pixify
         [SerializeField]
         [HideInInspector]
         string StrNodeJson;
+        public bool IsUnique => Type.GetType (StrNodeType).GetCustomAttributes (typeof (UniqueAttribute), true).Length > 0;
+        public Type Type => Type.GetType (StrNodeType);
 
         public bool Valid => !string.IsNullOrEmpty (StrNodeType) && Type.GetType (StrNodeType) != null;
         #if UNITY_EDITOR

@@ -25,11 +25,13 @@ namespace Pixify.Editor
         {
             public string text;
             public GUIStyle style;
+
             public Label (string text, GUIStyle style)
             {
                 this.text = text;
                 this.style = style;
             }
+            
             public override void Draw()
             {
                 GUI.Label (Transform, text, style);

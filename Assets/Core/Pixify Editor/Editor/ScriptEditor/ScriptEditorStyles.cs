@@ -16,14 +16,16 @@ namespace Pixify.Editor
             }
         }
         static ScriptEditorStyles _o;
-        public Color BackgroundColor = new Color (.2667f, .3176f, .3412f);
-        public Color NormalColor = new Color (0.35294117647058826f, 0.4235294117647059f, 0.42745098039215684f);
-        public Color ContentColor = new Color (.26f, .31f, .34f);
-        public Color BorderColor = new Color (.33f, .64f, .75f);
+        public Color BackgroundColor = new Color (.05f, .0f, .0f);
+        public Color NormalColor = new Color (.2f, .1f, .0f);
+        public Color ContentColor = new Color (.1f, .0f, .0f);
+        public Color BorderColor = new Color (.7f, .4f, .0f);
 
         public GUIStyle h1;
         public GUIStyle h2;
         public GUIStyle TextMiddleLeft;
+        // with rich text
+        public GUIStyle TextMiddleLeftX;
         public GUIStyle TextMiddle;
 
         public ScriptEditorStyles ()
@@ -42,6 +44,8 @@ namespace Pixify.Editor
             
             TextMiddleLeft = new GUIStyle (Base);
             TextMiddleLeft.alignment = TextAnchor.MiddleLeft;
+            TextMiddleLeftX = new GUIStyle (TextMiddleLeft);
+            TextMiddleLeftX.richText = true;
 
             TextMiddle = new GUIStyle (Base);
             TextMiddle.alignment = TextAnchor.MiddleCenter;

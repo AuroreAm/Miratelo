@@ -9,6 +9,7 @@ using UnityEditor.IMGUI.Controls;
 using System.Collections.Generic;
 using NUnit.Framework;
 using log4net.Core;
+using System.Reflection;
 
 namespace Pixify.Editor
 {
@@ -65,7 +66,8 @@ namespace Pixify.Editor
                         new Box() { ColorA = o.NormalColor },
                         new Label("Properties", o.h1).FitContent().Position(new Vector2(2, 2)),
                         new Area(
-                            new Box() { ColorA = o.ContentColor, ColorB = o.BorderColor, BorderWidth = 1 }
+                            new Box() { ColorA = o.ContentColor, ColorB = o.BorderColor, BorderWidth = 1 },
+                            new Properties().Padding(new Vector4(8, 8, 8, 8))
                         ).RelativeTransform(new Rect(0, 0, 1, 1)).Padding(new Vector4(8, 8 + 16, 8, 8))
                     ).RelativeTransform(new Rect(.75f, 0, .25f, .5f)).Padding(new Vector4(8, 8 + 16, 8, 8)),
 
@@ -262,13 +264,16 @@ namespace Pixify.Editor
     #region  commands
     class CommandList : Area
     {
-        public static CommandList o;
-        ActionModel Clipboard;
-        bool IsDragging;
+        
         public ScriptModel script { get; private set; }
+        public static CommandList o;
+        
+        bool IsDragging;
         
         Scroll Scroll;
-
+        RenameSquare RenameSquare;
+        
+        ActionModel Clipboard;
         public ActionElementBase Context { get; private set; }
         public ActionElementBase Root { get; private set; }
 
@@ -455,6 +460,33 @@ namespace Pixify.Editor
                 Undo ();
                 e.Use ();
             }
+
+            // Rename Tag F2
+            if ( e.type == EventType.KeyDown && e.keyCode == KeyCode.F2 && RenameSquare == null )
+            {
+                RenameSquare = new RenameSquare ( Context );
+                RenameSquare.RelativeTransform ( new Rect ( 0.4f, 0.45f, 0.2f, 0.1f ) );
+                Add ( RenameSquare );
+                e.Use ();
+            }
+        }
+
+        public void CancelRenameTag ()
+        {
+            Remove ( RenameSquare );
+            RenameSquare = null;
+            ScriptEditor.CurrentWindow.Repaint ();
+        }
+
+        public void ConfirmRenameTag ( string Tag )
+        {
+            if ( Context == null ) return;
+
+            UndoRecord ( "Rename Tag" );
+            Context.Model.Tag = RenameSquare.Name;
+            Remove ( RenameSquare );
+            RenameSquare = null;
+            ScriptEditor.CurrentWindow.Repaint ();
         }
 
         
@@ -531,10 +563,17 @@ namespace Pixify.Editor
         public Rect GlobalTransform { get; private set; }
 
         public DecoratorElement parent { get; private set; }
+        
+        protected Label label;
+        protected string Description;
 
         public ActionElementBase(ActionModel model)
         {
             Model = model;
+            label = new Label ( "", o.TextMiddleLeftX );
+
+            if ( model.BluePrintPaper.blueprint.GetType().GetCustomAttribute<NodeDescriptionAttribute>() != null )
+            Description = model.BluePrintPaper.blueprint.GetType().GetCustomAttribute<NodeDescriptionAttribute>().Description;
         }
 
         public void SetParent(DecoratorElement parent)
@@ -583,6 +622,10 @@ namespace Pixify.Editor
 
         override public void Draw()
         {
+            string hexNodeTintColor = ColorUtility.ToHtmlStringRGB ( Model.BluePrintPaper.blueprint.GetType().GetCustomAttribute<NodeTintAttribute>().Tint );
+
+            label.text = string.Concat ( $"<color=#{hexNodeTintColor}>{Model.BluePrintPaper.blueprint.GetType().Name}</color> -",Model.Tag,"-", $"<color=#aaaaaa> {Description} </color>", $"<color=#aaaaee> { ((action) Model.BluePrintPaper.blueprint).GetAdditionalInfo() }</color>" );
+
             base.Draw();
             GlobalTransform = GUIUtility.GUIToScreenRect(Transform);
         }
@@ -623,7 +666,7 @@ namespace Pixify.Editor
         public ActionElement(ActionModel model) : base(model)
         {
             Add(
-                new Label(Model.BluePrintPaper.blueprint.GetType().Name, o.TextMiddleLeft).Size(new Vector2(0, 16)).RelativeTransform(new Rect(0, 0, 1, 0))
+                label.Size(new Vector2(0, 16)).RelativeTransform(new Rect(0, 0, 1, 0))
             );
         }
         
@@ -713,27 +756,34 @@ namespace Pixify.Editor
 
         void CreateVisual()
         {
+            Color BorderColor = Model.BluePrintPaper.blueprint.GetType().GetCustomAttribute <NodeTintAttribute>().Tint;
+            Color BoxColor = new Color ( BorderColor.r, BorderColor.g, BorderColor.b, 0.2f );
+
             Add(
                 new Area(
-                        new Box() { ColorA = o.NormalColor, ColorB = o.BorderColor, BorderWidth = 2 },
-                        new AreaRow(
+                        new Box() { ColorA = BoxColor, ColorB = BorderColor, BorderWidth = 2 },
+                        new Area (
                                 new Toggle(
                                     new Area(
-                                        new Box() { ColorA = Color.clear, ColorB = o.BorderColor, BorderWidth = 1 },
+                                        new Box() { ColorA = Color.clear, ColorB = BorderColor, BorderWidth = 1 },
                                         new Label("+", o.TextMiddle)
                                         ),
                                     new Area(
-                                        new Box() { ColorA = Color.clear, ColorB = o.BorderColor, BorderWidth = 1 },
+                                        new Box() { ColorA = Color.clear, ColorB = BorderColor, BorderWidth = 1 },
                                         new Label("-", o.TextMiddle)
                                         )
                                     )
                                 { OnEnable = Fold, OnDisable = Unfold }.Size(new Vector2(32, 0)).RelativeTransform(new Rect(0, 0, 0, 1)).Padding(new Vector4(2, 2, 2, 2)),
-                                new Label(Model.BluePrintPaper.blueprint.GetType().Name, o.TextMiddleLeft).FitContentW()
-                                ).Padding(new Vector4(2, 2, 2, 2))
-                    ).RelativeTransform(new Rect(0, 0, 1, 0)).Size(new Vector2(0, 32)),
-                new Box() { ColorA = Color.clear, ColorB = o.BorderColor, BorderWidth = 2 },
+
+                                label.Padding(new Vector4(34, 2, 2, 2))
+                            )
+
+                        ).RelativeTransform(new Rect(0, 0, 1, 0)).Size(new Vector2(0, 32)),
+
+                new Box() { ColorA = Color.clear, ColorB = BorderColor, BorderWidth = 2 },
                 SubContent
-                 );
+                
+                );
         }
 
         void Unfold()
@@ -744,6 +794,94 @@ namespace Pixify.Editor
         void Fold()
         {
             SubContent.on = false;
+        }
+    }
+
+    class RenameSquare : Element
+    {
+        ActionElementBase Element;
+        public string Name;
+
+        bool focused;
+
+        public RenameSquare(ActionElementBase element)
+        {
+            Element = element;
+            Name = element.Model.Tag;
+        }
+
+        public override void Draw()
+        {
+            EditorGUI.DrawRect(Transform, new Color(.1f, .1f, .1f));
+            GUILayout.BeginArea(Transform);
+
+                GUI.Label(new Rect ( 0, 0, Transform.width, Transform.height * .5f ),"Rename TAG", o.TextMiddle);
+                GUI.SetNextControlName("RenameTag");
+                Name = EditorGUI.TextField(new Rect ( 0, Transform.height * .5f, Transform.width, Transform.height * .5f ), Name);
+
+                if (!focused)
+                {
+                    EditorGUI.FocusTextInControl("RenameTag");
+                    focused = true;
+                }
+
+                // confirm ENTER
+                if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Return)
+                {
+                    CommandList.o.ConfirmRenameTag ( Name );
+                    Event.current.Use ();
+                }
+
+                // cancel ESC
+                if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Escape)
+                {
+                    CommandList.o.CancelRenameTag ();
+                    Event.current.Use ();
+                }
+
+            GUILayout.EndArea();
+        }
+    }
+
+    #endregion
+
+    #region properties
+    public class Properties : Area
+    {
+        NodeEditor nE;
+        ActionModel Selected;
+        
+        public Properties()
+        {
+            Add ( 
+                new IMGUI ( OnGUI )
+             );
+        }
+
+        Vector2 spos;
+        void OnGUI ( Vector2 Size )
+        {
+            PrepareEditor ();
+
+
+            if ( nE != null )
+            nE.GUI ();
+            
+        }
+
+        void PrepareEditor ()
+        {
+            if ( CommandList.o.Context == null )
+            {
+                Selected = null;
+                nE = null;
+            }
+            else if  ( CommandList.o.Context != null && Selected != CommandList.o.Context.Model) 
+            {
+                Selected = CommandList.o.Context.Model;
+                nE = NodeEditor.CreateEditor ( Selected.BluePrintPaper.blueprint, CommandList.o.script );
+                ScriptEditor.CurrentWindow.Repaint ();
+            } 
         }
     }
     #endregion

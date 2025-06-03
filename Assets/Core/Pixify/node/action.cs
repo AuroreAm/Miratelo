@@ -87,8 +87,16 @@ namespace Pixify
         /// called when the node is stopped from outside
         /// </summary>
         protected virtual void Abort () { Stop(); }
+
+        #if UNITY_EDITOR
+            public virtual string GetAdditionalInfo()
+            { 
+                return string.Empty;
+            }
+        #endif
     }
 
+    [NodeTint(1,0,0)]
     [Category("decorator")]
     public abstract class decorator : action {
         // TODO: verify if exposing this to public will cause future problems

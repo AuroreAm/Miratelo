@@ -23,7 +23,7 @@ MonoBehaviour:
         BluePrintPaper:
           StrNodeType: Pixify.sequence, Pixify, Version=0.0.0.0, Culture=neutral,
             PublicKeyToken=null
-          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"repeat":true,"reset":true}'
+          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"repeat":false,"reset":true}'
         Child:
         - id: 1
         - id: 2

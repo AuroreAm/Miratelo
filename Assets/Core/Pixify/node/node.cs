@@ -1,10 +1,11 @@
-using System.Reflection;
+using UnityEngine;
 using System;
 
 namespace Pixify
 {
     [Category("")]
     [Serializable]
+    [NodeTint(1,1,1)]
     public abstract class node
     {
         public uint nodeId;
@@ -29,6 +30,32 @@ namespace Pixify
     [AttributeUsage (AttributeTargets.Field)]
     public sealed class DependAttribute : Attribute
     {
+    }
+
+    /// <summary>
+    /// this attribute will let the node to be unique for a graph, it is unique inside the descendant of decoratorModel where CreateNode is called
+    /// Does not work with Decorators
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class,Inherited = true)]
+    public class UniqueAttribute : Attribute
+    {}
+    
+    [AttributeUsage(AttributeTargets.Class,Inherited = true)]
+    public class NodeTintAttribute : Attribute
+    {
+        public Color Tint;
+        public NodeTintAttribute( float r = 1, float g = 1, float b = 1)
+        {
+            Tint = new Color(r,g,b);
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Class,Inherited = true)]
+    public class NodeDescriptionAttribute : Attribute
+    {
+        public string Description;
+        public NodeDescriptionAttribute( string Description )
+        { this.Description = Description; }
     }
 
     /// <summary>

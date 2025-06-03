@@ -5,6 +5,8 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    [Unique]
+    [NodeDescription("player normal movement on ground")]
     [Category("player controller")]
     public class pc_move : action
     {
@@ -34,6 +36,7 @@ namespace Triheroes.Code
         }
     }
 
+    [Unique]
     [Category("player controller")]
     public class pc_fall : action
     {
@@ -60,5 +63,14 @@ namespace Triheroes.Code
         {
             cfm.Free(this);
         }
+
+    #if UNITY_EDITOR
+    override public string GetAdditionalInfo()
+    {
+        return $"speed: {speed}";
     }
+    #endif
+
+    }
+
 }
