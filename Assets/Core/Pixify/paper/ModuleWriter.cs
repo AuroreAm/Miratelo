@@ -13,10 +13,5 @@ namespace Pixify
         public virtual void WriteModule (Character character)
         {
         }
-
-        #if UNITY_EDITOR
-        // TODO: remove this when the character editor is done
-        public virtual void OnDrawGizmosSelected(Transform t){}
-        #endif
     }
 }
