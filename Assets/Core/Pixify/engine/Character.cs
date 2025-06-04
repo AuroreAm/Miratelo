@@ -19,12 +19,7 @@ namespace Pixify
             nodes = new List<node> ();
         }
 
-        /// <summary>
-        /// return a module of the type requested
-        /// if the module is not found, it will be created
-        /// does not work with ctor arguments
-        /// </summary>
-        public module RequireModule (Type moduleType)
+        module RequireModule (Type moduleType)
         {
             if (!moduleType.IsSubclassOf(typeof (module)))
                 throw new InvalidOperationException("cannot depend on a non module type");
@@ -45,16 +40,28 @@ namespace Pixify
         }
 
         /// <summary>
-        /// will add or replace current module with this type
-        /// use this if need a module with constructor arguments
+        /// return a module of the type requested
+        /// if the module is not found, it will be created
+        /// does not work with constructor arguments
         /// </summary>
-        /// <param name="m"></param>
-        public void PushModule ( module m )
+        public T RequireModule <T> () where T : module, new ()
         {
-            modules.AddOrChange ( m.GetType(), m );
-            m.character = this;
-            RegisterNode (m);
-            m.Create ();
+            if (!typeof(T).IsSubclassOf(typeof (module)))
+                throw new InvalidOperationException("cannot depend on a non module type");
+
+            if (modules.TryGetValue(typeof(T), out module m))
+                return m as T;
+            else
+            {
+                var n = new T();
+                modules.Add(typeof(T), n);
+
+                n.character = this;
+                RegisterNode (n);
+                n.Create ();
+
+                return n;
+            }
         }
 
         void RegisterNode ( node m )
