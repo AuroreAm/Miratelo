@@ -11,13 +11,14 @@ namespace Pixify
         public bool on { get { return enabled && _on; } }
         public bool aquired => on;
 
-        public sealed override void Create()
+        public core ()
         {
+            #if UNITY_EDITOR
+            if (UnityEditor.EditorApplication.isPlaying)
+            #endif
             PixifyEngine.o.Register (this);
-            Create1 ();
         }
 
-        public virtual void Create1 () {}
         public abstract void Main ();
 
         node host;

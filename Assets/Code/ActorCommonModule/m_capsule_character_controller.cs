@@ -30,7 +30,7 @@ namespace Triheroes.Code
         public Transform Coord;
         public CharacterController CCA;
 
-        public override void Create1()
+        public override void Create()
         {
             Coord = character.transform;
             CCA = character.gameObject.AddComponent<CharacterController>();

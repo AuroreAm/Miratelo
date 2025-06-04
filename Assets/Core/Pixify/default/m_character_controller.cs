@@ -9,7 +9,7 @@ namespace Pixify
     public class m_character_controller : core
     {
         public action root;
-        public override void Create1()
+        public override void Create()
         {}
 
         protected override void OnAquire()
