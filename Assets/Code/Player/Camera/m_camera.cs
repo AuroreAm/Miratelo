@@ -71,7 +71,7 @@ namespace Triheroes.Code
         // embeded controllers
         tps_normal tps;
 
-        public override void Create1()
+        public override void Create()
         {
             transitionController = character.ConnectNode ( new m_camera_tps_transition() );
             tps = character.ConnectNode ( new tps_normal() );
@@ -223,7 +223,7 @@ namespace Triheroes.Code
 
         public override void WriteModule(Character character)
         {
-            m_camera c = character.RequireModule(typeof(m_camera)) as m_camera;
+            m_camera c = character.RequireModule<m_camera> ();
             c.Coord = character.transform;
             c.CameraPivot = CameraPivot;
             c.Cam = Cam;

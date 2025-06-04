@@ -57,7 +57,7 @@ namespace Pixify
 
                     if (root !=null || root.Valid)
                     {
-                        m_character_controller c = character.RequireModule ( typeof ( m_character_controller ) ) as m_character_controller;
+                        m_character_controller c = character.RequireModule<m_character_controller> ();
                         // set the character controller root
                         c.root = root.CreateNode(character);
                         // self aquire character controller
@@ -68,13 +68,5 @@ namespace Pixify
                 }
             }
         }
-
-        #if UNITY_EDITOR
-        void OnDrawGizmosSelected()
-        {
-            foreach ( ModuleWriter a in OverrideParameters )
-                a.OnDrawGizmosSelected(transform);
-        }
-        #endif
     }
 }

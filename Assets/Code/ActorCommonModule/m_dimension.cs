@@ -14,7 +14,7 @@ namespace Triheroes.Code
 
         public Vector3 position => character.transform.position;
 
-        public m_dimension ( float h, float r, float m )
+        public void Set ( float h, float r, float m )
         {
             this.h = h;
             this.r = r;
