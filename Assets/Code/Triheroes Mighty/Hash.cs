@@ -105,6 +105,8 @@ namespace Triheroes.Code
         public static readonly SuperKey move = new SuperKey("move");
         public static readonly SuperKey fall = new SuperKey("fall");
         public static readonly SuperKey jump = new SuperKey("jump");    
+        public static readonly SuperKey draw = new SuperKey("draw");    
+        public static readonly SuperKey return_ = new SuperKey("return");    
     }
 
     public enum direction { forward, right, left, back }
