@@ -1,0 +1,1 @@
+1 - player not switching to move when falling is complete
