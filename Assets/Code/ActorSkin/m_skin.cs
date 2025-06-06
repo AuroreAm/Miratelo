@@ -5,50 +5,6 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [Category("Actor")]
-    public class skin_writer : ModuleWriter
-    {
-        [Header("Character dimension")]
-        [Tooltip("height of the character")]
-        public float h;
-        [Tooltip("radius of the character")]
-        public float r;
-        [Tooltip("mass of the character")]
-        public float m;
-
-        [Header("Skin Characteristic")]
-        public GameObject Skin;
-        public AniExt AniExt;
-        public float offsetRotationY;
-        public float offsetPositionY;
-
-        public bool UseHumanFootIk;
-
-        public override void WriteModule(Character character)
-        {
-            character.PushModule ( new m_dimension ( h, r, m ) );
-            character.PushModule ( new m_skin ( Skin, AniExt, new Vector2 (offsetRotationY, offsetPositionY) ) );
-            
-            // additional modules for skin
-            if (UseHumanFootIk)
-            character.RequireModule (typeof (m_skin_foot_ik));
-        }
-
-        #if UNITY_EDITOR
-        public override void OnDrawGizmosSelected( Transform t )
-        {
-            // draw the character dimension capsule
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(t.position + r / 2 * Vector3.up, r);
-            Gizmos.DrawWireSphere(t.position + ((h - r / 2) * Vector3.up), r);
-            Gizmos.DrawLine(t.position + r / 2 * Vector3.up + (r * Vector3.left), t.position + ((h - r / 2) * Vector3.up) + (r * Vector3.left));
-            Gizmos.DrawLine(t.position + r / 2 * Vector3.up + (r * Vector3.right), t.position + ((h - r / 2) * Vector3.up) + (r * Vector3.right));
-            Gizmos.DrawLine(t.position + r / 2 * Vector3.up + (r * Vector3.forward), t.position + ((h - r / 2) * Vector3.up) + (r * Vector3.forward));
-            Gizmos.DrawLine(t.position + r / 2 * Vector3.up + (r * Vector3.back), t.position + ((h - r / 2) * Vector3.up) + (r * Vector3.back));
-        }
-        #endif
-    }
-
     // animation, mesh, textures manager of the character
     public class m_skin : core
     {
@@ -79,23 +35,25 @@ namespace Triheroes.Code
         public Vector3 SkinDir;
         public float GetSpdCurves () => Ani.GetFloat(Hash.spd);
 
-        public m_skin ( GameObject skinGameObject, AniExt aniExt, Vector2 offsets )
+        public void Set ( GameObject skinGameObject, AniExt aniExt, Vector2 offsets )
         {
             Ani = skinGameObject.GetComponent<Animator> ();
-            AniExt = aniExt;
-            offRotY = offsets.x;
-            offPosY = offsets.y;
-        }
-
-        public override void Create1()
-        {
-            Coord = character.transform;
+            
             // disable default unity fire events
             Ani.fireEvents = false;
+            
+            AniExt = aniExt;
 
             CacheLayerIndex ();
             CreatePlayersPerLayer ();
 
+            offRotY = offsets.x;
+            offPosY = offsets.y;
+        }
+
+        public override void Create()
+        {
+            Coord = character.transform;
             // self aquire
             Aquire (this);
         }

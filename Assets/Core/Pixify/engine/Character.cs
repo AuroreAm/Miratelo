@@ -10,6 +10,19 @@ namespace Pixify
         // library of unique module indexed by type
         // polymorphism not supported
         protected Dictionary < Type, module > modules;
+
+        // library of action unique for the character but scatered in graph
+        public Dictionary < Type, action > uniques { private set; get; } = new Dictionary<Type, action> ();
+
+        public T GetUnique <T> () where T : action
+        {
+            if (uniques.TryGetValue(typeof(T), out action n))
+                return n as T;
+            else
+            throw new InvalidOperationException("cannot find unique action of type " + typeof(T));
+        }
+
+
         List < node > nodes;
         uint ptr;
 
