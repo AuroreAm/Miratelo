@@ -24,15 +24,15 @@ namespace Pixify
         /// </summary>
         public virtual action CreateNode (Character c)
         {
-            if ( BluePrintPaper.IsUnique && DecoratorModel.UniqueNodes != null && DecoratorModel.UniqueNodes.TryGetValue (BluePrintPaper.Type, out node n1) )
-            return (action) n1;
+            if ( BluePrintPaper.IsUnique && c.uniques.TryGetValue (BluePrintPaper.Type, out action n1) )
+            return n1;
 
             var n = BluePrintPaper.CreateNode() as action;
             n.Tag = new SuperKey(Tag);
             c.ConnectNode ( n );
 
             if ( BluePrintPaper.IsUnique )
-                DecoratorModel.UniqueNodes.Add (BluePrintPaper.Type, n);
+                c.uniques.Add (BluePrintPaper.Type, n);
 
             return n;
         }

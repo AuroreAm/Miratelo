@@ -16,7 +16,6 @@ namespace Pixify
         public virtual void Create ()
         {  }
     }
-
     
     [AttributeUsage(AttributeTargets.Class,Inherited = true)]
     public class CategoryAttribute : Attribute

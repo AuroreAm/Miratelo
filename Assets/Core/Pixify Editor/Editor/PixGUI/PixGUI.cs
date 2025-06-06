@@ -8,11 +8,11 @@ namespace Pixify.Editor
     namespace PixGUI
     {
         // Unity IMGUI wrapper
-        public class AreaTree
+        public class AreaScreen
         {
             public Area Root;
 
-            public AreaTree ( Area root )
+            public AreaScreen ( Area root )
             {
                 Root = root;
             }
@@ -24,6 +24,23 @@ namespace Pixify.Editor
                 Root.Draw ();
             }
         }
+
+        public class DirectArea
+        {
+            public Area Root;
+            public DirectArea ( Area root )
+            {
+                Root = root;
+            }
+            
+            public void Draw( float width, float height )
+            {
+                Root.ResetRect ();
+                Root.InitRect ( new Vector2 ( width, height - 20 ), new DefTransform() { RelativeTransform = new Rect(0, 0, 1, 1) } );
+                Root.Draw ();
+            }
+        }
+        
 
         public struct DefTransform
         {

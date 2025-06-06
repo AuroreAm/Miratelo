@@ -123,6 +123,81 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &239207016
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7470766667591151272, guid: 981e6b2a03a173a498db5b6c07c2694f, type: 3}
+      propertyPath: m_Name
+      value: SwordTest
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470766667591151274, guid: 981e6b2a03a173a498db5b6c07c2694f, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470766667591151274, guid: 981e6b2a03a173a498db5b6c07c2694f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470766667591151274, guid: 981e6b2a03a173a498db5b6c07c2694f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470766667591151274, guid: 981e6b2a03a173a498db5b6c07c2694f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470766667591151274, guid: 981e6b2a03a173a498db5b6c07c2694f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470766667591151274, guid: 981e6b2a03a173a498db5b6c07c2694f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470766667591151274, guid: 981e6b2a03a173a498db5b6c07c2694f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470766667591151274, guid: 981e6b2a03a173a498db5b6c07c2694f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470766667591151274, guid: 981e6b2a03a173a498db5b6c07c2694f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470766667591151274, guid: 981e6b2a03a173a498db5b6c07c2694f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7470766667591151274, guid: 981e6b2a03a173a498db5b6c07c2694f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 981e6b2a03a173a498db5b6c07c2694f, type: 3}
+--- !u!1 &239207017 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7470766667591151272, guid: 981e6b2a03a173a498db5b6c07c2694f, type: 3}
+  m_PrefabInstance: {fileID: 239207016}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &239207018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239207017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e430c772f92ad54d84067e8296d6d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Lenght: 1.5
 --- !u!1 &293923763
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +223,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 293923763}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 100, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -169,6 +244,7 @@ MonoBehaviour:
   Model: {fileID: 0}
   OverrideParameters:
   - id: 0
+  - id: 1
   OverrideController:
     Script: {fileID: 11400000, guid: 80610b60fcb30ed40b31411ceb565ae9, type: 2}
   references:
@@ -176,14 +252,12 @@ MonoBehaviour:
     00000000:
       type: {class: skin_writer, ns: Triheroes.Code, asm: Triheroes.Code}
       data:
-        h: 1.5
-        r: 0.2
-        m: 40
-        Skin: {fileID: 856387255}
-        AniExt: {fileID: 11400000, guid: 09c513c0629dd694db1f75dc584febb7, type: 2}
-        offsetRotationY: 0
-        offsetPositionY: 0
-        UseHumanFootIk: 1
+        Model: {fileID: 856387256}
+    00000001:
+      type: {class: actor_writer, ns: Triheroes.Code, asm: Triheroes.Code}
+      data:
+        AttachedWeapon:
+        - {fileID: 239207018}
 --- !u!1 &563688116
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,11 +442,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88a7942c3e681fe408a2a69b1aee21e0, type: 3}
---- !u!1 &856387255 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3023391628734298909, guid: 88a7942c3e681fe408a2a69b1aee21e0, type: 3}
+--- !u!114 &856387256 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5386933499023281397, guid: 88a7942c3e681fe408a2a69b1aee21e0, type: 3}
   m_PrefabInstance: {fileID: 856387254}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59944af20658cf84781bb38ffae7d935, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &939945831
 GameObject:
   m_ObjectHideFlags: 0

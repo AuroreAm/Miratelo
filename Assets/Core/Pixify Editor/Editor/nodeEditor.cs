@@ -10,10 +10,10 @@ namespace Pixify.Editor
     public class NodeEditor
     {
         UnityEngine.Object Host;
-        node target;
+        protected node target;
 
         public virtual void Create () {}
-        public virtual void GUI () => NodeGUI ( target, Host );
+        public virtual void GUI (Vector2 size) => NodeGUI ( target, Host );
 
         public static NodeEditor CreateEditor ( node target, UnityEngine.Object host, UnityEditor.Editor editorHost =  null )
         {

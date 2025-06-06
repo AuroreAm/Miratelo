@@ -40,7 +40,7 @@ namespace Pixify.Editor
             protected override Vector2 GetInitSize(Vector2 ParentSize, DefTransform ParentDefTransform)
             {
                 Vector2 size = base.GetInitSize(ParentSize, ParentDefTransform);
-                Content.InitRect(size,DefTransform);
+                Content.InitRect(new Vector2(size.x-16, size.y),DefTransform);
                 return size;
             }
 

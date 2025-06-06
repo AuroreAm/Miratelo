@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Pixify
 {
+    // TODO: add dependance order description
     // inject module into character
     [Category("")]
     [Serializable]

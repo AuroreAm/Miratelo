@@ -38,12 +38,12 @@ namespace Pixify.Editor
         }
 
         ScriptModel Target;
-        AreaTree Visual;
+        AreaScreen Visual;
         CommandList Main;
 
         void CreateVisual()
         {
-            Visual = new AreaTree(
+            Visual = new AreaScreen(
                 new Area(
                     new Box() { ColorA = o.BackgroundColor },
 
@@ -122,7 +122,7 @@ namespace Pixify.Editor
             Tabs = new Dictionary<string, LibraryTab>
                 {
                     { "decorator", new ActionLibrary1(Types["decorator"]) },
-                    { "blackboard", new BlackboardLibrary() }
+                    { "states", new StateLibrary() }
                 };
 
             for (int i = 0; i < Types.Count; i++)
@@ -253,12 +253,83 @@ namespace Pixify.Editor
         }
     }
 
-    class BlackboardLibrary : ActionLibrary.LibraryTab
+    class StateLibrary : ActionLibrary.LibraryTab
     {
+        List <ScriptModel> AllScripts;
+        List <Element> ScriptButtons;
+
+        public StateLibrary()
+        {
+            string[] GUIDs = AssetDatabase.FindAssets ( "t:ScriptModel" );
+            AllScripts = new List<ScriptModel>();
+            foreach ( string guid in GUIDs )
+            {
+                var asset = AssetDatabase.LoadAssetAtPath<ScriptModel> ( AssetDatabase.GUIDToAssetPath ( guid ) );
+                AllScripts.Add ( asset );
+            }
+
+            ScriptButtons = new List<Element>();
+            for ( int i = 0; i < AllScripts.Count; i++ )
+            {
+                var index = AllScripts[i];
+                var a = new Button ( new Area (
+                    new Box () { ColorA = o.NormalColor, ColorB = o.BorderColor, BorderWidth = 1 },
+                    new Label ( AllScripts[i].name, o.TextMiddleLeft ).Padding ( new Vector4 ( 2, 2, 0, 0 ) )
+                ), () => InsertAction ( index ) ).RelativeTransform ( new Rect ( 0, 0, 1, 0 ) ).Size ( new Vector2 ( 0, 32 ) );
+
+                ScriptButtons.Add ( a );
+                Add ( a );
+            }
+        }
+
+        void InsertAction ( ScriptModel s )
+        {
+            CommandList.o.InsertAction ( CreateStateModel (s) );
+            // TODO: make sure states are not inserted into themselves
+        }
+
+        ActionModel CreateStateModel ( ScriptModel s )
+        {
+            var sm = new StateModel ( );
+            sm.Set ( s );
+            return sm;
+        }
+
         public override void Filter(string search)
         {
+            for ( int i = 0; i < AllScripts.Count; i++ )
+            {
+                if ( AllScripts[i].name.ToLower().Contains ( search.ToLower() ) )
+                    ScriptButtons[i].on = true;
+                else
+                    ScriptButtons[i].on = false;
+            }
         }
     }
+
+    [NodeEditorOf(typeof(state))]
+    class dummy_state_editor : NodeEditor
+    {
+        ScriptModel Script;
+        DirectArea Preview;
+        AreaAutoHeight Content;
+        public override void GUI(Vector2 Size)
+        {
+            Preview.Draw ( Size.x, Size.y );
+        }
+
+        public override void Create()
+        {
+            Script = ((state) target).State;
+            Content = actionPreviewBase.CreatePreview(Script.Root);
+
+            var Visual = new Scroll( Content );
+
+
+            Preview = new DirectArea(new Area (Visual));
+        }
+    }
+    
     #endregion
 
     #region  commands
@@ -853,8 +924,8 @@ namespace Pixify.Editor
         
         public Properties()
         {
-            Add ( 
-                new IMGUI ( OnGUI )
+            Add ( new Scroll (
+                new IMGUI ( OnGUI ) )
              );
         }
 
@@ -865,7 +936,7 @@ namespace Pixify.Editor
 
 
             if ( nE != null )
-            nE.GUI ();
+            nE.GUI (Size);
             
         }
 
