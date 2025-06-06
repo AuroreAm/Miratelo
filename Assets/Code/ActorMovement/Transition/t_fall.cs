@@ -39,6 +39,7 @@ namespace Triheroes.Code
         {
             if (!mgd.onGround && mccc.verticalVelocity < 0)
             selector.CurrentSelector.SwitchTo (StateKey2.fall);
+            
             return false;
         }
     }
