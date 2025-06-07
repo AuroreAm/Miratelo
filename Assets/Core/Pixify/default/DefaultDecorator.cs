@@ -130,6 +130,9 @@ namespace Pixify
 
         [Export]
         public bool reset = true;
+        [Export]
+        public bool fallback = false;
+
         Dictionary <SuperKey, action> Index;
         action DefaultRoot;
         action root;
@@ -161,8 +164,15 @@ namespace Pixify
                 root.iExecute();
 
             ExecutingSelectors.Pop();
+
             if (!root.on)
-            return true;
+            {
+                if (!fallback)
+                return true;
+                else
+                SwitchTo (DefaultRoot.Tag);
+            }
+
             return false;
         }
 
@@ -184,6 +194,13 @@ namespace Pixify
             else
             Debug.LogWarning ("tag " + tag + " not found");
         }
+
+        #if UNITY_EDITOR
+        public override string GetAdditionalInfo()
+        {
+            return $"reset: {reset}, fallback: {fallback}";
+        }
+        #endif
     }
 
     public sealed class delayrepeater : decorator

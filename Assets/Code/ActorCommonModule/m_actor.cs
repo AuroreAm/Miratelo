@@ -10,10 +10,13 @@ namespace Triheroes.Code
     public class actor_writer : ModuleWriter
     {
         public List <Weapon> AttachedWeapon;
+        public int Faction;
 
         public override void WriteModule(Character character)
         {
-            character.RequireModule<m_actor>();
+            var ma = character.RequireModule<m_actor>();
+            ActorFaction.Register (ma, Faction);
+
             if (AttachedWeapon.Count > 0)
             {
                 var me = character.RequireModule<m_equip>();
@@ -53,16 +56,5 @@ namespace Triheroes.Code
             target.lockers.Remove (this);
             target = null;
         }
-
-        /*public m_actor GetNearestFacedFoe ( float distance )
-        {
-            List<m_actor> foe = GlobalAI.o.GetFoes(Role);
-            foe.Sort( new SortDistanceA<m_actor>(ms.rotY.y, ms.Coord.position, distance) );
-
-            if (foe.Count > 0 && Vector3.Distance(ms.Coord.position, foe[0].ms.Coord.position) < distance)
-                return foe[0];
-
-            return null;
-        }*/
     }
 }

@@ -23,11 +23,12 @@ MonoBehaviour:
         BluePrintPaper:
           StrNodeType: Pixify.selector, Pixify, Version=0.0.0.0, Culture=neutral,
             PublicKeyToken=null
-          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"reset":true,"fallback":false}'
+          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"reset":true,"fallback":true}'
         Child:
         - id: 1
         - id: 2
         - id: 3
+        - id: 4
     00000001:
       type: {class: DecoratorModel, ns: Pixify, asm: Pixify}
       data:
@@ -37,10 +38,11 @@ MonoBehaviour:
             PublicKeyToken=null
           StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"StopWhenFirstNodeStopped":false}'
         Child:
-        - id: 4
         - id: 5
         - id: 6
         - id: 7
+        - id: 8
+        - id: 9
     00000002:
       type: {class: DecoratorModel, ns: Pixify, asm: Pixify}
       data:
@@ -50,9 +52,9 @@ MonoBehaviour:
             PublicKeyToken=null
           StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"StopWhenFirstNodeStopped":false}'
         Child:
-        - id: 8
-        - id: 9
         - id: 10
+        - id: 11
+        - id: 12
     00000003:
       type: {class: DecoratorModel, ns: Pixify, asm: Pixify}
       data:
@@ -62,9 +64,21 @@ MonoBehaviour:
             PublicKeyToken=null
           StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"StopWhenFirstNodeStopped":false}'
         Child:
-        - id: 11
-        - id: 12
+        - id: 13
+        - id: 14
     00000004:
+      type: {class: DecoratorModel, ns: Pixify, asm: Pixify}
+      data:
+        Tag: slash
+        BluePrintPaper:
+          StrNodeType: Pixify.controlled_sequence, Pixify, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"TaskStatus":0,"repeat":true,"reset":true}'
+        Child:
+        - id: 15
+        - id: 16
+        - id: 17
+    00000005:
       type: {class: ActionModel, ns: Pixify, asm: Pixify}
       data:
         Tag: 
@@ -72,7 +86,7 @@ MonoBehaviour:
           StrNodeType: Triheroes.Code.pc_move, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
             PublicKeyToken=null
           StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"speed":7.0}'
-    00000005:
+    00000006:
       type: {class: ActionModel, ns: Pixify, asm: Pixify}
       data:
         Tag: 
@@ -80,7 +94,7 @@ MonoBehaviour:
           StrNodeType: Triheroes.Code.t_fall, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
             PublicKeyToken=null
           StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false}'
-    00000006:
+    00000007:
       type: {class: ActionModel, ns: Pixify, asm: Pixify}
       data:
         Tag: 
@@ -88,7 +102,15 @@ MonoBehaviour:
           StrNodeType: Triheroes.Code.t_jump_complex, Triheroes.Code, Version=0.0.0.0,
             Culture=neutral, PublicKeyToken=null
           StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false}'
-    00000007:
+    00000008:
+      type: {class: ActionModel, ns: Pixify, asm: Pixify}
+      data:
+        Tag: 
+        BluePrintPaper:
+          StrNodeType: Triheroes.Code.t_slash, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false}'
+    00000009:
       type: {class: DecoratorModel, ns: Pixify, asm: Pixify}
       data:
         Tag: 
@@ -97,10 +119,10 @@ MonoBehaviour:
             PublicKeyToken=null
           StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"reset":true,"fallback":true}'
         Child:
-        - id: 13
-        - id: 14
-        - id: 15
-    00000008:
+        - id: 18
+        - id: 19
+        - id: 20
+    0000000A:
       type: {class: ActionModel, ns: Pixify, asm: Pixify}
       data:
         Tag: 
@@ -108,7 +130,7 @@ MonoBehaviour:
           StrNodeType: Triheroes.Code.pc_jump, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
             PublicKeyToken=null
           StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"speed":7.0}'
-    00000009:
+    0000000B:
       type: {class: ActionModel, ns: Pixify, asm: Pixify}
       data:
         Tag: 
@@ -116,22 +138,6 @@ MonoBehaviour:
           StrNodeType: Triheroes.Code.t_fall, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
             PublicKeyToken=null
           StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false}'
-    0000000A:
-      type: {class: ActionModel, ns: Pixify, asm: Pixify}
-      data:
-        Tag: 
-        BluePrintPaper:
-          StrNodeType: Triheroes.Code.t_move, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
-            PublicKeyToken=null
-          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false}'
-    0000000B:
-      type: {class: ActionModel, ns: Pixify, asm: Pixify}
-      data:
-        Tag: 
-        BluePrintPaper:
-          StrNodeType: Triheroes.Code.pc_fall, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
-            PublicKeyToken=null
-          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"speed":7.0}'
     0000000C:
       type: {class: ActionModel, ns: Pixify, asm: Pixify}
       data:
@@ -141,6 +147,55 @@ MonoBehaviour:
             PublicKeyToken=null
           StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false}'
     0000000D:
+      type: {class: ActionModel, ns: Pixify, asm: Pixify}
+      data:
+        Tag: 
+        BluePrintPaper:
+          StrNodeType: Triheroes.Code.pc_fall, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"speed":7.0}'
+    0000000E:
+      type: {class: ActionModel, ns: Pixify, asm: Pixify}
+      data:
+        Tag: 
+        BluePrintPaper:
+          StrNodeType: Triheroes.Code.t_move, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false}'
+    0000000F:
+      type: {class: DecoratorModel, ns: Pixify, asm: Pixify}
+      data:
+        Tag: 
+        BluePrintPaper:
+          StrNodeType: Pixify.parallel, Pixify, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"StopWhenFirstNodeStopped":true}'
+        Child:
+        - id: 21
+        - id: 22
+    00000010:
+      type: {class: DecoratorModel, ns: Pixify, asm: Pixify}
+      data:
+        Tag: 
+        BluePrintPaper:
+          StrNodeType: Pixify.parallel, Pixify, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"StopWhenFirstNodeStopped":true}'
+        Child:
+        - id: 23
+        - id: 24
+    00000011:
+      type: {class: DecoratorModel, ns: Pixify, asm: Pixify}
+      data:
+        Tag: 
+        BluePrintPaper:
+          StrNodeType: Pixify.parallel, Pixify, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"StopWhenFirstNodeStopped":true}'
+        Child:
+        - id: 25
+        - id: 26
+    00000012:
       type: {class: DecoratorModel, ns: Pixify, asm: Pixify}
       data:
         Tag: default
@@ -149,9 +204,9 @@ MonoBehaviour:
             PublicKeyToken=null
           StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"StopWhenFirstNodeStopped":false}'
         Child:
-        - id: 16
-        - id: 17
-    0000000E:
+        - id: 27
+        - id: 28
+    00000013:
       type: {class: ActionModel, ns: Pixify, asm: Pixify}
       data:
         Tag: draw
@@ -159,7 +214,7 @@ MonoBehaviour:
           StrNodeType: Triheroes.Code.ac_draw_weapon, Triheroes.Code, Version=0.0.0.0,
             Culture=neutral, PublicKeyToken=null
           StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false}'
-    0000000F:
+    00000014:
       type: {class: ActionModel, ns: Pixify, asm: Pixify}
       data:
         Tag: return
@@ -167,7 +222,55 @@ MonoBehaviour:
           StrNodeType: Triheroes.Code.ac_return_weapon, Triheroes.Code, Version=0.0.0.0,
             Culture=neutral, PublicKeyToken=null
           StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false}'
-    00000010:
+    00000015:
+      type: {class: ActionModel, ns: Pixify, asm: Pixify}
+      data:
+        Tag: 
+        BluePrintPaper:
+          StrNodeType: Triheroes.Code.ac_slash, Triheroes.Code, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"ComboId":0}'
+    00000016:
+      type: {class: ActionModel, ns: Pixify, asm: Pixify}
+      data:
+        Tag: 
+        BluePrintPaper:
+          StrNodeType: Triheroes.Code.t_combo_success, Triheroes.Code, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false}'
+    00000017:
+      type: {class: ActionModel, ns: Pixify, asm: Pixify}
+      data:
+        Tag: 
+        BluePrintPaper:
+          StrNodeType: Triheroes.Code.ac_slash, Triheroes.Code, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"ComboId":1}'
+    00000018:
+      type: {class: ActionModel, ns: Pixify, asm: Pixify}
+      data:
+        Tag: 
+        BluePrintPaper:
+          StrNodeType: Triheroes.Code.t_combo_success, Triheroes.Code, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false}'
+    00000019:
+      type: {class: ActionModel, ns: Pixify, asm: Pixify}
+      data:
+        Tag: 
+        BluePrintPaper:
+          StrNodeType: Triheroes.Code.ac_slash, Triheroes.Code, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false,"ComboId":2}'
+    0000001A:
+      type: {class: ActionModel, ns: Pixify, asm: Pixify}
+      data:
+        Tag: 
+        BluePrintPaper:
+          StrNodeType: Triheroes.Code.t_combo_success, Triheroes.Code, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false}'
+    0000001B:
       type: {class: ActionModel, ns: Pixify, asm: Pixify}
       data:
         Tag: 
@@ -175,7 +278,7 @@ MonoBehaviour:
           StrNodeType: Triheroes.Code.t_draw, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
             PublicKeyToken=null
           StrNodeJson: '{"nodeId":0,"Tag":{"value":0,"keyName":""},"on":false}'
-    00000011:
+    0000001C:
       type: {class: ActionModel, ns: Pixify, asm: Pixify}
       data:
         Tag: 

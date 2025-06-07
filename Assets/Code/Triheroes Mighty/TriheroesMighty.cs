@@ -9,6 +9,7 @@ namespace Triheroes.Code
         public override void BeforeCreateSystems()
         {
             gameObject.AddComponent <Vecteur> ();
+            gameObject.AddComponent <ActorFaction> ();
         }
 
         protected override void CreateSystems(out List<CoreSystemBase> systems)
