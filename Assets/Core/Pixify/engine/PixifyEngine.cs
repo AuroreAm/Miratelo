@@ -10,7 +10,7 @@ namespace Pixify
     {
         public static PixifyEngine o;
 
-        List<CoreSystemBase> Systems;
+        List<PixifySytemBase> Systems;
         Dictionary < Type, List <core> > IndexedCores = new Dictionary<Type, List<core>> ();
 
         public abstract void BeforeCreateSystems ();
@@ -19,20 +19,17 @@ namespace Pixify
         {
             o = this;
             BeforeCreateSystems ();
-            CreateSystems ( out Systems);
-
-            for (int i = 0; i < Systems.Count; i++)
-            Systems[i].cores = RequestListModulesOfType (Systems[i].SystemType ());
+            CreateSystems ( out Systems );
         }
 
-        protected abstract void CreateSystems ( out List<CoreSystemBase> systems );
+        protected abstract void CreateSystems ( out List<PixifySytemBase> systems );
 
         public void Register ( core core )
         {
             RequestListModulesOfType ( core.GetType ().GetCustomAttribute<RegisterAsBaseAttribute>() == null? core.GetType(): core.GetType().BaseType ).Add ( core );
         }
 
-        List<core> RequestListModulesOfType (Type t)
+        internal List<core> RequestListModulesOfType (Type t)
         {
             if ( IndexedCores.TryGetValue (t, out List<core> L) )
             return L;
@@ -60,15 +57,14 @@ namespace Pixify
     public class RegisterAsBaseAttribute : Attribute
     {}
 
-    public abstract class CoreSystemBase
+    public abstract class PixifySytemBase
     {
-        public List <core> cores;
         public abstract void Execute ();
-        public abstract Type SystemType ();
     }
 
-    public sealed class CoreSystem <T> : CoreSystemBase where T : core
+    public sealed class CoreSystem <T> : PixifySytemBase where T : core
     {
+        public List <core> cores;
         public sealed override void Execute ()
         {
             for (int i = 0; i < cores.Count; i++)
@@ -78,11 +74,15 @@ namespace Pixify
             }
         }
 
-        public sealed override Type SystemType () => typeof (T);
+        public CoreSystem ()
+        {
+            cores = PixifyEngine.o.RequestListModulesOfType (typeof (T));
+        }
     }
 
-    public abstract class CustomCoreSystem <T> : CoreSystemBase where T : core
+    public abstract class CustomCoreSystem <T> : PixifySytemBase where T : core
     {
+        public List <core> cores;
         public override void Execute ()
         {
             for (int i = 0; i < cores.Count; i++)
@@ -92,7 +92,10 @@ namespace Pixify
             }
         }
         
-        public override Type SystemType () => typeof (T);
+        public CustomCoreSystem ()
+        {
+            cores = PixifyEngine.o.RequestListModulesOfType (typeof (T));
+        }
 
         protected abstract void Main (T o);
     }

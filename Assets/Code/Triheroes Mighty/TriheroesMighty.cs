@@ -12,10 +12,10 @@ namespace Triheroes.Code
             gameObject.AddComponent <ActorFaction> ();
         }
 
-        protected override void CreateSystems(out List<CoreSystemBase> systems)
+        protected override void CreateSystems(out List<PixifySytemBase> systems)
         {
             // Game main systems
-            systems = new List<CoreSystemBase> ()
+            systems = new List<PixifySytemBase> ()
             {
                 // character physic datas
                 new s_ccc_ground_data(),
@@ -27,6 +27,7 @@ namespace Triheroes.Code
                 new CoreSystem<controller>(),
 
                 // attacks
+                new p_slash_attack.s_slash_attack(),
 
                 // stats
 

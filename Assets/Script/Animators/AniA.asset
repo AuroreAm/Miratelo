@@ -49,19 +49,22 @@ MonoBehaviour:
       keyName: slash_0
     Duration: 0.4666667
     EvPoint:
-    - 0.1957522
+    - 0.13237771
+    - 0.313503
   - Key:
       value: -935636897
       keyName: slash_1
     Duration: 0.40000004
     EvPoint:
-    - 0.23689537
+    - 0.1517102
+    - 0.31902984
   - Key:
       value: 1362231781
       keyName: slash_2
     Duration: 0.5
     EvPoint:
-    - 0.21751988
+    - 0.13881618
+    - 0.345496
   - Key:
       value: -1194472396
       keyName: jump_right_foot

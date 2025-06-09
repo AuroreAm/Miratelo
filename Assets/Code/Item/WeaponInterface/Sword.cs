@@ -11,14 +11,14 @@ namespace Triheroes.Code
         public sealed override SuperKey DefaultDrawAnimation { get; } = AnimationKey.take_sword;
         public sealed override SuperKey DefaultReturnAnimation { get; } = AnimationKey.return_sword;
 
-        public float Lenght = 10;
+        public float Length = 10;
 
         
     #if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine ( transform.position, transform.position + transform.TransformDirection ( Lenght * Vector3.forward ) );
+        Gizmos.DrawLine ( transform.position, transform.position + transform.TransformDirection ( Length * Vector3.forward ) );
     }
     #endif
     }

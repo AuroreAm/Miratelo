@@ -30,7 +30,12 @@ namespace Triheroes.Code
             Debug.LogError("the character is not sword ready");
 
             msu.state = StateKey.slash;
-            ms.PlayState (0, m_sword_user.SlashKeys[id], 0.1f, EndSlash);
+            ms.PlayState (0, m_sword_user.SlashKeys[id], 0.1f, EndSlash, null, Slash);
+        }
+
+        void Slash ()
+        {
+            p_slash_attack.s_slash_attack.Fire( msu.Weapon, ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [1] - ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [0] );
         }
 
         void EndSlash ()
