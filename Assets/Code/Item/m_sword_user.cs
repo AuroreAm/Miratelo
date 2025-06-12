@@ -11,7 +11,7 @@ namespace Triheroes.Code
         protected override int AniLayer => ms.sword;
         protected override Quaternion DefaultRotation => Const.SwordDefaultRotation;
 
-        public SuperKey state = StateKey.zero;
+        public int state = StateKey.zero;
 
         // hardcoded slash animation for now
         public static readonly SuperKey[] SlashKeys = { AnimationKey.slash_0, AnimationKey.slash_1, AnimationKey.slash_2, AnimationKey.slash_3a };

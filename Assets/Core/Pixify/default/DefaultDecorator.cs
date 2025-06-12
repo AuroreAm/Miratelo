@@ -182,6 +182,11 @@ namespace Pixify
                 root.iAbort();
         }
 
+        public void FallBack ()
+        {
+            SwitchTo (DefaultRoot.Tag);
+        }
+
         public void SwitchTo (SuperKey tag)
         {
             if (Index.TryGetValue (tag, out action a))
@@ -189,7 +194,10 @@ namespace Pixify
                 if (root.on)
                     root.iAbort ();
                 root = a;
+                
+                ExecutingSelectors.Push(this);
                 root.iStart ();
+                ExecutingSelectors.Pop();
             }
             else
             Debug.LogWarning ("tag " + tag + " not found");

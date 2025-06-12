@@ -21,6 +21,7 @@ namespace Triheroes.Code
                 new s_ccc_ground_data(),
 
                 // procedural animations
+                new CoreSystem<m_skin_procedural>(),
 
                 // character behavior and controller
                 new CoreSystem<m_character_controller>(),

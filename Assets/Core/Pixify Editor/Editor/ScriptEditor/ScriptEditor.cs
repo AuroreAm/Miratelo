@@ -439,7 +439,7 @@ namespace Pixify.Editor
                 {
                     // revert GlobalRect to GUI space
                     Rect rect = GUIUtility.ScreenToGUIRect(GlobalRect);
-                    EditorGUI.DrawRect(rect, Color.red);
+                    EditorGUI.DrawRect(rect, Color.white);
                 }
 
                 // stop dragging when mouse up using the control id we got earlier
@@ -759,7 +759,7 @@ namespace Pixify.Editor
         {
             SpecialModel = model;
             SubContent = new AreaList();
-            SubContent.Padding(new Vector4(8, 40, 8, 8));
+            SubContent.Padding(new Vector4(16, 48, 16, 16));
 
             var ChildCopy = SpecialModel.Child;
             SpecialModel.Child = new List<ActionModel>();
@@ -802,6 +802,9 @@ namespace Pixify.Editor
         /// <returns></returns>
         public ActionElementBase GetElementHovered(Vector2 pos)
         {
+            if (!IsExpanded)
+            return this;
+
             ActionElementBase Hovered = null;
             for (int i = 0; i < SubContent.Children.Count; i++)
             {

@@ -34,11 +34,23 @@ namespace Triheroes.Code
         /// </summary>
         public float walkFactor;
 
+        bool firstFrame = true;
+
         protected override void OnAquire()
         {
-            walkDir = Vector3.zero;
-            rotDir = Vecteur.LDir ( ms.rotY, Vector3.forward );
-            ToIdle ();
+            if (firstFrame == true)
+            {
+                walkDir = Vector3.zero;
+                rotDir = Vecteur.LDir ( ms.rotY, Vector3.forward );
+                ToIdle ();
+                firstFrame = false;
+            }
+            else
+            {
+                if (state == StateKey.idle)
+                ToIdle ();
+                else ToRun ();
+            }
             
             mccc.Aquire (this);
         }
