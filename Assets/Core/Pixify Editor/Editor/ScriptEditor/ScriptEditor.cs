@@ -7,9 +7,8 @@ using Pixify.Editor.PixGUI;
 using static Pixify.Editor.ScriptEditorStyles;
 using UnityEditor.IMGUI.Controls;
 using System.Collections.Generic;
-using NUnit.Framework;
-using log4net.Core;
 using System.Reflection;
+using UnityEditor.PackageManager.UI;
 
 namespace Pixify.Editor
 {
@@ -30,22 +29,38 @@ namespace Pixify.Editor
 
         public static void Load(ScriptModel s)
         {
-            var o = GetWindow<ScriptEditor>();
-            CurrentWindow = o;
-            o.Target = s;
-            o.Main = new CommandList(Instantiate(s));
-            o.CreateVisual();
-        }
+            if (CurrentWindow == null)
+            {
+                var o = GetWindow<ScriptEditor>();
+                CurrentWindow = o;
+                o.CreateVisual();
+            }
 
-        ScriptModel Target;
+            CurrentWindow.Targets.Add (s);
+            var cm = new CommandList(Instantiate(s));
+            CurrentWindow.Windows.Add ( cm );
+            CurrentWindow.CommandArea.Add ( cm );
+            CurrentWindow.AddTab ( s.name );
+            CurrentWindow.SelectTab ( CurrentWindow.Windows.Count - 1 );
+        }
+        
         AreaScreen Visual;
-        CommandList Main;
+        List <ScriptModel> Targets = new List<ScriptModel> ();
+        List <CommandList> Windows = new List<CommandList> ();
+
+        Area CommandArea;
+        public ActionModel Clipboard;
 
         void CreateVisual()
         {
+            CommandArea = new Area(); CommandArea.Padding(new Vector4(4, 4, 4, 4));
+            Tab = new SelectionRow (); Tab.RelativeTransform ( new Rect (0,0,1,0) ).Size ( new Vector2 (0,24) );
+
             Visual = new AreaScreen(
                 new Area(
                     new Box() { ColorA = o.BackgroundColor },
+
+                    Tab,
 
                     new Area(
                         new Box() { ColorA = o.NormalColor },
@@ -58,7 +73,7 @@ namespace Pixify.Editor
                         new Label("Commands", o.h1).FitContent().Position(new Vector2(2, 2)),
                         new Area(
                             new Box() { ColorA = o.ContentColor, ColorB = o.BorderColor, BorderWidth = 1 },
-                            new Area(Main).Padding(new Vector4(4, 4, 4, 4))
+                            CommandArea
                         ).RelativeTransform(new Rect(0, 0, 1, 1)).Padding(new Vector4(8, 8 + 16, 8, 8))
                     ).RelativeTransform(new Rect(.25f, 0, .5f, 1)).Padding(new Vector4(8, 8 + 16, 8, 8)),
 
@@ -88,15 +103,59 @@ namespace Pixify.Editor
 
         void Save ()
         {
-            Target.Root = Main.script.Root.Copy ();
-            EditorUtility.SetDirty(Target);
-            Close ();
+            Targets [ActiveTab].Root = Windows [ActiveTab].script.Root.Copy ();
+            EditorUtility.SetDirty( Targets [ActiveTab] );
         }
 
         void OnGUI()
         {
+            UpdateTab ();
             Visual.Draw();
         }
+
+        #region Tab
+        
+        int ActiveTab = 0;
+        SelectionRow Tab;
+
+        void AddTab(string name)
+        {
+            Tab.Add(
+                new Toggle(
+                    new Area(
+                        new Box() { ColorA = o.NormalColor },
+                        new Label(name, o.TextMiddleLeft)
+                     ),
+                    new Area(
+                        new Box() { ColorA = o.ContentColor },
+                        new Label(name, o.TextMiddleLeft)
+                    )
+                )
+             );
+
+             Tab.Column = Tab.TogglesCount;
+             Repaint ();
+        }
+
+        void SelectTab(int index)
+        {
+            foreach (var w in Windows)
+                w.on = false;
+            Windows[index].on = true;
+
+            ActiveTab = index;
+            Tab.Select ( index );
+
+            Repaint ();
+        }
+
+        void UpdateTab ()
+        {
+            if (ActiveTab != Tab.selected)
+            SelectTab ( Tab.selected );
+        }
+
+        #endregion
     }
 
     #region Library
@@ -344,7 +403,9 @@ namespace Pixify.Editor
         Scroll Scroll;
         RenameSquare RenameSquare;
         
-        ActionModel Clipboard;
+        ActionModel Clipboard { get { return ScriptEditor.CurrentWindow.Clipboard; }
+                                set { ScriptEditor.CurrentWindow.Clipboard = value; }  }
+
         public ActionElementBase Context { get; private set; }
         public ActionElementBase Root { get; private set; }
 

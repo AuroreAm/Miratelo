@@ -16,10 +16,10 @@ namespace Pixify.Editor
             }
         }
         static ScriptEditorStyles _o;
-        public Color BackgroundColor = new Color (.05f, .0f, .0f);
-        public Color NormalColor = new Color (.2f, .1f, .0f);
-        public Color ContentColor = new Color (.1f, .0f, .0f);
-        public Color BorderColor = new Color (.7f, .4f, .0f);
+        public Color BackgroundColor = new Color (.00f, .05f, .0f);
+        public Color NormalColor = new Color (.1f, .2f, .0f);
+        public Color ContentColor = new Color (.0f, .1f, .0f);
+        public Color BorderColor = new Color (.4f, .7f, .0f);
 
         public GUIStyle h1;
         public GUIStyle h2;
