@@ -5,6 +5,15 @@ using UnityEngine;
 
 namespace Pixify
 {
+    [Serializable]
+    public struct PieceSkin
+    {
+        public Vector3 RotY;
+        public Mesh Mesh;
+        public Material Material;
+    }
+
+
     public abstract class piece : node
     {
         public virtual void BeginStep () {}

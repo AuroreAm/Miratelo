@@ -28,7 +28,7 @@ namespace Triheroes.Code
                 new CoreSystem<controller>(),
 
                 // attacks
-                new p_slash_attack.s_slash_attack(),
+                new s_slash_attack(),
 
                 // stats
 

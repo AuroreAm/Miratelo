@@ -63,6 +63,7 @@ namespace Pixify.Editor
             public int selected { get; private set; } = -1;
 
             List<Toggle> Toggles = new List<Toggle>();
+            public int TogglesCount => Toggles.Count;
 
             public void Add (params Toggle[] toggle)
             {
@@ -97,6 +98,7 @@ namespace Pixify.Editor
             protected override Vector2 GetInitSize(Vector2 ParentSize, DefTransform ParentDefTransform)
             {
                 Vector2 size = base.GetInitSize(ParentSize, ParentDefTransform);
+                int defRow = (int) Mathf.Ceil (Toggles.Count / (float) Column);
 
                 for (float i = 0, row = 0, column = 0; i < Toggles.Count; i++, column++)
                 {
@@ -105,9 +107,10 @@ namespace Pixify.Editor
                         column = 0;
                         row++;
                     }
+
                     Toggles[(int) i].DefTransform = new DefTransform()
                     {
-                        RelativeTransform = new Rect( column / (float) Column, row / (float) Column, 1 / (float) Column, 1 / (float) Column),
+                        RelativeTransform = new Rect( column / (float) Column, row / (float) defRow, 1 / (float) Column, 1 / (float) defRow),
                         Position = new Vector2(0, 0),
                         Size = new Vector2(0, 0)
                     };

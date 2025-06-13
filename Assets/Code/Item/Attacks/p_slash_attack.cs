@@ -5,155 +5,153 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class p_slash_attack : piece
+    public class s_slash_attack : PieceSystem<s_slash_attack.p_slash_attack>
     {
-        public Sword sword { private set; get; }
+        public static s_slash_attack o;
 
-        Vector3 position;
-        Quaternion rotation;
-        Vector3 previousPosition;
-        Quaternion previousRotation;
-        float length;
-        float duration;
-
-        float time;
-
-        public override void Stop()
+        public s_slash_attack()
         {
-            time = 0;
-            sword = null;
+            o = this;
+            dimensions = new SlashRayCalculation();
+            rayCasters = new RayCaster();
         }
 
-        public void Set(Sword sword, float duration)
+        SlashRayCalculation dimensions;
+        RayCaster rayCasters;
+
+        public override void Execute()
         {
-            this.sword = sword;
-            position = sword.transform.position;
-            rotation = sword.transform.rotation;
-            previousPosition = position;
-            previousRotation = rotation;
-            length = sword.Length;
-            this.duration = duration;
-        }
+            for (int i = pieces.Count - 1; i >= 0; i--)
+                pieces[i].Shift();
 
-        public void Shift()
-        {
-            previousPosition = position;
-            previousRotation = rotation;
-            position = sword.transform.position;
-            rotation = sword.transform.rotation;
-        }
+            // transfer data to the system
+            dimensions.SetEffectiveSize(pieces.Count);
+            rayCasters.SetEffectiveSize(pieces.Count * 5);
 
-
-        public class s_slash_attack : PieceSystem<p_slash_attack>
-        {
-            public static s_slash_attack o;
-
-            public s_slash_attack()
+            for (int i = 0; i < dimensions.effectiveSize; i++)
             {
-                o = this;
-                dimensions = new SlashRayCalculation();
-                rayCasters = new RayCaster();
+                dimensions.data[i] = new SlashDimensions()
+                {
+                    position = pieces[i].position,
+                    rotation = pieces[i].rotation,
+                    previousPosition = pieces[i].previousPosition,
+                    previousRotation = pieces[i].previousRotation,
+                    length = pieces[i].length
+                };
             }
 
-            SlashRayCalculation dimensions;
-            RayCaster rayCasters;
+            // calculate the rays
+            dimensions.Execute(ref rayCasters.data);
 
-            public override void Execute()
+            // cast the rays
+            rayCasters.Execute();
+
+            // duration
+            for (int i = pieces.Count - 1; i >= 0; i--)
             {
-                for (int i = pieces.Count - 1; i >= 0; i--)
-                    pieces[i].Shift();
+                pieces[i].timeLeft -= Time.deltaTime;
+                if (pieces[i].timeLeft <= 0)
+                    ReturnPiece(pieces[i]);
+            }
+        }
 
-                // transfer data to the system
-                dimensions.SetEffectiveSize(pieces.Count);
-                rayCasters.SetEffectiveSize(pieces.Count * 5);
+        class SlashRayCalculation : PieceDataSystem<SlashDimensions>
+        {
+            public SlashRayCalculation() : base(100) { }
 
-                for (int i = 0; i < dimensions.effectiveSize; i++)
-                {
-                    dimensions.data[i] = new SlashDimensions()
+            public void Execute(ref SlashLine5[] rays)
+            {
+                // create 5 rays along the sword
+                for (int i = 0; i < effectiveSize; i++)
+                    for (int j = 0; j < 5; j++)
                     {
-                        position = pieces[i].position,
-                        rotation = pieces[i].rotation,
-                        previousPosition = pieces[i].previousPosition,
-                        previousRotation = pieces[i].previousRotation,
-                        length = pieces[i].length
-                    };
-                }
-
-                // calculate the rays
-                dimensions.Execute(ref rayCasters.data);
-
-                // cast the rays
-                rayCasters.Execute();
-
-                // duration
-                for (int i = pieces.Count - 1; i >= 0; i--)
-                {
-                    pieces[i].time += Time.deltaTime;
-                    if (pieces[i].time > pieces[i].duration)
-                        ReturnPiece (pieces[i]);
-                }
-            }
-
-            class SlashRayCalculation : PieceDataSystem<SlashDimensions>
-            {
-                public SlashRayCalculation() : base(100) { }
-
-                public void Execute(ref SlashLine5[] rays)
-                {
-                    // create 5 rays along the sword
-                    for (int i = 0; i < effectiveSize; i++)
-                        for (int j = 0; j < 5; j++)
-                        {
-                            rays[i*5+j].line = new SlashLine5.Line(data[i].previousPosition + data[i].previousRotation * Vector3.forward * data[i].length * (j / 4f), data[i].position + data[i].rotation * Vector3.forward * data[i].length * (j / 4f));
-                        }
-                }
-            }
-
-            class RayCaster : PieceDataSystem<SlashLine5>
-            {
-                public RayCaster() : base(20) { }
-
-                public void Execute()
-                {
-                    for (int i = 0; i < effectiveSize; i++)
-                    {
-                        if (Physics.Linecast(data[i].line.start, data[i].line.end, Vecteur.Solid))
-                        {}
+                        rays[i * 5 + j].line = new SlashLine5.Line(data[i].previousPosition + data[i].previousRotation * Vector3.forward * data[i].length * (j / 4f), data[i].position + data[i].rotation * Vector3.forward * data[i].length * (j / 4f));
                     }
-                }
             }
+        }
 
-            public static p_slash_attack Fire(Sword sword, float duration)
+        class RayCaster : PieceDataSystem<SlashLine5>
+        {
+            public RayCaster() : base(20) { }
+
+            public void Execute()
             {
-                o.PeekPiece().Set(sword, duration);
-                p_slash_attack p = o.GetPiece();
-                return p;
-            }
-
-            struct SlashDimensions
-            {
-                public Vector3 position;
-                public Quaternion rotation;
-                public Vector3 previousPosition;
-                public Quaternion previousRotation;
-                public float length;
-            }
-
-            // 5 steps slash rays along the sword
-            struct SlashLine5
-            {
-                public Line line;
-
-                public struct Line
+                for (int i = 0; i < effectiveSize; i++)
                 {
-                    public Vector3 start;
-                    public Vector3 end;
-                    public Line(Vector3 start, Vector3 end)
-                    {
-                        this.start = start;
-                        this.end = end;
-                    }
+                    if (Physics.Linecast(data[i].line.start, data[i].line.end, Vecteur.Solid))
+                    { }
                 }
+            }
+        }
+
+        public static void Fire(Sword sword, float duration)
+        {
+            o.PeekPiece().Set(sword, duration);
+            o.GetPiece();
+        }
+
+        struct SlashDimensions
+        {
+            public Vector3 position;
+            public Quaternion rotation;
+            public Vector3 previousPosition;
+            public Quaternion previousRotation;
+            public float length;
+        }
+
+        // 5 steps slash rays along the sword
+        struct SlashLine5
+        {
+            public Line line;
+
+            public struct Line
+            {
+                public Vector3 start;
+                public Vector3 end;
+                public Line(Vector3 start, Vector3 end)
+                {
+                    this.start = start;
+                    this.end = end;
+                }
+            }
+        }
+
+        /// <summary>
+        /// internal piece, does nothing outside
+        /// </summary>
+        public class p_slash_attack : piece
+        {
+            public Sword sword { private set; get; }
+
+            public Vector3 position;
+            public Quaternion rotation;
+            public Vector3 previousPosition;
+            public Quaternion previousRotation;
+            public float length;
+            public float timeLeft;
+
+            public override void Stop()
+            {
+                sword = null;
+            }
+
+            public void Set(Sword sword, float duration)
+            {
+                this.sword = sword;
+                position = sword.transform.position;
+                rotation = sword.transform.rotation;
+                previousPosition = position;
+                previousRotation = rotation;
+                length = sword.Length;
+                this.timeLeft = duration;
+            }
+
+            public void Shift()
+            {
+                previousPosition = position;
+                previousRotation = rotation;
+                position = sword.transform.position;
+                rotation = sword.transform.rotation;
             }
         }
     }

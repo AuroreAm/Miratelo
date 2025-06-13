@@ -35,7 +35,7 @@ namespace Triheroes.Code
 
         void Slash ()
         {
-            p_slash_attack.s_slash_attack.Fire( msu.Weapon, ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [1] - ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [0] );
+            s_slash_attack.Fire( msu.Weapon, ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [1] - ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [0] );
         }
 
         void EndSlash ()
