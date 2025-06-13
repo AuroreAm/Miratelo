@@ -14,8 +14,6 @@ namespace Pixify
         [SerializeReference]
         public List <ModuleWriter> OverrideParameters;
 
-        // default module the character will use, added after all modules are added
-        public m_character_controller_writer OverrideController;
 
         void Awake()
         {
@@ -36,37 +34,18 @@ namespace Pixify
                 if (!OverridedTypes.Contains(p.GetType()))
                     p.WriteModule(c);
             }
+
             // add the character controller
-            if (OverrideController!=null)
-                OverrideController.WriteModule(c);
+            var cc = GetComponent <script> ();
+            if (cc)
+            {
+                m_character_controller mcc = c.RequireModule<m_character_controller> ();
+                treeBuilder.TreeStart ( c );
+                mcc.root = cc.CreateTree ();
+                mcc.Aquire (new Void ());
+            }
 
             Destroy (this);
-        }
-
-        [Serializable]
-        public class m_character_controller_writer : ModuleWriter
-        {
-            public ScriptModel Script;
-
-            public override void WriteModule (Character character)
-            {
-                ActionModel root = null;
-                if (Script) 
-                {
-                    root = Script.Root;
-
-                    if (root !=null || root.Valid)
-                    {
-                        m_character_controller c = character.RequireModule<m_character_controller> ();
-                        // set the character controller root
-                        c.root = root.CreateNode(character);
-                        // self aquire character controller
-                        c.Aquire(new Void());
-                    }
-                    else
-                    Debug.LogWarning("Model has no root");
-                }
-            }
         }
     }
 }

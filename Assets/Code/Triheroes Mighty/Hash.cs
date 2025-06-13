@@ -102,14 +102,17 @@ namespace Triheroes.Code
     /// </summary>
     public static class StateKey2
     {
+        public static readonly SuperKey zero = new SuperKey("zero");
         public static readonly SuperKey move = new SuperKey("move");
         public static readonly SuperKey fall = new SuperKey("fall");
         public static readonly SuperKey jump = new SuperKey("jump");
         public static readonly SuperKey draw = new SuperKey("draw");     
         public static readonly SuperKey return_ = new SuperKey("return");
         
+        public static readonly SuperKey msu = new SuperKey ("msu");
         public static readonly SuperKey slash = new SuperKey("slash");  
 
+        public static readonly SuperKey mbu = new SuperKey ("mbu");
         public static readonly SuperKey aim = new SuperKey("aim");
     }
 

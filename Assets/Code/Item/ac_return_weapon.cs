@@ -5,8 +5,10 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    /// <summary>
+    /// return a weapon in ms.r_arm
+    /// </summary>
     [Unique]
-    [NodeDescription("return a weapon in ms.r_arm")]
     [Category("actor")]
     public class ac_return_weapon : action
     {

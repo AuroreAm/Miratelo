@@ -418,6 +418,7 @@ GameObject:
   m_Component:
   - component: {fileID: 293923764}
   - component: {fileID: 293923765}
+  - component: {fileID: 293923766}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -455,8 +456,6 @@ MonoBehaviour:
   OverrideParameters:
   - id: 0
   - id: 1
-  OverrideController:
-    Script: {fileID: 11400000, guid: 80610b60fcb30ed40b31411ceb565ae9, type: 2}
   references:
     version: 1
     00000000:
@@ -469,6 +468,18 @@ MonoBehaviour:
         AttachedWeapon:
         - {fileID: 601018964}
         Faction: 0
+--- !u!114 &293923766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293923763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20628d10e9a6fd247bd5d18430b67f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &394239360
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -878,8 +889,6 @@ MonoBehaviour:
   Model: {fileID: 0}
   OverrideParameters:
   - id: 0
-  OverrideController:
-    Script: {fileID: 0}
   references:
     version: 1
     00000000:

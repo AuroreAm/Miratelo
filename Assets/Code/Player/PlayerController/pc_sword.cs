@@ -6,9 +6,10 @@ using UnityEngine;
 namespace Triheroes.Code
 {
 
+    /// <summary>
+    /// transition to: slash"
+    /// </summary>
     [Unique]
-    [NodeDescription("transition to: slash")]
-    [Category("player controller")]
     public class t_slash : action
     {
         [Depend]
@@ -23,9 +24,10 @@ namespace Triheroes.Code
         }
     }
 
+    /// <summary>
+    /// "success the controlled selector to advance the combo
+    /// </summary>
     [Unique]
-    [NodeDescription("success the controlled selector to advance the combo")]
-    [Category("player controller")]
     public class t_combo_success : action
     {
         [Depend]

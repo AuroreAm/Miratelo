@@ -1,0 +1,113 @@
+using System.Collections;
+using System.Collections.Generic;
+using Pixify;
+using static Pixify.treeBuilder;
+using UnityEngine;
+using Triheroes.Code;
+
+public class scr_player_controller : script
+{
+    public override action CreateTree( )
+    {
+        new selector () {fallback = true};
+            new parallel () { Tag = StateKey2.zero };
+                new selector () {fallback = true};
+                    new parallel () { Tag = StateKey2.move };
+                        new pc_move ();
+                        new t_fall ();
+                        new t_jump_complex ();
+                            new selector () { fallback = true };
+                                new parallel () { Tag = StateKey2.zero };
+                                    new t_draw ();
+                                    new t_return ();
+                                end ();   
+                                new ac_draw_weapon () { Tag = StateKey2.draw };
+                                new ac_return_weapon () { Tag = StateKey2.return_};
+                            end ();
+                    end ();
+                    new parallel () { Tag = StateKey2.jump };
+                        new pc_jump ();
+                        new t_move ();
+                        new t_fall ();
+                    end ();
+                    new parallel () { Tag = StateKey2.fall };
+                        new pc_fall ();
+                        new t_move ();
+                    end ();
+                end ();
+                new t_mwu ();
+            end ();
+
+            new parallel () { Tag = StateKey2.msu };
+                new selector () {fallback = true};
+                    new parallel () { Tag = StateKey2.move };
+                        new pc_move ();
+                        new t_fall ();
+                        new t_jump_complex ();
+                        new t_slash ();
+                            new selector () { fallback = true };
+                                new parallel () { Tag = StateKey2.zero };
+                                    new t_return ();
+                                end ();
+                                new ac_return_weapon () { Tag = StateKey2.return_};
+                            end ();
+                    end ();
+                    new parallel () { Tag = StateKey2.jump };
+                        new pc_jump ();
+                        new t_move ();
+                        new t_fall ();
+                    end ();
+                    new parallel () { Tag = StateKey2.fall };
+                        new pc_fall ();
+                        new t_move ();
+                    end ();
+                    new controlled_sequence () { Tag = StateKey2.slash };
+                        new parallel () { StopWhenFirstNodeStopped = true };
+                            new ac_slash () { ComboId = 0 };
+                            new t_combo_success ();
+                        end ();
+                        new parallel () { StopWhenFirstNodeStopped = true };
+                            new ac_slash () { ComboId = 1 };
+                            new t_combo_success ();
+                        end ();
+                        new parallel () { StopWhenFirstNodeStopped = true };
+                            new ac_slash () { ComboId = 2 };
+                            new t_combo_success ();
+                        end ();
+                    end ();
+                end ();
+                new t_zero ();
+            end ();
+
+            new parallel () { Tag = StateKey2.mbu };
+                new selector () {fallback = true};
+                    new parallel () { Tag = StateKey2.move };
+                        new pc_move ();
+                        new t_fall ();
+                        new t_jump_complex ();
+                            new selector () { fallback = true };
+                                new parallel () { Tag = StateKey2.zero };
+                                    new t_return ();
+                                    new t_aim ();
+                                end ();
+                                new ac_return_weapon () { Tag = StateKey2.return_};
+                                new pc_aim () { Tag = StateKey2.aim };
+                            end ();
+                    end ();
+                    new parallel () { Tag = StateKey2.jump };
+                        new pc_jump ();
+                        new t_move ();
+                        new t_fall ();
+                    end ();
+                    new parallel () { Tag = StateKey2.fall };
+                        new pc_fall ();
+                        new t_move ();
+                    end ();
+                end ();
+                new t_zero ();
+            end ();
+        end ();
+
+        return TreeFinalize ();
+    }
+}

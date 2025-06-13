@@ -17,16 +17,13 @@ namespace Pixify.Editor
         {
             Debugged = a;
             label = new Label("", o.TextMiddleLeftX);
-
-            if (a.GetType().GetCustomAttribute<NodeDescriptionAttribute>() != null)
-                Description = a.GetType().GetCustomAttribute<NodeDescriptionAttribute>().Description;
         }
 
         override public void Draw()
         {
             string hexNodeTintColor = ColorUtility.ToHtmlStringRGB(Debugged.GetType().GetCustomAttribute<NodeTintAttribute>().Tint);
 
-            label.text = string.Concat($"<color=#{hexNodeTintColor}>{Debugged.GetType().Name}</color> -", Debugged.Tag, "-", $"<color=#aaaaaa> {Description} </color>", $"<color=#aaaaee> {Debugged.GetAdditionalInfo()}</color>");
+            label.text = string.Concat($"<color=#{hexNodeTintColor}>{Debugged.GetType().Name}</color> -", Debugged.Tag, "-", $"<color=#aaaaaa> {Description} </color>");
 
             if ( Debugged.on == true )
             EditorGUI.DrawRect(Transform, new Color (0,0.7f,0));

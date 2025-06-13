@@ -5,9 +5,10 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    /// <summary>
+    /// transition to: draw
+    /// </summary>
     [Unique]
-    [NodeDescription("transition to: draw")]
-    [Category("player controller")]
     public class t_draw : action
     {
         [Depend]
@@ -26,10 +27,10 @@ namespace Triheroes.Code
         }
     }
 
+    /// <summary>
+    /// transition to: return"
+    /// </summary>
     [Unique]
-    
-    [NodeDescription("transition to: return")]
-    [Category("player controller")]
     public class t_return : action
     {
         [Depend]

@@ -5,9 +5,10 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    /// <summary>
+    /// transition to: jump
+    /// </summary>
     [Unique]
-    [NodeDescription("transition to: jump")]
-    [Category("player controller")]
     public class t_jump_complex : action
     {
         [Depend]
@@ -32,7 +33,6 @@ namespace Triheroes.Code
     }
 
     [Unique]
-    [Category("player controller")]
     public class pc_jump : action
     {
         [Depend]

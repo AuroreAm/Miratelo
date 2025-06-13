@@ -5,9 +5,10 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    /// <summary>
+    /// draw a weapon in ms.r_arm
+    /// </summary>
     [Unique]
-    [NodeDescription("draw a weapon in ms.r_arm")]
-    [Category("actor")]
     public class ac_draw_weapon : action
     {
         [Depend]

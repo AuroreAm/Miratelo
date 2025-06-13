@@ -5,34 +5,34 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [Category("actor")]
-    [NodeDescription("Switch to the corresponding weapon user branch: mbu - msu ")]
+    /// <summary>
+    /// Switch to the corresponding weapon user branch: mbu - msu
+    /// </summary>
     public class t_mwu : action
     {
         [Depend]
         m_equip me;
-        public static readonly SuperKey msu = new SuperKey ("msu");
-        public static readonly SuperKey mbu = new SuperKey ("mbu");
 
         protected override bool Step()
         {
             if (me.weaponUser is m_sword_user)
             {
-                selector.CurrentSelector.SwitchTo ( msu );
+                selector.CurrentSelector.SwitchTo ( StateKey2.msu );
                 return false;
             }
             
             if (me.weaponUser is m_bow_user)
             {
-                selector.CurrentSelector.SwitchTo ( mbu );
+                selector.CurrentSelector.SwitchTo ( StateKey2.mbu );
                 return false;
             }
             return false;
         }
     }
 
-    [Category("actor")]
-    [NodeDescription("Switch to default branch if no weapon user")]
+    /// <summary>
+    /// Switch to default branch if no weapon user
+    /// </summary>
     public class t_zero : action
     {
         

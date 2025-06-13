@@ -5,8 +5,10 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    /// <summary>
+    /// transition to: move
+    /// </summary>
     [Unique]
-    [NodeDescription("transition to: move")]
     [Category("actor")]
     public class t_move : action
     {
@@ -24,8 +26,10 @@ namespace Triheroes.Code
         }
     }
 
+    /// <summary>
+    /// transition to: fall
+    /// </summary>
     [Unique]
-    [NodeDescription("transition to: fall")]
     [Category("actor")]
     public class t_fall : action
     {

@@ -74,12 +74,5 @@ namespace Pixify
             if (o[ptr].on)
             o[ptr].iAbort ();
         }
-
-        #if UNITY_EDITOR
-        public override string GetAdditionalInfo()
-        {
-            return $"repeat: {repeat}, reset: {reset}";
-        }
-        #endif
     }
 }

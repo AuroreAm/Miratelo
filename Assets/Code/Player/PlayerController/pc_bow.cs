@@ -5,9 +5,10 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    /// <summary>
+    /// transition to: aim
+    /// </summary>
     [Unique]
-    [Category("player controller")]
-    [NodeDescription("transition to: aim")]
     public class t_aim : action
     {
         protected override bool Step()
@@ -20,7 +21,6 @@ namespace Triheroes.Code
     }
 
     [Unique]
-    [Category("player controller")]
     public class pc_aim : action
     {
         [Depend]

@@ -15,6 +15,11 @@ namespace Pixify
         /// </summary>
         public virtual void Create ()
         {  }
+
+        public node ()
+        {
+            treeBuilder.Write ( this );
+        }
     }
     
     [AttributeUsage(AttributeTargets.Class,Inherited = true)]
@@ -47,14 +52,6 @@ namespace Pixify
         {
             Tint = new Color(r,g,b);
         }
-    }
-
-    [AttributeUsage(AttributeTargets.Class,Inherited = true)]
-    public class NodeDescriptionAttribute : Attribute
-    {
-        public string Description;
-        public NodeDescriptionAttribute( string Description )
-        { this.Description = Description; }
     }
 
     /// <summary>

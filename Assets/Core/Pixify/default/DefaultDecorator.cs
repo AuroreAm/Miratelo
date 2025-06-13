@@ -9,9 +9,7 @@ namespace Pixify
     {
         int ptr;
 
-        [Export]
         public bool repeat = true;
-        [Export]
         public bool reset = true;
 
         protected sealed override void BeginStep ()
@@ -45,13 +43,6 @@ namespace Pixify
             if (o[ptr].on)
             o[ptr].iAbort ();
         }
-
-        #if UNITY_EDITOR
-        public override string GetAdditionalInfo()
-        {
-            return $"repeat: {repeat}, reset: {reset}";
-        }
-        #endif
     }
 
     [NodeTint(0,1,0)]
@@ -60,7 +51,6 @@ namespace Pixify
         /// <summary>
         /// if true, the node will stop when the first node stops
         /// </summary>
-        [Export]
         public bool StopWhenFirstNodeStopped;
 
         protected override void BeginStep()
@@ -111,13 +101,6 @@ namespace Pixify
                     n.iAbort();
             }
         }
-
-        #if UNITY_EDITOR
-        public override string GetAdditionalInfo()
-        {
-            return $"Stop when first node is stopped: {StopWhenFirstNodeStopped}";
-        }
-        #endif
     }
 
     public sealed class selector : decorator
@@ -128,9 +111,7 @@ namespace Pixify
         /// </summary>
         public static selector CurrentSelector => ExecutingSelectors.Count > 0 ? ExecutingSelectors.Peek() : null;
 
-        [Export]
         public bool reset = true;
-        [Export]
         public bool fallback = false;
 
         Dictionary <SuperKey, action> Index;
@@ -202,13 +183,6 @@ namespace Pixify
             else
             Debug.LogWarning ("tag " + tag + " not found");
         }
-
-        #if UNITY_EDITOR
-        public override string GetAdditionalInfo()
-        {
-            return $"reset: {reset}, fallback: {fallback}";
-        }
-        #endif
     }
 
     public sealed class delayrepeater : decorator
