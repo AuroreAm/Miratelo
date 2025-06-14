@@ -24,7 +24,7 @@ namespace Triheroes.Code
 
         void Awake()
         {
-            Ani = GetComponent<Animator>();
+           Ani = GetComponent<Animator>();
         }
 
         void LateUpdate()

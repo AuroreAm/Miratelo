@@ -38,6 +38,9 @@ namespace Triheroes.Code
             Vector3 RotDirection = Vecteur.RotDirection ( mbu.Weapon.BowString.position, m_camera.o.PointScreenCenter( mbu.character.transform ) );
             ca.Aim ( RotDirection );
 
+            if (Player.GetButtonUp (BoutonId.Fire1))
+                ca.StartShoot ();
+
             if (Player.GetButtonDown (BoutonId.Fire3))
             return true;
 

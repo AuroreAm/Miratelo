@@ -7,5 +7,10 @@ namespace Pixify
     public abstract class script : MonoBehaviour
     {
         public abstract action CreateTree ();
+
+        public void Start ()
+        {
+            Destroy (this);
+        }
     }
 }

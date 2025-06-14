@@ -8,7 +8,7 @@ namespace Triheroes.Code
     public class ActorFaction : MonoBehaviour
     {
         public static ActorFaction o;
-        public Dictionary<int, List<m_actor>> factions { get; private set; } = new Dictionary<int, List<m_actor>>();
+        public List<m_actor>[] factions { get; private set; } = new List<m_actor> [] { new List<m_actor>(), new List<m_actor>() };
 
         void Awake()
         {
@@ -17,9 +17,12 @@ namespace Triheroes.Code
 
         public static void Register (m_actor actor, int faction)
         {
-            if (!o.factions.ContainsKey (faction))
-                o.factions.Add (faction, new List<m_actor> ());
             o.factions [faction].Add (actor);
+        }
+
+        public static List<m_actor> GetFoes ( int myfaction )
+        {
+            return o.factions [ myfaction == 1? 0 : 1 ];
         }
     }
 }

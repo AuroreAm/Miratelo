@@ -10,6 +10,7 @@ public class scr_player_controller : script
     public override action CreateTree( )
     {
         new selector () {fallback = true};
+
             new parallel () { Tag = StateKey2.zero };
                 new selector () {fallback = true};
                     new parallel () { Tag = StateKey2.move };
@@ -41,7 +42,17 @@ public class scr_player_controller : script
             new parallel () { Tag = StateKey2.msu };
                 new selector () {fallback = true};
                     new parallel () { Tag = StateKey2.move };
-                        new pc_move ();
+                        new selector () {fallback = true, reset = false};
+                            new parallel () { Tag = StateKey2.zero };
+                                new pc_move ();
+                                new t_target ();
+                            end ();
+                            new parallel () {Tag = StateKey2.targetting};
+                                new pc_lateral_move ();
+                                new ac_lock_target ();
+                                new t_untarget ();
+                            end ();
+                        end ();
                         new t_fall ();
                         new t_jump_complex ();
                         new t_slash ();
@@ -77,6 +88,7 @@ public class scr_player_controller : script
                     end ();
                 end ();
                 new t_zero ();
+                new pc_target ();
             end ();
 
             new parallel () { Tag = StateKey2.mbu };
@@ -106,6 +118,7 @@ public class scr_player_controller : script
                 end ();
                 new t_zero ();
             end ();
+
         end ();
 
         return TreeFinalize ();

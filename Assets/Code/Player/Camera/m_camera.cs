@@ -57,7 +57,8 @@ namespace Triheroes.Code
         [Depend]
         public m_camera mc;
 
-        public Transform Target;
+        public m_actor C;
+        public Vector3 Target => C.md.position;
         // controls
         public Vector3 rotY { get; private set; }
         public Vector3 offset { get; private set; }
@@ -70,15 +71,18 @@ namespace Triheroes.Code
 
         // embeded controllers
         tps_normal tps;
+        tps_target tt;
 
         public override void Create()
         {
             transitionController = character.ConnectNode ( new m_camera_tps_transition() );
             tps = character.ConnectNode ( new tps_normal() );
+            tt = character.ConnectNode ( new tps_target() );
+
             currentController = tps;
 
             // TODO: get the target character from Gamedata
-            Target = GameObject.Find ("Player").transform;
+            C = GameObject.Find ("Player").GetComponent <Character>().GetModule<m_actor> ();
         }
 
         void SetController ( pc_camera_tps_controller newController )
@@ -102,6 +106,13 @@ namespace Triheroes.Code
         void CameraController ()
         {
             // TODO: chose the right controller here according to the target character behaviour
+            if (C.target != null)
+            {
+                SetController(tt);
+                return;
+            }
+
+            SetController(tps);
         }
 
         void UpdateController ()
@@ -133,7 +144,7 @@ namespace Triheroes.Code
             if (Physics.Raycast(mc.Coord.position, mc.CameraPivot.TransformDirection(Vector3.back), out RaycastHit hit, distance, Vecteur.Solid))
                 RayDistance = hit.distance - 0.25f;
 
-            mc.Coord.position = Target.position + offset + height * Vector3.up;
+            mc.Coord.position = Target + offset + height * Vector3.up;
             mc.Coord.rotation = Quaternion.Euler(rotY);
             mc.CameraPivot.transform.localPosition = Vector3.back * RayDistance;
         }
@@ -172,7 +183,7 @@ namespace Triheroes.Code
             {
                 nextController.Update();
 
-                t = Mathf.Lerp (0, 1, .1f);
+                t += Time.unscaledDeltaTime * 2;
 
                 rotY.y = Mathf.LerpAngle(inRotY.y, nextController.rotY.y, t);
                 rotY.x = Mathf.LerpAngle(inRotY.x, nextController.rotY.x, t);

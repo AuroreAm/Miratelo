@@ -82,7 +82,7 @@ namespace Triheroes.Code
         public static readonly SuperKey brake_rotation = new SuperKey("brake_rotation");
         public static readonly SuperKey idle = new SuperKey("idle");
         public static readonly SuperKey walk = new SuperKey("walk");
-        public static readonly SuperKey walk_lateral = new SuperKey("walk_lateral");
+        public static readonly SuperKey run_lateral = new SuperKey("run_lateral");
         public static readonly SuperKey walk_tired = new SuperKey("walk_tired");
         public static readonly SuperKey run = new SuperKey("run");
         public static readonly SuperKey sprint = new SuperKey("sprint");
@@ -108,6 +108,8 @@ namespace Triheroes.Code
         public static readonly SuperKey jump = new SuperKey("jump");
         public static readonly SuperKey draw = new SuperKey("draw");     
         public static readonly SuperKey return_ = new SuperKey("return");
+
+        public static readonly SuperKey targetting =  new SuperKey ("targetting");
         
         public static readonly SuperKey msu = new SuperKey ("msu");
         public static readonly SuperKey slash = new SuperKey("slash");  

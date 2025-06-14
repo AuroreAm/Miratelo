@@ -35,6 +35,19 @@ namespace Triheroes.Code
             mb.TargetRotation = Rotation;
         }
 
+        public void StartShoot ()
+        {
+            if (on)
+            {
+                ms.PlayState ( ms.upper, AnimationKey.start_shoot, 0.1f, null, null, Shoot );
+            }
+        }
+
+        void Shoot ()
+        {
+            mbu.Weapon.Arrow.Shoot ( mbu.Weapon.BowString.position, Quaternion.Euler (mbu.rotY), mbu.Weapon.Speed );
+        }
+
         protected override void OnFree()
         {
             mb.FollowTargetRotation = false;

@@ -77,6 +77,14 @@ namespace Pixify
             }
         }
 
+        public T GetModule <T> () where T : module, new ()
+        {
+             if (modules.TryGetValue(typeof(T), out module m))
+                return m as T;
+            else
+                return null;
+        }
+
         void RegisterNode ( node m )
         {
             ptr ++;

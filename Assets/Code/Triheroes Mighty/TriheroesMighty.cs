@@ -29,6 +29,7 @@ namespace Triheroes.Code
 
                 // attacks
                 new s_slash_attack(),
+                new s_trajectile (),
 
                 // stats
 

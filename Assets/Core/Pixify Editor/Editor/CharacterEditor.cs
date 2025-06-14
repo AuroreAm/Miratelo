@@ -21,10 +21,16 @@ namespace Pixify.Editor
 
         void Load ()
         {
-            var mcc = Target.RequireModule<m_character_controller>();
+            var mcc = Target.GetModule<m_character_controller>();
+            
             mainDebugger = new Area(); mainDebugger.Padding(new Vector4(8, 8, 8, 8));
-            Content = actionDebuggerBase.CreateDebugger ( mcc.root );
-            mainDebugger.Add ( Content );
+
+            if (mcc!=null)
+            {
+                Content = actionDebuggerBase.CreateDebugger ( mcc.root );
+                mainDebugger.Add ( Content );
+            }
+
             Debugger = new AreaScreen( mainDebugger );
         }
 

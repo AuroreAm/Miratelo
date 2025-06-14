@@ -5,154 +5,98 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class s_slash_attack : PieceSystem<s_slash_attack.p_slash_attack>
+    public class s_slash_attack : ThingSystem <p_slash_attack>
     {
         public static s_slash_attack o;
 
-        public s_slash_attack()
+        public s_slash_attack ()
         {
             o = this;
-            dimensions = new SlashRayCalculation();
-            rayCasters = new RayCaster();
         }
 
-        SlashRayCalculation dimensions;
-        RayCaster rayCasters;
-
-        public override void Execute()
+        public static int Fire ( Sword sword, float duration )
         {
-            for (int i = pieces.Count - 1; i >= 0; i--)
-                pieces[i].Shift();
-
-            // transfer data to the system
-            dimensions.SetEffectiveSize(pieces.Count);
-            rayCasters.SetEffectiveSize(pieces.Count * 5);
-
-            for (int i = 0; i < dimensions.effectiveSize; i++)
-            {
-                dimensions.data[i] = new SlashDimensions()
-                {
-                    position = pieces[i].position,
-                    rotation = pieces[i].rotation,
-                    previousPosition = pieces[i].previousPosition,
-                    previousRotation = pieces[i].previousRotation,
-                    length = pieces[i].length
-                };
-            }
-
-            // calculate the rays
-            dimensions.Execute(ref rayCasters.data);
-
-            // cast the rays
-            rayCasters.Execute();
-
-            // duration
-            for (int i = pieces.Count - 1; i >= 0; i--)
-            {
-                pieces[i].timeLeft -= Time.deltaTime;
-                if (pieces[i].timeLeft <= 0)
-                    ReturnPiece(pieces[i]);
-            }
+            o.pool.NextPiece ().Set (sword, duration);
+            return o.pool.GetPiece ();
         }
+    }
 
-        class SlashRayCalculation : PieceDataSystem<SlashDimensions>
+    public class p_slash_attack : thing
+    {
+        public Sword sword { private set; get; }
+
+        Vector3 position;
+        Quaternion rotation;
+        Vector3 previousPosition;
+        Quaternion previousRotation;
+        float length;
+        float timeLeft;
+
+        public void Set(Sword sword, float duration)
         {
-            public SlashRayCalculation() : base(100) { }
-
-            public void Execute(ref SlashLine5[] rays)
-            {
-                // create 5 rays along the sword
-                for (int i = 0; i < effectiveSize; i++)
-                    for (int j = 0; j < 5; j++)
-                    {
-                        rays[i * 5 + j].line = new SlashLine5.Line(data[i].previousPosition + data[i].previousRotation * Vector3.forward * data[i].length * (j / 4f), data[i].position + data[i].rotation * Vector3.forward * data[i].length * (j / 4f));
-                    }
-            }
+            this.sword = sword;
+            position = sword.transform.position;
+            rotation = sword.transform.rotation;
+            previousPosition = position;
+            previousRotation = rotation;
+            length = sword.Length;
+            this.timeLeft = duration;
         }
 
-        class RayCaster : PieceDataSystem<SlashLine5>
+        public override void Create()
         {
-            public RayCaster() : base(20) { }
-
-            public void Execute()
-            {
-                for (int i = 0; i < effectiveSize; i++)
-                {
-                    if (Physics.Linecast(data[i].line.start, data[i].line.end, Vecteur.Solid))
-                    { }
-                }
-            }
+            rays = new Line [5];
         }
 
-        public static void Fire(Sword sword, float duration)
+        Line [] rays;
+        public override bool Main()
         {
-            o.PeekPiece().Set(sword, duration);
-            o.GetPiece();
+            Shift ();
+            LineCalculation ();
+            Raycast ();
+
+            timeLeft -= Time.deltaTime;
+                if (timeLeft <= 0)
+                    return true;
+
+            return false;
         }
 
-        struct SlashDimensions
+        void Shift ()
         {
-            public Vector3 position;
-            public Quaternion rotation;
-            public Vector3 previousPosition;
-            public Quaternion previousRotation;
-            public float length;
+            previousPosition = position;
+            previousRotation = rotation;
+            position = sword.transform.position;
+            rotation = sword.transform.rotation;
         }
 
-        // 5 steps slash rays along the sword
-        struct SlashLine5
+        void LineCalculation ()
         {
-            public Line line;
-
-            public struct Line
+            for (int j = 0; j < 5; j++)
             {
-                public Vector3 start;
-                public Vector3 end;
-                public Line(Vector3 start, Vector3 end)
-                {
-                    this.start = start;
-                    this.end = end;
-                }
+                rays[j] = new Line(previousPosition + previousRotation * Vector3.forward * length * (j / 4f), position + rotation * Vector3.forward * length * (j / 4f));
             }
         }
 
-        /// <summary>
-        /// internal piece, does nothing outside
-        /// </summary>
-        public class p_slash_attack : piece
+        void Raycast ()
         {
-            public Sword sword { private set; get; }
-
-            public Vector3 position;
-            public Quaternion rotation;
-            public Vector3 previousPosition;
-            public Quaternion previousRotation;
-            public float length;
-            public float timeLeft;
-
-            public override void Stop()
+            for (int i = 0; i < 5; i++)
             {
-                sword = null;
-            }
-
-            public void Set(Sword sword, float duration)
-            {
-                this.sword = sword;
-                position = sword.transform.position;
-                rotation = sword.transform.rotation;
-                previousPosition = position;
-                previousRotation = rotation;
-                length = sword.Length;
-                this.timeLeft = duration;
-            }
-
-            public void Shift()
-            {
-                previousPosition = position;
-                previousRotation = rotation;
-                position = sword.transform.position;
-                rotation = sword.transform.rotation;
+                if (Physics.Linecast(rays[i].start, rays[i].end, Vecteur.Solid))
+                { }
             }
         }
+        
+        public struct Line
+        {
+            public Vector3 start;
+            public Vector3 end;
+            public Line(Vector3 start, Vector3 end)
+            {
+                this.start = start;
+                this.end = end;
+            }
+        }
+
     }
 }

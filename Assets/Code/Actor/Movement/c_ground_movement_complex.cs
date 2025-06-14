@@ -8,7 +8,7 @@ namespace Triheroes.Code
     // core to command between idle - walk - run - sprint - brake - brake rotation
     // uses CharacterController physics
     // need ground data for normal projection
-    // also manage animations
+    // also manages animations
     // does not change to fall movement when not on ground, this must be manually added in behavior trees
     [RegisterAsBase]
     public class c_ground_movement_complex : controller
@@ -155,7 +155,7 @@ namespace Triheroes.Code
             ToRun ();
         }
 
-        private Vector3 SlopeProjection ( Vector3 Dir,Vector3 GroundNormal ) => Vector3.ProjectOnPlane (Dir, GroundNormal).normalized * Dir.magnitude;
+        
 
         #region public methods
 
@@ -170,7 +170,7 @@ namespace Triheroes.Code
                 rotDir = walkDir.normalized;
 
                 if (state!=StateKey.brake_rotation)
-                mccc.dir += Time.deltaTime * walkFactor * SlopeProjection (DirPerSecond, mgd.groundNormal);
+                mccc.dir += Time.deltaTime * walkFactor * c_ground_movement.SlopeProjection (DirPerSecond, mgd.groundNormal);
             }
         }
         #endregion

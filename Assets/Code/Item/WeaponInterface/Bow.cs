@@ -9,6 +9,9 @@ namespace Triheroes.Code
         public override SuperKey DefaultDrawAnimation => AnimationKey.take_bow;
         public override SuperKey DefaultReturnAnimation => AnimationKey.return_bow;
 
+
+        public float Speed;
+        public TrajectilePaper Arrow;
         public Transform BowString;
     }
 }

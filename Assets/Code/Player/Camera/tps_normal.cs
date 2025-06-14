@@ -17,8 +17,7 @@ namespace Triheroes.Code
 
         public override void Update()
         {
-            // TODO: get height from the target character
-            height = 1.5f;
+            height = c.C.md.h;
             distance = 4;
 
             // rotate using the mouse

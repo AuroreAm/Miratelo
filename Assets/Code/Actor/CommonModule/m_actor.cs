@@ -16,6 +16,7 @@ namespace Triheroes.Code
         {
             var ma = character.RequireModule<m_actor>();
             ActorFaction.Register (ma, Faction);
+            ma.faction = Faction;
 
             if (AttachedWeapon.Count > 0)
             {
@@ -32,6 +33,8 @@ namespace Triheroes.Code
         public m_skin ms;
         [Depend]
         public m_dimension md;
+
+        public int faction;
 
 
         public m_actor target {get; private set;}
@@ -55,6 +58,17 @@ namespace Triheroes.Code
             if (target != null && target.lockers.Contains (this))
             target.lockers.Remove (this);
             target = null;
+        }
+
+        public m_actor GetNearestFacedFoe ( float distance )
+        {
+            List<m_actor> foe = ActorFaction.GetFoes(faction);
+            foe.Sort( new SortDistanceA<m_actor>(ms.rotY.y, ms.Coord.position, distance) );
+
+            if (foe.Count > 0 && Vector3.Distance(ms.Coord.position, foe[0].ms.Coord.position) < distance)
+                return foe[0];
+
+            return null;
         }
     }
 }
