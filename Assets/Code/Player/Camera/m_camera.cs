@@ -80,9 +80,6 @@ namespace Triheroes.Code
             tt = character.ConnectNode ( new tps_target() );
 
             currentController = tps;
-
-            // TODO: get the target character from Gamedata
-            C = GameObject.Find ("Player").GetComponent <Character>().GetModule<m_actor> ();
         }
 
         void SetController ( pc_camera_tps_controller newController )
@@ -98,6 +95,8 @@ namespace Triheroes.Code
 
         public sealed override void Main()
         {
+            // TODO: get the target character from Gamedata
+            C = GameObject.Find ("Player").GetComponent <Character>().GetModule<m_actor> ();
             CameraController ();
             UpdateController ();
             UpdateCamera ();
