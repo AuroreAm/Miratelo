@@ -4,12 +4,24 @@ using System.Collections.Generic;
 
 namespace Triheroes.Code
 {
+    [Serializable]
+    public struct SceneData
+    {
+        public string NomDeLaCarte;
+        public string BGMNatif;
+    }
+
     public class TriheroesMighty : PixifyEngine
     {
+        public SceneData Scene;
+
         public override void BeforeCreateSystems()
         {
-            gameObject.AddComponent <Vecteur> ();
-            gameObject.AddComponent <ActorFaction> ();
+            Director d = gameObject.AddComponent <Director> ();
+            
+            d.RequireModule <Vecteur> ();
+            d.RequireModule <ActorFaction> ();
+            d.RequireModule <BGMMaster> ();
         }
 
         protected override void CreateSystems(out List<PixifySytemBase> systems)
@@ -36,6 +48,9 @@ namespace Triheroes.Code
                 // character movement
                 new s_ccc_gravity (),
                 new CoreSystem<m_capsule_character_controller>(),
+
+                // elements reaction
+                new s_element (),
 
                 // character skin and animations
                 new CoreSystem<m_skin>(),
