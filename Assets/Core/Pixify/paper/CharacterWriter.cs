@@ -41,8 +41,7 @@ namespace Pixify
             {
                 m_character_controller mcc = c.RequireModule<m_character_controller> ();
                 treeBuilder.TreeStart ( c );
-                mcc.root = cc.CreateTree ();
-                mcc.Aquire (new Void ());
+                mcc.StartRoot (cc.CreateTree ());
             }
 
             Destroy (this);
