@@ -44,4 +44,34 @@ namespace Triheroes.Code
             weapon.transform.localRotation = Quaternion.identity;
         }
     }
+
+    public class ac_equip_adw : action
+    {
+        [Depend]
+        m_equip me;
+        public int index;
+
+        public ac_equip_adw (int id)
+        {
+            index = id;
+        }
+
+        protected override bool Step()
+        {
+            me.character.GetUnique <ac_draw_weapon> ().Set ( me.weapons [index] );
+            return true;
+        }
+    }
+
+    public class ac_equip_arw : action
+    {
+        [Depend]
+        m_equip me;
+
+        protected override bool Step()
+        {
+            me.character.GetUnique <ac_return_weapon> ().Set ( me.weaponUser.WeaponBase );
+            return true;
+        }
+    }
 }

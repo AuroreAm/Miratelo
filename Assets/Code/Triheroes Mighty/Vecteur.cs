@@ -8,7 +8,7 @@ namespace Triheroes.Code
     /// <summary>
     /// Vectors mathematics and constants
     /// </summary>
-	public class Vecteur : MonoBehaviour
+	public class Vecteur : module
 	{
 		public static Vecteur o;
 
@@ -22,12 +22,13 @@ namespace Triheroes.Code
 		public static LayerMask Interact;
 
 		// layer hardcoded constant
+		public static readonly int CHARACTER = 10;
 		public static readonly int ATTACK = 11;
 		public static readonly int SOLID = 9;
 		public static readonly float Drag = 1;
 
 		// initialisation
-		void Awake()
+		public override void Create()
 		{
 			Cursor.lockState = CursorLockMode.Locked;
 			Application.targetFrameRate = 90;

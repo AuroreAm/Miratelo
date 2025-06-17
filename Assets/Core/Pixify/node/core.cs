@@ -51,9 +51,4 @@ namespace Pixify
                 throw new InvalidOperationException("cannot free things this node doesn't host, or the node is no longuer aquired in the first place");
         }
     }
-
-    public interface ICoreFeedback
-    {
-        public void AquiredNodeFreed(node AquiredNode);
-    }
 }

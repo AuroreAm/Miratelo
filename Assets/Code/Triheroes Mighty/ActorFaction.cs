@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class ActorFaction : MonoBehaviour
+    public class ActorFaction : module
     {
         public static ActorFaction o;
         public List<m_actor>[] factions { get; private set; } = new List<m_actor> [] { new List<m_actor>(), new List<m_actor>() };
 
-        void Awake()
+        public override void Create()
         {
             o = this;
         }

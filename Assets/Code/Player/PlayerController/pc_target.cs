@@ -18,7 +18,7 @@ namespace Triheroes.Code
         protected override bool Step()
         {
 
-            if ( ma.target != null )
+            if ( ma.target )
             selector.CurrentSelector.SwitchTo ( StateKey2.targetting );
 
             return false;
@@ -59,7 +59,7 @@ namespace Triheroes.Code
 
         protected override bool Step()
         {
-            if ( ma.target == null )
+            if ( !ma.target )
             selector.CurrentSelector.FallBack ();
 
             return false;

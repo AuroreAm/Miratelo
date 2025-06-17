@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
@@ -5,6 +6,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    [Serializable]
     [Category ("Actor")]
     public class skin_writer : ModuleWriter
     {
@@ -12,18 +14,27 @@ namespace Triheroes.Code
 
         public override void WriteModule(Character character)
         {
-            character.RequireModule <m_dimension> ().Set ( Model.h, Model.r, Model.m );
-            character.RequireModule <m_skin>().Set ( Model.gameObject, Model.AniExt, new Vector2 (Model.offsetRotationY, Model.offsetPositionY) );
+            // Instantiate the model
+            SkinModel model = GameObject.Instantiate(Model).GetComponent<SkinModel>();
+
+            character.RequireModule <m_dimension> ().Set ( model.h, model.r, model.m );
+            character.RequireModule <m_skin>().Set ( model.gameObject, model.AniExt, new Vector2 (model.offsetRotationY, model.offsetPositionY) );
+
+            // element modules
+            character.RequireModule <m_element> ();
             
             // additional modules for skin
-            if (Model.CompatibleIk)
+            if (model.CompatibleIk)
             character.RequireModule<m_skin_foot_ik>();
 
-            if (Model.Hand != null && Model.Hand.Length >0 )
-            character.RequireModule <m_hand> ().Hand = Model.Hand;
+            if (model.Hand != null && model.Hand.Length >0 )
+            character.RequireModule <m_hand> ().Hand = model.Hand;
 
-            if (Model.SwordPlace != null || Model.BowPlace != null || Model.ShieldPlace != null)
-            character.RequireModule <m_equip> ().Set ( Model.SwordPlace, Model.ShieldPlace, Model.BowPlace );
+            if (model.SwordPlace != null || model.BowPlace != null || model.ShieldPlace != null)
+            character.RequireModule <m_equip> ().Set ( model.SwordPlace, model.ShieldPlace, model.BowPlace );
+
+            // destroy the model
+            ScriptableObject.Destroy (model);
         }
     }
 

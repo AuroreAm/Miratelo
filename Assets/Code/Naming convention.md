@@ -8,3 +8,5 @@ naming convention for Triheroes Mighty code
     - ac_ : action for actors
     - t_ : action with no behavior, used to manipulate decorators
     - s_ : custom entity core system
+    _ p_ : thing pool individual object
+    _ s_ : system

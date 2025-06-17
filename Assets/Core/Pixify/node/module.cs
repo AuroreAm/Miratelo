@@ -9,5 +9,16 @@ namespace Pixify
     public class module : node
     {
         public Character character;
+
+        /// <summary>
+        /// is this module with a valid gameobject
+        /// </summary>
+        public static implicit operator bool(module exists)
+        {
+            if (exists != null)
+            return exists.character;
+            else
+            return false;
+        }
     }
 }

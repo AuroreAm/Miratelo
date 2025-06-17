@@ -44,7 +44,7 @@ namespace Triheroes.Code
             if (Physics.Raycast(position, Vecteur.Forward(rotation), out RaycastHit Hit, spd, Vecteur.SolidCharacterAttack))
             {
                 position += Vecteur.Forward(rotation) * Hit.distance;
-                Debug.Log("hit ");
+                s_element.o.Clash ( new e_skin(), Hit.collider.id (), new Force ( ForceType.diffuse, 1, Vector3.zero, Vector3.forward ) );
             }
             else
                 position += Vecteur.Forward(rotation) * spd;

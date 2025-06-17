@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
@@ -6,6 +7,7 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     // TODO: dependence order: need m_skin to be initialized first
+    [Serializable]
     [Category("Actor")]
     public class actor_writer : ModuleWriter
     {

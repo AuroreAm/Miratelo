@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Map/HiddenRoom.unity
+    guid: 2ff82e949d61e234c94a29dbab267c4c
   m_configObjects: {}
