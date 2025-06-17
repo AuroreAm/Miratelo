@@ -52,6 +52,7 @@ namespace Triheroes.Code
                 new s_trail_spectre (),
 
                 // stats
+                new CoreSystem<m_stat_generator>(),
 
                 // character movement
                 new s_ccc_gravity (),

@@ -14,6 +14,9 @@ namespace Triheroes.Code
         [Header("Actor definition")]
         public actor_writer actor;
 
+        [Header("Stats")]
+        public m_stat_writer stat;
+
         override public ModuleWriter[] GetModules ()
         {
             return new ModuleWriter[] { skin, actor };

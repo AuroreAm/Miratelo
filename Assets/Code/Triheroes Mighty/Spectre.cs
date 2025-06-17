@@ -43,9 +43,9 @@ namespace Triheroes.Code
             return o.pool.GetPiece();
         }
 
-        public static void AddPosition ( int id, Vector3 pos )
+        public static void SetPosition ( int id, Vector3 pos )
         {
-            o.pool.indexedPieces[id].Trail.AddPosition(pos);
+            o.pool.indexedPieces[id].Trail.transform.position = pos;
         }
 
         public static void UnBind ( int id )
