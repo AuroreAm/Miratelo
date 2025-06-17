@@ -16,7 +16,14 @@ namespace Pixify
 
     public abstract class ThingSystem <T> : PixifySytemBase where T:thing, new ()
     {
-        protected thing.ThingPool <T> pool = new thing.ThingPool<T> (30);
+        protected virtual int InitialPieces => 30;
+        protected thing.ThingPool <T> pool;
+
+        public ThingSystem()
+        {
+            pool = new thing.ThingPool<T> (InitialPieces);
+        }
+
         public sealed override void Execute()
         { 
             pool.MainForEach ();

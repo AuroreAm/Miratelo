@@ -10,3 +10,4 @@ naming convention for Triheroes Mighty code
     - s_ : custom entity core system
     _ p_ : thing pool individual object
     _ s_ : system
+    - g_ : game action

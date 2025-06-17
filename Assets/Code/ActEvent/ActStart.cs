@@ -6,18 +6,29 @@ using static Pixify.treeBuilder;
 
 namespace Triheroes.Code
 {
+    public static class Act
+    {
+        public static void Start (script script, Character c)
+        {
+            if (script != null)
+            {
+            m_character_controller mcc = c.ConnectNode ( new m_character_controller () );
+            
+            TreeStart ( c );
+            mcc.StartRoot ( script.CreateTree ());
+            }
+            else
+            Debug.LogWarning ("script is null");
+        }
+    }
+
     // start a script at the beginning of the scene
     public class ActStart : MonoBehaviour
     {
         public script script;
         void Awake ()
         {
-            m_character_controller mcc = Director.o.ConnectNode ( new m_character_controller () );
-            
-            TreeStart ( Director.o );
-            mcc.root = script.CreateTree ();
-            
-            mcc.Aquire (new Void ());
+            Act.Start ( script, Director.o );
             // NOTE: ActStart script are not cleaned after they're finished, but this is negligible for this game, but will have to consider this for a future game
 
             Destroy (gameObject);

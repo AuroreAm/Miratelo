@@ -6,6 +6,7 @@ using Pixify.Editor.PixGUI;
 
 namespace Pixify.Editor
 {
+    /*
     [CustomEditor(typeof(Character))]
     public class CharacterEditor : UnityEditor.Editor
     {
@@ -43,5 +44,5 @@ namespace Pixify.Editor
 
             GUILayout.Space (Content.Transform.height);
         }
-    }
+    }*/
 }

@@ -67,6 +67,8 @@ namespace Pixify
         {
             if (!Initialized)
                 throw new InvalidOperationException("fatal error, tree finalize without tree start");
+            if (c == null)
+                throw new InvalidOperationException("fatal error, tree finalization without character");
 
             foreach (var a in Heap)
                 c.ConnectNode(a);

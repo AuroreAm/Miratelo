@@ -16,14 +16,11 @@ namespace Triheroes.Code
 
         public override void OnSpawn(Vector3 position, Quaternion rotation, Character c)
         {
-            c.gameObject.layer = Vecteur.CHARACTER;
-
             if (main)
             {
                 m_character_controller mcc = c.RequireModule<m_character_controller> ();
                 treeBuilder.TreeStart ( c );
-                mcc.root = main.CreateTree ();
-                mcc.Aquire (new Void ());
+                mcc.StartRoot ( main.CreateTree () );
             }
             else
             Debug.LogWarning (" A spawner has no main script");

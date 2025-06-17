@@ -4,24 +4,26 @@ using System.Collections.Generic;
 
 namespace Triheroes.Code
 {
-    [Serializable]
-    public struct SceneData
-    {
-        public string NomDeLaCarte;
-        public string BGMNatif;
-    }
-
     public class TriheroesMighty : PixifyEngine
     {
         public SceneData Scene;
+        public script MapStartScript;
 
         public override void BeforeCreateSystems()
         {
             Director d = gameObject.AddComponent <Director> ();
-            
+
             d.RequireModule <Vecteur> ();
             d.RequireModule <ActorFaction> ();
             d.RequireModule <BGMMaster> ();
+            d.RequireModule <MapId> ().Scene = Scene;
+            d.RequireModule <SFXMaster> ();
+            d.RequireModule <Spectre> ();
+        }
+
+        public override void AfterCreateSystems()
+        {
+            Act.Start ( MapStartScript, Director.o );
         }
 
         protected override void CreateSystems(out List<PixifySytemBase> systems)
@@ -29,6 +31,9 @@ namespace Triheroes.Code
             // Game main systems
             systems = new List<PixifySytemBase> ()
             {
+                // game bios
+                new CoreSystem<bios>(),
+
                 // character physic datas
                 new s_ccc_ground_data(),
 
@@ -43,6 +48,9 @@ namespace Triheroes.Code
                 new s_slash_attack(),
                 new s_trajectile (),
 
+                // effects
+                new s_trail_spectre (),
+
                 // stats
 
                 // character movement
@@ -56,11 +64,12 @@ namespace Triheroes.Code
                 new CoreSystem<m_skin>(),
 
                 // camera
-                new CoreSystem<m_camera_controller>()
+                new CoreSystem<m_camera_controller>(),
 
                 // tweener
 
                 // Audio
+                new s_sfx ()
             };
         }
     }

@@ -19,6 +19,9 @@ namespace Triheroes.Code
         protected override void BeginStep()
         {
             cgmc.Aquire(this);
+
+            // Test
+            trail = s_trail_spectre.Bind (new SuperKey("sp_trail"));
         }
 
         protected override bool Step()
@@ -27,8 +30,14 @@ namespace Triheroes.Code
             InputAxis = Vecteur.LDir ( m_camera.o.mct.rotY.OnlyY (), InputAxis ) * speed;
             // TODO: add buttonID for walking
             cgmc.Walk (InputAxis, Player.GetButton(BoutonId.Fire2) ? WalkFactor.sprint : Input.GetKey(KeyCode.X)? WalkFactor.walk : WalkFactor.run);
+
+            // test
+            s_trail_spectre.AddPosition (trail, cgmc.character.transform.position);
+
             return false;
         }
+
+        int trail;
 
         protected override void Stop()
         {

@@ -45,6 +45,11 @@ namespace Triheroes.Code
         public List <m_actor> lockers = new List<m_actor>();
         public m_actor primaryLocker => (lockers.Count>0)?lockers[0]:null;
 
+        public override void Create()
+        {
+            character.gameObject.layer = Vecteur.CHARACTER;
+        }
+
         public void LockATarget ( m_actor actor )
         {
             if (actor == null)

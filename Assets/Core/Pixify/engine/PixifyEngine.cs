@@ -14,12 +14,14 @@ namespace Pixify
         Dictionary < Type, List <core> > IndexedCores = new Dictionary<Type, List<core>> ();
 
         public abstract void BeforeCreateSystems ();
+        public abstract void AfterCreateSystems ();
 
         void Awake ()
         {
             o = this;
             BeforeCreateSystems ();
             CreateSystems ( out Systems );
+            AfterCreateSystems ();
         }
 
         protected abstract void CreateSystems ( out List<PixifySytemBase> systems );

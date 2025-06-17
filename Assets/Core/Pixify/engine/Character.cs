@@ -124,6 +124,9 @@ namespace Pixify
                 RegisterNode (a);
                 a.Create ();
             }
+
+            // NOTE: when a module is connected here, it has no character attached to
+
             return a;
         }
     }
