@@ -34,7 +34,7 @@ namespace Pixify
     {
         int version;
         public virtual void BeginStep() {}
-        public virtual void Stop() { }
+        public virtual void Stop () { }
         public abstract bool Main ();
 
         public sealed class ThingPool<T> where T : thing, new()

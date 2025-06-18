@@ -28,10 +28,10 @@ namespace Pixify
 
         public void Register ( core core )
         {
-            RequestListModulesOfType ( core.GetType ().GetCustomAttribute<RegisterAsBaseAttribute>() == null? core.GetType(): core.GetType().BaseType ).Add ( core );
+            RequestListCoresOfType ( core.GetType ().GetCustomAttribute<RegisterAsBaseAttribute>() == null? core.GetType(): core.GetType().BaseType ).Add ( core );
         }
 
-        internal List<core> RequestListModulesOfType (Type t)
+        internal List<core> RequestListCoresOfType (Type t)
         {
             if ( IndexedCores.TryGetValue (t, out List<core> L) )
             return L;
@@ -66,7 +66,7 @@ namespace Pixify
 
     public sealed class CoreSystem <T> : PixifySytemBase where T : core
     {
-        public List <core> cores;
+        List <core> cores;
         public sealed override void Execute ()
         {
             for (int i = 0; i < cores.Count; i++)
@@ -78,13 +78,13 @@ namespace Pixify
 
         public CoreSystem ()
         {
-            cores = PixifyEngine.o.RequestListModulesOfType (typeof (T));
+            cores = PixifyEngine.o.RequestListCoresOfType (typeof (T));
         }
     }
 
     public abstract class CustomCoreSystem <T> : PixifySytemBase where T : core
     {
-        public List <core> cores;
+        List <core> cores;
         public override void Execute ()
         {
             for (int i = 0; i < cores.Count; i++)
@@ -96,7 +96,7 @@ namespace Pixify
         
         public CustomCoreSystem ()
         {
-            cores = PixifyEngine.o.RequestListModulesOfType (typeof (T));
+            cores = PixifyEngine.o.RequestListCoresOfType (typeof (T));
         }
 
         protected abstract void Main (T o);
