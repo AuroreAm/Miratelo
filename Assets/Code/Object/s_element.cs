@@ -5,14 +5,15 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    // TODO: remove s_element from systems because there's nothing executed here
     public class s_element : ModulePointerSystem<m_element>
     {
         public static s_element o;
 
-        public void Clash ( element from,int to, Force force )
+        public static void Clash ( element from, int to, Force force = default(Force) )
         {
-            if ( ptr.TryGetValue (  to, out m_element e ) )
-            e.Clash ( from, force );
+            o.ptr[to].element.Clash ( from, force );
+            from.ReverseClash ( o.ptr[to].element, force );
         }
 
         public s_element ()
@@ -21,8 +22,6 @@ namespace Triheroes.Code
         }
 
         public override void Execute()
-        {
-
-        }
+        {}
     }
 }

@@ -20,21 +20,23 @@ namespace Triheroes.Code
     {
         public element element { private set; get; }
 
-        public Action<ClashEvent> OnClash { private set; get; }
+        /// <summary>
+        /// called when the element changes state
+        /// </summary>
+        /// <param name="state">the new state hash</param>
+        Action <int> StateChange;
+        Action <int> Message;
+        public int State { private set; get; }
 
-        public void Clash ( element from, Force force )
+        public void SendMessage ( int message )
         {
-            element.Clash ( this, from, force );
+            Message?.Invoke ( message );
         }
 
-        public void RegisterOnClash ( Action<ClashEvent> action )
+        public void SetState ( int state )
         {
-            OnClash += action;
-        }
-
-        public void UnregisterOnClash ( Action<ClashEvent> action )
-        {
-            OnClash -= action;
+            State = state;
+            StateChange?.Invoke ( state );
         }
 
         public void SetElement ( element e )
@@ -44,29 +46,11 @@ namespace Triheroes.Code
         }
     }
 
-    public struct ClashEvent
-    {
-        public Force force;
-        public element from;
-        public HitType hitType;
-
-        public ClashEvent ( Force force, element from, HitType hitType )
-        {
-            this.force = force;
-            this.from = from;
-            this.hitType = hitType;
-        }
-    }
-
-    public enum HitType
-    {
-        NotSpecified,
-        Small,
-        Knockback
-    }
-
     public abstract class element : node
     {
-        public abstract void Clash ( m_element host, element from, Force force );
+        // clash from another element
+        public abstract void Clash ( element from, Force force );
+        // response to a clash from this element
+        public abstract void ReverseClash ( element from, Force force );
     }
 }

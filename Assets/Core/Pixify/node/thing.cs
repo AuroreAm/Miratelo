@@ -33,7 +33,7 @@ namespace Pixify
     public abstract class thing : node
     {
         int version;
-        public virtual void BeginStep() { }
+        public virtual void BeginStep() {}
         public virtual void Stop() { }
         public abstract bool Main ();
 

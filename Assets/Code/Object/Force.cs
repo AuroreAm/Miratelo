@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public enum ForceType { diffuse, perce }
+    public enum ForceType { diffuse, slash, perce, wave, parry, hard }
 
     public struct Force
     {
