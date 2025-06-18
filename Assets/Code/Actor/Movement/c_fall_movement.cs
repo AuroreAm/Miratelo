@@ -14,6 +14,8 @@ namespace Triheroes.Code
         m_ground_data mgd;
         [Depend]
         m_skin ms;
+        [Depend]
+        m_footstep mf;
 
         public SuperKey landAnimation = AnimationKey.fall_end;
 
@@ -34,10 +36,15 @@ namespace Triheroes.Code
             // to ground movement manually added in behavior trees
         }
 
+        void LandSFX ()
+        {
+            mf.PlayFootstep ();
+        }
+
         protected override void OnFree()
         {
             if (mgd.onGround && mccc.verticalVelocity < 0 && Vector3.Angle(Vector3.up, mgd.groundNormal) <= 45)
-                ms.PlayState(ms.knee, landAnimation, 0.05f);
+                ms.PlayState(ms.knee, landAnimation, 0.05f, null,null, LandSFX);
             mccc.Free(this);
         }
     }

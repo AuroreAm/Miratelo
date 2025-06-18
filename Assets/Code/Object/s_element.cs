@@ -6,9 +6,9 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     // TODO: remove s_element from systems because there's nothing executed here
-    public class s_element : ModulePointerSystem<m_element>
+    public sealed class Element : ModulePointer<m_element>
     {
-        public static s_element o;
+        public static Element o;
 
         public static void Clash ( element from, int to, Force force = default(Force) )
         {
@@ -16,12 +16,9 @@ namespace Triheroes.Code
             from.ReverseClash ( o.ptr[to].element, force );
         }
 
-        public s_element ()
+        public Element ()
         {
             o = this;
         }
-
-        public override void Execute()
-        {}
     }
 }

@@ -9,6 +9,7 @@ namespace Triheroes.Code
     // uses CharacterController physics
     // need ground data for normal projection
     // also manages animations
+    // also manages footsteps
     // does not change to fall movement when not on ground, this must be manually added in behavior trees
     [RegisterAsBase]
     public class c_ground_movement_complex : controller
@@ -19,6 +20,8 @@ namespace Triheroes.Code
         m_skin ms;
         [Depend]
         m_ground_data mgd;
+        [Depend]
+        m_footstep mf;
 
         public SuperKey state;
         /// <summary>
@@ -53,6 +56,7 @@ namespace Triheroes.Code
             }
             
             mccc.Aquire (this);
+            mf.Aquire (this);
         }
 
         public override void Main()
@@ -67,6 +71,7 @@ namespace Triheroes.Code
         protected override void OnFree()
         {
             mccc.Free (this);
+            mf.Free (this);
             ms.allowMoving = false;
         }
 
@@ -87,6 +92,7 @@ namespace Triheroes.Code
 
                 if (walkDir.magnitude < 0.01f)
                 {
+                    mf.Stop ();
                     if (state == StateKey.sprint || (state == StateKey.run && ms.IsTransitioningFrom(0, AnimationKey.sprint)))
                     Brake ();
                     else
@@ -103,7 +109,11 @@ namespace Triheroes.Code
 
         void ToRun ()
         {
-            ms.PlayState (0, (walkFactor == WalkFactor.walk) ? AnimationKey.walk : (walkFactor == WalkFactor.run) ? AnimationKey.run : AnimationKey.sprint,0.2f);
+            SuperKey Animation = (walkFactor == WalkFactor.walk) ? AnimationKey.walk : (walkFactor == WalkFactor.run) ? AnimationKey.run : AnimationKey.sprint;
+            ms.PlayState (0, Animation ,0.2f);
+
+            // get interval time from two footstep animation events from the clip
+            mf.Play ( ms.EventPointsOfState ( Animation ) [1] - ms.EventPointsOfState ( Animation ) [0] );
 
             state =  (walkFactor == WalkFactor.walk) ? StateKey.walk : (walkFactor == WalkFactor.run) ? StateKey.run : StateKey.sprint;
         }

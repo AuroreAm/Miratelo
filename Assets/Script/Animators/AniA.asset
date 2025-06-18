@@ -23,12 +23,16 @@ MonoBehaviour:
       value: 1349952704
       keyName: run
     Duration: Infinity
-    EvPoint: []
+    EvPoint:
+    - 0.042136103
+    - 0.38176197
   - Key:
       value: -1919845803
       keyName: walk
     Duration: Infinity
-    EvPoint: []
+    EvPoint:
+    - 0.111554526
+    - 0.78480715
   - Key:
       value: -276802121
       keyName: sprint
@@ -174,7 +178,8 @@ MonoBehaviour:
       value: 289444158
       keyName: fall_end
     Duration: 0.3
-    EvPoint: []
+    EvPoint:
+    - 0.07298711
   - Key:
       value: -1411452526
       keyName: zero
@@ -184,12 +189,14 @@ MonoBehaviour:
       value: -529248224
       keyName: fall_end_left_foot
     Duration: 0.2666667
-    EvPoint: []
+    EvPoint:
+    - 0.08242566
   - Key:
       value: 403116361
       keyName: fall_end_right_foot
     Duration: 0.2666667
-    EvPoint: []
+    EvPoint:
+    - 0.08382632
   - Key:
       value: -1574924820
       keyName: take_sword

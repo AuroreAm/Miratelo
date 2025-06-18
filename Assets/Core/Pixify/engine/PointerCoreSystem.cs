@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace Pixify
 {
-    public abstract class ModulePointerSystem <T> : PixifySytemBase where T : moduleptr <T>
+    public abstract class ModulePointer <T> : module where T : moduleptr <T>
     {
-        static ModulePointerSystem<T> o;
+        static ModulePointer<T> o;
         protected Dictionary<int, T> ptr = new Dictionary<int, T> ();
 
-        public ModulePointerSystem ()
+        public ModulePointer ()
         {
             o = this;
         }
@@ -21,11 +21,11 @@ namespace Pixify
         }
     }
 
-    public class moduleptr <T> : module where T:moduleptr <T>
+    public abstract class moduleptr <T> : module where T:moduleptr <T>
     {
         public sealed override void Create()
         {
-            ModulePointerSystem <T>.Register ( character.gameObject.GetInstanceID(), (T) this );
+            ModulePointer <T>.Register ( character.gameObject.GetInstanceID(), (T) this );
             Create1 ();
         }
 

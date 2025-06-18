@@ -19,6 +19,9 @@ namespace Triheroes.Code
             d.RequireModule <MapId> ().Scene = Scene;
             d.RequireModule <SFXMaster> ();
             d.RequireModule <Spectre> ();
+
+            d.RequireModule <Element> ();
+            d.RequireModule <GroundElement> ();
         }
 
         public override void AfterCreateSystems()
@@ -57,9 +60,6 @@ namespace Triheroes.Code
                 // character movement
                 new s_ccc_gravity (),
                 new CoreSystem<m_capsule_character_controller>(),
-
-                // elements reaction
-                new s_element (),
 
                 // character skin and animations
                 new CoreSystem<m_skin>(),

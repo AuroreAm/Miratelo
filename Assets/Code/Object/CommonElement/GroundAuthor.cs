@@ -12,6 +12,17 @@ namespace Triheroes.Code
 
         void Start()
         {
+            p_ground_element Ground = null;
+            switch (type)
+            {
+                case GroundType.wood:
+                    Ground = new pg_wood ();
+                    break;
+                case GroundType.asphalt:
+                    Ground = new pg_asphalt ();
+                    break;
+            }
+            Ground.Create ( gameObject.GetInstanceID () );
 
             Destroy (this);
         }
