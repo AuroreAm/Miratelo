@@ -24,6 +24,11 @@ namespace Pixify
             }
         }
 
+        public static void AddPool ( IUnitAuthor author, string name )
+        {
+            o.Pools.Add ( new SuperKey (name), new Unit.UnitPool (author) );
+        }
+
         public static void GetUnit ( int name )
         {
             o.Pools[name].GetUnit();
@@ -127,9 +132,9 @@ namespace Pixify
         public class UnitPool
         {
             Queue<Unit> queue;
-            UnitAuthor author;
+            IUnitAuthor author;
 
-            public UnitPool(UnitAuthor author)
+            public UnitPool(IUnitAuthor author)
             {
                 this.author = author;
                 queue = new Queue<Unit>();

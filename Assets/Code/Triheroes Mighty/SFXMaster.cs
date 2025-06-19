@@ -19,6 +19,20 @@ namespace Triheroes.Code
 
             AuUI = character.gameObject.AddComponent<AudioSource>();
             AuUI.spatialBlend = 0;
+
+            // add SFX pool
+            UnitPoolMaster.AddPool ( new SfxAuthor (), "SFX" );
+        }
+
+        class SfxAuthor : IUnitAuthor
+        {
+            public Unit Instance()
+            {
+                Unit u = new Unit ();
+                u.RequirePiece<p_sfx> ();
+                u.Create ();
+                return u;
+            }
         }
 
         public void PlayUISFX ( int name )
@@ -27,51 +41,37 @@ namespace Triheroes.Code
         }
     }
 
-    // individual independent SFX
-    public class s_sfx : ThingSystem<s_sfx.p_sfx>
+    public class p_sfx : piece
     {
-        protected override int InitialPieces => 5;
-        public static s_sfx o;
-
-        public s_sfx()
-        { o = this; }
-
-        public static void Play(int name, Vector3 pos)
+        static readonly SuperKey SFX = new SuperKey("SFX");
+        AudioSource Au;
+        public override void Create()
         {
-            o.pool.NextPiece().Set(SubResources<AudioClip>.q(name), pos);
-            o.pool.GetPiece();
+            Au = new GameObject("SFX Channel").AddComponent<AudioSource>();
+            Au.spatialBlend = 1;
+            Au.outputAudioMixerGroup = SFXMaster.MainMixer;
         }
 
-        public class p_sfx : thing
+        static AudioClip _clip;
+        static Vector3 _pos;
+        public static void Play ( int name, Vector3 pos )
         {
-            AudioSource Au;
+            _clip = SubResources<AudioClip>.q ( name );
+            _pos = pos;
+            UnitPoolMaster.GetUnit ( SFX );
+        }
 
-            public override void Create()
-            {
-                Au = new GameObject("SFX Channel").AddComponent<AudioSource>();
-                Au.spatialBlend = 1;
-                Au.outputAudioMixerGroup = SFXMaster.MainMixer;
-            }
+        protected override void OnStart()
+        {
+            Au.clip = _clip;
+            Au.transform.position = _pos;
+            Au.Play ();
+        }
 
-            public void Set ( AudioClip clip, Vector3 pos )
-            {
-                Au.clip = clip;
-                Au.transform.position = pos;
-            }
-
-            public sealed override void BeginStep()
-            {
-                Au.Play ();
-            }
-
-            public override bool Main()
-            {
-                if (!Au.isPlaying)
-                    return true;
-                return false;
-            }
+        public override void Main()
+        {
+            if (!Au.isPlaying)
+                unit.Return_();
         }
     }
-
-
 }

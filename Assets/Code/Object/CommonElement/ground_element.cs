@@ -28,10 +28,6 @@ namespace Triheroes.Code
     public abstract class p_ground_element : thingptr <p_ground_element>
     {
         public abstract void Clash ( e_foot from );
-        public sealed override bool Main()
-        {
-            return false;
-        }
     }
 
     public class pg_asphalt : p_ground_element

@@ -52,9 +52,6 @@ namespace Triheroes.Code
                 new PieceSystem<p_slash_attack>(),
                 new PieceSystem<p_trajectile>(),
 
-                // effects
-                new s_trail_spectre (),
-
                 // stats
                 new CoreSystem<m_stat_generator>(),
 
@@ -71,7 +68,7 @@ namespace Triheroes.Code
                 // tweener
 
                 // Audio
-                new s_sfx ()
+                new PieceSystem<p_sfx>()
             };
         }
     }

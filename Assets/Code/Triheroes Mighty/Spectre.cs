@@ -29,6 +29,7 @@ namespace Triheroes.Code
         }
     }
 
+    /*
     public class s_trail_spectre : ThingSystem<p_trail_spectre>
     {
         public static s_trail_spectre o;
@@ -97,5 +98,5 @@ namespace Triheroes.Code
         {
             return false;
         }
-    }
+    }*/
 }

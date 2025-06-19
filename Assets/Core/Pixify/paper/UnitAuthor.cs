@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace Pixify
 {
-    public abstract class UnitAuthor : ScriptableObject
+    public abstract class UnitAuthor : ScriptableObject, IUnitAuthor
     {
-
         public Unit Instance ()
         {
             Unit u = new Unit ();
@@ -16,6 +15,10 @@ namespace Pixify
         }
 
         protected abstract void OnInstance ( Unit newUnit );
+    }
 
+    public interface IUnitAuthor
+    {
+        public Unit Instance ();
     }
 }
