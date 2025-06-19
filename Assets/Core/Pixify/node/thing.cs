@@ -5,14 +5,6 @@ using UnityEngine;
 
 namespace Pixify
 {
-    
-    [Serializable]
-    public struct PieceSkin
-    {
-        public Vector3 RotY;
-        public Mesh Mesh;
-        public Material Material;
-    }
 
     public abstract class ThingSystem <T> : PixifySytemBase where T:thing, new ()
     {

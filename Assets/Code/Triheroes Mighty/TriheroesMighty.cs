@@ -13,6 +13,7 @@ namespace Triheroes.Code
         {
             Director d = gameObject.AddComponent <Director> ();
 
+            d.RequireModule <UnitPoolMaster> ();
             d.RequireModule <Vecteur> ();
             d.RequireModule <ActorFaction> ();
             d.RequireModule <BGMMaster> ();
@@ -48,8 +49,8 @@ namespace Triheroes.Code
                 new CoreSystem<controller>(),
 
                 // attacks
-                new s_slash_attack(),
-                new s_trajectile (),
+                new PieceSystem<p_slash_attack>(),
+                new PieceSystem<p_trajectile>(),
 
                 // effects
                 new s_trail_spectre (),

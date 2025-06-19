@@ -40,6 +40,7 @@ namespace Triheroes.Code
         
         void ResourcesLoad ()
         {
+            SubResources <UnitAuthor>.LoadAll ( "Unit" );
             SubResources <AudioClip>.LoadAll ( "BGM" );
             SubResources <AudioClip>.LoadAll ( "SE" );
             SubResources <ParticleSystem>.LoadAll ( "Spectre" );

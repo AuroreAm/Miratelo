@@ -5,23 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class s_slash_attack : ThingSystem <p_slash_attack>
-    {
-        public static s_slash_attack o;
-
-        public s_slash_attack ()
-        {
-            o = this;
-        }
-
-        public static int Fire ( Sword sword, float duration )
-        {
-            o.pool.NextPiece ().Set (sword, duration);
-            return o.pool.GetPiece ();
-        }
-    }
-
-    public class p_slash_attack : thing
+    public class p_slash_attack : piece
     {
         public Sword sword { private set; get; }
 
@@ -32,15 +16,24 @@ namespace Triheroes.Code
         float length;
         float timeLeft;
 
-        public void Set(Sword sword, float duration)
+        static Sword _sword;
+        static float _duration;
+        public static void Fire ( int name, Sword sword, float duration )
         {
-            this.sword = sword;
+            _sword = sword;
+            _duration = duration;
+            UnitPoolMaster.GetUnit(name);
+        }
+
+        protected override void OnStart()
+        {
+            sword = _sword;
             position = sword.transform.position;
             rotation = sword.transform.rotation;
             previousPosition = position;
             previousRotation = rotation;
             length = sword.Length;
-            this.timeLeft = duration;
+            timeLeft = _duration;
         }
 
         public override void Create()
@@ -49,7 +42,7 @@ namespace Triheroes.Code
         }
 
         Line [] rays;
-        public override bool Main()
+        public override void Main()
         {
             Shift ();
             LineCalculation ();
@@ -57,9 +50,7 @@ namespace Triheroes.Code
 
             timeLeft -= Time.deltaTime;
                 if (timeLeft <= 0)
-                    return true;
-
-            return false;
+                    unit.Return_();
         }
 
         void Shift ()
@@ -97,6 +88,5 @@ namespace Triheroes.Code
                 this.end = end;
             }
         }
-
     }
 }

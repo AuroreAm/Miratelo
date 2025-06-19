@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Pixify;
 using UnityEngine;
 
-namespace Triheroes.Code
+namespace Pixify
 {
     public static class SubResources <T> where T : Object
     {

@@ -12,6 +12,7 @@ namespace Pixify
 
         List<PixifySytemBase> Systems;
         Dictionary < Type, List <core> > IndexedCores = new Dictionary<Type, List<core>> ();
+        Dictionary < Type, List <piece> > IndexedPieces = new Dictionary<Type, List<piece>> ();
 
         public abstract void BeforeCreateSystems ();
         public abstract void AfterCreateSystems ();
@@ -31,6 +32,11 @@ namespace Pixify
             RequestListCoresOfType ( core.GetType ().GetCustomAttribute<RegisterAsBaseAttribute>() == null? core.GetType(): core.GetType().BaseType ).Add ( core );
         }
 
+        public void Register ( piece piece )
+        {
+            RequestListPiecesOfType ( piece.GetType ().GetCustomAttribute<RegisterAsBaseAttribute>() == null? piece.GetType(): piece.GetType().BaseType ).Add ( piece );
+        }
+
         internal List<core> RequestListCoresOfType (Type t)
         {
             if ( IndexedCores.TryGetValue (t, out List<core> L) )
@@ -39,6 +45,18 @@ namespace Pixify
             {
                 L = new List<core>();
                 IndexedCores.Add (t, L);
+                return L;
+            }
+        }
+
+        internal List<piece> RequestListPiecesOfType (Type t)
+        {
+            if ( IndexedPieces.TryGetValue (t, out List<piece> L) )
+            return L;
+            else
+            {
+                L = new List<piece>();
+                IndexedPieces.Add (t, L);
                 return L;
             }
         }
@@ -97,6 +115,44 @@ namespace Pixify
         public CustomCoreSystem ()
         {
             cores = PixifyEngine.o.RequestListCoresOfType (typeof (T));
+        }
+
+        protected abstract void Main (T o);
+    }
+
+    public sealed class PieceSystem <T> : PixifySytemBase where T : piece
+    {
+        List <piece> pieces;
+        public sealed override void Execute ()
+        {
+            for (int i = 0; i < pieces.Count; i++)
+            {
+                if (pieces [i].on)
+                    pieces[i].Main();
+            }
+        }
+
+        public PieceSystem ()
+        {
+            pieces = PixifyEngine.o.RequestListPiecesOfType (typeof (T));
+        }
+    }
+
+    public abstract class CustomPieceSystem <T> : PixifySytemBase where T : piece
+    {
+        List <piece> pieces;
+        public override void Execute ()
+        {
+            for (int i = 0; i < pieces.Count; i++)
+            {
+                if (pieces [i].on)
+                    Main (pieces[i] as T);
+            }
+        }
+        
+        public CustomPieceSystem ()
+        {
+            pieces = PixifyEngine.o.RequestListPiecesOfType (typeof (T));
         }
 
         protected abstract void Main (T o);

@@ -45,7 +45,7 @@ namespace Triheroes.Code
 
         void Shoot ()
         {
-            mbu.Weapon.Arrow.Shoot ( mbu.Weapon.BowString.position, Quaternion.Euler (mbu.rotY), mbu.Weapon.Speed );
+            p_trajectile.Fire ( new SuperKey (mbu.Weapon.ArrowName), mbu.Weapon.BowString.position, Quaternion.Euler (mbu.rotY), mbu.Weapon.Speed );
         }
 
         protected override void OnFree()

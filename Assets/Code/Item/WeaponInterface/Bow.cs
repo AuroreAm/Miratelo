@@ -11,7 +11,9 @@ namespace Triheroes.Code
 
 
         public float Speed;
-        public TrajectilePaper Arrow;
+        
+        // TODO: change this to hash
+        public string ArrowName;
         public Transform BowString;
     }
 }

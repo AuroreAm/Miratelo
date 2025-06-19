@@ -5,21 +5,7 @@ using Pixify;
 
 namespace Triheroes.Code
 {
-    public class s_trajectile : ThingSystem<p_trajectile>
-    {
-        public static s_trajectile o;
-
-        public s_trajectile()
-        { o = this; }
-
-        public static int Fire(PieceSkin skin, Vector3 pos, Quaternion rot, float spd)
-        {
-            o.pool.NextPiece().Set(skin, pos, rot, spd);
-            return o.pool.GetPiece();
-        }
-    }
-
-    public class p_trajectile : thing
+    public class p_trajectile : piece
     {
         float speed;
         float timeLeft;
@@ -27,17 +13,32 @@ namespace Triheroes.Code
         Quaternion rotation;
         PieceSkin skin;
 
-        public void Set(PieceSkin skin, Vector3 pos, Quaternion rot, float spd)
+        public void Set(PieceSkin skin)
         {
-            speed = spd;
             this.skin = skin;
-            position = pos;
-            rotation = rot;
-            speed = spd;
-            timeLeft = 30;
         }
 
-        public override bool Main()
+        protected override void OnStart()
+        {
+            timeLeft = 30;
+            position = _pos;
+            rotation = _rot;
+            speed = _spd;
+        }
+
+        static Vector3 _pos;
+        static Quaternion _rot;
+        static float _spd;
+
+        public static void Fire ( int name, Vector3 pos, Quaternion rot, float spd)
+        {
+            _pos = pos;
+            _rot = rot;
+            _spd = spd;
+            UnitPoolMaster.GetUnit(name);
+        }
+
+        public override void Main()
         {
             float spd = speed * Time.deltaTime;
 
@@ -54,9 +55,7 @@ namespace Triheroes.Code
             timeLeft -= Time.deltaTime;
 
             if (timeLeft <= 0)
-                return true;
-
-            return false;
+            unit.Return_();
         }
     }
 }

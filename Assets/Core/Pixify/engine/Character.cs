@@ -59,9 +59,6 @@ namespace Pixify
         /// </summary>
         public T RequireModule <T> () where T : module, new ()
         {
-            if (!typeof(T).IsSubclassOf(typeof (module)))
-                throw new InvalidOperationException("cannot depend on a non module type");
-
             if (modules.TryGetValue(typeof(T), out module m))
                 return m as T;
             else
@@ -77,7 +74,7 @@ namespace Pixify
             }
         }
 
-        public T GetModule <T> () where T : module, new ()
+        public T GetModule <T> () where T : module
         {
              if (modules.TryGetValue(typeof(T), out module m))
                 return m as T;

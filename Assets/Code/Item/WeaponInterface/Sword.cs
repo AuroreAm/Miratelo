@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
@@ -12,6 +13,9 @@ namespace Triheroes.Code
         public sealed override SuperKey DefaultReturnAnimation { get; } = AnimationKey.return_sword;
 
         public float Length = 10;
+        
+        // TODO: change this to hash
+        public String SlashName;
 
         
     #if UNITY_EDITOR
