@@ -28,6 +28,10 @@ namespace Triheroes.Code
             // TODO: add buttonID for walking
             cgmc.Walk (InputAxis, Player.GetButton(BoutonId.Fire2) ? WalkFactor.sprint : Input.GetKey(KeyCode.X)? WalkFactor.walk : WalkFactor.run);
 
+            // test
+            if (Input.GetKey(KeyCode.T))
+            m_interact.ShowInteractText ("test");
+
             return false;
         }
 

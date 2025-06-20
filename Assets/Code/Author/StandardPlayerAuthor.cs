@@ -6,7 +6,7 @@ using Pixify;
 namespace Triheroes.Code
 {
     // for players character with humanoid characteristics
-    public class StandardPlayerAuthor : AuthorModule
+    public class StandardPlayerAuthor : Scripter
     {
         [Header("Skin (appearance)")]
         public skin_writer skin;

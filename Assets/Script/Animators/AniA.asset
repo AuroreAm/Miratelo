@@ -37,7 +37,9 @@ MonoBehaviour:
       value: -276802121
       keyName: sprint
     Duration: Infinity
-    EvPoint: []
+    EvPoint:
+    - 0.3132759
+    - 0.6578378
   - Key:
       value: -78586100
       keyName: fall

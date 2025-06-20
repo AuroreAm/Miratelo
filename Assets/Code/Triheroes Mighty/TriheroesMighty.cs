@@ -65,7 +65,9 @@ namespace Triheroes.Code
                 // camera
                 new CoreSystem<m_camera_controller>(),
 
-                // tweener
+                // UI
+                new CoreSystem<graphic_frame>(),
+                new CoreSystem<m_tween>(),
 
                 // Audio
                 new PieceSystem<p_sfx>()

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pixify;
 
-namespace Triheroes.Code
+namespace Pixify
 {
-    [RequireComponent(typeof(CharacterAuthor))]
-    public abstract class AuthorModule : MonoBehaviour
+    public abstract class Scripter : MonoBehaviour
     {
-        public abstract ModuleWriter[] GetModules ();
+        public virtual ModuleWriter[] GetModules () => new ModuleWriter[] {};
         
         public virtual void OnSpawn ( Vector3 position, Quaternion rotation, Character c ) {}
+        public virtual void OnWrite ( Character c ) {}
     }
 }

@@ -224,19 +224,4 @@ namespace Triheroes.Code
         public virtual void Update()
         { }
     }
-
-    [Category("Scene Objects")]
-    public class m_camera_writer : ModuleWriter
-    {
-        public Transform CameraPivot;
-        public Camera Cam;
-
-        public override void WriteModule(Character character)
-        {
-            m_camera c = character.RequireModule<m_camera> ();
-            c.Coord = character.transform;
-            c.CameraPivot = CameraPivot;
-            c.Cam = Cam;
-        }
-    }
 }

@@ -5,44 +5,21 @@ using UnityEngine;
 
 namespace Pixify
 {
-    // create a character from a model
-    public class CharacterWriter : MonoBehaviour
+    // write a character into an already existing gameobject
+    public sealed class CharacterWriter : MonoBehaviour
     {
-        [SerializeField]
-        private CharacterModel Model;
-
-        [SerializeReference]
-        public List <ModuleWriter> OverrideParameters;
-
-
         void Awake()
         {
-            var c = gameObject.AddComponent<Character>();
+            var Scripters = GetComponents<Scripter>();
+            var c = gameObject.AddComponent<Character> ();
+
+            foreach (var a in Scripters)
+            foreach (var m in a.GetModules ())
+                m.WriteModule (c);
+
             
-            List <Type> OverridedTypes = new List<Type>();
-
-            // write override first
-            foreach (var p in OverrideParameters)
-            {
-                p.WriteModule(c);
-                OverridedTypes.Add(p.GetType());
-            }
-            // write from model
-            if (Model)
-            foreach (var p in Model.Parameters)
-            {
-                if (!OverridedTypes.Contains(p.GetType()))
-                    p.WriteModule(c);
-            }
-
-            // add the character controller
-            var cc = GetComponent <script> ();
-            if (cc)
-            {
-                m_character_controller mcc = c.RequireModule<m_character_controller> ();
-                treeBuilder.TreeStart ( c );
-                mcc.StartRoot (cc.CreateTree ());
-            }
+            foreach (var a in Scripters)
+            a.OnWrite ( c );
 
             Destroy (this);
         }

@@ -5,14 +5,9 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class StandardCharacterAuthor : AuthorModule
+    public class StandardCharacterAuthor : Scripter
     {
         public script main;
-
-        public override ModuleWriter[] GetModules()
-        {
-            return new ModuleWriter[] {};
-        }
 
         public override void OnSpawn(Vector3 position, Quaternion rotation, Character c)
         {
