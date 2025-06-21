@@ -12,7 +12,7 @@ namespace Triheroes.Code
     public sealed class e_skin : element
     {
         [Depend]
-        m_stat_HP mshp;
+        m_HP mshp;
 
         public override void Clash( element from, Force force )
         {

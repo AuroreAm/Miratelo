@@ -20,7 +20,7 @@ namespace Triheroes.Code
         public override void Create()
         {
             o = this;
-            Tween = new mt_linear();
+            Tween = new mt_linear ( GetX, SetX );
             Tween.Aquire (this);
             CacheAction ();
         }
@@ -36,7 +36,7 @@ namespace Triheroes.Code
         public static void ShowInteractText ( string text )
         {
             o.text.text = text;
-            o.Tween.Start (1, 2, o._getX, o._setX);
+            o.Tween.Start (1, 2);
         }
 
         void CacheAction()
@@ -54,7 +54,7 @@ namespace Triheroes.Code
         {
             alpha = value;
             text.color = new Color(1, 1, 1, value);
-            o.Tween.Start (0, 2, o._getX, o._setX);
+            o.Tween.Start (0, 2);
         }
     }
 }

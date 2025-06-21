@@ -18,7 +18,7 @@ namespace Triheroes.Code
 
         protected override bool Step()
         {
-            if (Player.GetButtonDown(BoutonId.A) && me.weaponUser == null)
+            if (Player.Action2.OnActive && me.weaponUser == null)
             {
                 draw.Set ( me.weapons [0] );
                 selector.CurrentSelector.SwitchTo (StateKey2.draw);
@@ -40,7 +40,7 @@ namespace Triheroes.Code
 
         protected override bool Step()
         {
-            if (Player.GetButtonDown(BoutonId.A) && me.weaponUser != null)
+            if (Player.Action1.OnActive && me.weaponUser != null)
             {
             return_.Set ( me.weaponUser.WeaponBase );
             selector.CurrentSelector.SwitchTo (StateKey2.return_);

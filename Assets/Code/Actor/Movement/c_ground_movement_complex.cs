@@ -36,25 +36,29 @@ namespace Triheroes.Code
         /// walk factor of the movement, used to interpolate between idle and walk, the character's speed is multiplied by this factor
         /// </summary>
         public float walkFactor;
+        float sprintCooldown;
 
-        bool firstFrame = true;
+        int CurrentFrame;
 
         protected override void OnAquire()
         {
-            if (firstFrame == true)
+            
+            if ( CurrentFrame != Time.frameCount )
             {
+                sprintCooldown = 0;
                 walkDir = Vector3.zero;
                 rotDir = Vecteur.LDir ( ms.rotY, Vector3.forward );
                 ToIdle ();
-                firstFrame = false;
             }
+            // don't reset anything if this is aquired/freed on the same frame
             else
             {
                 if (state == StateKey.idle)
                 ToIdle ();
-                else ToRun ();
+                else
+                ToRun ();
             }
-            
+
             mccc.Aquire (this);
             mf.Aquire (this);
         }
@@ -63,6 +67,7 @@ namespace Triheroes.Code
         {
             Animation ();
             Rotation ();
+            SprintCooldown ();
             ResetDir ();
         }
 
@@ -73,6 +78,7 @@ namespace Triheroes.Code
             mccc.Free (this);
             mf.Free (this);
             ms.allowMoving = false;
+            CurrentFrame = Time.frameCount;
         }
 
         void Animation()
@@ -93,7 +99,7 @@ namespace Triheroes.Code
                 if (walkDir.magnitude < 0.01f)
                 {
                     mf.Stop ();
-                    if (state == StateKey.sprint || (state == StateKey.run && ms.IsTransitioningFrom(0, AnimationKey.sprint)))
+                    if (state == StateKey.sprint || sprintCooldown > 0 )
                     Brake ();
                     else
                     ToIdle ();
@@ -109,6 +115,9 @@ namespace Triheroes.Code
 
         void ToRun ()
         {
+            if (state == StateKey.sprint)
+                sprintCooldown = 0.5f;
+
             SuperKey Animation = (walkFactor == WalkFactor.walk) ? AnimationKey.walk : (walkFactor == WalkFactor.run) ? AnimationKey.run : AnimationKey.sprint;
             ms.PlayState (0, Animation ,0.2f);
 
@@ -165,7 +174,11 @@ namespace Triheroes.Code
             ToRun ();
         }
 
-        
+        void SprintCooldown ()
+        {
+            if (sprintCooldown > 0)
+                sprintCooldown -= Time.deltaTime;
+        }
 
         #region public methods
 
@@ -179,7 +192,7 @@ namespace Triheroes.Code
                 if (walkDir.magnitude > 0.01f)
                 rotDir = walkDir.normalized;
 
-                if (state!=StateKey.brake_rotation)
+                if (state!=StateKey.brake_rotation && state != StateKey.idle)
                 mccc.dir += Time.deltaTime * walkFactor * c_ground_movement.SlopeProjection (DirPerSecond, mgd.groundNormal);
             }
         }

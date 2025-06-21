@@ -6,18 +6,14 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     [RegisterAsBase]
-    public class c_fall_movement : controller
+    public class c_air_movement : controller
     {
         [Depend]
-        m_capsule_character_controller mccc;
+        public m_capsule_character_controller mccc;
         [Depend]
-        m_ground_data mgd;
+        public m_ground_data mgd;
         [Depend]
-        m_skin ms;
-        [Depend]
-        m_footstep mf;
-
-        public SuperKey landAnimation = AnimationKey.fall_end;
+        public m_skin ms;
 
         protected override void OnAquire()
         {
@@ -32,19 +28,10 @@ namespace Triheroes.Code
         }
 
         public override void Main()
-        {
-            // to ground movement manually added in behavior trees
-        }
-
-        void LandSFX ()
-        {
-            mf.PlayFootstep ();
-        }
+        {}
 
         protected override void OnFree()
         {
-            if (mgd.onGround && mccc.verticalVelocity < 0 && Vector3.Angle(Vector3.up, mgd.groundNormal) <= 45)
-                ms.PlayState(ms.knee, landAnimation, 0.05f, null,null, LandSFX);
             mccc.Free(this);
         }
     }

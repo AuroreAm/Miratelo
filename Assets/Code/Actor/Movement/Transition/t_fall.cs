@@ -10,7 +10,7 @@ namespace Triheroes.Code
     /// </summary>
     [Unique]
     [Category("actor")]
-    public class t_move : action
+    public class to_move : action
     {
         [Depend]
         m_ground_data mgd;
@@ -21,7 +21,7 @@ namespace Triheroes.Code
         protected override bool Step()
         {
             if (mgd.onGround && mccc.verticalVelocity < 0 && Vector3.Angle (Vector3.up, mgd.groundNormal) <= 45)
-            selector.CurrentSelector.SwitchTo (StateKey2.move);
+                selector.CurrentSelector.SwitchTo (StateKey2.move);
             return false;
         }
     }

@@ -24,14 +24,33 @@ namespace Triheroes.Code
             enabled = false;
         }
 
-        public void Start(float TargetX, float speed, Func<float> GetX, Action<float> SetX, Action OnEnd = null)
+        public mt_linear (Func<float> GetX, Action<float> SetX, Action OnEnd = null)
+        {
+            this.GetX = GetX;
+            this.SetX = SetX;
+            this.OnEnd = OnEnd;
+        }
+
+        public void CacheAction( Func<float> GetX, Action<float> SetX, Action OnEnd = null )
+        {
+            this.GetX = GetX;
+            this.SetX = SetX;
+            this.OnEnd = OnEnd;
+        }
+
+        /// <summary>
+        /// start the tween using the cached action
+        /// </summary>
+        public void Start ( float TargetX, float speed)
         {
             enabled = true;
             this.TargetX = TargetX;
             this.speed = speed;
-            this.GetX = GetX;
-            this.SetX = SetX;
-            this.OnEnd = OnEnd;
+        }
+
+        public void Stop ()
+        {
+            enabled = false;
         }
 
         public override void Main()

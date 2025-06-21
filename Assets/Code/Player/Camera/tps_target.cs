@@ -29,8 +29,8 @@ namespace Triheroes.Code
             height = c.C.md.h;
 
             // rotate offset according to mouse
-            rotYOffset.y += Player.DeltaMouse().x * 3;
-            rotYOffset.x -= Player.DeltaMouse().y * 3;
+            rotYOffset.y += Player.DeltaMouse.x * 3;
+            rotYOffset.x -= Player.DeltaMouse.y * 3;
 
             CalculateOffest ();
 

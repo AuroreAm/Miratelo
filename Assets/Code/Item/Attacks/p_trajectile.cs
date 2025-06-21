@@ -9,7 +9,7 @@ namespace Triheroes.Code
     {
         float speed;
         float timeLeft;
-        Vector3 position;
+        public Vector3 position;
         Quaternion rotation;
         PieceSkin skin;
 

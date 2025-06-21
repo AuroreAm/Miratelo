@@ -14,7 +14,7 @@ namespace Triheroes.Code
         public override void Create()
         {
             o = this;
-            Aquire (new Void ());
+            Aquire (this);
         }
 
         Dictionary<int, Text> Titles = new Dictionary<int, Text>();

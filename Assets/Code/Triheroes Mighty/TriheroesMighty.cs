@@ -13,6 +13,8 @@ namespace Triheroes.Code
         {
             Director d = gameObject.AddComponent <Director> ();
 
+            d.RequireModule <Player> ();
+
             d.RequireModule <UnitPoolMaster> ();
             d.RequireModule <Vecteur> ();
             d.RequireModule <ActorFaction> ();

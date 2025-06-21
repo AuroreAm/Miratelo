@@ -11,10 +11,10 @@ namespace Triheroes.Code
     {
         protected override void OnAquire()
         {
-            for (int i = 0; i < GameData.o.MainActors.Length; i++)
+            for (int i = 0; i < play.ActorCount; i++)
             {
-                TreeStart ( GameData.o.GetMainCharacters(i) );
-                GameData.o.GetMainCharacters(i).RequireModule <m_character_controller> ().StartRoot ( PlayerCinematicActorLibrary.Dummy () );
+                TreeStart ( play.GetMainCharacter(i) );
+                play.GetMainCharacter(i).RequireModule <m_character_controller> ().StartRoot ( PlayerCinematicActorLibrary.Dummy () );
             }
         }
 

@@ -24,7 +24,7 @@ namespace Triheroes.Code
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.id() == GameData.o.MainActors[0].character.gameObject.GetInstanceID())
+            if (other.id() == play.MainCharacter.gameObject.GetInstanceID())
             {
                 mcc.StartRoot ( triggerRoot );
                 Destroy (gameObject);

@@ -24,6 +24,7 @@ namespace Triheroes.Code
         float _IE;
     }
 
+    [RegisterAsBase]
     // typical character imediate energy generator
     public class m_ie_metabolism : m_stat_generator
     {
@@ -36,6 +37,11 @@ namespace Triheroes.Code
         bool CanGenerate;
         float delay;
         float previousIE;
+
+        public override void Create()
+        {
+            Aquire (this);
+        }
 
         public override void Main()
         {

@@ -19,13 +19,14 @@ namespace Triheroes.Code
         c_jump cj;
         [Depend]
         c_ground_movement_complex cgmc;
-    
+
+
         protected override bool Step()
         {
-            if (mgd.onGround && Player.GetButtonDown(BoutonId.Jump))
+            if (mgd.onGround && Player.Jump.OnActive)
             {
                 cj.jumpAnimation = (cgmc.state == StateKey.idle)? AnimationKey.jump : ( (msfi.DominantFoot == m_skin_foot_ik.FootId.left) ? AnimationKey.jump_left_foot : AnimationKey.jump_right_foot );
-                cj.landAnimation = (cgmc.state == StateKey.idle)? AnimationKey.fall_end : ( (msfi.DominantFoot == m_skin_foot_ik.FootId.left) ? AnimationKey.fall_end_left_foot : AnimationKey.fall_end_right_foot );
+                cj.character.GetUnique<pc_fall> ().landAnimation = (cgmc.state == StateKey.idle)? AnimationKey.fall_end : ( (msfi.DominantFoot == m_skin_foot_ik.FootId.left) ? AnimationKey.fall_end_left_foot : AnimationKey.fall_end_right_foot );
                 selector.CurrentSelector.SwitchTo (StateKey2.jump);
             }
             return false;
@@ -55,9 +56,9 @@ namespace Triheroes.Code
 
         protected override bool Step()
         {
-            Vector3 InputAxis = Player.GetAxis3();
+            Vector3 InputAxis = Player.MoveAxis3;
             InputAxis = Vecteur.LDir ( new Vector3 (0,m_camera.o.mct.rotY.y, 0), InputAxis ) * speed;
-            cj.AirMove (InputAxis, Player.GetButton(BoutonId.Fire2) ? WalkFactor.sprint : WalkFactor.run);
+            cj.AirMove (InputAxis, Player.Jump.Active? WalkFactor.sprint : WalkFactor.run);
 
             if (isJumping)
             {
@@ -65,7 +66,7 @@ namespace Triheroes.Code
             cj.JumpStep (1.5f);
             }
 
-            if (Player.GetButtonUp (BoutonId.Jump) || jumpTimeHeld <= 0)
+            if (Player.Jump.OnRelease || jumpTimeHeld <= 0)
             isJumping = false;
 
             return false;

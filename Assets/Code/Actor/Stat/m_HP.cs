@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     // core health point of a character
-    public class m_stat_HP : module
+    public class m_HP : module
     {
         public float HP
         {
@@ -20,7 +20,7 @@ namespace Triheroes.Code
             HP = MaxHP;
         }
 
-        float MaxHP;
+        public float MaxHP { private set; get; }
         float _HP;
     }
 }

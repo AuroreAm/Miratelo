@@ -12,11 +12,8 @@ namespace Triheroes.Code
         m_capsule_character_controller mccc;
         [Depend]
         m_skin ms;
-        [Depend]
-        c_fall_movement cfm;
 
         public SuperKey jumpAnimation = AnimationKey.jump;
-        public SuperKey landAnimation = AnimationKey.fall_end;
 
         protected override void OnAquire()
         {
@@ -25,7 +22,6 @@ namespace Triheroes.Code
 
         protected override void OnFree()
         {
-            cfm.landAnimation = landAnimation;
             mccc.Free(this);
         }
 

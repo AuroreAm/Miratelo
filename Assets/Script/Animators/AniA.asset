@@ -177,6 +177,12 @@ MonoBehaviour:
     Duration: 0.79999995
     EvPoint: []
   - Key:
+      value: -1533132481
+      keyName: fall_end_hard
+    Duration: 1.4333334
+    EvPoint:
+    - 0.16739249
+  - Key:
       value: 289444158
       keyName: fall_end
     Duration: 0.3

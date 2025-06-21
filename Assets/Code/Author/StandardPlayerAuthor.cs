@@ -19,7 +19,7 @@ namespace Triheroes.Code
 
         override public ModuleWriter[] GetModules ()
         {
-            return new ModuleWriter[] { skin, actor };
+            return new ModuleWriter[] { skin, actor, stat };
         }
 
         override public void OnSpawn ( Vector3 position, Quaternion rotation, Character c )

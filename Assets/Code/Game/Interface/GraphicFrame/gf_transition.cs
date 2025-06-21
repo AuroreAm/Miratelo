@@ -15,9 +15,8 @@ namespace Triheroes.Code
         public override void Create()
         {
             o = this;
-            Tween = new mt_linear();
+            Tween = new mt_linear ( GetX, SetX, OnEnd);
             Tween.Aquire (this);
-            CacheAction ();
         }
 
         float alpha = 1;
@@ -31,21 +30,13 @@ namespace Triheroes.Code
 
         public static void FadeFromBlack()
         {
-            o.Tween.Start (0, 0.2f, o._getX, o._setX, o._onEnd);
+            o.Tween.Start (0, 0.2f);
         }
 
         public static void FadeToBlack()
         {
-            o.Tween.Start (1, 0.2f, o._getX, o._setX, o._onEnd);
+            o.Tween.Start (1, 0.2f);
             o.image.gameObject.SetActive (true);
-        }
-
-        Func<float> _getX; Action<float> _setX; Action _onEnd;
-        void CacheAction()
-        {
-            _getX = GetX;
-            _setX = SetX;
-            _onEnd = OnEnd;
         }
 
         float GetX ()

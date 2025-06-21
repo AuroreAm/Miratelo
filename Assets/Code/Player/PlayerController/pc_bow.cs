@@ -13,7 +13,7 @@ namespace Triheroes.Code
     {
         protected override bool Step()
         {
-            if ( Player.GetButtonDown (BoutonId.Fire1) )
+            if ( Player.Aim.OnActive )
             selector.CurrentSelector.SwitchTo ( StateKey2.aim );
 
             return base.Step();
@@ -38,10 +38,10 @@ namespace Triheroes.Code
             Vector3 RotDirection = Vecteur.RotDirection ( mbu.Weapon.BowString.position, m_camera.o.PointScreenCenter( mbu.character.transform ) );
             ca.Aim ( RotDirection );
 
-            if (Player.GetButtonUp (BoutonId.Fire1))
+            if (Player.Action2.OnActive)
                 ca.StartShoot ();
 
-            if (Player.GetButtonDown (BoutonId.Fire3))
+            if (Player.Aim.OnRelease)
             return true;
 
             return false;

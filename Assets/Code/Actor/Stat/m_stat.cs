@@ -22,7 +22,7 @@ namespace Triheroes.Code
         {
             if (MaxHP > 0)
             {
-                var mshp = character.RequireModule<m_stat_HP>();
+                var mshp = character.RequireModule<m_HP>();
                 mshp.Set(MaxHP);
             }
 

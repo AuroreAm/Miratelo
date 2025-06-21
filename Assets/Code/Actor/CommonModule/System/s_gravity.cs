@@ -13,6 +13,9 @@ namespace Triheroes.Code
             if (!o.UseGravity)
             return;
 
+            
+            // add gravity force // limit falling velocity when it reach terminal velocity
+            if (o.verticalVelocity > -1000)
             o.verticalVelocity += Physics.gravity.y * Time.deltaTime/*a*/ * o.mass;
 
             if (o.mgd.onGroundAbs && o.verticalVelocity < 0 && Vector3.Angle (Vector3.up, o.mgd.groundNormal) <= 45)

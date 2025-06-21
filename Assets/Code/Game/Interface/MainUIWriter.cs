@@ -11,6 +11,7 @@ namespace Triheroes.Code
         public RawImage Overlay;
 
         public Text InteractText;
+        public Transform PlayerHUD;
 
         public Animation TitleAnimation;
         public Text TitleText;
@@ -32,6 +33,9 @@ namespace Triheroes.Code
 
             // INTERACT TEXT
             c.RequireModule<m_interact> ().Set (InteractText);
+
+            // PLAYER HUD
+            c.RequireModule<gf_player_hud> ().Set ( PlayerHUD );
         }
     }
 }

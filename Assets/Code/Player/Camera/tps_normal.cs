@@ -22,8 +22,8 @@ namespace Triheroes.Code
 
             // rotate using the mouse
             // TODO: add sensitivity tweak, add inverted mouse
-            rotY.y += Player.DeltaMouse ().x * 3;
-            rotY.x -= Player.DeltaMouse ().y * 3;
+            rotY.y += Player.DeltaMouse.x * 3;
+            rotY.x -= Player.DeltaMouse.y * 3;
             rotY.x = Mathf.Clamp(rotY.x, -65, 65);
         }
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    // TODO spectre linkage with sound effect // random sound effect
     public class Spectre : module
     {
         public static Spectre o;

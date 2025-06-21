@@ -23,7 +23,7 @@ namespace Triheroes.Code
         protected override bool Step()
         {
             Vector3 InputAxis;
-            InputAxis = Player.GetAxis3();
+            InputAxis = Player.MoveAxis3;
             InputAxis = Vecteur.LDir ( m_camera.o.mct.rotY.OnlyY (),InputAxis) * 6f;
 
             cgml.WalkLateral ( InputAxis );

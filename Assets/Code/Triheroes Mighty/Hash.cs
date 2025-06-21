@@ -38,6 +38,7 @@ namespace Triheroes.Code
         public static readonly SuperKey fall_end = new SuperKey("fall_end");
         public static readonly SuperKey fall_end_left_foot = new SuperKey("fall_end_left_foot");
         public static readonly SuperKey fall_end_right_foot = new SuperKey("fall_end_right_foot");
+        public static readonly SuperKey fall_end_hard = new SuperKey("fall_end_hard");
         public static readonly SuperKey jump = new SuperKey("jump");
         public static readonly SuperKey jump_left_foot = new SuperKey("jump_left_foot");
         public static readonly SuperKey jump_right_foot = new SuperKey("jump_right_foot");

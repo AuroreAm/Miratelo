@@ -34,14 +34,14 @@ namespace Triheroes.Code
 
         protected override bool Step()
         {
-            if (Player.GetButtonDown (BoutonId.R))
+            if ( Player.Focus.OnActive )
             {
                 ma.UnlockTarget ();
                 ma.LockATarget ( ma.GetNearestFacedFoe (Distance) );
                 return false;
             }
 
-            if ( Player.GetButtonDown ( BoutonId.R ) )
+            if ( Player.Focus.OnActive )
                 ma.UnlockTarget ();
 
             return false;

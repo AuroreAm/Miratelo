@@ -17,7 +17,7 @@ namespace Triheroes.Code
 
         protected override bool Step()
         {
-            if (Player.GetButtonDown(BoutonId.Fire1))
+            if (Player.Action2.OnActive)
             selector.CurrentSelector.SwitchTo (StateKey2.slash);
 
             return false;
@@ -40,7 +40,7 @@ namespace Triheroes.Code
 
         protected override bool Step()
         {
-            if (Player.GetButtonDown(BoutonId.Fire1))
+            if (Player.Action2.OnActive)
             controlled_sequence.CurrentStatus = controlled_sequence.TaskStatusEnum.Success;
             return false;
         }
