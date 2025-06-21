@@ -7,16 +7,12 @@ namespace Triheroes.Code
 {
     public class CameraWriter : Scripter
     {
-        
-        public Transform CameraPivot;
-        public Camera Cam;
 
         public override void OnWrite(Character c)
         {
-            m_camera cm = c.RequireModule<m_camera> ();
-            cm.Coord = c.transform;
-            cm.CameraPivot = CameraPivot;
-            cm.Cam = Cam;
+            m_camera mc = c.RequireModule<m_camera> ();
+            mc.Coord = c.transform;
+            mc.Cam = c.transform.GetChild(0).GetComponent<Camera>();
         }
         
     }

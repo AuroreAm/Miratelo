@@ -6,7 +6,7 @@ using UnityEngine.PlayerLoop;
 
 namespace Triheroes.Code
 {
-    
+    /*
     public class m_camera : module
     {
         public static m_camera o;
@@ -224,22 +224,52 @@ namespace Triheroes.Code
 
         public virtual void Update()
         { }
-    }
-/*
-    public class m_camera : module
+    }*/
+
+    public class m_camera : core
     {
         public static m_camera o;
         public Transform Coord;
         public Camera Cam;
-
         camera_shot Shot;
 
         public override void Create()
         {
             o = this;
+            Aquire (this);
+            SetCameraShot ( dummy );
         }
         
+        public override void Main()
+        {
+            Coord.position = Shot.CamPos;
+            Coord.rotation = Shot.CamRot;
+        }
+
+        void SetCameraShot ( camera_shot Shot )
+        {
+            if (this.Shot != null)
+            this.Shot.Free (this);
+
+            this.Shot = Shot;
+            Shot.Aquire (this);
+        }
+
         // public methods
+        // camera control
+        [Depend]
+        public tps_data td;
+        [Depend]
+        camera_dummy dummy;
+        [Depend]
+        tps_normal tps;
+        
+        public void TpsACharacter ( m_dimension MainCharacter )
+        {
+            td.Subject = MainCharacter;
+            SetCameraShot ( tps );
+        }
+
         // Screen ray
         Ray ScreenRay;
         public Vector3 PointScreenCenter(Transform Exclude)
@@ -263,8 +293,19 @@ namespace Triheroes.Code
         }
     }
 
+    [CoreBase]
     public abstract class camera_shot : core
     {
+        public Vector3 CamPos;
+        public Quaternion CamRot;
+    }
 
-    }*/
+    public class camera_dummy : camera_shot
+    {
+        public override void Main()
+        {
+            CamPos = Vector3.zero;
+            CamRot = Quaternion.identity;
+        }
+    }
 }

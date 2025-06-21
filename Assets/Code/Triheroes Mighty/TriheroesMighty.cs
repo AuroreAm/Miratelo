@@ -65,7 +65,8 @@ namespace Triheroes.Code
                 new CoreSystem<m_skin>(),
 
                 // camera
-                new CoreSystem<m_camera_controller>(),
+                new CoreSystem<camera_shot>(),
+                new CoreSystem<m_camera>(),
 
                 // UI
                 new CoreSystem<graphic_frame>(),

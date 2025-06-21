@@ -57,7 +57,7 @@ namespace Triheroes.Code
         protected override bool Step()
         {
             Vector3 InputAxis = Player.MoveAxis3;
-            InputAxis = Vecteur.LDir ( new Vector3 (0,m_camera.o.mct.rotY.y, 0), InputAxis ) * speed;
+            InputAxis = Vecteur.LDir ( new Vector3 (0,m_camera.o.td.rotY.y, 0), InputAxis ) * speed;
             cj.AirMove (InputAxis, Player.Jump.Active? WalkFactor.sprint : WalkFactor.run);
 
             if (isJumping)

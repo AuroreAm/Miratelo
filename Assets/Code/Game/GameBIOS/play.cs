@@ -61,7 +61,10 @@ namespace Triheroes.Code
         void SetMainPlayer ( int i )
         {
             MainActors[i].character.RequireModule <m_character_controller> ().StartRoot ( MainPlayerScripts[i] );
+            // set the player hud
             gf_player_hud.o.SetIdentity ( MainPlayerHP[i].MaxHP, MainPlayerHP[i].HP, MainPlayerIE[i].MaxIE, MainPlayerIE[i].IE,  MainActors[i].md );
+            // set the camera
+            m_camera.o.TpsACharacter ( MainActors[i].md );
 
             MainActor = i;
         } 

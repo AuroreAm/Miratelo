@@ -27,7 +27,7 @@ namespace Triheroes.Code
             float runFactor = Player.Dash.Active ? WalkFactor.sprint : ( InputAxis.magnitude > 0.7f ? WalkFactor.run : WalkFactor.walk );
             InputAxis.Normalize ();
 
-            InputAxis = Vecteur.LDir ( m_camera.o.mct.rotY.OnlyY (), InputAxis ) * speed;
+            InputAxis = Vecteur.LDir ( m_camera.o.td.rotY.OnlyY (), InputAxis ) * speed;
             cgmc.Walk (InputAxis, runFactor );
 
             return false;
@@ -83,7 +83,7 @@ namespace Triheroes.Code
             if (Stopping) return false;
 
             Vector3 InputAxis = Player.MoveAxis3;
-            InputAxis = Vecteur.LDir ( new Vector3 (0,m_camera.o.mct.rotY.y, 0), InputAxis ) * speed;
+            InputAxis = Vecteur.LDir ( new Vector3 (0,m_camera.o.td.rotY.y, 0), InputAxis ) * speed;
             cam.AirMove (InputAxis);
 
             if (!hardFall)

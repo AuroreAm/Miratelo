@@ -1,41 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
+using log4net.Filter;
 using Pixify;
 using UnityEngine;
 
 namespace Triheroes.Code
 {
-    
-    /// <summary>
-    /// normal camera tps controller
-    /// </summary>
-    public class tps_normal : pc_camera_tps_controller
+    public class tps_data : module
     {
-        public override void Default()
-        {
-            SyncWithTps ();
-            offset = Vector3.zero;
-        }
-
-        public override void Update()
-        {
-            height = c.C.md.h;
-            distance = 4;
-
-            // rotate using the mouse
-            // TODO: add sensitivity tweak, add inverted mouse
-            rotY.y += Player.DeltaMouse.x * 3;
-            rotY.x -= Player.DeltaMouse.y * 3;
-            rotY.x = Mathf.Clamp(rotY.x, -65, 65);
-        }
+        public Vector3 rotY;
+        public m_dimension Subject;
     }
 
-    /*
-    [RegisterAsBase]
-    public class tps_normal : camera_shot
+    public abstract class tps_shot : camera_shot
     {
+        [Depend]
+        protected tps_data td;
+
+        protected const float radius = .5f;
+        protected Vector3 offset;
+        protected float height;
+        protected float distance;
+
+        protected void RayCameraPosition ()
+        {
+            float RayDistance = distance;
+            Vector3 TargetPos = td.Subject.position + offset + height * Vector3.up;
+
+            if ( Physics.SphereCast ( td.Subject.position, radius, Vecteur.LDir(td.rotY,Vector3.back), out RaycastHit hit, distance, Vecteur.Solid ) )
+                RayDistance = hit.distance - 0.05f;
+
+            CamPos = TargetPos + Vecteur.LDir(td.rotY,Vector3.back) * RayDistance;
+            CamRot = Quaternion.Euler(td.rotY);
+        }
+    }
+    
+    public class tps_normal : tps_shot
+    {
+        protected override void OnAquire()
+        {
+            height = td.Subject.h;
+            distance = 4;
+        }
+
         public override void Main()
         {
+            // rotate using the mouse
+            // TODO: add sensitivity tweak, add inverted mouse
+            td.rotY.y += Player.DeltaMouse.x * 3;
+            td.rotY.x -= Player.DeltaMouse.y * 3;
+            td.rotY.x = Mathf.Clamp(td.rotY.x, -65, 65);
+
+            RayCameraPosition ();
         }
-    }*/
+    }
 }
