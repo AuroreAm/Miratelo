@@ -24,7 +24,6 @@ namespace Triheroes.Code
         float _IE;
     }
 
-    [RegisterAsBase]
     // typical character imediate energy generator
     public class m_ie_metabolism : m_stat_generator
     {

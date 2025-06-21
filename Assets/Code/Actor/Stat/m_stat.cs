@@ -38,6 +38,7 @@ namespace Triheroes.Code
         }
     }
 
+    [CoreBase]
     public abstract class m_stat_generator : core
     {
 

@@ -20,6 +20,7 @@ namespace Triheroes.Code
         }
     }
 
+    [CoreBase]
     public abstract class bios : core
     {}
 }

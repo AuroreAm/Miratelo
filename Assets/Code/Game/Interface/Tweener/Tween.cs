@@ -6,11 +6,11 @@ using System;
 
 namespace Triheroes.Code
 {
+    [CoreBase]
     public abstract class m_tween : core
     {
     }
 
-    [RegisterAsBase]
     public class mt_linear : m_tween
     {
         Func<float> GetX;

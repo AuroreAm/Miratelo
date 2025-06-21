@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    
     public class tps_target : pc_camera_tps_controller
     {
-        
         public Vector3 rotYOffset;
         Vector3 rotYToTarget;
 
@@ -54,4 +54,5 @@ namespace Triheroes.Code
             offset = Vecteur.LDir ( Vecteur.RotDirection (mpos, tpos), Vector3.forward * (dist * distRatio / 2) );
         }
     }
+    
 }

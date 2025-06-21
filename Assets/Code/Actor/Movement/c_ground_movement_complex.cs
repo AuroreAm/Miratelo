@@ -11,7 +11,6 @@ namespace Triheroes.Code
     // also manages animations
     // also manages footsteps
     // does not change to fall movement when not on ground, this must be manually added in behavior trees
-    [RegisterAsBase]
     public class c_ground_movement_complex : controller
     {
         [Depend]

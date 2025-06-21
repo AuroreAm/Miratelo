@@ -6,6 +6,7 @@ using UnityEngine.PlayerLoop;
 
 namespace Triheroes.Code
 {
+    
     public class m_camera : module
     {
         public static m_camera o;
@@ -48,10 +49,10 @@ namespace Triheroes.Code
         }
     }
 
+    [CoreBase]
     public abstract class m_camera_controller : core
     {}
 
-    [RegisterAsBase]
     public class m_camera_tps : m_camera_controller
     {
         [Depend]
@@ -224,4 +225,46 @@ namespace Triheroes.Code
         public virtual void Update()
         { }
     }
+/*
+    public class m_camera : module
+    {
+        public static m_camera o;
+        public Transform Coord;
+        public Camera Cam;
+
+        camera_shot Shot;
+
+        public override void Create()
+        {
+            o = this;
+        }
+        
+        // public methods
+        // Screen ray
+        Ray ScreenRay;
+        public Vector3 PointScreenCenter(Transform Exclude)
+        {
+            ScreenRay.origin = Coord.position;
+            ScreenRay.direction = Coord.forward;
+
+            int d = Exclude.gameObject.layer;
+            Exclude.gameObject.layer = 0;
+            RaycastHit hit;
+
+            bool HasHitSomething = Physics.Raycast(ScreenRay, out hit,
+            256, Vecteur.SolidCharacter);
+
+            Exclude.gameObject.layer = d;
+
+            if (HasHitSomething)
+                return hit.point;
+            else
+                return Coord.position + Coord.forward * 256;
+        }
+    }
+
+    public abstract class camera_shot : core
+    {
+
+    }*/
 }

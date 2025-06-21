@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Pixify;
 using UnityEngine;
 
 namespace Triheroes.Code
 {
+    
     /// <summary>
     /// normal camera tps controller
     /// </summary>
@@ -27,4 +29,13 @@ namespace Triheroes.Code
             rotY.x = Mathf.Clamp(rotY.x, -65, 65);
         }
     }
+
+    /*
+    [RegisterAsBase]
+    public class tps_normal : camera_shot
+    {
+        public override void Main()
+        {
+        }
+    }*/
 }

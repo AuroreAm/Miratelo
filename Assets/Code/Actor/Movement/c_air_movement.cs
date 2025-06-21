@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [RegisterAsBase]
     public class c_air_movement : controller
     {
         [Depend]

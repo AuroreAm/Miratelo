@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [RegisterAsBase]
     public class in_game_cinematic : bios
     {
         protected override void OnAquire()

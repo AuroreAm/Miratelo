@@ -10,7 +10,6 @@ namespace Triheroes.Code
     // host for character in scene
     // play a character and let AI move the others in party
     // switch character
-    [RegisterAsBase]
     public class play : bios
     {
         public static play o;

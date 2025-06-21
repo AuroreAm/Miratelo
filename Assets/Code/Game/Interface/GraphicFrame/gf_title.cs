@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 namespace Triheroes.Code
 {
-    [RegisterAsBase]
     public class gf_title : graphic_frame
     {
         static gf_title o;

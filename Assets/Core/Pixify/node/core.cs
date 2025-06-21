@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace Pixify
 {
+    [AttributeUsage(AttributeTargets.Class,Inherited = false)]
+    public class CoreBaseAttribute : Attribute
+    {}
+
     public abstract class core : module
     {
         bool _on;

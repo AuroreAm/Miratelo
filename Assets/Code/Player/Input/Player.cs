@@ -42,7 +42,6 @@ namespace Triheroes.Code
         public static InputAction VMove, HMove, MouseX, MouseY, Jump, Action1, Action2, Action3, Focus, Dash, Alt, Aim;
     }
 
-    [RegisterAsBase]
     public sealed class InputAction : bios
     {
 

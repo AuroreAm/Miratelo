@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [RegisterAsBase]
     public class c_aim : controller
     {
         [Depend]

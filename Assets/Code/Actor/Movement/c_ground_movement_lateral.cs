@@ -8,7 +8,6 @@ namespace Triheroes.Code
     // core command between idle - walk lateral
     // uses CharacterController physics
     // manages animations
-    [RegisterAsBase]
     public class c_ground_movement_lateral : controller
     {
 

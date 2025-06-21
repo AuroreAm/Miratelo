@@ -29,12 +29,40 @@ namespace Pixify
 
         public void Register ( core core )
         {
-            RequestListCoresOfType ( core.GetType ().GetCustomAttribute<RegisterAsBaseAttribute>() == null? core.GetType(): core.GetType().BaseType ).Add ( core );
+            // find the base type
+            Type current = core.GetType ();
+
+            while (!(current == typeof(core)))
+            {
+                if (current.GetCustomAttribute<CoreBaseAttribute>() != null)
+                {
+                    RequestListCoresOfType ( current ).Add ( core );
+                    return;
+                }
+
+                current = current.BaseType;
+            }
+
+            RequestListCoresOfType ( core.GetType () ).Add ( core );
         }
 
+        
         public void Register ( piece piece )
         {
-            RequestListPiecesOfType ( piece.GetType ().GetCustomAttribute<RegisterAsBaseAttribute>() == null? piece.GetType(): piece.GetType().BaseType ).Add ( piece );
+            // find the base type
+            Type current = piece.GetType ();
+            while (!(current == typeof(piece)))
+            {
+                if (current.GetCustomAttribute<CoreBaseAttribute>() != null)
+                {
+                    RequestListPiecesOfType ( current ).Add ( piece );
+                    return;
+                }
+
+                current = current.BaseType;
+            }
+
+            RequestListPiecesOfType ( piece.GetType () ).Add ( piece );
         }
 
         internal List<core> RequestListCoresOfType (Type t)
@@ -70,12 +98,6 @@ namespace Pixify
             }
         }
     }
-
-    /// <summary>
-    /// register the type as its base type instead of the derived type
-    /// </summary>
-    public class RegisterAsBaseAttribute : Attribute
-    {}
 
     public abstract class PixifySytemBase
     {

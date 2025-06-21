@@ -10,7 +10,6 @@ namespace Triheroes.Code
         public Transform [] Hand;
     }
 
-    [RegisterAsBase]
     public class msp_bow : m_skin_procedural
     {
         [Depend]

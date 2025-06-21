@@ -8,7 +8,6 @@ namespace Triheroes.Code
     /// <summary>
     /// aquire for autoplay
     /// </summary>
-    [RegisterAsBase]
     public class m_footstep : controller
     {
         [Depend]

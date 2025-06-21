@@ -6,14 +6,13 @@ using Pixify;
 namespace Triheroes.Code
 {
     // for players character with humanoid characteristics
+    // don't need character controller here, automatically added by game master
     public class StandardPlayerAuthor : Scripter
     {
         [Header("Skin (appearance)")]
         public skin_writer skin;
-
         [Header("Actor definition")]
         public actor_writer actor;
-
         [Header("Stats")]
         public m_stat_writer stat;
 
