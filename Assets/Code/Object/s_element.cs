@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    // TODO: remove s_element from systems because there's nothing executed here
     public sealed class Element : ModulePointer<m_element>
     {
         public static Element o;

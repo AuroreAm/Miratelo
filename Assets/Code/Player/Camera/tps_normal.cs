@@ -9,7 +9,14 @@ namespace Triheroes.Code
     public class tps_data : module
     {
         public Vector3 rotY;
-        public m_dimension Subject;
+        public m_dimension Subject { get; private set; }
+        public m_actor SubjectActor { get; private set; }
+
+        public void SetSubject ( m_actor Actor )
+        {
+            SubjectActor = Actor;
+            Subject = Actor.md;
+        }
     }
 
     public abstract class tps_shot : camera_shot
@@ -18,23 +25,26 @@ namespace Triheroes.Code
         protected tps_data td;
 
         protected const float radius = .5f;
-        protected Vector3 offset;
-        protected float height;
-        protected float distance;
+        public Vector3 offset { get; protected set; }
+        public float height { get; protected set; }
+        public float distance { get; protected set; }
 
-        protected void RayCameraPosition ()
+        protected void RayCameraPosition () => RayCameraPosition (td.rotY);
+        protected void RayCameraPosition ( Vector3 RotY )
         {
             float RayDistance = distance;
             Vector3 TargetPos = td.Subject.position + offset + height * Vector3.up;
 
-            if ( Physics.SphereCast ( td.Subject.position, radius, Vecteur.LDir(td.rotY,Vector3.back), out RaycastHit hit, distance, Vecteur.Solid ) )
+            if ( Physics.SphereCast ( td.Subject.position, radius, Vecteur.LDir(RotY,Vector3.back), out RaycastHit hit, distance, Vecteur.Solid ) )
                 RayDistance = hit.distance - 0.05f;
 
-            CamPos = TargetPos + Vecteur.LDir(td.rotY,Vector3.back) * RayDistance;
-            CamRot = Quaternion.Euler(td.rotY);
+            CamPos = TargetPos + Vecteur.LDir(RotY,Vector3.back) * RayDistance;
+            CamRot = Quaternion.Euler(RotY);
         }
     }
-    
+
+
+
     public class tps_normal : tps_shot
     {
         protected override void OnAquire()

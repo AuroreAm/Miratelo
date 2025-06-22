@@ -45,6 +45,7 @@ namespace Triheroes.Code
                                 new parallel () {Tag = StateKey2.targetting};
                                     new pc_lateral_move ();
                                     new ac_lock_target ();
+                                    new pcc_target_target ();
                                     new t_untarget ();
                                 end ();
                             end ();

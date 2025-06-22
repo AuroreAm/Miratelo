@@ -21,8 +21,9 @@ public class scr_enemy_test : script
                 new t_target ();
             end ();
 
-            new sequence () { Tag = StateKey2.targetting };
+            new sequence () { Tag = StateKey2.targetting, repeat = true };
                 new ac_walk_to_target () {Speed = 5, StopDistance = 5, StopWhenDone = true};
+                new ac_walk_arround_target () { AngleAmount = 90, Speed = 5 };
                 new ac_look_at_target ();
             end ();
 

@@ -64,7 +64,7 @@ namespace Triheroes.Code
             // set the player hud
             gf_player_hud.o.SetIdentity ( MainPlayerHP[i].MaxHP, MainPlayerHP[i].HP, MainPlayerIE[i].MaxIE, MainPlayerIE[i].IE,  MainActors[i].md );
             // set the camera
-            m_camera.o.TpsACharacter ( MainActors[i].md );
+            m_camera.o.TpsACharacter ( MainActors[i] );
 
             MainActor = i;
         } 

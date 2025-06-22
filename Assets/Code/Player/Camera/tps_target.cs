@@ -1,58 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
+using Pixify;
 using UnityEngine;
 
 namespace Triheroes.Code
 {
-    /*
-    public class tps_target : pc_camera_tps_controller
+    public class tps_target : tps_shot
     {
-        public Vector3 rotYOffset;
-        Vector3 rotYToTarget;
+        [Depend]
+        m_camera mc;
+        Vector3 rotYOffset;
 
-        Vector3 mpos => c.C.md.position;
-        Vector3 tpos => c.C.target.md.position;
+        public m_dimension target;
 
-        public override void Default()
+        Vector3 spos => td.Subject.position;
+        Vector3 tpos => target.position;
+        protected override void OnAquire()
         {
-            SyncWithTps ();
-
-            CalculateOffest ();
-            rotYToTarget = Vecteur.RotDirection (mpos, tpos);
-            rotY = rotYToTarget;
-            rotYOffset = Vector3.zero;
+            height = td.Subject.h;
+            rotYOffset = Vecteur.RotDirection ( spos, tpos );
+            yPrevious = Vecteur.RotDirectionY ( spos, tpos );
+            td.rotY = new Vector3 ( td.rotY.x, yPrevious, 0 );
         }
 
-        
-        public override void Update()
+        float yPrevious;
+        public override void Main()
         {
-            height = c.C.md.h;
-
             // rotate offset according to mouse
             rotYOffset.y += Player.DeltaMouse.x * 3;
             rotYOffset.x -= Player.DeltaMouse.y * 3;
 
-            CalculateOffest ();
+            float AngleDiff = Mathf.DeltaAngle(yPrevious, Vecteur.RotDirectionY(spos, tpos));
+            if ( Mathf.Abs ( Mathf.DeltaAngle(0, AngleDiff) ) < 180*Time.unscaledDeltaTime )
+                rotYOffset.y += AngleDiff;
+            yPrevious = Vecteur.RotDirectionY(spos, tpos);
 
-            var a = Vecteur.RotDirection (mpos, tpos);
-            rotYToTarget.x = Mathf.MoveTowardsAngle ( rotYToTarget.x, a.x, 180*Time.unscaledDeltaTime );
-            rotYToTarget.y = Mathf.MoveTowardsAngle ( rotYToTarget.y, a.y, 180*Time.unscaledDeltaTime );
+            td.rotY = rotYOffset;
 
-            rotY = rotYToTarget + rotYOffset;
-            rotY.x = Mathf.Clamp( Mathf.DeltaAngle (0,rotY.x), -65, 65 ); 
-
-            return;
+            CalculateOffest();
+            RayCameraPosition();
         }
 
-        void CalculateOffest ()
+        // calculate the subject offset to make sure both subject and target are in the shot
+        void CalculateOffest()
         {
-            float dist = Vector3.Distance ( mpos, tpos );
-            float distRatio = Mathf.Abs (Mathf.DeltaAngle ( Vecteur.RotDirection (mpos, tpos).y, rotY.y )) / 180;
+            float TargetDistance = Vector3.Distance(spos, tpos);
+            float distRatio = Mathf.Abs(Mathf.DeltaAngle(Vecteur.RotDirection(spos, tpos).y, td.rotY.y)) / 180;
 
-            distance = 4 + (dist * distRatio);
-
-            offset = Vecteur.LDir ( Vecteur.RotDirection (mpos, tpos), Vector3.forward * (dist * distRatio / 2) );
+            distance = Mathf.Lerp ( distance, 4 + (TargetDistance * distRatio), .1f );
+            offset = Vector3.Lerp ( offset, Vecteur.LDir(Vecteur.RotDirectionQuaternion(spos, tpos), Vector3.forward * (TargetDistance * distRatio / 2)), .1f );
         }
     }
-    */
 }
