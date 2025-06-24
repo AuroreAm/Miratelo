@@ -17,7 +17,7 @@ namespace Triheroes.Code
         [Depend]
         m_equip me;
         
-        Weapon weapon;
+        WeaponPlace to;
 
         SuperKey ReturnAnimation;
 
@@ -26,23 +26,24 @@ namespace Triheroes.Code
             ms.PlayState ( ms.r_arm, ReturnAnimation, 0.1f, null, null, done );
         }
 
-        public void Set ( Weapon weapon )
+        public void SetPlaceToReturn ( WeaponPlace toPlace )
         {
-            this.weapon = weapon;
-            ReturnAnimation = weapon.DefaultReturnAnimation;
+            to = toPlace;
+            ReturnAnimation = me.weaponUser.WeaponBase.DefaultReturnAnimation;
         }
 
         override protected void Stop()
         {
+            Weapon w = me.weaponUser.WeaponBase;
             me.weaponUser.Free (me);
             me.weaponUser = null;
-            me.ReAttachWeapon (weapon);
-            weapon = null;
+            to.Put(w);
+            to = null;
         }
 
         override protected void Abort()
         {
-            weapon = null;
+            to = null;
         }
 
         void done ()

@@ -13,7 +13,7 @@ public class scr_enemy_test : script
         
             new parallel () { Tag = StateKey2.zero };
                 new sequence () { repeat = false };
-                    new ac_equip_adw (0);
+                    new ac_set_adw_from_inv0 () { WeaponType = WeaponType.Sword, index = 0 };
                     new ac_draw_weapon ();
                     new ac_get_a_target () {Distance = 30};
                 end ();
@@ -22,8 +22,6 @@ public class scr_enemy_test : script
             end ();
 
             new sequence () { Tag = StateKey2.targetting, repeat = true };
-                new ac_walk_to_target () {Speed = 5, StopDistance = 5, StopWhenDone = true};
-                new ac_walk_arround_target () { AngleAmount = 90, Speed = 5 };
                 new ac_look_at_target ();
             end ();
 

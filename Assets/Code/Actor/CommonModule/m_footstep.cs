@@ -59,7 +59,7 @@ namespace Triheroes.Code
             if ( Physics.Raycast ( md.position + Vector3.up * .1f, Vector3.down, out RaycastHit hit, .5f, Vecteur.Solid ) )
             ground = hit.collider.id ();
 
-            if ( GroundElement.GroundExist ( ground ) )
+            if ( GroundElement.ThingExist ( ground ) )
             GroundElement.Clash ( ef, ground );
         }
     }

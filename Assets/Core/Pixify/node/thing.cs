@@ -17,6 +17,11 @@ namespace Pixify
         {
             o = this;
         }
+        
+        public static bool ThingExist ( int id )
+        {
+            return o.ptr.ContainsKey ( id );
+        }
 
         public static void Register ( int id, T thing )
         {
@@ -27,7 +32,7 @@ namespace Pixify
 
     public abstract class thingptr <T> : thing where T : thingptr<T>
     {
-        public void Create ( int instanceID )
+        public void Register ( int instanceID )
         {
             ThingPointer <T>.Register ( instanceID, (T) this );
         }

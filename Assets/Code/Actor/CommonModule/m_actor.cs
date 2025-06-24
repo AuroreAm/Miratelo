@@ -24,7 +24,7 @@ namespace Triheroes.Code
             {
                 var me = character.RequireModule<m_equip>();
                 for (int i = 0; i < AttachedWeapon.Count; i++)
-                    me.AttachWeapon( GameObject.Instantiate ( AttachedWeapon[i] ));
+                    me.inventory.RegisterWeapon( GameObject.Instantiate ( AttachedWeapon[i] ));
             }
         }
     }
@@ -77,5 +77,6 @@ namespace Triheroes.Code
 
             return null;
         }
+        
     }
 }

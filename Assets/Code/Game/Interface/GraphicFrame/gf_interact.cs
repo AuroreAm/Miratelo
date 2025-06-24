@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 namespace Triheroes.Code
 {
-    public class m_interact : module
+    public class gf_interact : module
     {
-        static m_interact o;
+        static gf_interact o;
 
         public void Set ( Text text )
         {

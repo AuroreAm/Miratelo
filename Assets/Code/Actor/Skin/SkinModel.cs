@@ -30,8 +30,8 @@ namespace Triheroes.Code
             if (model.Hand != null && model.Hand.Length >0 )
             character.RequireModule <m_hand> ().Hand = model.Hand;
 
-            if (model.SwordPlace != null || model.BowPlace != null || model.ShieldPlace != null)
-            character.RequireModule <m_equip> ().Set ( model.SwordPlace, model.ShieldPlace, model.BowPlace );
+            if (model.SwordPlaces.Length > 0 || model.BowPlaces.Length > 0)
+            character.RequireModule<m_inv_0>().SetPlaces(model.SwordPlaces, model.BowPlaces);
 
             // destroy the model
             ScriptableObject.Destroy (model);
@@ -57,9 +57,8 @@ namespace Triheroes.Code
 
         [Header("common transform")]
         public Transform[] Hand;
-        public Transform SwordPlace;
-        public Transform BowPlace;
-        public  Transform ShieldPlace;
+        public Transform[] SwordPlaces;
+        public Transform[] BowPlaces;
 
         
         #if UNITY_EDITOR

@@ -1,0 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
+using Pixify;
+using UnityEngine;
+
+namespace Triheroes.Code
+{
+    public class Interactable : ThingPointer <p_interactable>
+    {
+        static Interactable o;
+        public override void Create()
+        {
+            o = this;
+        }
+
+        public static p_interactable GetInteractable ( int id )
+        {
+            return o.ptr[id];
+        }
+    }
+}

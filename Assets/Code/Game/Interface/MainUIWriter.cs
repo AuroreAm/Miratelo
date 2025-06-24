@@ -32,7 +32,7 @@ namespace Triheroes.Code
             title.SetANewTitleTextGameObject ( TriheroesTitle.EventTitle, EventTitleText );
 
             // INTERACT TEXT
-            c.RequireModule<m_interact> ().Set (InteractText);
+            c.RequireModule<gf_interact> ().Set (InteractText);
 
             // PLAYER HUD
             c.RequireModule<gf_player_hud> ().Set ( PlayerHUD );

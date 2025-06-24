@@ -22,7 +22,7 @@ namespace Triheroes.Code
 
         [Depend]
         m_skin ms;
-        Weapon weapon;
+        WeaponPlace from;
         SuperKey DrawAnimation;
 
         protected override void BeginStep()
@@ -30,24 +30,24 @@ namespace Triheroes.Code
             ms.PlayState ( ms.r_arm, DrawAnimation, 0.1f, null, null, done );
         }
 
-        public void Set ( Weapon weapon )
+        public void SetPlaceToDrawFrom ( WeaponPlace Place )
         {
-            this.weapon = weapon;
-            DrawAnimation = weapon.DefaultDrawAnimation;
+            from = Place;
+            DrawAnimation = Place.Get().DefaultDrawAnimation;
         }
 
         protected override void Stop()
         {
-            me.weaponUser = GetCorrespondingWeaponUser ( weapon.Type );
-            me.weaponUser.SetWeaponBase ( weapon );
+            me.weaponUser = GetCorrespondingWeaponUser ( from.Get().Type );
+            me.weaponUser.SetWeaponBase ( from.Free() );
             me.weaponUser.Aquire (me);
 
-            weapon = null;
+            from = null;
         }
 
         protected override void Abort()
         {
-            weapon = null;
+            from = null;
         }
 
         void done ()

@@ -19,12 +19,13 @@ namespace Triheroes.Code
 		public static LayerMask Character;
 		public static LayerMask SolidCharacterAttack;
 		public static LayerMask SolidCharacter;
-		public static LayerMask Interact;
+		public static LayerMask Trigger;
 
 		// layer hardcoded constant
 		public static readonly int CHARACTER = 10;
 		public static readonly int ATTACK = 11;
 		public static readonly int SOLID = 9;
+		public static readonly int TRIGGER = 12;
 		public static readonly float Drag = 1;
 
 		// initialisation
@@ -40,7 +41,7 @@ namespace Triheroes.Code
 			Character = LayerMask.GetMask("character");
 			SolidCharacter = LayerMask.GetMask("solid", "character");
 			SolidCharacterAttack = LayerMask.GetMask("solid", "character", "attack");
-			Interact = LayerMask.GetMask("interact");
+			Trigger = LayerMask.GetMask("trigger");
 		}
 
 		/// <summary> get a vector rotated by quaternion rotation </summary>

@@ -25,6 +25,7 @@ namespace Triheroes.Code
 
             d.RequireModule <Element> ();
             d.RequireModule <GroundElement> ();
+            d.RequireModule <Interactable> ();
         }
 
         public override void AfterCreateSystems()

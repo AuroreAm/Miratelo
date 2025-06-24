@@ -22,7 +22,7 @@ namespace Triheroes.Code
                     Ground = new pg_asphalt ();
                     break;
             }
-            Ground.Create ( gameObject.GetInstanceID () );
+            Ground.Register ( gameObject.GetInstanceID () );
 
             Destroy (this);
         }

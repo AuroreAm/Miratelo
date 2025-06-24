@@ -21,6 +21,7 @@ namespace Triheroes.Code
             Dash = new InputAction();
             Alt = new InputAction();
             Aim = new InputAction();
+            HatDown = new InputAction();
 
             VMove.Set("Vertical", true);
             HMove.Set("Horizontal", true);
@@ -34,12 +35,13 @@ namespace Triheroes.Code
             Dash.Set("R2",true);
             Alt.Set("L1");
             Aim.Set("R1");
+            HatDown.Set("DPadDown",true);
         }
 
         public static Vector3 MoveAxis3 => new Vector3(HMove.Raw,0, VMove.Raw);
         public static Vector2 DeltaMouse => new Vector2(MouseX.Raw, MouseY.Raw);
 
-        public static InputAction VMove, HMove, MouseX, MouseY, Jump, Action1, Action2, Action3, Focus, Dash, Alt, Aim;
+        public static InputAction VMove, HMove, MouseX, MouseY, Jump, Action1, Action2, Action3, Focus, Dash, Alt, Aim, HatDown;
     }
 
     public sealed class InputAction : bios

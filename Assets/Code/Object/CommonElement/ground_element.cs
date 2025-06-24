@@ -14,11 +14,6 @@ namespace Triheroes.Code
             o = this;
         }
 
-        public static bool GroundExist ( int id )
-        {
-            return o.ptr.ContainsKey ( id );
-        }
-
         public static void Clash ( e_foot from, int to)
         {
           o.ptr[to].Clash ( from );
