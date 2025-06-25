@@ -98,25 +98,17 @@ namespace Triheroes.Code
         public static readonly SuperKey aim = new SuperKey("aim");
     }
 
-    /// <summary>
-    /// state key library for decorators
-    /// </summary>
-    public static class StateKey2
+    // priorities
+    public static class Pri
     {
-        public static readonly SuperKey zero = new SuperKey("zero");
-        public static readonly SuperKey move = new SuperKey("move");
-        public static readonly SuperKey fall = new SuperKey("fall");
-        public static readonly SuperKey jump = new SuperKey("jump");
-        public static readonly SuperKey draw = new SuperKey("draw");     
-        public static readonly SuperKey return_ = new SuperKey("return");
+        public static readonly int def = 0;
+        public static readonly int def2nd = 1;
+        public static readonly int Action = 2;
+        public static readonly int ImportantAction = 3;
+        public static readonly int ForcedAction = 4;
+        public static readonly int ForcedMove = 5;
 
-        public static readonly SuperKey targetting =  new SuperKey ("targetting");
-        
-        public static readonly SuperKey msu = new SuperKey ("msu");
-        public static readonly SuperKey slash = new SuperKey("slash");  
-
-        public static readonly SuperKey mbu = new SuperKey ("mbu");
-        public static readonly SuperKey aim = new SuperKey("aim");
+        public static readonly int SubAction = 2;
     }
 
     public enum direction { forward, right, left, back }

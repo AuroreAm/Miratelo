@@ -32,6 +32,33 @@ namespace Pixify
             nodes = new List<node> ();
         }
 
+        node RequireNode (Type nodeType)
+        {
+            if (nodeType.IsSubclassOf(typeof (action)))
+            return RequireUnique (nodeType);
+            else if (nodeType.IsSubclassOf(typeof (module)))
+                return RequireModule (nodeType);
+            else
+                throw new InvalidOperationException("cannot depend on a non action or module type");
+        }
+        action RequireUnique (Type actiontype)
+        {
+            if (!actiontype.IsSubclassOf(typeof (action)))
+                throw new InvalidOperationException("cannot depend on a non action type");
+
+            if (uniques.TryGetValue(actiontype, out action a))
+                return a;
+            else
+            {
+                a = Activator.CreateInstance(actiontype) as action;
+                uniques.Add(actiontype, a);
+
+                RegisterNode (a);
+                a.Create ();
+
+                return a;
+            }
+        }
         module RequireModule (Type moduleType)
         {
             if (!moduleType.IsSubclassOf(typeof (module)))
@@ -95,7 +122,7 @@ namespace Pixify
                 foreach (var fi in fis)
                 {
                 if (fi.GetCustomAttribute<DependAttribute>() != null)
-                    fi.SetValue ( m, RequireModule(fi.FieldType) );
+                    fi.SetValue ( m, RequireNode(fi.FieldType) );
                 }
                 current = current.BaseType;
             }

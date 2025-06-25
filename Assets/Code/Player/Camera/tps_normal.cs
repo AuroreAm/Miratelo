@@ -29,17 +29,16 @@ namespace Triheroes.Code
         public float height { get; protected set; }
         public float distance { get; protected set; }
 
-        protected void RayCameraPosition () => RayCameraPosition (td.rotY);
-        protected void RayCameraPosition ( Vector3 RotY )
+        protected void RayCameraPosition (  )
         {
             float RayDistance = distance;
             Vector3 TargetPos = td.Subject.position + offset + height * Vector3.up;
 
-            if ( Physics.SphereCast ( td.Subject.position, radius, Vecteur.LDir(RotY,Vector3.back), out RaycastHit hit, distance, Vecteur.Solid ) )
+            if ( Physics.SphereCast ( td.Subject.position, radius, Vecteur.LDir(td.rotY,Vector3.back), out RaycastHit hit, distance, Vecteur.Solid ) )
                 RayDistance = hit.distance - 0.05f;
 
-            CamPos = TargetPos + Vecteur.LDir(RotY,Vector3.back) * RayDistance;
-            CamRot = Quaternion.Euler(RotY);
+            CamPos = TargetPos + Vecteur.LDir(td.rotY,Vector3.back) * RayDistance;
+            CamRot = Quaternion.Euler(td.rotY);
         }
     }
 

@@ -20,4 +20,18 @@ namespace Triheroes.Code
             return false;
         }
     }
+
+    [Unique]
+    public class ac_have_target : action
+    {
+        [Depend]
+        m_actor ma;
+
+        protected override bool Step()
+        {
+            if ( ma.target )
+            return false;
+            return true;
+        }
+    }
 }

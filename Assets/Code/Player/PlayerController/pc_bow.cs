@@ -2,23 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using Pixify;
 using UnityEngine;
+using static Pixify.treeBuilder;
 
 namespace Triheroes.Code
 {
-    /// <summary>
-    /// transition to: aim
-    /// </summary>
-    [Unique]
-    public class t_aim : action
+    public class pr_aim : reflection
     {
-        protected override bool Step()
-        {
-            if ( Player.Aim.OnActive )
-            selector.CurrentSelector.SwitchTo ( StateKey2.aim );
+        [Depend]
+        m_equip me;
 
-            return base.Step();
+        [Depend]
+        pc_aim pa;
+
+        action AimMovement;
+
+        public override void Create()
+        {
+            TreeStart ( me.character );
+            new parallel () {StopWhenFirstNodeStopped = true};
+                new ac_aiming ();
+                new ac_have_target ();
+                new pc_lateral_move ();
+            end();
+            AimMovement = TreeFinalize ();
+        }
+
+        public override void Main()
+        {
+            if ( me.weaponUser is m_bow_user && mst.priority < Pri.def2nd && mst.secondState == pa )
+            mst.SetState ( AimMovement, Pri.def2nd, true );
+
+            if ( me.weaponUser is m_bow_user && Player.Aim.Active &&  mst.acceptSecondState && mst.secondState != pa )
+            {
+                mst.SetSecondState ( pa, Pri.SubAction );
+            }
         }
     }
+
 
     [Unique]
     public class pc_aim : action

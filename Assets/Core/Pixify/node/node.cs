@@ -31,14 +31,16 @@ namespace Pixify
         { Name = Category; }
     }
 
+    /// <summary>
+    /// tell the character that this node depend on this module or unique node
+    /// </summary>
     [AttributeUsage (AttributeTargets.Field)]
     public sealed class DependAttribute : Attribute
     {
     }
 
     /// <summary>
-    /// this attribute will let the node to be unique for a graph, it is unique inside the descendant of decoratorModel where CreateNode is called
-    /// Does not work with Decorators
+    /// tell the treebuilder that is node is unique for the character
     /// </summary>
     [AttributeUsage(AttributeTargets.Class,Inherited = true)]
     public class UniqueAttribute : Attribute

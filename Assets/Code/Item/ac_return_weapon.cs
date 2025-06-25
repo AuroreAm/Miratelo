@@ -23,6 +23,8 @@ namespace Triheroes.Code
 
         protected override void BeginStep()
         {
+            if (me.weaponUser == null)
+            Debug.LogError("the character have no weapon to return");
             ms.PlayState ( ms.r_arm, ReturnAnimation, 0.1f, null, null, done );
         }
 

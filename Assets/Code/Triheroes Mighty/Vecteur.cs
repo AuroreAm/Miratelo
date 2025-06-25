@@ -31,8 +31,6 @@ namespace Triheroes.Code
 		// initialisation
 		public override void Create()
 		{
-			Cursor.lockState = CursorLockMode.Locked;
-			Application.targetFrameRate = 90;
 			o = this;
 
 			TempLayer = LayerMask.GetMask("temp");

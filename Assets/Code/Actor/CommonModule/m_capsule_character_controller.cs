@@ -15,6 +15,8 @@ namespace Triheroes.Code
         [Depend]
         m_skin ms;
 
+        int CurrentFrame;
+
         public bool UseGravity = true;
         public float verticalVelocity;
         /// <summary>
@@ -47,6 +49,10 @@ namespace Triheroes.Code
 
         protected override void OnAquire()
         {
+            // don't reset anything if this is aquired/freed on the same frame or next frame
+            if (Time.frameCount == CurrentFrame || Time.frameCount == CurrentFrame + 1)
+                return;
+
             verticalVelocity = 0;
             velocityDir = Vector3.zero;
             dir = Vector3.zero;
@@ -54,9 +60,7 @@ namespace Triheroes.Code
 
         protected override void OnFree()
         {
-            verticalVelocity = 0;
-            velocityDir = Vector3.zero;
-            dir = Vector3.zero;
+            CurrentFrame = Time.frameCount;
         }
 
         public override void Main()

@@ -48,6 +48,8 @@ namespace Triheroes.Code
                 new CoreSystem<m_skin_procedural>(),
 
                 // character behavior and controller
+                new CoreSystem<reflection>(),
+                new CoreSystem<neuron>(),
                 new CoreSystem<m_character_controller>(),
                 new CoreSystem<controller>(),
 

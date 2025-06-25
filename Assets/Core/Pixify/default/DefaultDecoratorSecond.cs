@@ -33,7 +33,7 @@ namespace Pixify
         {
             if (reset)
             ptr = 0;
-            TaskStatus = TaskStatusEnum.Success;
+            TaskStatus = TaskStatusEnum.Failure;
 
             ExecutingSequences.Push(this);
             o[ptr].iStart ();
@@ -60,6 +60,7 @@ namespace Pixify
                     }
                     
                     ExecutingSequences.Push(this);
+                    TaskStatus = TaskStatusEnum.Failure;
                     o[ptr].iStart ();
                     ExecutingSequences.Pop();
                 }

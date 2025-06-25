@@ -1,49 +1,76 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
-using UnityEngine;
+using static Pixify.treeBuilder;
 
 namespace Triheroes.Code
 {
-
-    /// <summary>
-    /// transition to: slash"
-    /// </summary>
-    [Unique]
-    public class t_slash : action
+    // do lateral move and focus the camera when targetting
+    public class pr_sword_target : reflection
     {
         [Depend]
-        m_sword_user msu;
+        m_actor ma;
+        [Depend]
+        m_equip me;
+        [Depend]
+        pm_camera_target_target pmctt;
+        
+        action LockTargetSword;
 
-        protected override bool Step()
+        override public void Create()
         {
-            if (Player.Action2.OnActive)
-            selector.CurrentSelector.SwitchTo (StateKey2.slash);
+            TreeStart ( me.character );
+            new parallel () {StopWhenFirstNodeStopped = true};
+                new ac_have_target ();
+                new pc_lateral_move ();
+                new ac_lock_target ();
+            end();
+            LockTargetSword = TreeFinalize ();
+        }
 
-            return false;
+        public override void Main()
+        {
+            if ( ma.target && me.weaponUser is m_sword_user && mst.priority < Pri.def2nd)
+                mst.SetState ( LockTargetSword, Pri.def2nd );
+
+            if ( me.weaponUser is m_sword_user && ma.target && !pmctt.aquired )
+                pmctt.Aquire (this);
+
+            if ( me.weaponUser is m_sword_user && !ma.target && pmctt.aquired )
+                pmctt.Free (this);
         }
     }
 
-    /// <summary>
-    /// "success the controlled selector to advance the combo
-    /// </summary>
-    [Unique]
-    public class t_combo_success : action
+    public class pr_slash : reflection
     {
         [Depend]
-        m_sword_user msu;
+        m_equip me;
 
-        protected override void BeginStep()
+        [Depend]
+        pr_sword_target pst;
+
+        controlled_sequence slash_combo;
+
+        public override void Create()
         {
-            controlled_sequence.CurrentStatus = controlled_sequence.TaskStatusEnum.Failure;
+            TreeStart ( me.character );
+            new controlled_sequence () { repeat = false };
+                new ac_slash () { ComboId = 0 };
+                new ac_slash () { ComboId = 1 };
+                new ac_slash () { ComboId = 2 };
+            end();
+            slash_combo = TreeFinalize () as controlled_sequence;
         }
 
-        protected override bool Step()
+        override public void Main()
         {
-            if (Player.Action2.OnActive)
-            controlled_sequence.CurrentStatus = controlled_sequence.TaskStatusEnum.Success;
-            return false;
+            if (Player.Action2.OnActive && me.weaponUser is m_sword_user)
+            {
+                if ( mst.state != slash_combo )
+                    mst.SetState (slash_combo, Pri.Action);
+                else
+                slash_combo.TaskStatus = controlled_sequence.TaskStatusEnum.Success;
+            }
         }
     }
-
 }

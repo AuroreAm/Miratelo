@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using Pixify;
 using UnityEngine;
@@ -57,6 +57,15 @@ namespace Triheroes.Code
             SetCameraShot(tps);
         }
 
+        public void TpsTransitionToTps ()
+        {
+            if (Shot is tps_shot s)
+            {
+                ttr.Set(s, tps);
+                SetCameraShot(ttr);
+            }
+        }
+
         public void TpsTransitionToTarget(m_dimension Target)
         {
             tt.target = Target;
@@ -95,7 +104,7 @@ namespace Triheroes.Code
         }
 
         // built in shots
-        public class tps_transition : tps_shot
+        public class tps_transition : camera_shot
         {
             Vector3 inRotY;
             float inHeight;
@@ -104,8 +113,18 @@ namespace Triheroes.Code
             tps_shot IN;
             tps_shot OUT;
 
+            protected const float radius = .5f;
+            public Vector3 offset { get; protected set; }
+            public float height { get; protected set; }
+            public float distance { get; protected set; }
+
+            [Depend]
+            tps_data td;
+
             public void Set(tps_shot In, tps_shot Out)
             {
+                if (In == null || Out == null)
+                throw new NullReferenceException ("tps_transition: null tps_shot");
                 IN = In;
                 OUT = Out;
             }
@@ -132,7 +151,7 @@ namespace Triheroes.Code
                 height = Mathf.Lerp(inHeight, OUT.height, t);
                 distance = Mathf.Lerp(inDistance, OUT.distance, t);
 
-                RayCameraPosition(internalRotY);
+                RayCameraPosition();
 
                 if (t >= .95f)
                 {
@@ -145,6 +164,18 @@ namespace Triheroes.Code
             {
                 IN = null;
                 OUT = null;
+            }
+
+            protected void RayCameraPosition (  )
+            {
+                float RayDistance = distance;
+                Vector3 TargetPos = td.Subject.position + offset + height * Vector3.up;
+
+                if ( Physics.SphereCast ( td.Subject.position, radius, Vecteur.LDir(internalRotY,Vector3.back), out RaycastHit hit, distance, Vecteur.Solid ) )
+                    RayDistance = hit.distance - 0.05f;
+
+                CamPos = TargetPos + Vecteur.LDir(internalRotY,Vector3.back) * RayDistance;
+                CamRot = Quaternion.Euler(internalRotY);
             }
         }
     }

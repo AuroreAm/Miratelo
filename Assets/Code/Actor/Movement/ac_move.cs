@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    /*
     public abstract class ac_walk_target_base : action
     {
         [Depend]
@@ -87,7 +88,7 @@ namespace Triheroes.Code
             cgmc.rotDir = DesiredRotY;
             Vector3 DesiredDir = Vecteur.LDir(DesiredRotY, Speed * Vector3.forward);
 
-            angle += Mathf.DeltaAngle(Vecteur.RotDirectionY(target.md.position, ma.md.position), Vecteur.RotDirectionY(target.md.position, ma.md.position + DesiredDir * Time.deltaTime/*a*/ * WalkFactor));
+            angle += Mathf.DeltaAngle(Vecteur.RotDirectionY(target.md.position, ma.md.position), Vecteur.RotDirectionY(target.md.position, ma.md.position + DesiredDir * Time.deltaTime * WalkFactor));
 
             cgmc.Walk(DesiredDir, WalkFactor);
 
@@ -96,5 +97,5 @@ namespace Triheroes.Code
 
             return false;
         }
-    }
+    }*/
 }

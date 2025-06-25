@@ -8,7 +8,7 @@ namespace Triheroes.Code
     public class c_jump : controller
     {
         [Depend]
-        m_capsule_character_controller mccc;
+        public m_capsule_character_controller mccc;
         [Depend]
         m_skin ms;
 
@@ -16,12 +16,12 @@ namespace Triheroes.Code
 
         protected override void OnAquire()
         {
-            mccc.Aquire(this);
+            mccc.Aquire ( this );
         }
 
         protected override void OnFree()
         {
-            mccc.Free(this);
+            mccc.Free ( this );
         }
 
         public void AirMove(Vector3 DirPerSecond,float WalkFactor = WalkFactor.run)

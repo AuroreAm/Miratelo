@@ -1,0 +1,98 @@
+using System.Collections;
+using System.Collections.Generic;
+using Pixify;
+using static Pixify.treeBuilder;
+
+namespace Triheroes.Code
+{
+    public class pr_equip : reflection
+    {
+        [Depend]
+        m_equip me;
+        [Depend]
+        m_inv_0 mi;
+        
+        [Depend]
+        ac_draw_weapon adw;
+
+        [Depend]
+        ac_return_weapon arw;
+
+        action swap_sword;
+
+        public override void Create()
+        {
+            TreeStart ( me.character );
+            new sequence () {repeat = false};
+                new ac_return_weapon ();
+                new ac_draw_weapon ();
+            end ();
+            swap_sword = TreeFinalize ();
+        }
+
+        public override void Main()
+        {
+            if (Player.Action2.OnActive)
+            {
+                var freeSword = GetUsableSword();
+                if (freeSword != -1 && me.weaponUser == null)
+                {
+                    adw.SetPlaceToDrawFrom ( mi.SwordPlaces[freeSword] );
+                    mst.SetSecondState (adw,Pri.SubAction);
+                }
+            }
+
+            if (Player.HatDown.OnActive)
+            {
+                var freeSword = GetUsableSword();
+                if (freeSword != -1 && me.weaponUser != null)
+                {
+                    arw.SetPlaceToReturn ( mi.GetFreePlaceFor( me.weaponUser.WeaponBase ) );
+                    adw.SetPlaceToDrawFrom ( mi.SwordPlaces[freeSword] );
+                    mst.SetSecondState (swap_sword,Pri.SubAction);
+                }
+            }
+
+            if (Player.Aim.OnActive && mi.BowPlaces [0].Occupied && me.weaponUser == null)
+            {
+                adw.SetPlaceToDrawFrom ( mi.BowPlaces [0] );
+                mst.SetSecondState (adw,Pri.SubAction);
+            }
+
+            if (Player.Action1.OnActive && me.weaponUser != null)
+            {
+                arw.SetPlaceToReturn ( mi.GetFreePlaceFor( me.weaponUser.WeaponBase ) );
+                mst.SetSecondState (arw,Pri.SubAction);
+            }
+        }
+
+        int GetUsableSword ()
+        {
+            for (int i = 0; i < mi.SwordPlaces.Length; i++)
+            {
+                if (mi.SwordPlaces[i].Occupied)
+                    return i;
+            }
+            return -1;
+        }
+    }
+
+    public class pr_interact_near_weapon : reflection
+    {
+        [Depend]
+        m_inv_0 mi;
+
+        public override void Main()
+        {
+            if (play.o.currentInteractable is pi_weapon pw)
+            {
+                if (mi.FreePlaceExistFor(pw.weapon))
+                {
+                    gf_interact.ShowInteractText( string.Concat (" take ", pw.weapon.Name) );
+                    if (Player.Action1.OnActive)
+                    mi.RegisterWeapon (pw.weapon);
+                }
+            }
+        }
+    }
+}

@@ -17,7 +17,6 @@ namespace Triheroes.Code
         protected override void OnAquire()
         {
             ms.PlayState ( 0, AnimationKey.fall, 0.1f );
-            mccc.Aquire(this);
         }
 
         public void AirMove(Vector3 DirPerSecond,float WalkFactor = WalkFactor.run)
@@ -28,10 +27,5 @@ namespace Triheroes.Code
 
         public override void Main()
         {}
-
-        protected override void OnFree()
-        {
-            mccc.Free(this);
-        }
     }
 }

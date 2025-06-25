@@ -109,7 +109,7 @@ namespace Triheroes.Code
         {
             if (on)
             {
-                mccc.dir += Time.deltaTime * c_ground_movement.SlopeProjection (DirPerSecond, mgd.groundNormal);
+                mccc.dir += Time.deltaTime * ground_movement.SlopeProjection (DirPerSecond, mgd.groundNormal);
                 lateralDir += DirPerSecond;
             }
         }

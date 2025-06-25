@@ -58,4 +58,17 @@ namespace Triheroes.Code
         public override void Main()
         {}
     }
+
+    
+    [Unique]
+    public class ac_aiming : action
+    {
+        [Depend]
+        c_aim ca;
+
+        protected override bool Step()
+        {
+            return !ca.aquired;
+        }
+    }
 }

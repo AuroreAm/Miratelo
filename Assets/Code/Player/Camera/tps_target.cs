@@ -19,8 +19,9 @@ namespace Triheroes.Code
         {
             height = td.Subject.h;
             rotYOffset = Vecteur.RotDirection ( spos, tpos );
+            rotYOffset.x = Mathf.DeltaAngle(0, rotYOffset.x) + 14;
             yPrevious = Vecteur.RotDirectionY ( spos, tpos );
-            td.rotY = new Vector3 ( td.rotY.x, yPrevious, 0 );
+            td.rotY = new Vector3 ( rotYOffset.x, yPrevious, 0 );
         }
 
         float yPrevious;
@@ -29,6 +30,7 @@ namespace Triheroes.Code
             // rotate offset according to mouse
             rotYOffset.y += Player.DeltaMouse.x * 3;
             rotYOffset.x -= Player.DeltaMouse.y * 3;
+            rotYOffset.x = Mathf.Clamp(rotYOffset.x, -65, 65);
 
             float AngleDiff = Mathf.DeltaAngle(yPrevious, Vecteur.RotDirectionY(spos, tpos));
             if ( Mathf.Abs ( Mathf.DeltaAngle(0, AngleDiff) ) < 180*Time.unscaledDeltaTime )

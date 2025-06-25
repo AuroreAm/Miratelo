@@ -14,24 +14,14 @@ namespace Triheroes.Code
         [Header("Stats")]
         public m_stat_writer stat;
 
-        [Header("Behavior")]
-        public script main;
-
         override public ModuleWriter[] GetModules ()
         {
             return new ModuleWriter[] { skin, actor, stat };
         }
 
-        public override void OnSpawn(Vector3 position, Quaternion rotation, Character c)
+        override public void OnSpawn ( Vector3 position, Quaternion rotation, Character c )
         {
-            if (main)
-            {
-                m_character_controller mcc = c.RequireModule<m_character_controller> ();
-                treeBuilder.TreeStart ( c );
-                mcc.StartRoot ( main.CreateTree () );
-            }
-            else
-            Debug.LogWarning (" A spawner has no main script");
+            c.GetModule <m_skin> ().rotY = rotation.eulerAngles;
         }
     }
 }

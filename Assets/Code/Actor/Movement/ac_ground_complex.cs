@@ -1,17 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Pixify;
+using UnityEngine;
 
 namespace Triheroes.Code
 {
-    // core to command between idle - walk - run - sprint - brake - brake rotation
-    // uses CharacterController physics
-    // need ground data for normal projection
-    // also manages animations
-    // also manages footsteps
-    // does not change to fall movement when not on ground, this must be manually added in behavior trees
-    public class c_ground_movement_complex : controller
+    // new ground movement complex
+    // instead of the old using core, this one works with the new neuron system
+    // can tweak between idle - walk - run - sprint - brake - brake rotation
+    public class ac_ground_complex : action
     {
         [Depend]
         m_capsule_character_controller mccc;
@@ -39,9 +36,8 @@ namespace Triheroes.Code
 
         int CurrentFrame;
 
-        protected override void OnAquire()
+        protected override void BeginStep()
         {
-            
             if ( CurrentFrame != Time.frameCount )
             {
                 sprintCooldown = 0;
@@ -62,17 +58,18 @@ namespace Triheroes.Code
             mf.Aquire (this);
         }
 
-        public override void Main()
+        protected override bool Step()
         {
             Animation ();
             Rotation ();
             SprintCooldown ();
             ResetDir ();
+            return false;
         }
 
         void ResetDir () => walkDir = Vector3.zero;
 
-        protected override void OnFree()
+        protected override void Stop()
         {
             mccc.Free (this);
             mf.Free (this);
@@ -192,13 +189,14 @@ namespace Triheroes.Code
                 rotDir = walkDir.normalized;
 
                 if (state!=StateKey.brake_rotation && state != StateKey.idle)
-                mccc.dir += Time.deltaTime * walkFactor * c_ground_movement.SlopeProjection (DirPerSecond, mgd.groundNormal);
+                mccc.dir += Time.deltaTime * walkFactor * ground_movement.SlopeProjection (DirPerSecond, mgd.groundNormal);
             }
         }
         #endregion
 
     }
 
+    
     public static class WalkFactor
     {
         public const float idle = 0;

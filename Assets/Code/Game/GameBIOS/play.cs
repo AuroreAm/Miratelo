@@ -23,7 +23,6 @@ namespace Triheroes.Code
 
         m_actor[] MainActors;
         int MainActor;
-        action[] MainPlayerScripts;
         m_HP[] MainPlayerHP;
         m_ie[] MainPlayerIE;
 
@@ -43,15 +42,11 @@ namespace Triheroes.Code
 
         protected override void OnAquire()
         {
-            MainPlayerScripts = new action[MainActors.Length];
             MainPlayerHP = new m_HP[MainActors.Length];
             MainPlayerIE = new m_ie[MainActors.Length];
 
-            for (int i = 0; i < MainPlayerScripts.Length; i++)
+            for (int i = 0; i < MainPlayerHP.Length; i++)
             {
-                TreeStart(MainActors[i].character);
-                MainPlayerScripts[i] = PlayerControllerLibrary.MainPlayer();
-
                 MainPlayerHP[i] = MainActors[i].character.RequireModule<m_HP>();
                 MainPlayerIE[i] = MainActors[i].character.RequireModule<m_ie>();
             }
@@ -61,7 +56,20 @@ namespace Triheroes.Code
 
         void SetMainPlayer(int i)
         {
-            MainActors[i].character.RequireModule<m_character_controller>().StartRoot(MainPlayerScripts[i]);
+            // give instructions and reflections
+            m_state brain = MainCharacter.RequireModule<m_state>();
+            brain.AddReflection( MainCharacter.RequireModule<pr_move>() );
+            brain.AddReflection( MainCharacter.RequireModule<r_fall_with_hard>() );
+            brain.AddReflection( MainCharacter.RequireModule<pr_jump>() );
+            brain.AddReflection( MainCharacter.RequireModule<pr_equip>() );
+            brain.AddReflection( MainCharacter.RequireModule<pr_target>() );
+            brain.AddReflection( MainCharacter.RequireModule<pr_interact_near_weapon>() );
+            brain.AddReflection( MainCharacter.RequireModule<pr_slash>() );
+            brain.AddReflection( MainCharacter.RequireModule<pr_sword_target>() );
+            brain.AddReflection( MainCharacter.RequireModule<pr_aim>() );
+            brain.AddReflection( MainCharacter.RequireModule<pr_dash>() );
+            // TODO remove reflection from non player character
+
             // set the player hud
             gf_player_hud.o.SetIdentity(MainPlayerHP[i].MaxHP, MainPlayerHP[i].HP, MainPlayerIE[i].MaxIE, MainPlayerIE[i].IE, MainActors[i].md);
             // set the camera
@@ -78,7 +86,6 @@ namespace Triheroes.Code
         public override void Main()
         {
             PlayerHUD();
-            PlayerInteraction();
         }
 
         void PlayerHUD()
@@ -90,10 +97,10 @@ namespace Triheroes.Code
 
         Coroutine GetNearInteractableC;
         Collider[] InteractableColliders = new Collider[30];
-        p_interactable currentInteractable;
+        public p_interactable currentInteractable { get; private set; }
         IEnumerator GetNearInteractable()
         {
-            var y = new WaitForSeconds (.6f);
+            var y = new WaitForSeconds (.3f);
             while (true)
             {
                 // get near interactable object
@@ -119,14 +126,6 @@ namespace Triheroes.Code
                         currentInteractable = Interactable.GetInteractable(closest.id());
                 }
                 yield return y;
-            }
-        }
-
-        void PlayerInteraction()
-        {
-            if ( currentInteractable is pi_weapon piw )
-            {
-                gf_interact.ShowInteractText( string.Concat ("take ", piw.weapon.Name) );
             }
         }
     }

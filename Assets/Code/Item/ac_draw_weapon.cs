@@ -27,6 +27,8 @@ namespace Triheroes.Code
 
         protected override void BeginStep()
         {
+            if (me.weaponUser != null)
+            Debug.LogError("the character have already equiped a weapon");
             ms.PlayState ( ms.r_arm, DrawAnimation, 0.1f, null, null, done );
         }
 
