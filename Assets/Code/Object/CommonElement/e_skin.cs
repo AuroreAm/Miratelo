@@ -12,14 +12,12 @@ namespace Triheroes.Code
     public sealed class e_skin : element
     {
         [Depend]
-        m_HP mshp;
+        public m_HP mhp;
 
-        public override void Clash( element from, Force force )
+        public override void Clash(element from, Slash force)
         {
-        }
-
-        public override void ReverseClash(element from, Force force)
-        {
+            float damage = force.raw * force.sharpness;
+            mhp.HP -= damage;
         }
     }
 }

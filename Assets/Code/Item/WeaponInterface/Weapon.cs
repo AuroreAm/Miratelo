@@ -12,12 +12,16 @@ namespace Triheroes.Code
         public abstract SuperKey DefaultDrawAnimation { get; }
         public abstract SuperKey DefaultReturnAnimation { get; }
 
+        public element element;
         public m_actor Owner { get; protected set; }
+        
 
         void Awake ()
         {
             gameObject.layer = Vecteur.TRIGGER;
             new pi_weapon (this, gameObject.GetInstanceID ());
+
+            element = GetComponent<ElementWriter> ()?.GetElement ();
         }
 
         public void Aquire (m_actor Owner)

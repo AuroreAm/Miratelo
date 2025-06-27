@@ -4,21 +4,31 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public enum ForceType { diffuse, slash, perce, wave, parry, hard }
-
-    public struct Force
+    public struct Slash
     {
-        public ForceType type;
         public float raw;
         public Vector3 point;
         public Vector3 direction;
+        public float sharpness;
 
-        public Force(ForceType type, float raw, Vector3 point, Vector3 direction)
+        public Slash ( float raw, Vector3 point, Vector3 direction, float sharpness )
         {
-            this.type = type;
-            this.raw = raw;
             this.point = point;
             this.direction = direction;
+            this.sharpness = sharpness;
+            this.raw = raw;
+        }
+    }
+
+    public struct Perce
+    {
+        public Vector3 point;
+        public float raw;
+
+        public Perce ( Vector3 point, float raw )
+        {
+            this.point = point;
+            this.raw = raw;
         }
     }
 }

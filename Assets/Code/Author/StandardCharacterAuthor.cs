@@ -22,6 +22,7 @@ namespace Triheroes.Code
         override public void OnSpawn ( Vector3 position, Quaternion rotation, Character c )
         {
             c.GetModule <m_skin> ().rotY = rotation.eulerAngles;
+            c.RequireModule <m_state> ().AddReflection ( c.RequireModule <r_idle> ()  );
         }
     }
 }

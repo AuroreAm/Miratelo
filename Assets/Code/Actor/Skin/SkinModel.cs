@@ -33,6 +33,9 @@ namespace Triheroes.Code
             if (model.SwordPlaces.Length > 0 || model.BowPlaces.Length > 0)
             character.RequireModule<m_inv_0>().SetPlaces(model.SwordPlaces, model.BowPlaces);
 
+            if (model.Element)
+            character.RequireModule<m_element>().SetElement(model.Element.GetElement());
+
             // destroy the model
             ScriptableObject.Destroy (model);
         }
@@ -60,6 +63,8 @@ namespace Triheroes.Code
         public Transform[] SwordPlaces;
         public Transform[] BowPlaces;
 
+        [Header("element")]
+        public ElementWriter Element;
         
         #if UNITY_EDITOR
         public void OnDrawGizmosSelected(  )

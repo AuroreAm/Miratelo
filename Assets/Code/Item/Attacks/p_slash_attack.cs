@@ -34,11 +34,13 @@ namespace Triheroes.Code
             previousRotation = rotation;
             length = sword.Length;
             timeLeft = _duration;
+            Hitted.Clear ();
         }
 
         public override void Create()
         {
             rays = new Line [5];
+            hit = new RaycastHit[5];
         }
 
         Line [] rays;
@@ -69,23 +71,38 @@ namespace Triheroes.Code
             }
         }
 
+        RaycastHit[] hit;
+        float hitNumber;
+        List <int> Hitted = new List<int>();
         void Raycast ()
         {
             for (int i = 0; i < 5; i++)
             {
-                if (Physics.Linecast(rays[i].start, rays[i].end, Vecteur.Solid))
-                { }
+                hitNumber = Physics.SphereCastNonAlloc( rays[i].Ray, .25f, hit, rays[i].Distance,Vecteur.SolidCharacter );
+
+                if (hitNumber > 0)
+                {
+                    for (int j = 0; j < hitNumber; j++)
+                    {
+                        Debug.Log (hit[j].collider.gameObject.name);
+                        if ( !Hitted.Contains (hit[j].collider.id()) && Element.ElementActorIsNotAlly ( hit[j].collider.id (), sword.Owner.faction ) )
+                        {
+                            Element.Clash ( sword.element, hit[j].collider.id (), new Slash (1,hit[j].point, rays[i].Ray.direction, sword.Sharpness) );
+                            Hitted.Add ( hit[j].collider.id () );
+                        }
+                    }
+                }
             }
         }
         
         public struct Line
         {
-            public Vector3 start;
-            public Vector3 end;
+            public Ray Ray;
+            public float Distance;
             public Line(Vector3 start, Vector3 end)
             {
-                this.start = start;
-                this.end = end;
+                Ray = new Ray(start, end - start);
+                Distance = Vector3.Distance(start, end);
             }
         }
     }

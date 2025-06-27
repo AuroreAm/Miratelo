@@ -14,6 +14,11 @@ namespace Pixify
             o = this;
         }
 
+        public static bool Exists ( int id )
+        {
+            return o.ptr.ContainsKey ( id );
+        }
+
         public static void Register ( int id, T module )
         {
             if ( o!=null )

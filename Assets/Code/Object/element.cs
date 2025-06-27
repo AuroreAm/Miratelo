@@ -6,18 +6,37 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [Category("Object")]
-    public class element_writer : ModuleWriter
+    public sealed class Element : ModulePointer<m_element>
     {
-        public override void WriteModule(Character character)
+        public static Element o;
+
+        public static bool ElementActorIsNotAlly ( int id, int selfFaction )
         {
-            var me = character.RequireModule<m_element>();
-            me.SetElement ( new e_skin () );
+            if ( ! o.ptr.ContainsKey (id) ) return false;
+            if ( o.ptr[id].ma.faction != selfFaction ) return true;
+            return false;
+        }
+
+        public static void Clash ( element from, int to, Slash force )
+        {
+            o.ptr[to].element.Clash ( from, force );
+        }
+
+        public static void Clash ( element from, int to, Perce force )
+        {
+            o.ptr[to].element.Clash ( from, force );
+        }
+
+        public Element ()
+        {
+            o = this;
         }
     }
 
     public class m_element : moduleptr <m_element>
     {
+        [Depend]
+        public m_actor ma;
         public element element { private set; get; }
 
         /// <summary>
@@ -49,8 +68,10 @@ namespace Triheroes.Code
     public abstract class element : node
     {
         // clash from another element
-        public abstract void Clash ( element from, Force force );
-        // response to a clash from this element
-        public abstract void ReverseClash ( element from, Force force );
+        public virtual void Clash ( element from, Slash force )
+        {}
+
+        public virtual void Clash ( element from, Perce force )
+        {}
     }
 }

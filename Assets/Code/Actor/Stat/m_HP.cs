@@ -11,7 +11,8 @@ namespace Triheroes.Code
         public float HP
         {
             get { return _HP; }
-            set { _HP = Mathf.Clamp(value, 0, MaxHP); }
+            set { _HP = Mathf.Clamp(value, 0, MaxHP);
+            Debug.Log ("HP: " + _HP); }
         }
 
         public void Set (float Max)
