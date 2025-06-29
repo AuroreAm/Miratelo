@@ -23,6 +23,7 @@ namespace Triheroes.Code
         {
             c.GetModule <m_skin> ().rotY = rotation.eulerAngles;
             c.RequireModule <m_state> ().AddReflection ( c.RequireModule <r_idle> ()  );
+            c.RequireModule <m_state> ().AddReflection ( c.RequireModule <r_knock_forced_ccc> () );
         }
     }
 }

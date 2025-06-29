@@ -35,7 +35,11 @@ namespace Pixify
         node RequireNode (Type nodeType)
         {
             if (nodeType.IsSubclassOf(typeof (action)))
-            return RequireUnique (nodeType);
+            {
+                if (treeBuilder.Initialized)
+                Debug.LogWarning ("node with action dependance detected in Treebuilder, avoid this");
+                return RequireUnique (nodeType);
+            }
             else if (nodeType.IsSubclassOf(typeof (module)))
                 return RequireModule (nodeType);
             else

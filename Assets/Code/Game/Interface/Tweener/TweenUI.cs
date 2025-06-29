@@ -11,7 +11,8 @@ namespace Triheroes.Code
     {
     }
 
-    public class mt_linear : m_tween
+    // tween linear unscaled delta time
+    public class mt_linear_u : m_tween
     {
         Func<float> GetX;
         Action<float> SetX;
@@ -24,7 +25,7 @@ namespace Triheroes.Code
             enabled = false;
         }
 
-        public mt_linear (Func<float> GetX, Action<float> SetX, Action OnEnd = null)
+        public mt_linear_u (Func<float> GetX, Action<float> SetX, Action OnEnd = null)
         {
             this.GetX = GetX;
             this.SetX = SetX;

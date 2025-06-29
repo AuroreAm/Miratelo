@@ -14,10 +14,22 @@ namespace Triheroes.Code
         [Depend]
         public m_HP mhp;
 
+        [Depend]
+        m_last_knock mlk;
+
+        [Depend]
+        m_element me;
+
         public override void Clash(element from, Slash force)
         {
             float damage = force.raw * force.sharpness;
             mhp.HP -= damage;
+        }
+
+        public override void Clash(element from, Knock force)
+        {
+            mlk.LastKnockDir = force.Dir;
+            me.SendMessage ( MessageKey.knock_forced );
         }
     }
 }

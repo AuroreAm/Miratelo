@@ -11,11 +11,11 @@ namespace Triheroes.Code
     {
         static gf_transition o;
 
-        mt_linear Tween;
+        mt_linear_u Tween;
         public override void Create()
         {
             o = this;
-            Tween = new mt_linear ( GetX, SetX, OnEnd);
+            Tween = new mt_linear_u ( GetX, SetX, OnEnd);
             Tween.Aquire (this);
         }
 

@@ -23,17 +23,21 @@ namespace Triheroes.Code
         [Depend]
         m_capsule_character_controller mccc;
         [Depend]
+        m_gravity_mccc mgm;
+        [Depend]
         m_skin ms;
 
         protected override void BeginStep()
         {
             ms.PlayState (0, AnimationKey.idle,0.1f);
             mccc.Aquire (this);
+            mgm.Aquire (this);
         }
 
         protected override void Stop()
         {
             mccc.Free (this);
+            mgm.Free (this);
         }
     }
 }

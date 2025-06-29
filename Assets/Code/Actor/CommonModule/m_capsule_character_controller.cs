@@ -17,17 +17,10 @@ namespace Triheroes.Code
 
         int CurrentFrame;
 
-        public bool UseGravity = true;
-        public float verticalVelocity;
-        /// <summary>
-        /// velocity force direction applied to the character
-        /// </summary>
-        public Vector3 velocityDir;
         /// <summary>
         /// direction the character is commanded to move in
         /// </summary>
         public Vector3 dir;
-        public float mass;
 
         public Transform Coord;
         public CharacterController CCA;
@@ -37,7 +30,6 @@ namespace Triheroes.Code
             Coord = character.transform;
             CCA = character.gameObject.AddComponent<CharacterController>();
             UpdateCCADimension ();
-            mass = md.m;
         }
 
         void UpdateCCADimension()
@@ -53,8 +45,6 @@ namespace Triheroes.Code
             if (Time.frameCount == CurrentFrame || Time.frameCount == CurrentFrame + 1)
                 return;
 
-            verticalVelocity = 0;
-            velocityDir = Vector3.zero;
             dir = Vector3.zero;
         }
 
@@ -76,14 +66,53 @@ namespace Triheroes.Code
             if (ms.allowMoving)
             dir += ms.GetSpdCurves() * ms.SkinDir * Time.deltaTime;
 
-            if (velocityDir.sqrMagnitude > 0)
-                velocityDir = Vector3.MoveTowards(velocityDir, Vector3.zero, Vecteur.Drag * Time.deltaTime/*a*/);
 
             Physics.IgnoreLayerCollision(Coord.gameObject.layer, Vecteur.ATTACK, true);
-            CCA.Move(dir + velocityDir);
+            CCA.Move(dir);
             Physics.IgnoreLayerCollision(Coord.gameObject.layer, Vecteur.ATTACK, false);
 
             dir = Vector3.zero;
+        }
+    }
+
+    public class m_gravity_mccc : core
+    {
+        [Depend]
+        m_ground_data mgd;
+
+        [Depend]
+        m_capsule_character_controller mccc;
+
+        [Depend]
+        m_dimension md;
+
+        public override void Create()
+        {
+            mass = md.m;
+        }
+
+        public float mass;
+        public float gravity;
+
+        public override void Main()
+        {
+            // add gravity force // limit falling velocity when it reach terminal velocity
+            if (gravity > -1000)
+            gravity += Physics.gravity.y * Time.deltaTime/*a*/ * mass;
+
+            if (mgd.onGroundAbs && gravity < 0 && Vector3.Angle (Vector3.up, mgd.groundNormal) <= 45)
+            gravity = -0.2f;
+
+            Vector3 GravityForce = new Vector3( 0, gravity * Time.deltaTime, 0 );
+
+            // TODO: fix character can't fall when there's another character on the ground
+            if ( Vector3.Angle (Vector3.up, mgd.groundNormal) > 45 )
+            {
+                GravityForce = new Vector3 ( mgd.groundNormal.x,- mgd.groundNormal.y, mgd.groundNormal.z ) * GravityForce.magnitude;
+                mgd.groundNormal = Vector3.up;
+            }
+
+            mccc.dir += GravityForce;
         }
     }
 }

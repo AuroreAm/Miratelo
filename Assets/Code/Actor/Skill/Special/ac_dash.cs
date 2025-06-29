@@ -17,6 +17,13 @@ namespace Triheroes.Code
 
         public direction DashDirection;
 
+        float JumpHeight = 1.5f;
+        delta_curve cu;
+        public override void Create()
+        {
+            cu = new delta_curve ( SubResources <CurveRes>.q ( new SuperKey ("jump") ).Curve );
+        }
+
         protected override void BeginStep()
         {
             mccc.Aquire (this);
@@ -29,10 +36,16 @@ namespace Triheroes.Code
             ms.SkinDir = Vecteur.LDir(ms.rotY,Direction(DashDirection));
         }
 
+        protected override bool Step()
+        {
+            if (DashDirection == direction.back)
+            mccc.dir += new Vector3 ( 0, cu.TickDelta() , 0 );
+            return false;
+        }
+
         void BackFlip ()
         {
-            const float JumpHeight = 1.75f;
-            mccc.verticalVelocity = Mathf.Sqrt ( JumpHeight * -2f * Physics.gravity.y * mccc.mass );
+            cu.Start ( JumpHeight, .4f );
             ms.PlayState (0, AnimationKey.dash_back, 0.05f, DashEnd);
         }
 

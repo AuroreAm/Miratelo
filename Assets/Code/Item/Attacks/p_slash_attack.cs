@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
@@ -15,13 +16,16 @@ namespace Triheroes.Code
         Quaternion previousRotation;
         float length;
         float timeLeft;
+        Action<int> onHit;
 
         static Sword _sword;
         static float _duration;
-        public static void Fire ( int name, Sword sword, float duration )
+        static Action <int> _onHit;
+        public static void Fire ( int name, Sword sword, float duration, Action <int> onHit = null )
         {
             _sword = sword;
             _duration = duration;
+            _onHit = onHit;
             UnitPoolMaster.GetUnit(name);
         }
 
@@ -34,6 +38,7 @@ namespace Triheroes.Code
             previousRotation = rotation;
             length = sword.Length;
             timeLeft = _duration;
+            onHit = _onHit;
             Hitted.Clear ();
         }
 
@@ -84,10 +89,10 @@ namespace Triheroes.Code
                 {
                     for (int j = 0; j < hitNumber; j++)
                     {
-                        Debug.Log (hit[j].collider.gameObject.name);
                         if ( !Hitted.Contains (hit[j].collider.id()) && Element.ElementActorIsNotAlly ( hit[j].collider.id (), sword.Owner.faction ) )
                         {
                             Element.Clash ( sword.element, hit[j].collider.id (), new Slash (1,hit[j].point, rays[i].Ray.direction, sword.Sharpness) );
+                            onHit?.Invoke ( hit[j].collider.id () );
                             Hitted.Add ( hit[j].collider.id () );
                         }
                     }

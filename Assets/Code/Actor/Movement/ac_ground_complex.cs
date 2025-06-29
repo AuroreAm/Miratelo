@@ -13,6 +13,8 @@ namespace Triheroes.Code
         [Depend]
         m_capsule_character_controller mccc;
         [Depend]
+        m_gravity_mccc mgm;
+        [Depend]
         m_skin ms;
         [Depend]
         m_ground_data mgd;
@@ -55,6 +57,7 @@ namespace Triheroes.Code
             }
 
             mccc.Aquire (this);
+            mgm.Aquire (this);
             mf.Aquire (this);
         }
 
@@ -72,6 +75,7 @@ namespace Triheroes.Code
         protected override void Stop()
         {
             mccc.Free (this);
+            mgm.Free (this);
             mf.Free (this);
             ms.allowMoving = false;
             CurrentFrame = Time.frameCount;

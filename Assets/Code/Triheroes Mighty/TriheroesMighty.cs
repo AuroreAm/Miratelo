@@ -42,7 +42,7 @@ namespace Triheroes.Code
                 new CoreSystem<bios>(),
 
                 // character physic datas
-                new s_ccc_ground_data(),
+                new s_ground_data_ccc(),
 
                 // procedural animations
                 new CoreSystem<m_skin_procedural>(),
@@ -61,7 +61,7 @@ namespace Triheroes.Code
                 new CoreSystem<m_stat_generator>(),
 
                 // character movement
-                new s_ccc_gravity (),
+                new CoreSystem<m_gravity_mccc>(),
                 new CoreSystem<m_capsule_character_controller>(),
 
                 // character skin and animations

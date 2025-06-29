@@ -4,6 +4,7 @@ using UnityEngine;
 using Pixify;
 using System;
 using Codice.Client.Common;
+using System.IO;
 
 namespace Triheroes.Code
 {
@@ -31,6 +32,7 @@ namespace Triheroes.Code
             SubResources <AudioClip>.LoadAll ( "SE" );
             SubResources <ParticleSystem>.LoadAll ( "Spectre" );
             SubResources <TrailRenderer>.LoadAll ( "Spectre" );
+            SubResources <CurveRes>.LoadAll ("Path");
         }
     }
 

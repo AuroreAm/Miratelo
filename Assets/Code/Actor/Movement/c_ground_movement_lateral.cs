@@ -14,6 +14,9 @@ namespace Triheroes.Code
         [Depend]
         m_capsule_character_controller mccc;
         [Depend]
+        m_gravity_mccc mgm;
+
+        [Depend]
         m_skin ms;
         [Depend]
         m_ground_data mgd;
@@ -39,7 +42,9 @@ namespace Triheroes.Code
                 ToIdle ();
                 else ToLateral ();
             }
+
             mccc.Aquire (this);
+            mgm.Aquire (this);
         }
 
         public override void Main()
@@ -52,6 +57,7 @@ namespace Triheroes.Code
         protected override void OnFree()
         {
             mccc.Free (this);
+            mgm.Free (this);
         }
 
         void Animation ()

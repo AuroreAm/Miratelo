@@ -50,6 +50,7 @@ namespace Triheroes.Code
         pr_sword_target pst;
 
         controlled_sequence slash_combo;
+        controlled_sequence slash_combo2;
 
         public override void Create()
         {
@@ -58,6 +59,15 @@ namespace Triheroes.Code
                 new ac_slash () { ComboId = 0 };
                 new ac_slash () { ComboId = 1 };
                 new ac_slash () { ComboId = 2 };
+                new parallel () {StopWhenFirstNodeStopped = true };
+                    slash_combo2 = new controlled_sequence () { repeat = false };
+                        new ac_slash_knocked_forced ();
+                        new ac_slash () { ComboId = 0 };
+                        new ac_slash () { ComboId = 1 };
+                        new ac_slash () { ComboId = 2 };
+                    end ();
+                    new ac_active_knock_forcer ();
+                end ();
             end();
             slash_combo = TreeFinalize () as controlled_sequence;
         }
@@ -69,7 +79,10 @@ namespace Triheroes.Code
                 if ( mst.state != slash_combo )
                     mst.SetState (slash_combo, Pri.Action);
                 else
-                slash_combo.TaskStatus = controlled_sequence.TaskStatusEnum.Success;
+                {
+                    slash_combo.TaskStatus = controlled_sequence.TaskStatusEnum.Success;
+                    slash_combo2.TaskStatus = controlled_sequence.TaskStatusEnum.Success;
+                }
             }
         }
     }

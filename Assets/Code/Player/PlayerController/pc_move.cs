@@ -26,6 +26,8 @@ namespace Triheroes.Code
             agc.Walk (InputAxis, runFactor );
             else if (mst.state is ac_fall af)
             af.AirMove (InputAxis );
+            else if (mst.state is ac_jump aj)
+            aj.AirMove (InputAxis );
         }
     }
 

@@ -9,7 +9,7 @@ namespace Pixify
     public static class treeBuilder
     {
 
-        static bool Initialized;
+        public static bool Initialized {get; private set;}
         static List<action> Heap = new List<action>();
         static Stack<decorator> DecoratorStack = new Stack<decorator>();
         static Stack<List<action>> DecoratorChildStack = new Stack<List<action>>();

@@ -16,11 +16,11 @@ namespace Triheroes.Code
             text.color = new Color(1, 1, 1, 0);
         }
 
-        mt_linear Tween;
+        mt_linear_u Tween;
         public override void Create()
         {
             o = this;
-            Tween = new mt_linear ( GetX, SetX );
+            Tween = new mt_linear_u ( GetX, SetX );
             Tween.Aquire (this);
             CacheAction ();
         }

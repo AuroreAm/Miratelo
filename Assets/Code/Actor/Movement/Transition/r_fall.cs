@@ -11,14 +11,14 @@ namespace Triheroes.Code
         m_ground_data mgd;
 
         [Depend]
-        m_capsule_character_controller mccc;
+        m_gravity_mccc mgm;
 
         [Depend]
         ac_fall af;
 
         public override void Main()
         {
-            if (!mgd.onGround && mccc.verticalVelocity < 0)
+            if (!mgd.onGround && mgm.gravity < 0)
                 mst.SetState (af,Pri.Action);
         }
     }
@@ -29,7 +29,7 @@ namespace Triheroes.Code
         m_ground_data mgd;
 
         [Depend]
-        m_capsule_character_controller mccc;
+        m_gravity_mccc mgm;
 
         [Depend]
         ac_fall af;
@@ -41,7 +41,7 @@ namespace Triheroes.Code
 
         public override void Main()
         {
-            if (!mgd.onGround && mccc.verticalVelocity < 0 && !(mst.state is ac_fall))
+            if (!mgd.onGround && mgm.gravity < 0 && !(mst.state is ac_fall))
             {
                 if (mst.SetState (af,Pri.Action,true))
                 time = 0;

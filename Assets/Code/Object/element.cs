@@ -10,6 +10,11 @@ namespace Triheroes.Code
     {
         public static Element o;
 
+        public Element ()
+        {
+            o = this;
+        }
+
         public static bool ElementActorIsNotAlly ( int id, int selfFaction )
         {
             if ( ! o.ptr.ContainsKey (id) ) return false;
@@ -27,10 +32,16 @@ namespace Triheroes.Code
             o.ptr[to].element.Clash ( from, force );
         }
 
-        public Element ()
+        public static void Clash ( element from, int to, Knock force )
         {
-            o = this;
+            o.ptr[to].element.Clash ( from, force );
         }
+
+    }
+
+    public interface IElementListener
+    {
+        public void OnMessage (int message);
     }
 
     public class m_element : moduleptr <m_element>
@@ -39,23 +50,22 @@ namespace Triheroes.Code
         public m_actor ma;
         public element element { private set; get; }
 
-        /// <summary>
-        /// called when the element changes state
-        /// </summary>
-        /// <param name="state">the new state hash</param>
-        Action <int> StateChange;
-        Action <int> Message;
-        public int State { private set; get; }
+        List <IElementListener> elementListeners = new List<IElementListener> ();
 
-        public void SendMessage ( int message )
+        public void LinkMessage ( IElementListener listener )
         {
-            Message?.Invoke ( message );
+            elementListeners.Add (listener);
         }
 
-        public void SetState ( int state )
+        public void UnlinkMessage (IElementListener listener)
         {
-            State = state;
-            StateChange?.Invoke ( state );
+            elementListeners.Remove (listener);
+        }
+
+        public void SendMessage (int message)
+        {
+            foreach (var i in elementListeners)
+            i.OnMessage (message);
         }
 
         public void SetElement ( element e )
@@ -73,5 +83,13 @@ namespace Triheroes.Code
 
         public virtual void Clash ( element from, Perce force )
         {}
+
+        public virtual void Clash ( element from, Knock force )
+        {}
+    }
+
+    public static class MessageKey
+    {
+        public static readonly SuperKey knock_forced = new SuperKey ("knock_forced");
     }
 }

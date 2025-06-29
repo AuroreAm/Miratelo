@@ -8,7 +8,9 @@ namespace Triheroes.Code
     public class ac_fall : action
     {
         [Depend]
-        public m_capsule_character_controller mccc;
+        m_capsule_character_controller mccc;
+        [Depend]
+        protected m_gravity_mccc mgm;
         [Depend]
         public m_ground_data mgd;
         [Depend]
@@ -22,11 +24,12 @@ namespace Triheroes.Code
         {
             ms.PlayState ( 0, AnimationKey.fall, 0.1f );
             mccc.Aquire (this);
+            mgm.Aquire (this);
         }
 
         protected override bool Step()
         {
-            if (mgd.onGround && mccc.verticalVelocity < 0 && Vector3.Angle(Vector3.up, mgd.groundNormal) <= 45)
+            if (mgd.onGround && mgm.gravity < 0 && Vector3.Angle(Vector3.up, mgd.groundNormal) <= 45)
             {
                 ms.PlayState(ms.knee, landAnimation, 0.05f, null,null, LandSFX);
                 return true;
@@ -42,6 +45,7 @@ namespace Triheroes.Code
         protected override void Stop()
         {
             mccc.Free (this);
+            mgm.Free (this);
         }
 
         public virtual void AirMove(Vector3 DirPerSecond,float WalkFactor = WalkFactor.run)
@@ -56,7 +60,7 @@ namespace Triheroes.Code
         bool OnGround;
         protected override bool Step()
         {
-            if (!OnGround && mgd.onGround && mccc.verticalVelocity < 0 && Vector3.Angle(Vector3.up, mgd.groundNormal) <= 45)
+            if (!OnGround && mgd.onGround && mgm.gravity < 0 && Vector3.Angle(Vector3.up, mgd.groundNormal) <= 45)
             {
                 ms.PlayState(0, AnimationKey.fall_end_hard, 0.1f, HardFallEnd,null, LandSFX);
                 OnGround = true;

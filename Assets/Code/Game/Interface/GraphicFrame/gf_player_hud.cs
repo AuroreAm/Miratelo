@@ -12,21 +12,21 @@ namespace Triheroes.Code
 
         Image [] Heart;
         Image [] HeartContainer;
-        mt_linear HPTween;
+        mt_linear_u HPTween;
 
         RectTransform IECenter;
         Image[] IE;
-        mt_linear IETween;
-        mt_linear IETweenAlpha;
+        mt_linear_u IETween;
+        mt_linear_u IETweenAlpha;
 
         public override void Create()
         {
             o = this;
-            HPTween = new mt_linear ( GetHPX, SetHPX );
+            HPTween = new mt_linear_u ( GetHPX, SetHPX );
             HPTween.Aquire (this);
-            IETween = new mt_linear( GetIEX, SetIEX );
+            IETween = new mt_linear_u( GetIEX, SetIEX );
             IETween.Aquire (this);
-            IETweenAlpha = new mt_linear ( GetIEAlpha, SetIEAlpha );
+            IETweenAlpha = new mt_linear_u ( GetIEAlpha, SetIEAlpha );
             IETweenAlpha.Aquire (this);
         }
 

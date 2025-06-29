@@ -20,6 +20,16 @@ namespace Triheroes.Code
         }
     }
 
+    public struct Knock
+    {
+        public Vector3 Dir;
+
+        public Knock ( Vector3 ForceDir )
+        {
+            Dir = ForceDir;
+        }
+    }
+
     public struct Perce
     {
         public Vector3 point;

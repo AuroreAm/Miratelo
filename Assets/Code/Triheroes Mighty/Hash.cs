@@ -106,7 +106,7 @@ namespace Triheroes.Code
         public static readonly int Action = 2;
         public static readonly int ImportantAction = 3;
         public static readonly int ForcedAction = 4;
-        public static readonly int ForcedMove = 5;
+        public static readonly int RecoveryFromForced = 5;
 
         public static readonly int SubAction = 2;
     }
