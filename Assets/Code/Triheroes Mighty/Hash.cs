@@ -104,9 +104,10 @@ namespace Triheroes.Code
         public static readonly int def = 0;
         public static readonly int def2nd = 1;
         public static readonly int Action = 2;
-        public static readonly int ImportantAction = 3;
+        public static readonly int Action2nd = 3;
         public static readonly int ForcedAction = 4;
-        public static readonly int RecoveryFromForced = 5;
+        public static readonly int ForcedAction2nd = 5;
+        public static readonly int Recovery = 6;
 
         public static readonly int SubAction = 2;
     }

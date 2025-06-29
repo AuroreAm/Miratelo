@@ -15,9 +15,6 @@ namespace Triheroes.Code
         public m_HP mhp;
 
         [Depend]
-        m_last_knock mlk;
-
-        [Depend]
         m_element me;
 
         public override void Clash(element from, Slash force)
@@ -28,8 +25,7 @@ namespace Triheroes.Code
 
         public override void Clash(element from, Knock force)
         {
-            mlk.LastKnockDir = force.Dir;
-            me.SendMessage ( MessageKey.knock_forced );
+            me.SendMessage ( MessageKey.knocked_out, force );
         }
     }
 }

@@ -22,11 +22,13 @@ namespace Triheroes.Code
 
     public struct Knock
     {
-        public Vector3 Dir;
+        public Vector3 dir;
+        public float speed;
 
-        public Knock ( Vector3 ForceDir )
+        public Knock ( Vector3 ForceDir, float speed )
         {
-            Dir = ForceDir;
+            dir = ForceDir;
+            this.speed = speed;
         }
     }
 

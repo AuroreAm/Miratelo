@@ -7,28 +7,27 @@ using UnityEngine;
 namespace Triheroes.Code
 {
 
-    public class ac_active_knock_forcer : action
+    public class ac_active_hooker_up : action
     {
         [Depend]
-        m_knock_forcer mkf;
+        m_hooker_up mhu;
         protected override void BeginStep()
         {
-            mkf.Aquire (this);
+            mhu.Aquire (this);
         }
 
         protected override void Stop()
         {
-            mkf.Free (this);
+            mhu.Free (this);
         }
     }
 
-    public class m_knock_forcer : controller
+    public class m_hooker_up : controller
     {
         [Depend]
         m_sword_user msu;
         [Depend]
         m_capsule_character_controller mccc;
-        bool UsedGravity;
         int Target;
 
         delta_curve cu;
@@ -49,7 +48,7 @@ namespace Triheroes.Code
             mccc.dir += new Vector3 ( 0, cu.TickDelta (), 0 );
 
             if (Target != -1)
-            Element.Clash ( msu.Weapon.element, Target, new Knock ( Vector3.up * 2) );
+            Element.SendMessage ( Target, MessageKey.hooked_up, new Hook ( Vector3.up * 2, .5f ) );
         }
 
         public void SetTarget (int Hitted)
@@ -66,14 +65,14 @@ namespace Triheroes.Code
     }
 
     [Unique]
-    public class ac_slash_knocked_forced : action
+    public class ac_slash_hooker_up : action
     {
         [Depend]
         m_sword_user msu;
         [Depend]
         m_skin ms;
         [Depend]
-        m_knock_forcer mkf;
+        m_hooker_up mhu;
 
         int ComboId = 0;
 
@@ -96,12 +95,12 @@ namespace Triheroes.Code
 
         void Slash ()
         {
-            p_slash_attack.Fire ( new SuperKey ( msu.Weapon.SlashName ), msu.Weapon, ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [1] - ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [0], Knock );
+            p_slash_attack.Fire ( new SuperKey ( msu.Weapon.SlashName ), msu.Weapon, ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [1] - ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [0], Hook );
         }
 
-        void Knock (int Hitted)
+        void Hook (int Hitted)
         {
-            mkf.SetTarget (Hitted);
+            mhu.SetTarget (Hitted);
         }
 
         void EndSlash ()

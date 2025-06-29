@@ -5,13 +5,25 @@ using Pixify;
 
 namespace Triheroes.Code
 {
-    public class r_knock_forced_ccc : reflection, IElementListener
+    public struct Hook
+    {
+        public Vector3 dir;
+        public float duration;
+
+        public Hook ( Vector3 Dir, float Duration )
+        {
+            dir = Dir;
+            duration = Duration;
+        }
+    }
+
+    public class r_hooked_up_ccc : reflection, IElementListener <Hook>
     {
         [Depend]
         m_element me;
 
         [Depend]
-        ac_knock_forced_ccc akfc;
+        ac_hooked_up_ccc ahuc;
 
         bool ForcedThisFrame;
 
@@ -22,8 +34,8 @@ namespace Triheroes.Code
 
         public override void Main()
         {
-            if ( mst.state == akfc && !ForcedThisFrame )
-            akfc.Release ();
+            if ( mst.state == ahuc && !ForcedThisFrame )
+            ahuc.Release ();
 
             ForcedThisFrame = false;
         }
@@ -33,27 +45,28 @@ namespace Triheroes.Code
             me.UnlinkMessage (this);
         }
 
-        public void OnMessage(int message)
+        public void OnMessage(int message, Hook context)
         {
-            if ( message == MessageKey.knock_forced )
+            if ( message == MessageKey.hooked_up )
             {
-                mst.SetState ( akfc, Pri.ForcedAction );
+                ahuc.hookDir = context.dir;
+                ahuc.hookDuration = context.duration;
+                mst.SetState ( ahuc, Pri.ForcedAction );
+
                 ForcedThisFrame = true;
             }
         }
     }
 
-    public class ac_knock_forced_ccc : action
+    public class ac_hooked_up_ccc : action
     {
         [Depend]
         m_capsule_character_controller mccc;
-        
-        [Depend]
-        m_last_knock mlk;
+
+        public Vector3 hookDir;
+        public float hookDuration;
 
         delta_curve cu;
-
-        bool UsedGravity;
 
         public override void Create()
         {
@@ -63,7 +76,7 @@ namespace Triheroes.Code
         protected override void BeginStep()
         {
             mccc.Aquire (this);
-            cu.Start ( mlk.LastKnockDir.y, .5f );
+            cu.Start ( hookDir.y, hookDuration );
         }
 
         public void Release ()

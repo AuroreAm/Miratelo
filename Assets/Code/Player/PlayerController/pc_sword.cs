@@ -61,12 +61,12 @@ namespace Triheroes.Code
                 new ac_slash () { ComboId = 2 };
                 new parallel () {StopWhenFirstNodeStopped = true };
                     slash_combo2 = new controlled_sequence () { repeat = false };
-                        new ac_slash_knocked_forced ();
-                        new ac_slash () { ComboId = 0 };
+                        new ac_slash_hooker_up ();
                         new ac_slash () { ComboId = 1 };
                         new ac_slash () { ComboId = 2 };
+                        new ac_slash_knocker ();
                     end ();
-                    new ac_active_knock_forcer ();
+                    new ac_active_hooker_up ();
                 end ();
             end();
             slash_combo = TreeFinalize () as controlled_sequence;

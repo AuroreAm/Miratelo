@@ -22,6 +22,11 @@ namespace Triheroes.Code
             return false;
         }
 
+        public static void SendMessage <T> (  int to, int message, T context ) where T:struct
+        {
+            o.ptr[to].SendMessage (message, context);
+        }
+
         public static void Clash ( element from, int to, Slash force )
         {
             o.ptr[to].element.Clash ( from, force );
@@ -39,9 +44,12 @@ namespace Triheroes.Code
 
     }
 
-    public interface IElementListener
+
+    public interface IELBFC
+    {}
+    public interface IElementListener <T> : IELBFC where T : struct
     {
-        public void OnMessage (int message);
+        public void OnMessage (int message, T context);
     }
 
     public class m_element : moduleptr <m_element>
@@ -50,22 +58,22 @@ namespace Triheroes.Code
         public m_actor ma;
         public element element { private set; get; }
 
-        List <IElementListener> elementListeners = new List<IElementListener> ();
+        List <IELBFC> elementListeners = new List<IELBFC> ();
 
-        public void LinkMessage ( IElementListener listener )
+        public void LinkMessage ( IELBFC listener )
         {
             elementListeners.Add (listener);
         }
 
-        public void UnlinkMessage (IElementListener listener)
+        public void UnlinkMessage (IELBFC listener)
         {
             elementListeners.Remove (listener);
         }
 
-        public void SendMessage (int message)
+        public void SendMessage <T> (int message, T context) where T:struct
         {
             foreach (var i in elementListeners)
-            i.OnMessage (message);
+            (i as IElementListener<T>) ? .OnMessage (message, context);
         }
 
         public void SetElement ( element e )
@@ -90,6 +98,7 @@ namespace Triheroes.Code
 
     public static class MessageKey
     {
-        public static readonly SuperKey knock_forced = new SuperKey ("knock_forced");
+        public static readonly SuperKey hooked_up = new SuperKey ("hooked_up");
+        public static readonly SuperKey knocked_out = new SuperKey ("knocked_out");
     }
 }

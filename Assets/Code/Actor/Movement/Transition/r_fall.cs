@@ -51,7 +51,7 @@ namespace Triheroes.Code
                 time += Time.deltaTime;
                 if (time > 0.5f)
                 {
-                    mst.SetState (afh,Pri.ImportantAction);
+                    mst.SetState (afh,Pri.Action2nd);
                     time = 0;
                 }
             }
