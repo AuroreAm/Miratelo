@@ -41,16 +41,13 @@ namespace Triheroes.Code
         }
     }
 
-    public class pr_slash : reflection
+    public class pr_slash_consecutive : reflection
     {
+
         [Depend]
         m_equip me;
 
-        [Depend]
-        pr_sword_target pst;
-
         controlled_sequence slash_combo;
-        controlled_sequence slash_combo2;
 
         public override void Create()
         {
@@ -59,31 +56,22 @@ namespace Triheroes.Code
                 new ac_slash () { ComboId = 0 };
                 new ac_slash () { ComboId = 1 };
                 new ac_slash () { ComboId = 2 };
-                new parallel () {StopWhenFirstNodeStopped = true };
-                    slash_combo2 = new controlled_sequence () { repeat = false };
-                        new ac_slash_hooker_up ();
-                        new ac_slash () { ComboId = 1 };
-                        new ac_slash () { ComboId = 2 };
-                        new ac_slash_knocker ();
-                    end ();
-                    new ac_active_hooker_up ();
-                end ();
-            end();
+            end ();
             slash_combo = TreeFinalize () as controlled_sequence;
         }
 
         override public void Main()
         {
-            if (Player.Action2.OnActive && me.weaponUser is m_sword_user)
+            if (Player.Action2.OnActive)
             {
                 if ( mst.state != slash_combo )
                     mst.SetState (slash_combo, Pri.Action);
                 else
                 {
                     slash_combo.TaskStatus = controlled_sequence.TaskStatusEnum.Success;
-                    slash_combo2.TaskStatus = controlled_sequence.TaskStatusEnum.Success;
                 }
             }
         }
+
     }
 }

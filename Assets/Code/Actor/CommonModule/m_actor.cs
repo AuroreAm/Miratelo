@@ -8,7 +8,6 @@ namespace Triheroes.Code
 {
     // TODO: dependence order: need m_skin to be initialized first
     [Serializable]
-    [Category("Actor")]
     public class actor_writer : ModuleWriter
     {
         public List <Weapon> AttachedWeapon;

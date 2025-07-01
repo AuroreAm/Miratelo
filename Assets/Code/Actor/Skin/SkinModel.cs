@@ -7,7 +7,6 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     [Serializable]
-    [Category ("Actor")]
     public class skin_writer : ModuleWriter
     {
         public SkinModel Model;

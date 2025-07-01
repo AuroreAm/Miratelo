@@ -6,9 +6,8 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [Category("Actor")]
     [Serializable]
-    public class m_stat_writer : ModuleWriter
+    public class stat_writer : ModuleWriter
     {
         [Header("Health")]
         public float MaxHP;

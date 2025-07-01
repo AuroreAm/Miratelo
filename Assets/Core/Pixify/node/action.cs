@@ -90,7 +90,6 @@ namespace Pixify
     }
 
     [NodeTint(1,0,0)]
-    [Category("decorator")]
     public abstract class decorator : action {
         // TODO: verify if exposing this to public will cause future problems
         public action [] o;

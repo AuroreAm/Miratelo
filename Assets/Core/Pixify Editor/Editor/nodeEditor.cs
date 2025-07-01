@@ -9,13 +9,12 @@ namespace Pixify.Editor
     [NodeEditorOf (typeof (node))]
     public class NodeEditor
     {
-        UnityEngine.Object Host;
         protected node target;
 
         public virtual void Create () {}
-        public virtual void GUI (Vector2 size) => NodeGUI ( target, Host );
+        public virtual void GUI () => NodeGUI ( target );
 
-        public static NodeEditor CreateEditor ( node target, UnityEngine.Object host, UnityEditor.Editor editorHost =  null )
+        public static NodeEditor CreateEditor ( node target, UnityEditor.Editor editorHost =  null )
         {
             var A = AppDomain.CurrentDomain.GetAssemblies();
             List<Type> allNodeEditor = new List<Type>();
@@ -37,17 +36,15 @@ namespace Pixify.Editor
             }
 
             NodeEditor nE = (NodeEditor) Activator.CreateInstance(Current);
-            nE.Host = host;
             nE.target = target;
             nE.Create();
 
             return nE;
         }
 
-        public static void NodeGUI (node node, UnityEngine.Object Host)
+        public static void NodeGUI (node node)
         {
             EditorGUI.BeginChangeCheck();
-            Undo.RecordObject(Host, "Node Edit");
             // Y is the class that is being inspected
             foreach (FieldInfo fi in node.GetType().GetFields())
             {
@@ -55,7 +52,7 @@ namespace Pixify.Editor
                     NGUILayout.FieldGUI(fi, node);
             }
             if (EditorGUI.EndChangeCheck())
-                EditorUtility.SetDirty(Host);
+            {}
         }
     }
 

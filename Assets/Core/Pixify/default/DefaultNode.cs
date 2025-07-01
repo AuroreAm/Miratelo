@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Pixify
 {
-    [Category("debug")]
     public class Log : action
     {
         [Export]
@@ -18,7 +17,6 @@ namespace Pixify
     }
 
     
-    [Category("debug")]
     public class Skip : action
     {
         protected override bool Step()
@@ -27,7 +25,6 @@ namespace Pixify
         }
     }
 
-    [Category("debug")]
     public class Void : action
     {
         protected override bool Step()

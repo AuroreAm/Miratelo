@@ -78,10 +78,7 @@ namespace Triheroes.Code
 
         protected override void BeginStep()
         {
-            if (msu.state == StateKey.zero)
             BeginSlash(ComboId);
-            else
-            EndSlash();
         }
 
         void BeginSlash ( int id )
@@ -89,7 +86,6 @@ namespace Triheroes.Code
             if (!msu.on)
             Debug.LogError("the character is not sword ready");
 
-            msu.state = StateKey.slash;
             ms.PlayState (0, m_sword_user.SlashKeys[id], 0.1f, EndSlash, null, Slash);
         }
 
@@ -106,12 +102,6 @@ namespace Triheroes.Code
         void EndSlash ()
         {
             AppendStop();
-        }
-
-        protected override void Stop()
-        {
-            if (msu.state == StateKey.slash)
-            msu.state = StateKey.zero;
         }
     }
 }

@@ -105,6 +105,11 @@ namespace Pixify
             }
         }
 
+        public bool HaveModule <T> ()
+        {
+            return modules.ContainsKey (typeof(T));
+        }
+
         public T GetModule <T> () where T : module
         {
              if (modules.TryGetValue(typeof(T), out module m))

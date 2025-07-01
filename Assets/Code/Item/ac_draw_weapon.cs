@@ -12,6 +12,9 @@ namespace Triheroes.Code
     public class ac_draw_weapon : action
     {
         [Depend]
+        m_cortex mc;
+
+        [Depend]
         m_sword_user msu;
         [Depend]
         m_bow_user mbu;
@@ -43,6 +46,7 @@ namespace Triheroes.Code
             me.weaponUser = GetCorrespondingWeaponUser ( from.Get().Type );
             me.weaponUser.SetWeaponBase ( from.Free() );
             me.weaponUser.Aquire (me);
+            mc.cortex.TriggerThinking ();
 
             from = null;
         }

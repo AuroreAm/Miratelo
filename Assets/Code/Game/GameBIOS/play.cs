@@ -25,6 +25,7 @@ namespace Triheroes.Code
         int MainActor;
         m_HP[] MainPlayerHP;
         m_ie[] MainPlayerIE;
+        player_cortex [] PlayerCortexes;
 
         public static Character MainCharacter => o.MainActors[o.MainActor].character;
         public static Character GetMainCharacter(int i) => o.MainActors[i].character;
@@ -33,10 +34,13 @@ namespace Triheroes.Code
         void SpawnMainCharacters()
         {
             MainActors = new m_actor[GameData.o.LoadedGame.ActivePartyMembers.Length];
+            PlayerCortexes = new player_cortex [GameData.o.LoadedGame.ActivePartyMembers.Length];
 
             for (int i = 0; i < GameData.o.LoadedGame.ActivePartyMembers.Length; i++)
             {
                 MainActors[i] = GameData.o.LoadedGame.ActivePartyMembers[i].Spawn(GameData.o.LoadedGame.ActivePartyMembersPosition[i], Quaternion.Euler(GameData.o.LoadedGame.ActivePartyMembersRotation[i])).RequireModule<m_actor>();
+
+                PlayerCortexes [i] = new player_cortex ();
             }
         }
 
@@ -56,19 +60,7 @@ namespace Triheroes.Code
 
         void SetMainPlayer(int i)
         {
-            // give instructions and reflections
-            m_state brain = MainCharacter.RequireModule<m_state>();
-            brain.AddReflection( MainCharacter.RequireModule<pr_move>() );
-            brain.AddReflection( MainCharacter.RequireModule<r_fall_with_hard>() );
-            brain.AddReflection( MainCharacter.RequireModule<pr_jump>() );
-            brain.AddReflection( MainCharacter.RequireModule<pr_equip>() );
-            brain.AddReflection( MainCharacter.RequireModule<pr_target>() );
-            brain.AddReflection( MainCharacter.RequireModule<pr_interact_near_weapon>() );
-            brain.AddReflection( MainCharacter.RequireModule<pr_slash>() );
-            brain.AddReflection( MainCharacter.RequireModule<pr_sword_target>() );
-            brain.AddReflection( MainCharacter.RequireModule<pr_aim>() );
-            brain.AddReflection( MainCharacter.RequireModule<pr_dash>() );
-            // TODO remove reflection from non player character
+            MainCharacter.RequireModule <m_cortex> ().SetCortex ( PlayerCortexes [i] );
 
             // set the player hud
             gf_player_hud.o.SetIdentity(MainPlayerHP[i].MaxHP, MainPlayerHP[i].HP, MainPlayerIE[i].MaxIE, MainPlayerIE[i].IE, MainActors[i].md);

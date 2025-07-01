@@ -9,9 +9,11 @@ namespace Triheroes.Code
     /// return a weapon in ms.r_arm
     /// </summary>
     [Unique]
-    [Category("actor")]
     public class ac_return_weapon : action
     {
+        [Depend]
+        m_cortex mc;
+
         [Depend]
         m_skin ms;
         [Depend]
@@ -39,6 +41,8 @@ namespace Triheroes.Code
             Weapon w = me.weaponUser.WeaponBase;
             me.weaponUser.Free (me);
             me.weaponUser = null;
+            mc.cortex.TriggerThinking ();
+
             to.Put(w);
             to = null;
         }

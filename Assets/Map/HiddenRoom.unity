@@ -921,6 +921,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3241faa14e2439c41be9d0496dcb2fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainCortex:
+    StrNodeType: 
+    StrNodeData: 
   skin:
     Model: {fileID: 1259821227}
   actor:
@@ -932,6 +935,11 @@ MonoBehaviour:
     MaxIE: 8
     IEPerSecond: 1
     DelayTime: 2
+  skill:
+    skills:
+    - StrNodeType: Triheroes.Code.SS2_consecutive, Triheroes.Code, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      StrNodeData: '{"nodeId":0}'
 --- !u!114 &1317951728
 MonoBehaviour:
   m_ObjectHideFlags: 0

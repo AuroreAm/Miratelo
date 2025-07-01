@@ -14,11 +14,13 @@ namespace Triheroes.Code
         [Header("Actor definition")]
         public actor_writer actor;
         [Header("Stats")]
-        public m_stat_writer stat;
+        public stat_writer stat;
+        [Header("Skills")]
+        public skill_writer skill;
 
         override public ModuleWriter[] GetModules ()
         {
-            return new ModuleWriter[] { skin, actor, stat };
+            return new ModuleWriter[] { skin, actor, stat, skill };
         }
 
         override public void OnSpawn ( Vector3 position, Quaternion rotation, Character c )

@@ -8,24 +8,17 @@ using System.Reflection;
 
 namespace Pixify.Editor
 {
-    public static class Cursor
+
+    public class Cursor<T> : Cursor where T:node
     {
-        public static Dictionary<string, Type[]> FetchTypesByCategory (Type filter)
-        {
-            List<Type> TypeList = new List<Type>();
-            foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
-                TypeList.AddRange(a.GetTypes().Where(type => type.IsSubclassOf(filter) && !type.IsAbstract));
-
-            Dictionary <string, Type[]>  Types = TypeList.GroupBy( x=> x.GetCustomAttributes (typeof (CategoryAttribute), true).OfType<CategoryAttribute>().FirstOrDefault()?.Name).ToDictionary ( x => x.Key, x => x.ToArray() );
-
-            Types.Remove (string.Empty);
-            return Types;
-        }
+        public Cursor(Action<Type> Ev) : base(Ev, typeof (T))
+        {}
     }
+
     /// <summary>
     /// Editor cursor to find all types specified in filter
     /// </summary>
-    public class Cursor <T>
+    public class Cursor
     {
         public Dictionary <string, Type[]> Types;
         Type Filter;
@@ -34,10 +27,10 @@ namespace Pixify.Editor
         Vector2 scroll;
         public Action<Type> Add;
 
-        public Cursor(Action<Type> Ev)
+        public Cursor(Action<Type> Ev, Type Filter)
         {
             Search = new SearchField();
-            Filter = typeof(T);
+            this.Filter = Filter;
             if (Types == null)
                 FetchTypes();
             Add += Ev;
@@ -73,7 +66,6 @@ namespace Pixify.Editor
                         Add?.Invoke(TypeList[j]);
                     }
                 }
-
                 EditorGUILayout.EndVertical();
             }
             GUILayout.EndScrollView();
@@ -88,6 +80,19 @@ namespace Pixify.Editor
             Types = TypeList.GroupBy( x=> x.GetCustomAttributes (typeof (CategoryAttribute), true).OfType<CategoryAttribute>().FirstOrDefault()?.Name).ToDictionary ( x => x.Key, x => x.ToArray() );
 
             Types.Remove (string.Empty);
+        }
+
+        
+        public static Dictionary<string, Type[]> FetchTypesByCategory (Type filter)
+        {
+            List<Type> TypeList = new List<Type>();
+            foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
+                TypeList.AddRange(a.GetTypes().Where(type => type.IsSubclassOf(filter) && !type.IsAbstract));
+
+            Dictionary <string, Type[]>  Types = TypeList.GroupBy( x=> x.GetCustomAttributes (typeof (CategoryAttribute), true).OfType<CategoryAttribute>().FirstOrDefault()?.Name).ToDictionary ( x => x.Key, x => x.ToArray() );
+
+            Types.Remove (string.Empty);
+            return Types;
         }
     }
 }

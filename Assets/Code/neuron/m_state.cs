@@ -94,6 +94,13 @@ namespace Triheroes.Code
             r.Free (this);
             reflections.Remove (r);
         }
+
+        public void ClearReflection ()
+        {
+            foreach ( reflection r in reflections )
+            r.Free (this);
+            reflections.Clear ();
+        }
     }
 
     public sealed class neuron : core
