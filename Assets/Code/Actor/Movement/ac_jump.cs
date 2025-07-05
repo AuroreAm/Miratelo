@@ -5,8 +5,11 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class ac_jump : action
+    public class ac_jump : motor
     {
+        public override int Priority => Pri.Action;
+        public override bool AcceptSecondState => true;
+
         [Depend]
         public m_capsule_character_controller mccc;
         [Depend]

@@ -47,7 +47,7 @@ namespace Triheroes.Code
             {
                 ako.dir = context.dir;
                 ako.speed = context.speed;
-                mst.SetState ( KnockedOut, Pri.ForcedAction2nd );
+                mm.SetState ( KnockedOut, Pri.ForcedAction2nd );
             }
         }
     }

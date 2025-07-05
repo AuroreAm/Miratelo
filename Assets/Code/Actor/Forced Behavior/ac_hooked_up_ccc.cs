@@ -34,7 +34,7 @@ namespace Triheroes.Code
 
         public override void Main()
         {
-            if ( mst.state == ahuc && !ForcedThisFrame )
+            if ( mm.state == ahuc && !ForcedThisFrame )
             ahuc.Release ();
 
             ForcedThisFrame = false;
@@ -51,15 +51,17 @@ namespace Triheroes.Code
             {
                 ahuc.hookDir = context.dir;
                 ahuc.hookDuration = context.duration;
-                mst.SetState ( ahuc, Pri.ForcedAction );
+                mm.SetState ( ahuc );
 
                 ForcedThisFrame = true;
             }
         }
     }
 
-    public class ac_hooked_up_ccc : action
+    public class ac_hooked_up_ccc : motor
     {
+        public override int Priority => Pri.ForcedAction;
+
         [Depend]
         m_capsule_character_controller mccc;
 

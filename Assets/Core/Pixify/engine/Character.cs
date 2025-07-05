@@ -162,5 +162,13 @@ namespace Pixify
 
             return a;
         }
+
+        #if UNITY_EDITOR
+        public Action OnDrawGizmos;
+        public void OnDrawGizmosSelected(  )
+        {
+            OnDrawGizmos?.Invoke ();
+        }
+        #endif
     }
 }

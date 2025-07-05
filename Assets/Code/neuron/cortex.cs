@@ -25,17 +25,17 @@ namespace Triheroes.Code
     public abstract class cortex : node
     {
         [Depend]
-        protected m_state mst;
+        protected mc_motor mm;
 
         public void TriggerThinking ()
         {
-            mst.ClearReflection ();
+            mm.ClearReflection ();
             Think ();
         }
 
         protected void AddReflection <T> () where T:reflection, new ()
         {
-            mst.AddReflection ( mst.character.RequireModule <T> () );
+            mm.AddReflection ( mm.character.RequireModule <T> () );
         }
 
         protected abstract void Think ();

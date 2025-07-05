@@ -29,16 +29,16 @@ namespace Triheroes.Code
 
         public override void Main()
         {
-            if (mgd.onGround && Player.Jump.OnActive && mst.state != aj)
+            if (mgd.onGround && Player.Jump.OnActive && mm.state != aj)
             {
                 aj.jumpAnimation = (agc.state == StateKey.idle)? AnimationKey.jump : ( (msfi.DominantFoot == m_skin_foot_ik.FootId.left) ? AnimationKey.jump_left_foot : AnimationKey.jump_right_foot );
 
                 ac.landAnimation = (agc.state == StateKey.idle)? AnimationKey.fall_end : ( (msfi.DominantFoot == m_skin_foot_ik.FootId.left) ? AnimationKey.fall_end_left_foot : AnimationKey.fall_end_right_foot );
                 
-                mst.SetState (aj,Pri.Action,true);
+                mm.SetState (aj);
             }
 
-            if (mst.state == aj && Player.Jump.OnRelease)
+            if (mm.state == aj && Player.Jump.OnRelease)
             {
                 aj.StopJump ();
             }

@@ -7,6 +7,7 @@ namespace Triheroes.Code
 {
     public abstract class m_weapon_user : core
     {
+        public abstract SuperKey key {get;}
         public abstract Weapon WeaponBase {get;}
         public abstract void SetWeaponBase ( Weapon weapon );
     }

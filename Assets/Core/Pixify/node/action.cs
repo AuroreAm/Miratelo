@@ -8,7 +8,6 @@ namespace Pixify
     {
         public SuperKey Tag;
         public bool on;
-
         public void iStart ()
         {
             if (!on)

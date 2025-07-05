@@ -13,8 +13,8 @@ namespace Triheroes.Code
         float speed = 7;
         public override void Main()
         {
-            if (mst.state == null)
-                mst.SetState (agc,Pri.def,true);
+            if (mm.state == null)
+                mm.SetState (agc);
 
             Vector3 InputAxis = Player.MoveAxis3;
             float runFactor = Player.Dash.Active ? WalkFactor.sprint : ( InputAxis.magnitude > 0.7f ? WalkFactor.run : WalkFactor.walk );
@@ -22,13 +22,12 @@ namespace Triheroes.Code
 
             InputAxis = Vecteur.LDir ( m_camera.o.td.rotY.OnlyY (), InputAxis ) * speed;
 
-            if (mst.state == agc)
+            if (mm.state == agc)
             agc.Walk (InputAxis, runFactor );
-            else if (mst.state is ac_fall af)
+            else if (mm.state is ac_fall af)
             af.AirMove (InputAxis );
-            else if (mst.state is ac_jump aj)
+            else if (mm.state is ac_jump aj)
             aj.AirMove (InputAxis );
         }
     }
-
 }

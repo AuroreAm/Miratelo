@@ -38,7 +38,7 @@ namespace Triheroes.Code
                 if (freeSword != -1 && me.weaponUser == null)
                 {
                     adw.SetPlaceToDrawFrom ( mi.SwordPlaces[freeSword] );
-                    mst.SetSecondState (adw,Pri.SubAction);
+                    mm.SetSecondState (adw);
                 }
             }
 
@@ -49,20 +49,20 @@ namespace Triheroes.Code
                 {
                     arw.SetPlaceToReturn ( mi.GetFreePlaceFor( me.weaponUser.WeaponBase ) );
                     adw.SetPlaceToDrawFrom ( mi.SwordPlaces[freeSword] );
-                    mst.SetSecondState (swap_sword,Pri.SubAction);
+                    mm.SetSecondState (swap_sword,Pri.SubAction);
                 }
             }
 
             if (Player.Aim.OnActive && mi.BowPlaces [0].Occupied && me.weaponUser == null)
             {
                 adw.SetPlaceToDrawFrom ( mi.BowPlaces [0] );
-                mst.SetSecondState (adw,Pri.SubAction);
+                mm.SetSecondState (adw);
             }
 
             if (Player.Action1.OnActive && me.weaponUser != null)
             {
                 arw.SetPlaceToReturn ( mi.GetFreePlaceFor( me.weaponUser.WeaponBase ) );
-                mst.SetSecondState (arw,Pri.SubAction);
+                mm.SetSecondState (arw);
             }
         }
 

@@ -29,12 +29,12 @@ namespace Triheroes.Code
 
         public override void Main()
         {
-            if ( me.weaponUser is m_bow_user && mst.priority < Pri.def2nd && mst.secondState == pa )
-            mst.SetState ( AimMovement, Pri.def2nd, true );
+            if ( me.weaponUser is m_bow_user && mm.priority < Pri.def2nd && mm.secondState == pa )
+            mm.SetState ( AimMovement, Pri.def2nd, true );
 
-            if ( me.weaponUser is m_bow_user && Player.Aim.Active &&  mst.acceptSecondState && mst.secondState != pa )
+            if ( me.weaponUser is m_bow_user && Player.Aim.Active &&  mm.acceptSecondState && mm.secondState != pa )
             {
-                mst.SetSecondState ( pa, Pri.SubAction );
+                mm.SetSecondState ( pa, Pri.SubAction );
             }
         }
     }

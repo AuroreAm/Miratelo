@@ -10,11 +10,20 @@ public class scr_enemy_test : cortex
     [Depend]
     m_skill ms;
 
+    [Depend]
+    c_slash_consecutive csc;
+
+    [Depend]
+    mc_task mt;
+
+    [Depend]
+    m_actor ma;
+
+    public override void Create()
+    {
+    }
+
     protected override void Think()
     {
-        AddReflection <r_idle> ();
-
-        if ( ms.SkillValid <SS2_consecutive> () )
-        AddReflection <ai_slash_consecutive> ();
     }
 }

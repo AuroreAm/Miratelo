@@ -19,7 +19,7 @@ namespace Triheroes.Code
         public override void Main()
         {
             if (!mgd.onGround && mgm.gravity < 0)
-                mst.SetState (af,Pri.Action);
+                mm.SetState (af);
         }
     }
 
@@ -41,17 +41,17 @@ namespace Triheroes.Code
 
         public override void Main()
         {
-            if (!mgd.onGround && mgm.gravity < 0 && !(mst.state is ac_fall))
+            if (!mgd.onGround && mgm.gravity < 0 && !(mm.state is ac_fall))
             {
-                if (mst.SetState (af,Pri.Action,true))
+                if (mm.SetState (af))
                 time = 0;
             }
-            else if (mst.state == af)
+            else if (mm.state == af)
             {
                 time += Time.deltaTime;
                 if (time > 0.5f)
                 {
-                    mst.SetState (afh,Pri.Action2nd);
+                    mm.SetState (afh);
                     time = 0;
                 }
             }

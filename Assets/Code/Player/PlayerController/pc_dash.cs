@@ -38,7 +38,7 @@ namespace Triheroes.Code
                         ad.DashDirection = direction.back;
                 }
 
-                mst.SetState(ad, Pri.Action);
+                mm.SetState(ad);
                 return;
             }
 

@@ -5,8 +5,11 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class ac_fall : action
+    public class ac_fall : motor
     {
+        public override int Priority => Pri.Action;
+        public override bool AcceptSecondState => true;
+
         [Depend]
         m_capsule_character_controller mccc;
         [Depend]
@@ -57,6 +60,9 @@ namespace Triheroes.Code
 
     public class ac_fall_hard : ac_fall
     {
+        public override int Priority => Pri.Action2nd;
+        public override bool AcceptSecondState => false;
+
         bool OnGround;
         protected override bool Step()
         {

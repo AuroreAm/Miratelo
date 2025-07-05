@@ -13,13 +13,15 @@ namespace Triheroes.Code
 
         public override void Main()
         {
-            if (mst.state == null)
-                mst.SetState (ai, Pri.def);
+            if (mm.state == null)
+                mm.SetState (ai);
         }
     }
 
-    public class ac_idle : action
+    public class ac_idle : motor
     {
+        public override int Priority => Pri.def;
+
         [Depend]
         m_capsule_character_controller mccc;
         [Depend]

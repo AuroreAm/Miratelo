@@ -30,8 +30,8 @@ namespace Triheroes.Code
 
         public override void Main()
         {
-            if ( ma.target && me.weaponUser is m_sword_user && mst.priority < Pri.def2nd)
-                mst.SetState ( LockTargetSword, Pri.def2nd );
+            if ( ma.target && me.weaponUser is m_sword_user && mm.priority < Pri.def2nd)
+                mm.SetState ( LockTargetSword, Pri.def2nd );
 
             if ( me.weaponUser is m_sword_user && ma.target && !pmctt.aquired )
                 pmctt.Aquire (this);
@@ -64,14 +64,13 @@ namespace Triheroes.Code
         {
             if (Player.Action2.OnActive)
             {
-                if ( mst.state != slash_combo )
-                    mst.SetState (slash_combo, Pri.Action);
+                if ( mm.state != slash_combo )
+                    mm.SetState (slash_combo, Pri.Action);
                 else
                 {
                     slash_combo.TaskStatus = controlled_sequence.TaskStatusEnum.Success;
                 }
             }
         }
-
     }
 }

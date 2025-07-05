@@ -1,14 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
+using static Pixify.treeBuilder;
 using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [CoreBase]
-    public abstract class reflection : core
-    {
-        [Depend]
-        protected mc_motor mm;
-    }
+    -
 }

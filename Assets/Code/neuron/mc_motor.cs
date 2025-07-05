@@ -5,16 +5,18 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class m_state : module
+    // motor layer of behavior
+    // asign only state that directly manipulate motion of a character: animation and movement
+    public class mc_motor : module
     {
         neuron main;
         neuron second;
 
-        public action state { get; private set; }
+        public motor state { get; private set; }
         public int priority {get; private set;} = -1;
         public bool acceptSecondState {get; private set;} = false;
 
-        public action secondState { get; private set; }
+        public motor secondState { get; private set; }
         public int secondPriority {get; private set;} = -1;
 
         List <reflection> reflections = new List<reflection> ();
@@ -26,41 +28,38 @@ namespace Triheroes.Code
         }
 
         // priority makes state can be overriden by other state with higher priority
-        //
-        public bool SetState ( action state, int priority, bool DoesAcceptSecondState = false )
+        public bool SetState ( motor state )
         {
-            if (priority <= this.priority) return false;
+            if (state.Priority <= this.priority) return false;
 
             if (this.state != null)
             EndMainState ();
 
-            main.Set (state);
             this.state = state;
-            this.priority = priority;
-            acceptSecondState = DoesAcceptSecondState;
+            this.priority = state.Priority;
+            acceptSecondState = state.AcceptSecondState;
 
             if (!acceptSecondState && secondState != null)
                 EndSecondState ();
             
             main.OnNeuronEnd = EndMainState;
-            main.Aquire (this);
+            main.Aquire (this, state);
             return true;
         }
 
-        public bool SetSecondState ( action secondState, int priority)
+        public bool SetSecondState ( motor secondState)
         {
             if (!acceptSecondState) return false;
-            if (priority <= this.secondPriority) return false;
+            if (state.Priority <= this.secondPriority) return false;
             
             if (this.secondState != null)
                 EndSecondState ();
 
-            second.Set (secondState);
             this.secondState = secondState;
-            secondPriority = priority;
+            secondPriority = state.Priority;
 
             second.OnNeuronEnd = EndSecondState;
-            second.Aquire (this);
+            second.Aquire (this, secondState);
             return true;
         }
 
@@ -103,40 +102,4 @@ namespace Triheroes.Code
         }
     }
 
-    public sealed class neuron : core
-    {   
-        public Action OnNeuronEnd { private get; set; }
-        action root;
-
-        public override void Main()
-        {
-            if (root.on)
-                root.iExecute();
-            if (!root.on)
-            {
-                OnNeuronEnd?.Invoke ();
-                enabled = false;
-            }
-        }
-
-        protected override void OnAquire()
-        {
-            enabled = true;
-            root.iStart ();
-        }
-
-        public void Set ( action root )
-        {
-            if (on)
-            throw new InvalidOperationException ("FATAL ERROR: don't set root when neuron is on, will lead to crash");
-
-            this.root = root;
-        }
-
-        protected override void OnFree()
-        {
-            if (root.on)
-                root.iAbort();
-        }
-    }
 }

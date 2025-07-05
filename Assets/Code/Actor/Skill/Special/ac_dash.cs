@@ -5,8 +5,10 @@ using Pixify;
 
 namespace Triheroes.Code
 {
-    public class ac_dash : action
+    public class ac_dash : motor
     {
+        public override int Priority => Pri.Action;
+
         static SuperKey DashAnimation (direction direction) => (direction == direction.forward)? AnimationKey.dash_forward : (direction == direction.right)? AnimationKey.dash_right:AnimationKey.dash_left;
         public static Vector3 Direction ( direction direction ) => (direction == direction.forward)? Vector3.forward : (direction == direction.back)? Vector3.back:(direction == direction.right)? Vector3.right:Vector3.left;
 

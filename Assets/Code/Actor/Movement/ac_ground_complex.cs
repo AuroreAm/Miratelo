@@ -8,8 +8,11 @@ namespace Triheroes.Code
     // new ground movement complex
     // instead of the old using core, this one works with the new neuron system
     // can tweak between idle - walk - run - sprint - brake - brake rotation
-    public class ac_ground_complex : action
+    public class ac_ground_complex : motor
     {
+        public override int Priority => Pri.def;
+        public override bool AcceptSecondState => true;
+
         [Depend]
         m_capsule_character_controller mccc;
         [Depend]
