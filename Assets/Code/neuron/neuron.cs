@@ -17,19 +17,19 @@ namespace Triheroes.Code
             if (!root.on)
             {
                 OnNeuronEnd?.Invoke ();
-                enabled = false;
+                integral.enabled = false;
             }
         }
 
-        public void Aquire ( node host, action root )
+        public void Aquire ( atom host, action root )
         {
             this.root = root;
-            Aquire (host);
+            integral.Aquire (host);
         }
 
         protected override void OnAquire()
         {
-            enabled = true;
+            integral.enabled = true;
             root.iStart ();
         }
 

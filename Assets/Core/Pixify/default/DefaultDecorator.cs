@@ -9,7 +9,9 @@ namespace Pixify
     {
         int ptr;
 
+        [Export]
         public bool repeat = true;
+        [Export]
         public bool reset = true;
 
         protected sealed override void BeginStep ()
@@ -51,6 +53,7 @@ namespace Pixify
         /// <summary>
         /// if true, the node will stop when the first node stops
         /// </summary>
+        [Export]
         public bool StopWhenFirstNodeStopped;
 
         protected override void BeginStep()
@@ -111,7 +114,9 @@ namespace Pixify
         /// </summary>
         public static selector CurrentSelector => ExecutingSelectors.Count > 0 ? ExecutingSelectors.Peek() : null;
 
+        [Export]
         public bool reset = true;
+        [Export]
         public bool fallback = false;
 
         Dictionary <SuperKey, action> Index;

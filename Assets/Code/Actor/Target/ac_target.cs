@@ -21,7 +21,6 @@ namespace Triheroes.Code
         }
     }
 
-    [Unique]
     public class ac_have_target : action
     {
         [Depend]

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pixify
 {
-    public abstract class action : node
+    public abstract class action : catom
     {
         public SuperKey Tag;
         public bool on;
@@ -88,9 +88,4 @@ namespace Pixify
         protected virtual void Abort () { Stop(); }
     }
 
-    [NodeTint(1,0,0)]
-    public abstract class decorator : action {
-        // TODO: verify if exposing this to public will cause future problems
-        public action [] o;
-    }
 }

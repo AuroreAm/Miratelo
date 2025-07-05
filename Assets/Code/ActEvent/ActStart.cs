@@ -2,20 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using Pixify;
 using UnityEngine;
-using static Pixify.treeBuilder;
 
 namespace Triheroes.Code
 {
     public static class Act
     {
-        public static void Start (script script, Character c)
+        public static void Start (action ScriptRoot)
         {
-            if (script != null)
+            if (ScriptRoot != null)
             {
-            m_character_controller mcc = c.ConnectNode ( new m_character_controller () );
-            
-            TreeStart ( c );
-            mcc.StartRoot ( script.CreateTree ());
+
+            neuron n = catom.New <neuron> ( ScriptRoot.character );
+            n.Aquire ( new atom (), ScriptRoot );
+
             }
             else
             Debug.LogWarning ("script is null");
@@ -28,7 +27,7 @@ namespace Triheroes.Code
         public script script;
         void Awake ()
         {
-            Act.Start ( script, Director.o );
+            Act.Start ( script.WriteTree ( Director.o ) );
             // NOTE: ActStart script are not cleaned after they're finished, but this is negligible for this game, but will have to consider this for a future game
 
             Destroy (gameObject);

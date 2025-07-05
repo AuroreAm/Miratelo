@@ -5,7 +5,7 @@ using Pixify;
 
 namespace Triheroes.Code
 {
-    [CoreBase]
+    [IntegralBase]
     public abstract class controller : core
     {}
 }

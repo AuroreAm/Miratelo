@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class s_ground_data_ccc : CustomCoreSystem<m_capsule_character_controller>
+    public class s_ground_data_ccc : CustomIntegralSystem<m_capsule_character_controller>
     {
         protected override void Main(m_capsule_character_controller o)
         {

@@ -14,7 +14,7 @@ namespace Triheroes.Code
 
         public override void Create()
         {
-            TaskExecutor = character.ConnectNode ( new neuron () );
+            TaskExecutor = New <neuron> ( character );
         }
 
         public void SetTask ( action task )

@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Pixify;
 using UnityEngine;
-using static Pixify.treeBuilder;
 
 namespace Triheroes.Code
 {
+    //INPROGRESS
+    /*
     public class pr_aim : reflection
     {
         [Depend]
@@ -37,10 +38,9 @@ namespace Triheroes.Code
                 mm.SetSecondState ( pa, Pri.SubAction );
             }
         }
-    }
+    }*/
 
 
-    [Unique]
     public class pc_aim : action
     {
         [Depend]

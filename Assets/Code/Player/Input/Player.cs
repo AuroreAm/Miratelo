@@ -9,19 +9,19 @@ namespace Triheroes.Code
     {
         public override void Create()
         {
-            VMove = new InputAction();
-            HMove = new InputAction();
-            MouseX = new InputAction();
-            MouseY = new InputAction();
-            Jump = new InputAction();
-            Action1 = new InputAction();
-            Action2 = new InputAction();
-            Action3 = new InputAction();
-            Focus = new InputAction();
-            Dash = new InputAction();
-            Alt = new InputAction();
-            Aim = new InputAction();
-            HatDown = new InputAction();
+            VMove = New <InputAction> (character);
+            HMove = New <InputAction> (character);
+            MouseX = New <InputAction> (character);
+            MouseY = New <InputAction> (character);
+            Jump = New <InputAction> (character);
+            Action1 = New <InputAction> (character);
+            Action2 = New <InputAction> (character);
+            Action3 = New <InputAction> (character);
+            Focus = New <InputAction> (character);
+            Dash = New <InputAction> (character);
+            Alt = New <InputAction> (character);
+            Aim = New <InputAction> (character);
+            HatDown = New <InputAction> (character);
 
             VMove.Set("Vertical", true);
             HMove.Set("Horizontal", true);

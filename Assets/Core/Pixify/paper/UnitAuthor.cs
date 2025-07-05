@@ -10,7 +10,6 @@ namespace Pixify
         {
             Unit u = new Unit ();
             OnInstance (u);
-            u.Create ();
             return u;
         }
 

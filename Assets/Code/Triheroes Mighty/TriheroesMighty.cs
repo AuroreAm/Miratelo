@@ -30,7 +30,7 @@ namespace Triheroes.Code
 
         public override void AfterCreateSystems()
         {
-            Act.Start ( MapStartScript, Director.o );
+            Act.Start ( MapStartScript.WriteTree ( Director.o ) );
         }
 
         protected override void CreateSystems(out List<PixifySytemBase> systems)
@@ -39,44 +39,44 @@ namespace Triheroes.Code
             systems = new List<PixifySytemBase> ()
             {
                 // game bios
-                new CoreSystem<bios>(),
+                new IntegralSystem<bios>(),
 
                 // character physic datas
                 new s_ground_data_ccc(),
 
                 // procedural animations
-                new CoreSystem<m_skin_procedural>(),
+                new IntegralSystem<m_skin_procedural>(),
 
                 // character behavior and controller
-                new CoreSystem<reflection>(),
-                new CoreSystem<neuron>(),
-                new CoreSystem<m_character_controller>(),
-                new CoreSystem<controller>(),
+                new IntegralSystem<reflection>(),
+                new IntegralSystem<neuron>(),
+                new IntegralSystem<m_character_controller>(),
+                new IntegralSystem<controller>(),
 
                 // attacks
-                new PieceSystem<p_slash_attack>(),
-                new PieceSystem<p_trajectile>(),
+                new IntegralSystem<p_slash_attack>(),
+                new IntegralSystem<p_trajectile>(),
 
                 // stats
-                new CoreSystem<m_stat_generator>(),
+                new IntegralSystem<m_stat_generator>(),
 
                 // character movement
-                new CoreSystem<m_gravity_mccc>(),
-                new CoreSystem<m_capsule_character_controller>(),
+                new IntegralSystem<m_gravity_mccc>(),
+                new IntegralSystem<m_capsule_character_controller>(),
 
                 // character skin and animations
-                new CoreSystem<m_skin>(),
+                new IntegralSystem<m_skin>(),
 
                 // camera
-                new CoreSystem<camera_shot>(),
-                new CoreSystem<m_camera>(),
+                new IntegralSystem<camera_shot>(),
+                new IntegralSystem<m_camera>(),
 
                 // UI
-                new CoreSystem<graphic_frame>(),
-                new CoreSystem<m_tween>(),
+                new IntegralSystem<graphic_frame>(),
+                new IntegralSystem<m_tween>(),
 
                 // Audio
-                new PieceSystem<p_sfx>()
+                new IntegralSystem<p_sfx>()
             };
         }
     }

@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [Unique]
     public class ai_move_way : action
     {
         [Depend]

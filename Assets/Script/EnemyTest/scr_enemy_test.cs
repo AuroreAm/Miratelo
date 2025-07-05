@@ -11,9 +11,6 @@ public class scr_enemy_test : cortex
     m_skill ms;
 
     [Depend]
-    c_slash_consecutive csc;
-
-    [Depend]
     mc_task mt;
 
     [Depend]

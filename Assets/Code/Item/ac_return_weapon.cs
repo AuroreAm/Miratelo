@@ -8,7 +8,6 @@ namespace Triheroes.Code
     /// <summary>
     /// return a weapon in ms.r_arm
     /// </summary>
-    [Unique]
     public class ac_return_weapon : motor
     {
         public override int Priority => Pri.SubAction;

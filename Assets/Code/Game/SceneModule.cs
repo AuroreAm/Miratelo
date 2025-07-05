@@ -23,4 +23,16 @@ namespace Triheroes.Code
         public SceneData Scene;
     }
 
+    
+    [Category ("graphic frame")]
+    public class gf_show_map_title : action
+    {
+        protected override bool Step()
+        {
+            gf_title.SetTitleText ( TriheroesTitle.MapTitle, MapId.o.Scene.NomDeLaCarte );
+            gf_title.ShowTitle ( TriheroesTitle.MapTitle );
+            return true;
+        }
+    }
+
 }

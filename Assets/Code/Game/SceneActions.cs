@@ -5,7 +5,7 @@ using Pixify;
 
 namespace Triheroes.Code
 {
-    [Unique]
+    [Category ("bios")]
     public class g_bios_use_play : action
     {
         [Depend]
@@ -20,7 +20,9 @@ namespace Triheroes.Code
         }
     }
 
-    [Unique]
+    //INPROGRESS
+    /*
+    [Category ("bios")]
     public class g_bios_use_ingame_cinematic : action
     {
         [Depend]
@@ -33,8 +35,9 @@ namespace Triheroes.Code
             mgb.Set (ingame_cinematic);
             return true;
         }
-    }
+    }*/
 
+    [Category ("bios")]
     public class g_playBGM : action
     {
         [Depend]

@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pixify;
-using static Pixify.treeBuilder;
 
 namespace Triheroes.Code
 {
+    //INPROGRESS
+    /*
     public class r_knocked_out : reflection, IElementListener <Knock>
     {
         [Depend]
@@ -52,7 +53,6 @@ namespace Triheroes.Code
         }
     }
 
-    [Unique]
     public class ac_knocked_out : action
     {
         [Depend]
@@ -103,7 +103,6 @@ namespace Triheroes.Code
         }
     }
 
-    [Unique]
     public class ac_knocked_out_impact : action
     {
         [Depend]
@@ -133,7 +132,6 @@ namespace Triheroes.Code
         }
     }
 
-    [Unique]
     public class ac_knocked_out_impact_recovery : action
     {
         [Depend]
@@ -161,5 +159,5 @@ namespace Triheroes.Code
             mgm.Free (this);
             mccc.Free (this);
         }
-    }
+    }*/
 }

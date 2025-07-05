@@ -6,8 +6,8 @@ using System;
 
 namespace Triheroes.Code
 {
-    [CoreBase]
-    public abstract class m_tween : core
+    [IntegralBase]
+    public abstract class m_tween : piece
     {
     }
 
@@ -20,9 +20,9 @@ namespace Triheroes.Code
         float speed;
         Action OnEnd;
 
-        protected override void OnAquire()
+        protected override void OnStart()
         {
-            enabled = false;
+            integral.enabled = false;
         }
 
         public mt_linear_u (Func<float> GetX, Action<float> SetX, Action OnEnd = null)
@@ -44,14 +44,14 @@ namespace Triheroes.Code
         /// </summary>
         public void Start ( float TargetX, float speed)
         {
-            enabled = true;
+            integral.enabled = true;
             this.TargetX = TargetX;
             this.speed = speed;
         }
 
         public void Stop ()
         {
-            enabled = false;
+            integral.enabled = false;
         }
 
         public override void Main()
@@ -59,7 +59,7 @@ namespace Triheroes.Code
             SetX(Mathf.MoveTowards(GetX(), TargetX, speed * Time.unscaledDeltaTime));
             if (GetX() == TargetX)
             {
-                enabled = false;
+                integral.enabled = false;
                 OnEnd?.Invoke();
             }
         }

@@ -5,64 +5,93 @@ using UnityEngine;
 
 namespace Pixify
 {
-    public class Character : MonoBehaviour
+    public class Character : MonoBehaviour, ICatomFactory
     {
         // library of unique module indexed by type
         // polymorphism not supported
         protected Dictionary < Type, module > modules;
 
-        // library of action unique for the character but scatered in graph
-        public Dictionary < Type, action > uniques { private set; get; } = new Dictionary<Type, action> ();
+        // library of unique action for the character
+        public Dictionary < Type, action > actionLibrary { private set; get; } = new Dictionary<Type, action> ();
 
-        public T GetUnique <T> () where T : action
+        List < atom > atoms;
+        uint ptr;
+
+        public Character character => this;
+        public void AfterCreateInstance ( catom catom )
         {
-            if (uniques.TryGetValue(typeof(T), out action n))
+            ptr ++;
+            catom.atomId = ptr;
+            atoms.Add (catom);
+
+            if (_HotRequireModule)
+            {
+                modules.Add(catom.GetType (), (module) catom);
+                _HotRequireModule = false;
+            }
+
+            if (_HotRequireAction)
+            {
+                actionLibrary.Add(catom.GetType (), (action) catom);
+                _HotRequireAction = false;
+            }
+
+            Type current = catom.GetType ();
+            while ( current != typeof ( catom ) )
+            {
+                var fis = current.GetFields( BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                foreach (var fi in fis)
+                {
+                if (fi.GetCustomAttribute<DependAttribute>() != null)
+                    fi.SetValue ( catom, RequireAtom(fi.FieldType) );
+                }
+                current = current.BaseType;
+            }
+
+            catom.Create ();
+        }
+
+        public T GetAction <T> () where T : action
+        {
+            if (actionLibrary.TryGetValue(typeof(T), out action n))
                 return n as T;
             else
             throw new InvalidOperationException("cannot find unique action of type " + typeof(T));
         }
 
-
-        List < node > nodes;
-        uint ptr;
-
         void Awake ()
         {
             modules = new Dictionary<Type, module> ();
-            nodes = new List<node> ();
+            atoms = new List<atom> ();
         }
 
-        node RequireNode (Type nodeType)
+        atom RequireAtom (Type AtomType)
         {
-            if (nodeType.IsSubclassOf(typeof (action)))
-            {
-                if (treeBuilder.Initialized)
-                Debug.LogWarning ("node with action dependance detected in Treebuilder, avoid this");
-                return RequireUnique (nodeType);
-            }
-            else if (nodeType.IsSubclassOf(typeof (module)))
-                return RequireModule (nodeType);
+            if (AtomType.IsSubclassOf(typeof (action)))
+                return RequireAction (AtomType);
+            else if (AtomType.IsSubclassOf(typeof (module)))
+                return RequireModule (AtomType);
             else
                 throw new InvalidOperationException("cannot depend on a non action or module type");
         }
-        action RequireUnique (Type actiontype)
+
+        bool _HotRequireAction;
+        action RequireAction (Type actiontype)
         {
             if (!actiontype.IsSubclassOf(typeof (action)))
                 throw new InvalidOperationException("cannot depend on a non action type");
 
-            if (uniques.TryGetValue(actiontype, out action a))
+            if (actionLibrary.TryGetValue(actiontype, out action a))
                 return a;
             else
             {
-                a = Activator.CreateInstance(actiontype) as action;
-                uniques.Add(actiontype, a);
-
-                RegisterNode (a);
-                a.Create ();
-
+                _HotRequireAction = true;
+                a = catom.New <action> (actiontype, this);
                 return a;
             }
         }
+
+        bool _HotRequireModule;
         module RequireModule (Type moduleType)
         {
             if (!moduleType.IsSubclassOf(typeof (module)))
@@ -72,12 +101,8 @@ namespace Pixify
                 return m;
             else
             {
-                m = Activator.CreateInstance(moduleType) as module;
-                modules.Add(moduleType, m);
-
-                m.character = this;
-                RegisterNode (m);
-                m.Create ();
+                _HotRequireModule = true;
+                m = catom.New <module> (moduleType, this);
 
                 return m;
             }
@@ -94,13 +119,8 @@ namespace Pixify
                 return m as T;
             else
             {
-                var n = new T();
-                modules.Add(typeof(T), n);
-
-                n.character = this;
-                RegisterNode (n);
-                n.Create ();
-
+                _HotRequireModule = true;
+                var n = catom.New <T> (this);
                 return n;
             }
         }
@@ -116,51 +136,6 @@ namespace Pixify
                 return m as T;
             else
                 return null;
-        }
-
-        void RegisterNode ( node m )
-        {
-            ptr ++;
-            m.nodeId = ptr;
-            nodes.Add (m);
-
-            Type current = m.GetType ();
-            while ( current != typeof ( node ) )
-            {
-                var fis = current.GetFields( BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-                foreach (var fi in fis)
-                {
-                if (fi.GetCustomAttribute<DependAttribute>() != null)
-                    fi.SetValue ( m, RequireNode(fi.FieldType) );
-                }
-                current = current.BaseType;
-            }
-        }
-
-        /// <summary>
-        /// connect and initialize this node with the character if it is not connected
-        /// </summary>
-        public node ConnectNode ( node n )
-        {
-            if (!nodes.Contains (n))
-            {
-                RegisterNode (n);
-                n.Create ();
-            }
-            return n;
-        }
-
-        public T ConnectNode <T> (T a) where T:node
-        {
-            if (!nodes.Contains (a))
-            {
-                RegisterNode (a);
-                a.Create ();
-            }
-
-            // NOTE: when a module is connected here, it has no character attached to
-
-            return a;
         }
 
         #if UNITY_EDITOR

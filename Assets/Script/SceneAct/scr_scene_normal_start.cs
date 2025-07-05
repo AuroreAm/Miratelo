@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using Pixify;
 using Triheroes.Code;
 using UnityEngine;
-using static Pixify.treeBuilder;
 
-public class scr_scene_normal_start : script
+public class scr_scene_normal_start
 {
+    //INPROGRESS
+    /*
     public override action CreateTree()
     {
         new sequence () {repeat = false};
@@ -18,5 +19,5 @@ public class scr_scene_normal_start : script
         end ();
         
         return TreeFinalize ();
-    }
+    }*/
 }

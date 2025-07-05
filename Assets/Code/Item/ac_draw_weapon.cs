@@ -8,7 +8,6 @@ namespace Triheroes.Code
     /// <summary>
     /// draw a weapon in ms.r_arm
     /// </summary>
-    [Unique]
     public class ac_draw_weapon : motor
     {
         public override int Priority => Pri.SubAction;

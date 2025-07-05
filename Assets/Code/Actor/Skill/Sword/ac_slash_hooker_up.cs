@@ -64,7 +64,6 @@ namespace Triheroes.Code
         }
     }
 
-    [Unique]
     public class ac_slash_hooker_up : action
     {
         [Depend]

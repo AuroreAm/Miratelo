@@ -4,39 +4,29 @@ using UnityEngine;
 
 namespace Pixify
 {
-    public abstract class piece : node
+    public abstract class piece : atom, IIntegral
     {
         public Unit unit;
 
-        public bool on { get; private set; }
+        public virtual void Create ()
+        {}
 
+        public integral integral {private set; get;}
         public piece ()
         {
-            #if UNITY_EDITOR
-            if (UnityEditor.EditorApplication.isPlaying)
-            #endif
-            PixifyEngine.o.Register (this);
+            integral = new integral (this, OnStart, OnFree);
         }
 
         public abstract void Main();
-
-        public void iStart()
-        {
-            on = true;
-            OnStart();
-        }
-        
-        public void iFree()
-        {
-            on = false;
-            OnFree();
-        }
 
         protected virtual void OnStart ()
         {}
 
         protected virtual void OnFree ()
         {}
+
+        public void Aquire (atom host) => integral.Aquire (host);
+        public void Free (atom host) => integral.Free (host);
     }
 
     

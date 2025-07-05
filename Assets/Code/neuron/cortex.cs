@@ -15,14 +15,14 @@ namespace Triheroes.Code
         /// <param name="NewCortex"></param>
         public void SetCortex ( cortex NewCortex )
         {
-            cortex = character.ConnectNode ( NewCortex );
+            cortex = NewCortex;
             cortex.TriggerThinking ();
         }
     }
 
     // base class to determine which reflection the character needs 
     // basically the base that determine behavior for player controller or NPC
-    public abstract class cortex : node
+    public abstract class cortex : catom
     {
         [Depend]
         protected mc_motor mm;

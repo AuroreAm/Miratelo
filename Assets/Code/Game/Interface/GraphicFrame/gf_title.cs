@@ -56,6 +56,7 @@ namespace Triheroes.Code
         }
     }
 
+    [Category ("graphic frame")]
     public class g_show_title : action
     {
         public string Text;

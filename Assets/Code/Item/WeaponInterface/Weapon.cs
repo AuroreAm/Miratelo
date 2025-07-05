@@ -12,6 +12,9 @@ namespace Triheroes.Code
         public abstract SuperKey DefaultDrawAnimation { get; }
         public abstract SuperKey DefaultReturnAnimation { get; }
 
+        [SerializeField]
+        AtomPaper <element> WeaponElement;
+
         public element element;
         public m_actor Owner { get; protected set; }
         
@@ -21,7 +24,7 @@ namespace Triheroes.Code
             gameObject.layer = Vecteur.TRIGGER;
             new pi_weapon (this, gameObject.GetInstanceID ());
 
-            element = GetComponent<ElementWriter> ()?.GetElement ();
+            element = WeaponElement.Write ();
         }
 
         public void Aquire (m_actor Owner)

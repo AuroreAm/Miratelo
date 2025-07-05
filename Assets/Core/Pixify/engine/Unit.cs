@@ -35,7 +35,7 @@ namespace Pixify
         }
     }
 
-    public class Unit : node
+    public sealed class Unit : atom
     {
         UnitPool Parent;
         Dictionary<Type, piece> pieces = new Dictionary<Type, piece>();
@@ -45,13 +45,13 @@ namespace Pixify
         public void Start()
         {
             foreach (var p in pieceList)
-                p.iStart();
+                p.Aquire (this);
         }
 
         public void Free()
         {
             foreach (var p in pieceList)
-                p.iFree();
+                p.Free (this);
         }
 
         piece RequirePiece(Type pieceType)
@@ -97,12 +97,12 @@ namespace Pixify
         void RegisterPiece(piece p)
         {
             ptr++;
-            p.nodeId = ptr;
+            p.atomId = ptr;
             pieceList.Add(p);
             p.unit = this;
 
             Type current = p.GetType();
-            while (current != typeof(node))
+            while (current != typeof(atom))
             {
                 var fis = current.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
                 foreach (var fi in fis)
@@ -117,16 +117,6 @@ namespace Pixify
         public void Return_()
         {
             Parent.ReturnUnit(this);
-        }
-
-        public T ConnectPiece<T>(T p) where T : piece
-        {
-            if (!pieceList.Contains(p))
-            {
-                RegisterPiece(p);
-                p.Create();
-            }
-            return p;
         }
 
         public class UnitPool

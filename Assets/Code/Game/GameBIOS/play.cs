@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
-using static Pixify.treeBuilder;
 using UnityEngine;
 using System.IO;
 
@@ -40,7 +39,7 @@ namespace Triheroes.Code
             {
                 MainActors[i] = GameData.o.LoadedGame.ActivePartyMembers[i].Spawn(GameData.o.LoadedGame.ActivePartyMembersPosition[i], Quaternion.Euler(GameData.o.LoadedGame.ActivePartyMembersRotation[i])).RequireModule<m_actor>();
 
-                PlayerCortexes [i] = new player_cortex ();
+                PlayerCortexes [i] = New <player_cortex> ( GetMainCharacter (i) );
             }
         }
 

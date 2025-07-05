@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    
     [Category("player controller")]
     public class player_cortex : cortex
     {
@@ -27,12 +28,14 @@ namespace Triheroes.Code
             if ( ms.SkillValid <DS0_dash> () )
             AddReflection <pr_dash> ();
 
+            //INPROGRESS
+            /*
             // Sword skill
             if ( ms.SkillValid <SS2_consecutive> () )
             {
                 AddReflection < pr_slash_consecutive > ();
                 AddReflection < pr_sword_target> ();
-            }
+            }*/
         }
     }
 }

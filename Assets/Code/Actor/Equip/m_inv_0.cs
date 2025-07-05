@@ -133,7 +133,7 @@ namespace Triheroes.Code
                 case WeaponType.Bow: wp = mi.BowPlaces [index]; break;
                 default: return false;
             }
-            mi.character.GetUnique<ac_draw_weapon>().SetPlaceToDrawFrom(wp);
+            mi.character.GetAction<ac_draw_weapon>().SetPlaceToDrawFrom(wp);
             return true;
         }
     }
@@ -147,7 +147,7 @@ namespace Triheroes.Code
 
         protected override bool Step()
         {
-            me.character.GetUnique <ac_return_weapon> ().SetPlaceToReturn (  mi.GetFreePlaceFor( me.weaponUser.WeaponBase ) );
+            me.character.GetAction <ac_return_weapon> ().SetPlaceToReturn (  mi.GetFreePlaceFor( me.weaponUser.WeaponBase ) );
             return true;
         }
     }

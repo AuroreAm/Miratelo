@@ -7,7 +7,7 @@ namespace Triheroes.Code
 {
     public class StandardCharacterAuthor : Scripter
     {
-        public NodePaper<cortex> MainCortex;
+        public CatomPaper<cortex> MainCortex;
 
         [Header("Skin (appearance)")]
         public skin_writer skin;
@@ -26,7 +26,7 @@ namespace Triheroes.Code
         override public void OnSpawn ( Vector3 position, Quaternion rotation, Character c )
         {
             c.GetModule <m_skin> ().rotY = rotation.eulerAngles;
-            c.RequireModule <m_cortex> ().SetCortex ( MainCortex.WriteNode () );
+            c.RequireModule <m_cortex> ().SetCortex ( MainCortex.Write ( c ) );
         }
     }
 }

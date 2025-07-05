@@ -30,7 +30,6 @@ namespace Triheroes.Code
             {
                 Unit u = new Unit ();
                 u.RequirePiece<p_sfx> ();
-                u.Create ();
                 return u;
             }
         }

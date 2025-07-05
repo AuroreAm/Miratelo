@@ -52,11 +52,11 @@ namespace Triheroes.Code
         public void OnMessage (int message, T context);
     }
 
-    public class m_element : moduleptr <m_element>
+    public class m_element : moduleptr <m_element>, IElementContainer
     {
         [Depend]
         public m_actor ma;
-        public element element { private set; get; }
+        public element element { private set; get;}
 
         List <IELBFC> elementListeners = new List<IELBFC> ();
 
@@ -76,14 +76,19 @@ namespace Triheroes.Code
             (i as IElementListener<T>) ? .OnMessage (message, context);
         }
 
-        public void SetElement ( element e )
+        public void SetElement (element e)
         {
-            character.ConnectNode ( e );
             element = e;
+            e.Link(this);
         }
     }
 
-    public abstract class element : node
+    public interface IElementContainer 
+    {
+        public void SendMessage <T> (int message, T context) where T:struct;
+    }
+
+    public abstract class element : atom
     {
         // clash from another element
         public virtual void Clash ( element from, Slash force )
@@ -94,10 +99,18 @@ namespace Triheroes.Code
 
         public virtual void Clash ( element from, Knock force )
         {}
+
+        protected IElementContainer host;
+
+        public void Link ( IElementContainer container )
+        {
+            host = container;
+        }
     }
 
     public static class MessageKey
     {
+        public static readonly SuperKey damage = new SuperKey ("damage");
         public static readonly SuperKey hooked_up = new SuperKey ("hooked_up");
         public static readonly SuperKey knocked_out = new SuperKey ("knocked_out");
     }

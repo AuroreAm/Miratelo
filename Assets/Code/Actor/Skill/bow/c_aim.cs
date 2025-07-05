@@ -60,7 +60,6 @@ namespace Triheroes.Code
     }
 
     
-    [Unique]
     public class ac_aiming : action
     {
         [Depend]
@@ -68,7 +67,7 @@ namespace Triheroes.Code
 
         protected override bool Step()
         {
-            return !ca.aquired;
+            return !ca.integral.aquired;
         }
     }
 }

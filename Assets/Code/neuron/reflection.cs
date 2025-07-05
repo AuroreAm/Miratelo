@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [CoreBase]
+    [IntegralBase]
     public abstract class reflection : core
     {
         [Depend]

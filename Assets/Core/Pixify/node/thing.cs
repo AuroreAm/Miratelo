@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Pixify
 {
-    public abstract class thing : node
+    public abstract class thing : atom
     {}
 
     public abstract class ThingPointer <T> : module where T : thingptr <T>

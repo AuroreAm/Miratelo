@@ -8,24 +8,28 @@ namespace Triheroes.Code
     // Skin Element type: element of carbon based characters,
     // when skill is hit, it will directly reduce core HP
     // will call various type of message to the character based on the attack
-
-    public sealed class e_skin : element
+    [Category("character")]
+    public sealed class ce_skin : element
     {
-        [Depend]
-        public m_HP mhp;
-
-        [Depend]
-        m_element me;
-
         public override void Clash(element from, Slash force)
         {
             float damage = force.raw * force.sharpness;
-            mhp.HP -= damage;
+            host.SendMessage ( MessageKey.damage, damage );
         }
 
         public override void Clash(element from, Knock force)
         {
-            me.SendMessage ( MessageKey.knocked_out, force );
+            host?.SendMessage ( MessageKey.knocked_out, force );
+        }
+    }
+
+    public struct Damage
+    {
+        float damage;
+
+        public Damage ( float damage )
+        {
+            this.damage = damage;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Pixify
             if (root.on)
                 root.iExecute();
             if (!root.on)
-                enabled = false;
+                integral.enabled = false;
         }
 
         protected override void OnFree()
@@ -37,10 +37,10 @@ namespace Pixify
 
             this.root = root;
             root.iStart ();
-            enabled = true;
+            integral.enabled = true;
 
             if (!on)
-            Aquire (new Void ());
+            integral.Aquire (new Void ());
         }
 
     }

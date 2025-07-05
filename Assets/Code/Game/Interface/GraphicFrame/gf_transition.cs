@@ -57,8 +57,10 @@ namespace Triheroes.Code
         }
     }
 
+    [Category ("graphic frame")]
     public class g_fade : action
     {
+        [Export]
         public bool ToBlack;
         protected override bool Step()
         {

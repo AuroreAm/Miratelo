@@ -180,7 +180,7 @@ namespace Triheroes.Code
         }
     }
 
-    [CoreBase]
+    [IntegralBase]
     public abstract class camera_shot : core
     {
         public Vector3 CamPos;

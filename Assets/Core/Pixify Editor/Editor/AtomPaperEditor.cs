@@ -2,12 +2,12 @@ using System.Reflection;
 using System;
 using UnityEditor;
 using UnityEngine;
+using System.Runtime.Serialization;
 
 namespace Pixify.Editor
 {
-
-    [CustomPropertyDrawer(typeof (NodePaper<>))]
-    public class NodePaperDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof (AtomPaper<>))]
+    public class AtomPaperDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
@@ -26,25 +26,50 @@ namespace Pixify.Editor
             position.y += EditorGUIUtility.singleLineHeight;
 
             if ( GUI.Button (position,"Edit") )
-            NodePaperEditor.Init ( property, fieldInfo );
+            AtomPaperEditor.Init ( property, fieldInfo );
 
+            EditorGUI.EndProperty ();
+        }
+    }
+
+    [CustomPropertyDrawer(typeof (CatomPaper<>))]
+    public class CatomPaperDrawer : PropertyDrawer
+    {
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return EditorGUIUtility.singleLineHeight * 3;
+        }
+
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            EditorGUI.BeginProperty (position, label, property);
+
+            position.height = EditorGUIUtility.singleLineHeight;
+
+            GUI.Label ( position, property.FindPropertyRelative ("StrNodeType").stringValue );
+            position.y += EditorGUIUtility.singleLineHeight;
+            GUI.Label ( position, property.FindPropertyRelative ("StrNodeData").stringValue );
+            position.y += EditorGUIUtility.singleLineHeight;
+
+            if ( GUI.Button (position,"Edit") )
+            AtomPaperEditor.Init ( property, fieldInfo );
 
             EditorGUI.EndProperty ();
         }
     }
 
 
-    public class NodePaperEditor : EditorWindow
+    public class AtomPaperEditor : EditorWindow
     {
         SerializedProperty Target;
         FieldInfo TargetMeta;
-        node paper;
-        NodeEditor nE;
+        atom paper;
+        AtomEditor nE;
         Cursor cursor;
 
         public static void Init ( SerializedProperty Target, FieldInfo TargetMeta )
         {
-            GetWindow <NodePaperEditor> ().Load (Target,TargetMeta);
+            GetWindow <AtomPaperEditor> ().Load (Target,TargetMeta);
         }
 
         void Load ( SerializedProperty Target , FieldInfo TargetMeta)
@@ -54,9 +79,9 @@ namespace Pixify.Editor
 
             string NodeTypeName = Target.FindPropertyRelative ("StrNodeType").stringValue;
 
-            if ( Type.GetType ( NodeTypeName ) != null )
+            if ( !string.IsNullOrEmpty(NodeTypeName) && Type.GetType ( NodeTypeName ) != null )
             {
-                paper = (node) Activator.CreateInstance ( Type.GetType (NodeTypeName) );
+                paper = (atom) FormatterServices.GetUninitializedObject ( Type.GetType (NodeTypeName) );
                 JsonUtility.FromJsonOverwrite ( Target.FindPropertyRelative ("StrNodeData").stringValue, paper );
             }
         }
@@ -64,36 +89,36 @@ namespace Pixify.Editor
         void OnGUI ()
         {
             if (Target == null) return;
-            NodeSelectionGUI ();
-            NodeEditorGUI ();
+            AtomSelectionGUI ();
+            AtomEditorGUI ();
         }
 
-        void NodeSelectionGUI ()
+        void AtomSelectionGUI ()
         {
             if (paper!=null) return;
 
             if (cursor == null)
             {
                 if (TargetMeta.FieldType.IsArray)
-                cursor = new Cursor ( SetNode, TargetMeta.FieldType.GetElementType ().GetGenericArguments ()[0] );
+                cursor = new Cursor ( SetAtom, TargetMeta.FieldType.GetElementType ().GetGenericArguments ()[0] );
                 else
-                cursor = new Cursor ( SetNode, TargetMeta.FieldType.GetGenericArguments ()[0] );
+                cursor = new Cursor ( SetAtom, TargetMeta.FieldType.GetGenericArguments ()[0] );
             }
 
             cursor.GUI ();
 
-            void SetNode (Type t)
+            void SetAtom (Type t)
             {
-                paper = Activator.CreateInstance (t) as node;
+                paper = (atom) FormatterServices.GetUninitializedObject ( t );
             }
         }
 
-        void NodeEditorGUI ()
+        void AtomEditorGUI ()
         {
             if (paper == null) return;
 
             if (nE == null)
-            nE = NodeEditor.CreateEditor ( paper );
+            nE = AtomEditor.CreateEditor ( paper );
 
             nE.GUI ();
 
@@ -108,6 +133,10 @@ namespace Pixify.Editor
             if (GUILayout.Button ("Break"))
             {
                 paper = null;
+                Target.FindPropertyRelative ("StrNodeType").stringValue = "";
+                Target.FindPropertyRelative ("StrNodeData").stringValue = "";
+                Target.serializedObject.ApplyModifiedProperties ();
+                Close ();
             }
         }
     }

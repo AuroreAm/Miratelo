@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
-using static Pixify.treeBuilder;
 
 namespace Triheroes.Code
 {
+
     public class pr_equip : reflection
     {
         [Depend]
@@ -20,6 +20,8 @@ namespace Triheroes.Code
 
         action swap_sword;
 
+//INPROGRESS
+        /*
         public override void Create()
         {
             TreeStart ( me.character );
@@ -28,7 +30,7 @@ namespace Triheroes.Code
                 new ac_draw_weapon ();
             end ();
             swap_sword = TreeFinalize ();
-        }
+        }*/
 
         public override void Main()
         {
@@ -41,7 +43,8 @@ namespace Triheroes.Code
                     mm.SetSecondState (adw);
                 }
             }
-
+            //INPROGRESS
+/*
             if (Player.HatDown.OnActive)
             {
                 var freeSword = GetUsableSword();
@@ -51,7 +54,7 @@ namespace Triheroes.Code
                     adw.SetPlaceToDrawFrom ( mi.SwordPlaces[freeSword] );
                     mm.SetSecondState (swap_sword,Pri.SubAction);
                 }
-            }
+            }*/
 
             if (Player.Aim.OnActive && mi.BowPlaces [0].Occupied && me.weaponUser == null)
             {

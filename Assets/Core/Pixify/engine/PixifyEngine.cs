@@ -11,8 +11,7 @@ namespace Pixify
         public static PixifyEngine o;
 
         List<PixifySytemBase> Systems;
-        Dictionary < Type, List <core> > IndexedCores = new Dictionary<Type, List<core>> ();
-        Dictionary < Type, List <piece> > IndexedPieces = new Dictionary<Type, List<piece>> ();
+        Dictionary < Type, List <integral> > IndexedIntegrals = new Dictionary<Type, List<integral>> ();
 
         public abstract void BeforeCreateSystems ();
         public abstract void AfterCreateSystems ();
@@ -27,64 +26,33 @@ namespace Pixify
 
         protected abstract void CreateSystems ( out List<PixifySytemBase> systems );
 
-        public void Register ( core core )
+        public void Register ( integral integral )
         {
             // find the base type
-            Type current = core.GetType ();
+            Type current = integral.host.GetType ();
 
-            while (!(current == typeof(core)))
+            while (!(current == typeof(object)))
             {
-                if (current.GetCustomAttribute<CoreBaseAttribute>() != null)
+                if (current.GetCustomAttribute<IntegralBaseAttribute>() != null)
                 {
-                    RequestListCoresOfType ( current ).Add ( core );
+                    RequestIntegralByIndex ( current ).Add ( integral );
                     return;
                 }
 
                 current = current.BaseType;
             }
 
-            RequestListCoresOfType ( core.GetType () ).Add ( core );
+            RequestIntegralByIndex ( integral.host.GetType () ).Add ( integral );
         }
 
-        
-        public void Register ( piece piece )
+        internal List<integral> RequestIntegralByIndex (Type t)
         {
-            // find the base type
-            Type current = piece.GetType ();
-            while (!(current == typeof(piece)))
-            {
-                if (current.GetCustomAttribute<CoreBaseAttribute>() != null)
-                {
-                    RequestListPiecesOfType ( current ).Add ( piece );
-                    return;
-                }
-
-                current = current.BaseType;
-            }
-
-            RequestListPiecesOfType ( piece.GetType () ).Add ( piece );
-        }
-
-        internal List<core> RequestListCoresOfType (Type t)
-        {
-            if ( IndexedCores.TryGetValue (t, out List<core> L) )
+            if ( IndexedIntegrals.TryGetValue (t, out List<integral> L) )
             return L;
             else
             {
-                L = new List<core>();
-                IndexedCores.Add (t, L);
-                return L;
-            }
-        }
-
-        internal List<piece> RequestListPiecesOfType (Type t)
-        {
-            if ( IndexedPieces.TryGetValue (t, out List<piece> L) )
-            return L;
-            else
-            {
-                L = new List<piece>();
-                IndexedPieces.Add (t, L);
+                L = new List<integral>();
+                IndexedIntegrals.Add (t, L);
                 return L;
             }
         }
@@ -104,77 +72,39 @@ namespace Pixify
         public abstract void Execute ();
     }
 
-    public sealed class CoreSystem <T> : PixifySytemBase where T : core
+    public sealed class IntegralSystem <T> : PixifySytemBase where T : class, IIntegral
     {
-        List <core> cores;
+        List <integral> integrals;
         public sealed override void Execute ()
         {
-            for (int i = 0; i < cores.Count; i++)
+            for (int i = 0; i < integrals.Count; i++)
             {
-                if (cores [i].on)
-                    cores[i].Main();
+                if (integrals [i].on)
+                    integrals[i].Main();
             }
         }
 
-        public CoreSystem ()
+        public IntegralSystem ()
         {
-            cores = PixifyEngine.o.RequestListCoresOfType (typeof (T));
+            integrals = PixifyEngine.o.RequestIntegralByIndex (typeof (T));
         }
     }
 
-    public abstract class CustomCoreSystem <T> : PixifySytemBase where T : core
+    public abstract class CustomIntegralSystem <T> : PixifySytemBase where T : class, IIntegral
     {
-        List <core> cores;
+        List <integral> integrals;
         public override void Execute ()
         {
-            for (int i = 0; i < cores.Count; i++)
+            for (int i = 0; i < integrals.Count; i++)
             {
-                if (cores [i].on)
-                    Main (cores[i] as T);
+                if (integrals [i].on)
+                    Main (integrals[i].host as T);
             }
         }
         
-        public CustomCoreSystem ()
+        public CustomIntegralSystem ()
         {
-            cores = PixifyEngine.o.RequestListCoresOfType (typeof (T));
-        }
-
-        protected abstract void Main (T o);
-    }
-
-    public sealed class PieceSystem <T> : PixifySytemBase where T : piece
-    {
-        List <piece> pieces;
-        public sealed override void Execute ()
-        {
-            for (int i = 0; i < pieces.Count; i++)
-            {
-                if (pieces [i].on)
-                    pieces[i].Main();
-            }
-        }
-
-        public PieceSystem ()
-        {
-            pieces = PixifyEngine.o.RequestListPiecesOfType (typeof (T));
-        }
-    }
-
-    public abstract class CustomPieceSystem <T> : PixifySytemBase where T : piece
-    {
-        List <piece> pieces;
-        public override void Execute ()
-        {
-            for (int i = 0; i < pieces.Count; i++)
-            {
-                if (pieces [i].on)
-                    Main (pieces[i] as T);
-            }
-        }
-        
-        public CustomPieceSystem ()
-        {
-            pieces = PixifyEngine.o.RequestListPiecesOfType (typeof (T));
+            integrals = PixifyEngine.o.RequestIntegralByIndex (typeof (T));
         }
 
         protected abstract void Main (T o);

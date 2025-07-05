@@ -9,14 +9,14 @@ namespace Triheroes.Code
     [Serializable]
     public class skill_writer : ModuleWriter
     {
-        public NodePaper <skill_data> [] skills;
+        public CatomPaper <skill_data> [] skills;
 
         public override void WriteModule(Character character)
         {
             m_skill ms = character.RequireModule <m_skill> ();
             for (int i = 0; i < skills.Length; i++)
             {
-                ms.AddSkill ( skills [i].WriteNode () );
+                ms.AddSkill ( skills [i].Write (character) );
             }
         }
     }
@@ -25,13 +25,9 @@ namespace Triheroes.Code
     {
         Dictionary <Type, skill_data> Skills = new Dictionary<Type, skill_data> ();
 
-        /// <summary>
-        /// add skill data, and connect it to the character
-        /// </summary>
-        /// <param name="skill"></param>
         public void AddSkill ( skill_data skill )
         {
-            Skills.Add ( skill.GetType (), character.ConnectNode (skill) );
+            Skills.Add ( skill.GetType (), skill );
         }
 
         public bool SkillValid <SKILL> () where SKILL : skill_data
@@ -42,7 +38,7 @@ namespace Triheroes.Code
         }
     }
 
-    public abstract class skill_data : node
+    public abstract class skill_data : catom
     {
         public abstract bool SkillCondition ();
     }

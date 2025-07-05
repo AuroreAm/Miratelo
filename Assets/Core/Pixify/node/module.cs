@@ -6,10 +6,8 @@ using UnityEngine;
 namespace Pixify
 {
     [Serializable]
-    public class module : node
+    public class module : catom
     {
-        public Character character;
-
         /// <summary>
         /// is this module with a valid gameobject
         /// </summary>

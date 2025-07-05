@@ -6,15 +6,15 @@ using UnityEngine;
 
 namespace Pixify.Editor
 {
-    [NodeEditorOf (typeof (node))]
-    public class NodeEditor
+    [AtomEditorOf (typeof (atom))]
+    public class AtomEditor
     {
-        protected node target;
+        protected atom target;
 
         public virtual void Create () {}
         public virtual void GUI () => NodeGUI ( target );
 
-        public static NodeEditor CreateEditor ( node target, UnityEditor.Editor editorHost =  null )
+        public static AtomEditor CreateEditor ( atom target, UnityEditor.Editor editorHost =  null )
         {
             var A = AppDomain.CurrentDomain.GetAssemblies();
             List<Type> allNodeEditor = new List<Type>();
@@ -22,27 +22,27 @@ namespace Pixify.Editor
             foreach (var y in A)
             foreach (Type x in y.GetTypes())
             {
-                if (x.IsSubclassOf(typeof(NodeEditor)))
+                if (x.IsSubclassOf(typeof(AtomEditor)))
                     allNodeEditor.Add(x);
             }
             
-            Type Current = typeof(NodeEditor);
+            Type Current = typeof(AtomEditor);
             foreach (Type t in allNodeEditor)
             {
-                Type SupportedNode = t.GetCustomAttribute<NodeEditorOfAttribute>().NodeType;
+                Type SupportedNode = t.GetCustomAttribute<AtomEditorOfAttribute>().AtomType;
 
-                if ((target.GetType().IsSubclassOf(SupportedNode) || target.GetType() == SupportedNode) && SupportedNode.IsSubclassOf(Current.GetCustomAttribute<NodeEditorOfAttribute>().NodeType))
+                if ((target.GetType().IsSubclassOf(SupportedNode) || target.GetType() == SupportedNode) && SupportedNode.IsSubclassOf(Current.GetCustomAttribute<AtomEditorOfAttribute>().AtomType))
                     Current = t;
             }
 
-            NodeEditor nE = (NodeEditor) Activator.CreateInstance(Current);
+            AtomEditor nE = (AtomEditor) Activator.CreateInstance(Current);
             nE.target = target;
             nE.Create();
 
             return nE;
         }
 
-        public static void NodeGUI (node node)
+        public static void NodeGUI (atom node)
         {
             EditorGUI.BeginChangeCheck();
             // Y is the class that is being inspected
@@ -57,11 +57,11 @@ namespace Pixify.Editor
     }
 
     [AttributeUsage(AttributeTargets.Class)]
-    public class NodeEditorOfAttribute : Attribute
+    public class AtomEditorOfAttribute : Attribute
     {
-        public Type NodeType;
-        public NodeEditorOfAttribute(Type Class)
-        { NodeType = Class; }
+        public Type AtomType;
+        public AtomEditorOfAttribute(Type Class)
+        { AtomType = Class; }
     }
 
     public static class NGUILayout
