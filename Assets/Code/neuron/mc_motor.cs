@@ -23,8 +23,8 @@ namespace Triheroes.Code
 
         public override void Create()
         {
-            main = New <neuron> (character);
-            second = New <neuron> (character);
+            main = new neuron ();
+            second = new neuron ();
         }
 
         // priority makes state can be overriden by other state with higher priority

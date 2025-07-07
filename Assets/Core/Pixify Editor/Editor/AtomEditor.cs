@@ -128,11 +128,6 @@ namespace Pixify.Editor
                 fi.SetValue(o, EditorGUILayout.EnumPopup(fi.Name, (Enum)fi.GetValue(o)));
                 return;
             }
-
-            if (fi.FieldType == typeof (SuperKey))
-            {
-                fi.SetValue (o, new SuperKey(EditorGUILayout.TextField ( fi.Name,((SuperKey) fi.GetValue(o)).keyName )) );
-            }
         }
     }
 }

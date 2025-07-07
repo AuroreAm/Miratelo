@@ -5,10 +5,11 @@ using Pixify;
 
 namespace Triheroes.Code
 {
-    public sealed class neuron : core
-    {   
+    public sealed class neuron : piece
+    {
+        public SuperKey Descriptor;
         public Action OnNeuronEnd { private get; set; }
-        action root;
+        public action root { private get; set; }
 
         public override void Main()
         {
@@ -27,7 +28,7 @@ namespace Triheroes.Code
             integral.Aquire (host);
         }
 
-        protected override void OnAquire()
+        protected override void OnStart()
         {
             integral.enabled = true;
             root.iStart ();

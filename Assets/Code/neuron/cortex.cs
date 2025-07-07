@@ -27,9 +27,37 @@ namespace Triheroes.Code
         [Depend]
         protected mc_motor mm;
 
+        /// <summary>
+        /// List of tasks available for execution
+        /// </summary>
+        Dictionary <SuperKey, task> Master = new Dictionary <SuperKey, task> ();
+
+        public task GetTask (SuperKey key)
+        {
+            if (Master.ContainsKey (key))
+                return Master [key];
+            return null;
+        }
+
+        Dictionary < (int, object), SuperKey > TaskForEffects = new Dictionary < (int, object), SuperKey > ();
+
+        public SuperKey GetTaskForEffect (int key, object value)
+        {
+            if (TaskForEffects.ContainsKey ((key, value)))
+                return TaskForEffects [(key, value)];
+            return AIKeys.zero;
+        }
+
+
+        protected void AddMaster ( task task )
+        {
+            Master.Add ( task.TaskID, task );
+        }
+
         public void TriggerThinking ()
         {
             mm.ClearReflection ();
+            Master.Clear ();
             Think ();
         }
 

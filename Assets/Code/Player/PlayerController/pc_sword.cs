@@ -73,4 +73,31 @@ namespace Triheroes.Code
             }
         }
     }*/
+
+    public class pr_slash_consecutive : reflection
+    {
+        [Depend]
+        mc_task mt;
+
+        public override void Main()
+        {
+            if (Player.Action2.OnActive)
+            {
+                if ( !mt.IsTaskRunning (m_sword_user.TaskIDS[0]) )
+                {
+                mt.AddTask (m_sword_user.TaskIDS[0]);
+                return;
+                }
+
+                if ( mt.IsTaskRunning (m_sword_user.TaskIDS[0]) )
+                mt.AddTaskAfter (m_sword_user.TaskIDS[1], m_sword_user.TaskIDS[0]);
+                
+                if ( mt.IsTaskRunning (m_sword_user.TaskIDS[1]) )
+                mt.AddTaskAfter (m_sword_user.TaskIDS[2], m_sword_user.TaskIDS[1]);
+                
+                if ( mt.IsTaskRunning (m_sword_user.TaskIDS[2]) )
+                mt.AddTaskAfter (m_sword_user.TaskIDS[0], m_sword_user.TaskIDS[2]);
+            }
+        }
+    }
 }

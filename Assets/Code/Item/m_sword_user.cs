@@ -14,6 +14,10 @@ namespace Triheroes.Code
 
         // hardcoded slash animation for now
         public static readonly SuperKey[] SlashKeys = { AnimationKey.slash_0, AnimationKey.slash_1, AnimationKey.slash_2, AnimationKey.slash_3a };
+
+        
+        public static readonly SuperKey[] TaskIDS = new SuperKey[] { new SuperKey ( "SS2_0" ), new SuperKey ( "SS2_1" ), new SuperKey ( "SS2_2" ), new SuperKey ( "SS2_3a" ) };
+
         public static readonly SuperKey[] ParryKeys = { AnimationKey.parry_1 , AnimationKey.parry_2, AnimationKey.parry_1, AnimationKey.parry_2 };
 
         public override void Main()

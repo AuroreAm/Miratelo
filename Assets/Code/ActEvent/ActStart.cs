@@ -12,7 +12,7 @@ namespace Triheroes.Code
             if (ScriptRoot != null)
             {
 
-            neuron n = catom.New <neuron> ( ScriptRoot.character );
+            neuron n = new neuron ();
             n.Aquire ( new atom (), ScriptRoot );
 
             }

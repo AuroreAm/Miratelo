@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using UnityEngine;
 
 namespace Pixify
 {
@@ -40,7 +41,6 @@ namespace Pixify
         UnitPool Parent;
         Dictionary<Type, piece> pieces = new Dictionary<Type, piece>();
         List<piece> pieceList = new List<piece>();
-        uint ptr;
 
         public void Start()
         {
@@ -96,8 +96,6 @@ namespace Pixify
 
         void RegisterPiece(piece p)
         {
-            ptr++;
-            p.atomId = ptr;
             pieceList.Add(p);
             p.unit = this;
 
@@ -122,6 +120,10 @@ namespace Pixify
         public class UnitPool
         {
             Queue<Unit> queue;
+
+            List<Unit> pendingUnit = new List<Unit>();
+            int currentFrame;
+
             IUnitAuthor author;
 
             public UnitPool(IUnitAuthor author)
@@ -151,8 +153,18 @@ namespace Pixify
             public void ReturnUnit(Unit u)
             {
                 u.Free();
-                queue.Enqueue(u);
+                pendingUnit.Add(u);
+                currentFrame = Time.frameCount;
+
+                // to make sure the unit is not used again in the same frame, they are moved to the pending list first then reused on a later frame
+                if ( Time.frameCount != currentFrame && pendingUnit.Count > 0 )
+                {
+                    foreach (var p in pendingUnit)
+                        queue.Enqueue(p);
+                    pendingUnit.Clear();
+                }
             }
+
         }
     }
 }

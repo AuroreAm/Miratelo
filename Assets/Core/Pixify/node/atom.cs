@@ -8,7 +8,10 @@ namespace Pixify
     [NodeTint(1,1,1)]
     public class atom
     {
-        public uint atomId;
+        static uint counter = 0;
+        public uint atomId { get; private set; }
+
+        public atom () => atomId = ++counter;
 
         public static T Write <T> ( string AssemblyQualifiedType, string AtomData )  where T:atom
         {

@@ -30,6 +30,11 @@ namespace Triheroes.Code
             Skills.Add ( skill.GetType (), skill );
         }
 
+        public SKILL GetSkill <SKILL> () where SKILL : skill_data
+        {
+            return Skills [ typeof (SKILL) ] as SKILL;
+        }
+
         public bool SkillValid <SKILL> () where SKILL : skill_data
         {
             if ( Skills.ContainsKey (typeof (SKILL)) )

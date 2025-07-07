@@ -10,13 +10,16 @@ namespace Pixify
         [SerializeField]
         private int value;
 
-        [SerializeField]
-        public string keyName;
+        #if UNITY_EDITOR
+        public string name;
+        #endif
 
         public SuperKey(string keyName)
         {
-            this.keyName = keyName;
-            this.value = Animator.StringToHash(keyName);
+            value = Animator.StringToHash(keyName);
+            #if UNITY_EDITOR
+            name = keyName;
+            #endif
         }
 
         public static implicit operator int(SuperKey key)

@@ -5,8 +5,12 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class ac_slash : action
+    public class ac_slash : motor, ITaskable
     {
+        public override int Priority => Pri.Action;
+
+        public SuperKey TaskID => m_sword_user.TaskIDS[ComboId];
+
         [Depend]
         m_sword_user msu;
         [Depend]
@@ -14,6 +18,12 @@ namespace Triheroes.Code
 
         [Export]
         public int ComboId = 0;
+
+        public void GetPreconditions(Dictionary<int, object> Preconditions)
+        {
+            // TODO change string to hash
+            Preconditions.Add (AIKeys.mwu, new SuperKey ( "msu" ));
+        }
 
         protected override void BeginStep()
         {
@@ -34,5 +44,9 @@ namespace Triheroes.Code
         {
             AppendStop();
         }
+
+        // AI keys
+        public static readonly SuperKey slash_count = new SuperKey ("slash_count");
+        public static readonly SuperKey slash_last_id = new SuperKey ( "slash_last_id" );
     }
 }

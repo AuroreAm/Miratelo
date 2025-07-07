@@ -19,7 +19,7 @@ namespace Triheroes.Code
             Debug.LogError ("there's still weapon user active but changed it, a bug will occur since the previous weapon user was not free");
 
             weaponUser = mwu;
-            mb.KEY.AddOrChange ( AIKeys.mwu, mwu.key );
+            mb.bb.Set ( AIKeys.mwu, mwu.key );
             weaponUser.Aquire (this);
         }
 
@@ -28,7 +28,7 @@ namespace Triheroes.Code
             if (weaponUser == null)
             Debug.LogError ("Trying to remove unexisting weapon user");
 
-            mb.KEY.AddOrChange ( AIKeys.mwu, AIKeys.zero );
+            mb.bb.Set ( AIKeys.mwu, AIKeys.zero );
             weaponUser.Free (this);
             weaponUser = null;
         }

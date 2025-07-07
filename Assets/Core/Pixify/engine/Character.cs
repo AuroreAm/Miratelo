@@ -15,13 +15,10 @@ namespace Pixify
         public Dictionary < Type, action > actionLibrary { private set; get; } = new Dictionary<Type, action> ();
 
         List < atom > atoms;
-        uint ptr;
 
         public Character character => this;
         public void AfterCreateInstance ( catom catom )
         {
-            ptr ++;
-            catom.atomId = ptr;
             atoms.Add (catom);
 
             if (_HotRequireModule)

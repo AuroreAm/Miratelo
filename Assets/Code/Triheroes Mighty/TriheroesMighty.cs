@@ -1,6 +1,7 @@
 using Pixify;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Triheroes.Code
 {
@@ -50,7 +51,6 @@ namespace Triheroes.Code
                 // character behavior and controller
                 new IntegralSystem<reflection>(),
                 new IntegralSystem<neuron>(),
-                new IntegralSystem<m_character_controller>(),
                 new IntegralSystem<controller>(),
 
                 // attacks

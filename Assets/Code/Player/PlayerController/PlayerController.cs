@@ -27,15 +27,15 @@ namespace Triheroes.Code
             // dash skill
             if ( ms.SkillValid <DS0_dash> () )
             AddReflection <pr_dash> ();
-
-            //INPROGRESS
-            /*
+            
             // Sword skill
             if ( ms.SkillValid <SS2_consecutive> () )
             {
                 AddReflection < pr_slash_consecutive > ();
-                AddReflection < pr_sword_target> ();
-            }*/
+                AddMaster (ms.GetSkill <SS2_consecutive> ().slash_0);
+                AddMaster (ms.GetSkill <SS2_consecutive> ().slash_1);
+                AddMaster (ms.GetSkill <SS2_consecutive> ().slash_2);
+            }
         }
     }
 }

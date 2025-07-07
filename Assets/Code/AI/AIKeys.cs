@@ -9,5 +9,6 @@ namespace Triheroes.Code
     {
         public static readonly SuperKey zero = new SuperKey ("zero");
         public static readonly SuperKey mwu = new SuperKey ("mwu");
+
     }
 }
