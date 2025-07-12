@@ -12,6 +12,8 @@ namespace Triheroes.Code
         neuron main;
         neuron second;
 
+        AtomPool <neuron> pool;
+
         public motor state { get; private set; }
         public int priority {get; private set;} = -1;
         public bool acceptSecondState {get; private set;} = false;
@@ -19,21 +21,24 @@ namespace Triheroes.Code
         public motor secondState { get; private set; }
         public int secondPriority {get; private set;} = -1;
 
+        Action OnStateEnd;
+
         List <reflection> reflections = new List<reflection> ();
 
         public override void Create()
         {
-            main = new neuron ();
-            second = new neuron ();
+            pool = new AtomPool<neuron>(null, null, null);
         }
 
         // priority makes state can be overriden by other state with higher priority
-        public bool SetState ( motor state )
+        public bool SetState ( motor state, Action OnStateEnd = null)
         {
             if (state.Priority <= this.priority) return false;
 
             if (this.state != null)
             EndMainState ();
+
+            this.OnStateEnd = OnStateEnd;
 
             this.state = state;
             this.priority = state.Priority;
@@ -42,6 +47,7 @@ namespace Triheroes.Code
             if (!acceptSecondState && secondState != null)
                 EndSecondState ();
             
+            main = pool.GetAtom ();
             main.OnNeuronEnd = EndMainState;
             main.Aquire (this, state);
             return true;
@@ -58,6 +64,7 @@ namespace Triheroes.Code
             this.secondState = secondState;
             secondPriority = state.Priority;
 
+            second = pool.GetAtom ();
             second.OnNeuronEnd = EndSecondState;
             second.Aquire (this, secondState);
             return true;
@@ -66,9 +73,13 @@ namespace Triheroes.Code
         void EndMainState ()
         {
             main.Free (this);
+
             state = null;
             priority = -1;
+            
             acceptSecondState = false;
+
+            OnStateEnd?.Invoke ();
         }
 
         void EndSecondState ()

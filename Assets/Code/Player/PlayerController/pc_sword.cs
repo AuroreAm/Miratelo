@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using Pixify;
 
 namespace Triheroes.Code
@@ -76,28 +77,23 @@ namespace Triheroes.Code
 
     public class pr_slash_consecutive : reflection
     {
+
         [Depend]
-        mc_task mt;
+        mc_mind mcm;
 
         public override void Main()
         {
             if (Player.Action2.OnActive)
             {
-                if ( !mt.IsTaskRunning (m_sword_user.TaskIDS[0]) )
+                if ( !mcm.IsTaskRunning ( commands.SS2 ) )
                 {
-                mt.AddTask (m_sword_user.TaskIDS[0]);
-                return;
+                    mcm.DoTask ( commands.SS2 );
+                    return;
                 }
-
-                if ( mt.IsTaskRunning (m_sword_user.TaskIDS[0]) )
-                mt.AddTaskAfter (m_sword_user.TaskIDS[1], m_sword_user.TaskIDS[0]);
-                
-                if ( mt.IsTaskRunning (m_sword_user.TaskIDS[1]) )
-                mt.AddTaskAfter (m_sword_user.TaskIDS[2], m_sword_user.TaskIDS[1]);
-                
-                if ( mt.IsTaskRunning (m_sword_user.TaskIDS[2]) )
-                mt.AddTaskAfter (m_sword_user.TaskIDS[0], m_sword_user.TaskIDS[2]);
+                else if ( !mcm.IsTaskRunning ( commands.SS2_next ) )
+                mcm.DoTask ( commands.SS2_next );
             }
         }
+
     }
 }

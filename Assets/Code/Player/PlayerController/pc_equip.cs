@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Pixify;
 
 namespace Triheroes.Code
 {
-
     public class pr_equip : reflection
     {
         [Depend]
@@ -18,9 +18,10 @@ namespace Triheroes.Code
         [Depend]
         ac_return_weapon arw;
 
-        action swap_sword;
+        [Depend]
+        m_cortex mc;
 
-//INPROGRESS
+        //INPROGRESS
         /*
         public override void Create()
         {
@@ -43,8 +44,9 @@ namespace Triheroes.Code
                     mm.SetSecondState (adw);
                 }
             }
+
             //INPROGRESS
-/*
+            /*
             if (Player.HatDown.OnActive)
             {
                 var freeSword = GetUsableSword();

@@ -112,5 +112,15 @@ namespace Triheroes.Code
         public static readonly int SubAction = 2;
     }
 
+    // AI commands
+    public static class commands
+    {
+        // Sword commands
+        public static readonly SuperKey draw_weapon = new SuperKey("draw_weapon");
+        public static readonly SuperKey draw_sword = new SuperKey("draw_sword");
+        public static readonly SuperKey SS2 = new SuperKey("SS2");
+        public  static readonly SuperKey SS2_next = new SuperKey("SS2_next");
+    }
+
     public enum direction { forward, right, left, back }
 }

@@ -9,6 +9,21 @@ namespace Triheroes.Code
     {
         public cortex cortex {private set; get;}
 
+        Dictionary <SuperKey, plan_notion> Notion = new Dictionary <SuperKey, plan_notion> ();
+
+        public plan_notion GetPlan ( SuperKey key )
+        {
+            if (Notion.ContainsKey (key))
+                return Notion [key];
+            else
+                return null;
+        }
+
+        public void AddNotion ( plan_notion notion )
+        {
+            Notion.Add (notion.descriptor, notion);
+        }
+
         /// <summary>
         /// Set the character cortex and connect to the character
         /// </summary>
@@ -21,43 +36,14 @@ namespace Triheroes.Code
     }
 
     // base class to determine which reflection the character needs 
-    // basically the base that determine behavior for player controller or NPC
     public abstract class cortex : catom
     {
         [Depend]
         protected mc_motor mm;
 
-        /// <summary>
-        /// List of tasks available for execution
-        /// </summary>
-        Dictionary <SuperKey, task> Master = new Dictionary <SuperKey, task> ();
-
-        public task GetTask (SuperKey key)
-        {
-            if (Master.ContainsKey (key))
-                return Master [key];
-            return null;
-        }
-
-        Dictionary < (int, object), SuperKey > TaskForEffects = new Dictionary < (int, object), SuperKey > ();
-
-        public SuperKey GetTaskForEffect (int key, object value)
-        {
-            if (TaskForEffects.ContainsKey ((key, value)))
-                return TaskForEffects [(key, value)];
-            return AIKeys.zero;
-        }
-
-
-        protected void AddMaster ( task task )
-        {
-            Master.Add ( task.TaskID, task );
-        }
-
         public void TriggerThinking ()
         {
             mm.ClearReflection ();
-            Master.Clear ();
             Think ();
         }
 

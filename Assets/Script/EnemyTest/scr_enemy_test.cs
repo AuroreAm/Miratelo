@@ -11,9 +11,6 @@ public class scr_enemy_test : cortex
     m_skill ms;
 
     [Depend]
-    mc_task mt;
-
-    [Depend]
     m_actor ma;
 
     public override void Create()

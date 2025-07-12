@@ -22,21 +22,31 @@ namespace Triheroes.Code
         [Depend]
         m_equip me;
 
-        public task slash_0, slash_1, slash_2;
+        [Depend]
+        m_cortex mc;
+
+        [Depend]
+        ac_SS2 SS2;
+
+        [Depend]
+        ac_SS2.ac_SS2_next_combo SS2_next;	
 
         public override void Create()
         {
-            var ac_slash_0 = New <ac_slash> (me.character);
-            ac_slash_0.ComboId = 0;
-            slash_0 = motor_main_task.New ( me.character, ac_slash_0 );
+            Notion[] SlashNotion = new Notion [] 
+                { 
+                    new Notion( SlashCondition, commands.draw_sword )
+                };
 
-            var ac_slash_1 = New <ac_slash> (me.character);
-            ac_slash_1.ComboId = 1;
-            slash_1 = motor_main_task.New ( me.character, ac_slash_1 );
+            bool SlashCondition ()
+            {
+                return me.weaponUser is m_sword_user;
+            }
 
-            var ac_slash_2 = New <ac_slash> (me.character);
-            ac_slash_2.ComboId = 2;
-            slash_2 = motor_main_task.New ( me.character, ac_slash_2 );
+            plan_notion n_SS2 = new plan_notion ( SlashNotion, SS2, commands.SS2 );
+            plan_notion n_SS2_next = new plan_notion ( SlashNotion, SS2_next, commands.SS2_next );
+            mc.AddNotion ( n_SS2 );
+            mc.AddNotion ( n_SS2_next );
         }
     }
 
