@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Pixify.Spirit;
 using Pixify;
 using UnityEngine;
 
@@ -11,50 +12,50 @@ namespace Triheroes.Code
         public override bool AcceptSecondState => true;
 
         [Depend]
-        m_capsule_character_controller mccc;
+        s_capsule_character_controller sccc; int key_ccc;
         [Depend]
-        protected m_gravity_mccc mgm;
-        [Depend]
-        public m_ground_data mgd;
-        [Depend]
-        public m_skin ms;
-        [Depend]
-        m_footstep mf;
+        protected s_gravity_ccc sgc; int key_gc;
 
-        public SuperKey landAnimation = AnimationKey.fall_end;
+        [Depend]
+        public d_ground_data dgd;
+        [Depend]
+        public s_skin ss;
+        [Depend]
+        s_footstep sf;
 
-        protected override void BeginStep()
+        public term landAnimation = AnimationKey.fall_end;
+
+        protected override void Start()
         {
-            ms.PlayState ( 0, AnimationKey.fall, 0.1f );
-            mccc.Aquire (this);
-            mgm.Aquire (this);
+            ss.PlayState ( 0, AnimationKey.fall, 0.1f );
+            key_ccc = Stage.Start ( sccc );
+            key_gc = Stage.Start ( sgc );
         }
 
-        protected override bool Step()
+        protected override void Step()
         {
-            if (mgd.onGround && mgm.gravity < 0 && Vector3.Angle(Vector3.up, mgd.groundNormal) <= 45)
+            if (dgd.onGround && sgc.gravity < 0 && Vector3.Angle(Vector3.up, dgd.groundNormal) <= 45)
             {
-                ms.PlayState(ms.knee, landAnimation, 0.05f, null,null, LandSFX);
-                return true;
+                ss.PlayState(ss.knee, landAnimation, 0.05f, null,null, LandSFX);
+                SelfStop ();
             }
-            return false;
         }
 
         protected void LandSFX ()
         {
-            mf.PlayFootstep ();
+            sf.PlayFootstep ();
         }
 
         protected override void Stop()
         {
-            mccc.Free (this);
-            mgm.Free (this);
+            Stage.Stop ( key_ccc );
+            Stage.Stop ( key_gc );
         }
 
         public virtual void AirMove(Vector3 DirPerSecond,float WalkFactor = WalkFactor.run)
         {
             if (on)
-            mccc.dir += DirPerSecond * Time.deltaTime * WalkFactor;
+            sccc.dir += DirPerSecond * Time.deltaTime * WalkFactor;
         }
     }
 
@@ -64,20 +65,18 @@ namespace Triheroes.Code
         public override bool AcceptSecondState => false;
 
         bool OnGround;
-        protected override bool Step()
+        protected override void Step()
         {
-            if (!OnGround && mgd.onGround && mgm.gravity < 0 && Vector3.Angle(Vector3.up, mgd.groundNormal) <= 45)
+            if (!OnGround && dgd.onGround && sgc.gravity < 0 && Vector3.Angle(Vector3.up, dgd.groundNormal) <= 45)
             {
-                ms.PlayState(0, AnimationKey.fall_end_hard, 0.1f, HardFallEnd,null, LandSFX);
+                ss.PlayState(0, AnimationKey.fall_end_hard, 0.1f, HardFallEnd,null, LandSFX);
                 OnGround = true;
             }
-
-            return false;
         }
 
         void HardFallEnd()
         {
-            AppendStop ();
+            SelfStop ();
         }
 
         protected override void Stop()

@@ -6,14 +6,17 @@ using UnityEngine.UI;
 
 namespace Triheroes.Code
 {
-    public class gf_interact : module
+    public class gf_interact : pix
     {
         static gf_interact o;
 
-        public void Set ( Text text )
+        public class package : PreBlock.Package <gf_interact>
         {
-            this.text = text;
-            text.color = new Color(1, 1, 1, 0);
+            public package ( Text text )
+            {
+                o.text = text;
+                text.color = new Color(1, 1, 1, 0);
+            }
         }
 
         mt_linear_u Tween;
@@ -21,7 +24,6 @@ namespace Triheroes.Code
         {
             o = this;
             Tween = new mt_linear_u ( GetX, SetX );
-            Tween.Aquire (this);
             CacheAction ();
         }
         

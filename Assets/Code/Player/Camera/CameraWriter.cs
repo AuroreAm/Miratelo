@@ -2,18 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pixify;
+using System;
 
 namespace Triheroes.Code
 {
-    public class CameraWriter : Scripter
+    public class CameraWriter : Writer
     {
-        public override void OnWrite(Character c)
+        public override void OnWriteBlock()
         {
-            m_camera mc = c.RequireModule<m_camera> ();
-            mc.Coord = c.transform;
-            mc.Cam = c.transform.GetChild(0).GetComponent<Camera>();
+            new s_camera.package ( transform, transform.GetChild (0).GetComponent <Camera> () );
+        }
 
-            c.RequireModule<m_camera_shake>().Set ( mc.Cam.GetComponent<Animator> () );
+        public override Type[] RequiredPix()
+        {
+            return new Type [] { 
+                Q <s_camera> (),
+                Q < s_camera_shake> ()
+            };
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
+using Pixify.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
@@ -11,20 +12,20 @@ namespace Triheroes.Code
         public override bool AcceptSecondState => true;
 
         [Depend]
-        public m_capsule_character_controller mccc;
+        public s_capsule_character_controller sccc; int key_ccc;
         [Depend]
-        m_skin ms;
+        s_skin ss;
 
         delta_curve cu;
         float jumpHeight;
         float minimumJumpHeight;
         bool done;
 
-        public SuperKey jumpAnimation = AnimationKey.jump;
+        public term jumpAnimation = AnimationKey.jump;
 
         public override void Create()
         {
-            cu = new delta_curve ( SubResources <CurveRes>.q ( new SuperKey ("jump") ).Curve );
+            cu = new delta_curve ( SubResources <CurveRes>.q ( new term ("jump") ).Curve );
         }
 
         public void Set (float jumpHeight, float minimumJumpHeight)
@@ -33,24 +34,24 @@ namespace Triheroes.Code
             this.minimumJumpHeight = minimumJumpHeight;
         }
 
-        protected override void BeginStep()
+        protected override void Start()
         {
-            mccc.Aquire ( this );
+            key_ccc = Stage.Start ( sccc );
             cu.Start ( jumpHeight, .5f );
-            ms.PlayState(0, jumpAnimation, 0.1f);
+            ss.PlayState(0, jumpAnimation, 0.1f);
             done = false;
         }
 
         protected override void Stop()
         {
-            mccc.Free ( this );
+            Stage.Stop ( key_ccc );
             done = false;
         }
 
         public void AirMove(Vector3 DirPerSecond,float WalkFactor = WalkFactor.run)
         {
             if (on)
-            mccc.dir += DirPerSecond * Time.deltaTime * WalkFactor;
+            sccc.dir += DirPerSecond * Time.deltaTime * WalkFactor;
         }
 
         public void StopJump ()
@@ -58,14 +59,18 @@ namespace Triheroes.Code
             done = true;
         }
 
-        protected override bool Step()
+        protected override void Step()
         {
-            mccc.dir += new Vector3 ( 0, cu.TickDelta() , 0 );
+            sccc.dir += new Vector3 ( 0, cu.TickDelta() , 0 );
             
             if ( done && cu.currentValue >= minimumJumpHeight )
-            return true;
+            {
+                SelfStop ();
+                return;
+            }
 
-            return cu.Done;
+            if (cu.Done)
+            SelfStop ();
         }
     }
 }

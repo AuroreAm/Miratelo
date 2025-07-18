@@ -9,14 +9,14 @@ namespace Triheroes.Code
     {
         public string Name;
         public abstract WeaponType Type { get; }
-        public abstract SuperKey DefaultDrawAnimation { get; }
-        public abstract SuperKey DefaultReturnAnimation { get; }
+        public abstract term DefaultDrawAnimation { get; }
+        public abstract term DefaultReturnAnimation { get; }
 
         [SerializeField]
-        AtomPaper <element> WeaponElement;
+        PixPaper <element> WeaponElement;
 
         public element element;
-        public m_actor Owner { get; protected set; }
+        public d_actor Owner { get; protected set; }
         
 
         void Awake ()
@@ -27,7 +27,7 @@ namespace Triheroes.Code
             element = WeaponElement.Write ();
         }
 
-        public void Aquire (m_actor Owner)
+        public void Aquire (d_actor Owner)
         {
             if (this.Owner) Debug.LogError ("Weapon already owned");
             this.Owner = Owner;

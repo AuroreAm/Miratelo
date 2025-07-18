@@ -6,16 +6,16 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class tps_data : module
+    public class tps_data : pix
     {
         public Vector3 rotY;
-        public m_dimension Subject { get; private set; }
-        public m_actor SubjectActor { get; private set; }
+        public d_dimension Subject { get; private set; }
+        public d_actor SubjectActor { get; private set; }
 
-        public void SetSubject ( m_actor Actor )
+        public void SetSubject ( d_actor Actor )
         {
             SubjectActor = Actor;
-            Subject = Actor.md;
+            Subject = Actor.dd;
         }
     }
 
@@ -46,13 +46,13 @@ namespace Triheroes.Code
 
     public class tps_normal : tps_shot
     {
-        protected override void OnAquire()
+        protected override void Start()
         {
             height = td.Subject.h;
             distance = 4;
         }
 
-        public override void Main()
+        protected override void Step()
         {
             // rotate using the mouse
             // TODO: add sensitivity tweak, add inverted mouse

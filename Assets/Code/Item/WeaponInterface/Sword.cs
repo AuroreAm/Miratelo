@@ -9,8 +9,8 @@ namespace Triheroes.Code
     public sealed class Sword : Weapon
     {
         public sealed override WeaponType Type { get; } = WeaponType.Sword;
-        public sealed override SuperKey DefaultDrawAnimation { get; } = AnimationKey.take_sword;
-        public sealed override SuperKey DefaultReturnAnimation { get; } = AnimationKey.return_sword;
+        public sealed override term DefaultDrawAnimation { get; } = AnimationKey.take_sword;
+        public sealed override term DefaultReturnAnimation { get; } = AnimationKey.return_sword;
 
         public float Length = 10;
         public float Sharpness = 10;

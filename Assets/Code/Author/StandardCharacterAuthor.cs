@@ -1,13 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
+using Pixify.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class StandardCharacterAuthor : Scripter
+    public class StandardCharacterAuthor : Writer
     {
-        public CatomPaper<cortex> MainCortex;
+        public PixPaper<cortex> MainCortex;
 
         [Header("Skin (appearance)")]
         public skin_writer skin;
@@ -17,16 +19,36 @@ namespace Triheroes.Code
         public stat_writer stat;
         [Header("Skill")]
         public skill_writer skill;
-
-        override public ModuleWriter[] GetModules ()
+        
+        public override void OnWriteBlock()
         {
-            return new ModuleWriter[] { skin, actor, stat, skill };
+            skin.OnWriteBlock ();
+            actor.OnWriteBlock ();
+            stat.OnWriteBlock ();
+            skill.OnWriteBlock ();
         }
 
-        override public void OnSpawn ( Vector3 position, Quaternion rotation, Character c )
+        public override Type[] RequiredPix()
         {
-            c.GetModule <m_skin> ().rotY = rotation.eulerAngles;
-            c.RequireModule <m_cortex> ().SetCortex ( MainCortex.Write ( c ) );
+            var a = new List <Type> ();
+            
+            skin.RequiredPix ( in a );
+            actor.RequiredPix ( in a );
+            stat.RequiredPix ( in a );
+            skill.RequiredPix ( in a );
+
+            return a.ToArray ();
         }
+
+        public override void AfterSpawn(Vector3 position, Quaternion rotation, block b)
+        {
+            skin.AfterWrite (b);
+            actor.AfterWrite (b);
+            stat.AfterWrite (b);
+            skill.AfterWrite (b);
+
+            b.GetPix <s_skin> ().rotY = rotation.eulerAngles;
+        }
+
     }
 }

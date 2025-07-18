@@ -8,7 +8,7 @@ namespace Triheroes.Code
     /// <summary>
     /// Vectors mathematics and constants
     /// </summary>
-	public class Vecteur : module
+	public class Vecteur : pix
 	{
 		public static Vecteur o;
 
@@ -107,7 +107,7 @@ namespace Triheroes.Code
 
 	
 	// character sorting by average angle and distance
-	public class SortDistanceA<T> : IComparer<T> where T : module
+	public class SortDistanceA : IComparer<d_actor>
 	{
 		float Y;
 		Vector3 SelfPos;
@@ -126,13 +126,13 @@ namespace Triheroes.Code
 		}
 
 		// compare by average distance and average angle
-		public int Compare(T x, T y)
+		public int Compare(d_actor x, d_actor y)
 		{
-			float AngleDistanceRatio = Mathf.Abs(Mathf.DeltaAngle(Y, Vecteur.RotDirectionY(SelfPos, x.character.transform.position))) / 180;
-			float DistanceRatio = Vector3.Distance(SelfPos, x.character.transform.position) / Distance;
+			float AngleDistanceRatio = Mathf.Abs(Mathf.DeltaAngle(Y, Vecteur.RotDirectionY(SelfPos, x.dd.position))) / 180;
+			float DistanceRatio = Vector3.Distance(SelfPos, x.dd.position) / Distance;
 			float xAverage = (AngleDistanceRatio + DistanceRatio) / 2;
-			AngleDistanceRatio = Mathf.Abs(Mathf.DeltaAngle(Y, Vecteur.RotDirectionY(SelfPos, y.character.transform.position))) / 180;
-			DistanceRatio = Vector3.Distance(SelfPos, y.character.transform.position) / Distance;
+			AngleDistanceRatio = Mathf.Abs(Mathf.DeltaAngle(Y, Vecteur.RotDirectionY(SelfPos, y.dd.position))) / 180;
+			DistanceRatio = Vector3.Distance(SelfPos, y.dd.position) / Distance;
 			float yAverage = (AngleDistanceRatio + DistanceRatio) / 2;
 			return (int)Mathf.Sign(xAverage - yAverage);
 		}

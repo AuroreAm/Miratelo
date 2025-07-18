@@ -9,7 +9,7 @@ using System.Reflection;
 namespace Pixify.Editor
 {
 
-    public class Cursor<T> : Cursor where T:atom
+    public class Cursor<T> : Cursor where T:pix
     {
         public Cursor(Action<Type> Ev) : base(Ev, typeof (T))
         {}

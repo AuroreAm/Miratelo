@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pixify;
+using Pixify.Spirit;
 
 namespace Triheroes.Code
 {
@@ -9,13 +10,13 @@ namespace Triheroes.Code
     {
         public override int Priority => Pri.Action;
 
-        static SuperKey DashAnimation (direction direction) => (direction == direction.forward)? AnimationKey.dash_forward : (direction == direction.right)? AnimationKey.dash_right:AnimationKey.dash_left;
+        static term DashAnimation (direction direction) => (direction == direction.forward)? AnimationKey.dash_forward : (direction == direction.right)? AnimationKey.dash_right:AnimationKey.dash_left;
         public static Vector3 Direction ( direction direction ) => (direction == direction.forward)? Vector3.forward : (direction == direction.back)? Vector3.back:(direction == direction.right)? Vector3.right:Vector3.left;
 
         [Depend]
-        m_capsule_character_controller mccc;
+        s_capsule_character_controller sccc; int key_ccc;
         [Depend]
-        m_skin ms;
+        s_skin ss;
 
         public direction DashDirection;
 
@@ -23,43 +24,42 @@ namespace Triheroes.Code
         delta_curve cu;
         public override void Create()
         {
-            cu = new delta_curve ( SubResources <CurveRes>.q ( new SuperKey ("jump") ).Curve );
+            cu = new delta_curve ( SubResources <CurveRes>.q ( new term ("jump") ).Curve );
         }
 
-        protected override void BeginStep()
+        protected override void Start()
         {
-            mccc.Aquire (this);
+            key_ccc = Stage.Start ( sccc );
 
             if ( DashDirection == direction.back )
             BackFlip ();
             else
-            ms.PlayState (0, DashAnimation (DashDirection), 0.05f, DashEnd);
-            ms.allowMoving = true;
-            ms.SkinDir = Vecteur.LDir(ms.rotY,Direction(DashDirection));
+            ss.PlayState (0, DashAnimation (DashDirection), 0.05f, DashEnd);
+            ss.allowMoving = true;
+            ss.SkinDir = Vecteur.LDir(ss.rotY,Direction(DashDirection));
         }
 
-        protected override bool Step()
+        protected override void Step()
         {
             if (DashDirection == direction.back)
-            mccc.dir += new Vector3 ( 0, cu.TickDelta() , 0 );
-            return false;
+            sccc.dir += new Vector3 ( 0, cu.TickDelta() , 0 );
         }
 
         void BackFlip ()
         {
             cu.Start ( JumpHeight, .4f );
-            ms.PlayState (0, AnimationKey.dash_back, 0.05f, DashEnd);
+            ss.PlayState (0, AnimationKey.dash_back, 0.05f, DashEnd);
         }
 
         void DashEnd ()
         {
-            AppendStop ();
+            SelfStop ();
         }
 
         protected override void Stop()
         {
-            ms.allowMoving = false;
-            mccc.Free (this);
+            ss.allowMoving = false;
+            Stage.Stop (key_ccc);
         }
     }
 }

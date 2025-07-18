@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Pixify;
 using UnityEngine;
 using System.IO;
+using Pixify.Spirit;
 
 namespace Triheroes.Code
 {
@@ -20,61 +21,62 @@ namespace Triheroes.Code
             SpawnMainCharacters();
         }
 
-        m_actor[] MainActors;
-        int MainActor;
-        m_HP[] MainPlayerHP;
-        m_ie[] MainPlayerIE;
-        player_cortex [] PlayerCortexes;
+        int MainPlayerIndex;
+        block MainPlayer => MainHeroes [MainPlayerIndex];
+        public d_actor MainActor => MainActors [MainPlayerIndex];
 
-        public static Character MainCharacter => o.MainActors[o.MainActor].character;
-        public static Character GetMainCharacter(int i) => o.MainActors[i].character;
-        public static int ActorCount => o.MainActors.Length;
+        block [] MainHeroes;
+        d_actor [] MainActors;
+        player_cortex [] PlayerControllers;
+
+        d_HP [] MainPlayerHP;
+        d_ie [] MainPlayerIE;
 
         void SpawnMainCharacters()
         {
-            MainActors = new m_actor[GameData.o.LoadedGame.ActivePartyMembers.Length];
-            PlayerCortexes = new player_cortex [GameData.o.LoadedGame.ActivePartyMembers.Length];
+            MainHeroes = new block [GameData.o.LoadedGame.ActivePartyMembers.Length];
+            MainActors = new d_actor [GameData.o.LoadedGame.ActivePartyMembers.Length];
+            PlayerControllers = new player_cortex [MainHeroes.Length];
 
-            for (int i = 0; i < GameData.o.LoadedGame.ActivePartyMembers.Length; i++)
+            for (int i = 0; i < MainHeroes.Length; i++)
             {
-                MainActors[i] = GameData.o.LoadedGame.ActivePartyMembers[i].Spawn(GameData.o.LoadedGame.ActivePartyMembersPosition[i], Quaternion.Euler(GameData.o.LoadedGame.ActivePartyMembersRotation[i])).RequireModule<m_actor>();
-
-                PlayerCortexes [i] = New <player_cortex> ( GetMainCharacter (i) );
+                MainHeroes [i] = GameData.o.LoadedGame.ActivePartyMembers[i].Spawn(GameData.o.LoadedGame.ActivePartyMembersPosition[i], Quaternion.Euler(GameData.o.LoadedGame.ActivePartyMembersRotation[i]));
+                MainActors [i] = MainHeroes [i].GetPix <d_actor> ();
+                PlayerControllers [i] = new player_cortex ();
             }
         }
 
-        protected override void OnAquire()
+        protected override void Start()
         {
-            MainPlayerHP = new m_HP[MainActors.Length];
-            MainPlayerIE = new m_ie[MainActors.Length];
+            MainPlayerHP = new d_HP[MainHeroes.Length];
+            MainPlayerIE = new d_ie[MainHeroes.Length];
 
             for (int i = 0; i < MainPlayerHP.Length; i++)
             {
-                MainPlayerHP[i] = MainActors[i].character.RequireModule<m_HP>();
-                MainPlayerIE[i] = MainActors[i].character.RequireModule<m_ie>();
+                MainPlayerHP[i] = MainHeroes [i].GetPix<d_HP>();
+                MainPlayerIE[i] = MainHeroes [i].GetPix<d_ie>();
             }
 
-            SetMainPlayer(MainActor);
+            SetMainPlayer ( MainPlayerIndex );
         }
 
         void SetMainPlayer(int i)
         {
-            MainCharacter.RequireModule <m_cortex> ().SetCortex ( PlayerCortexes [i] );
+            MainPlayerIndex = i;
+            MainPlayer.GetPix <s_mind> ().SetCortex ( PlayerControllers [i] );
 
             // set the player hud
-            gf_player_hud.o.SetIdentity(MainPlayerHP[i].MaxHP, MainPlayerHP[i].HP, MainPlayerIE[i].MaxIE, MainPlayerIE[i].IE, MainActors[i].md);
+            gf_player_hud.o.SetIdentity(MainPlayerHP[i].MaxHP, MainPlayerHP[i].HP, MainPlayerIE[i].MaxIE, MainPlayerIE[i].IE, MainActor.dd );
             // set the camera
-            m_camera.o.TpsACharacter(MainActors[i]);
+            s_camera.o.TpsACharacter( MainPlayer.GetPix <d_actor> () );
 
             // start getting near interactable
             if ( GetNearInteractableC != null )
-            character.StopCoroutine ( GetNearInteractableC );
-            GetNearInteractableC = character.StartCoroutine(GetNearInteractable());
-
-            MainActor = i;
+            Stage.o.StopCoroutine ( GetNearInteractableC );
+            GetNearInteractableC = Stage.o.StartCoroutine(GetNearInteractable());
         }
 
-        public override void Main()
+        protected override void Step()
         {
             PlayerHUD();
         }
@@ -82,8 +84,8 @@ namespace Triheroes.Code
         void PlayerHUD()
         {
             // show stats to UI
-            gf_player_hud.o.SetCurrentHP(MainPlayerHP[MainActor].HP);
-            gf_player_hud.o.SetCurrentIE(MainPlayerIE[MainActor].IE);
+            gf_player_hud.o.SetCurrentHP ( MainPlayerHP[MainPlayerIndex].HP );
+            gf_player_hud.o.SetCurrentIE ( MainPlayerIE[MainPlayerIndex].IE );
         }
 
         Coroutine GetNearInteractableC;
@@ -96,7 +98,7 @@ namespace Triheroes.Code
             {
                 // get near interactable object
                 const float distance = 2;
-                int q = Physics.OverlapSphereNonAlloc(MainCharacter.transform.position, distance, InteractableColliders, Vecteur.Trigger);
+                int q = Physics.OverlapSphereNonAlloc(MainActor.dd.position, distance, InteractableColliders, Vecteur.Trigger);
                 currentInteractable = null;
 
                 if (q > 0)
@@ -106,14 +108,14 @@ namespace Triheroes.Code
                     float CurrentDistance = distance;
                     for (int i = 0; i < q; i++)
                     {
-                        if (Vector3.Distance(MainCharacter.transform.position, InteractableColliders[i].transform.position) < CurrentDistance)
+                        if (Vector3.Distance(MainActor.dd.position, InteractableColliders[i].transform.position) < CurrentDistance)
                         {
-                            CurrentDistance = Vector3.Distance(MainCharacter.transform.position, InteractableColliders[i].transform.position);
+                            CurrentDistance = Vector3.Distance(MainActor.dd.position, InteractableColliders[i].transform.position);
                             closest = InteractableColliders[i];
                         }
                     }
 
-                    if (closest && Interactable.ThingExist(closest.id()))
+                    if (closest && Interactable.Contains(closest.id()))
                         currentInteractable = Interactable.GetInteractable(closest.id());
                 }
                 yield return y;

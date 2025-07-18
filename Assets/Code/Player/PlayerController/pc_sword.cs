@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pixify;
+using Pixify.Spirit;
 
 namespace Triheroes.Code
 {//INPROGRESS
@@ -75,23 +76,23 @@ namespace Triheroes.Code
         }
     }*/
 
-    public class pr_slash_consecutive : reflection
+    public class pr_slash_consecutive : reflexion
     {
 
         [Depend]
-        mc_mind mcm;
+        s_mind sm;
 
-        public override void Main()
+        protected override void Step()
         {
             if (Player.Action2.OnActive)
             {
-                if ( !mcm.IsTaskRunning ( commands.SS2 ) )
+                if ( !sm.IsTaskRunning ( commands.SS2 ) )
                 {
-                    mcm.DoTask ( commands.SS2 );
+                    sm.DoTask ( commands.SS2 );
                     return;
                 }
-                else if ( !mcm.IsTaskRunning ( commands.SS2_next ) )
-                mcm.DoTask ( commands.SS2_next );
+                else if ( !sm.IsTaskRunning ( commands.SS2_next ) )
+                sm.DoTask ( commands.SS2_next );
             }
         }
 

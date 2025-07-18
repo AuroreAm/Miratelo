@@ -8,14 +8,14 @@ namespace Triheroes.Code
     public class tps_target : tps_shot
     {
         [Depend]
-        m_camera mc;
+        s_camera mc;
         Vector3 rotYOffset;
 
-        public m_dimension target;
+        public d_dimension target;
 
         Vector3 spos => td.Subject.position;
         Vector3 tpos => target.position;
-        protected override void OnAquire()
+        protected override void Start()
         {
             height = td.Subject.h;
             rotYOffset = Vecteur.RotDirection ( spos, tpos );
@@ -25,7 +25,7 @@ namespace Triheroes.Code
         }
 
         float yPrevious;
-        public override void Main()
+        protected override void Step()
         {
             // rotate offset according to mouse
             rotYOffset.y += Player.DeltaMouse.x * 3;

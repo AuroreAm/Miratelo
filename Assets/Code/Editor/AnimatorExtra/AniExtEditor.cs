@@ -18,7 +18,7 @@ namespace Triheroes.Editor
         {
             Target = (AniExt)target;
             if (Target.States == null)
-                Target.States = new Dictionary<SuperKey, AniExt.State>();
+                Target.States = new Dictionary<term, AniExt.State>();
         }
 
         public override void OnInspectorGUI()
@@ -52,12 +52,12 @@ namespace Triheroes.Editor
             EditorUtility.SetDirty(Target);
         }
 
-        void GenerateData(AnimatorStateMachine StateMachine, ref Dictionary<SuperKey, AniExt.State> States)
+        void GenerateData(AnimatorStateMachine StateMachine, ref Dictionary<term, AniExt.State> States)
         {
             var states = StateMachine.states;
             foreach (var s in states)
             {
-                if (States.ContainsKey(new SuperKey(s.state.name)))
+                if (States.ContainsKey(new term(s.state.name)))
                     continue;
 
                 if (s.state.motion is AnimationClip c)
@@ -69,20 +69,20 @@ namespace Triheroes.Editor
                         ef[i] = c.events[i].time / s.state.speed;
                     }
 
-                    States.Add(new SuperKey(s.state.name),
+                    States.Add(new term(s.state.name),
                     new AniExt.State()
                     {
-                        Key = new SuperKey(s.state.name),
+                        Key = new term(s.state.name),
                         Duration = c.isLooping ? Mathf.Infinity : c.length / s.state.speed,
                         EvPoint = ef
                     }
                     );
                 }
                 else
-                    States.Add(new SuperKey(s.state.name),
+                    States.Add(new term(s.state.name),
                        new AniExt.State()
                        {
-                           Key = new SuperKey(s.state.name),
+                           Key = new term(s.state.name),
                            Duration = Mathf.Infinity
                        }
                        );

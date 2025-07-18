@@ -5,22 +5,26 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class m_game_bios : module
+    public class m_game_bios : pix
     {
         bios Current;
+
+        int key_i;
+
         public void Set (bios bios)
         {
             if (Current == bios) return;
 
             if (Current != null)
-                Current.Free (this);
+                Stage.Stop (key_i);
 
                 Current = bios;
-                bios.Aquire (this);
+                key_i = Stage.Start (bios);
         }
+
     }
 
-    [IntegralBase]
-    public abstract class bios : core
+    [PixiBase]
+    public abstract class bios : pixi
     {}
 }

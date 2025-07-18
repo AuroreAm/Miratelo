@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public sealed class Element : ModulePointer<m_element>
+    public sealed class Element : PixIndex<s_element>
     {
         public static Element o;
 
@@ -18,7 +18,7 @@ namespace Triheroes.Code
         public static bool ElementActorIsNotAlly ( int id, int selfFaction )
         {
             if ( ! o.ptr.ContainsKey (id) ) return false;
-            if ( o.ptr[id].ma.faction != selfFaction ) return true;
+            if ( o.ptr[id].da.faction != selfFaction ) return true;
             return false;
         }
 
@@ -52,10 +52,10 @@ namespace Triheroes.Code
         public void OnMessage (int message, T context);
     }
 
-    public class m_element : moduleptr <m_element>, IElementContainer
+    public class s_element : character_indexed_pix <s_element>, IElementContainer
     {
         [Depend]
-        public m_actor ma;
+        public d_actor da;
         public element element { private set; get;}
 
         List <IELBFC> elementListeners = new List<IELBFC> ();
@@ -88,7 +88,7 @@ namespace Triheroes.Code
         public void SendMessage <T> (int message, T context) where T:struct;
     }
 
-    public abstract class element : atom
+    public abstract class element : pix
     {
         // clash from another element
         public virtual void Clash ( element from, Slash force )
@@ -110,8 +110,8 @@ namespace Triheroes.Code
 
     public static class MessageKey
     {
-        public static readonly SuperKey damage = new SuperKey ("damage");
-        public static readonly SuperKey hooked_up = new SuperKey ("hooked_up");
-        public static readonly SuperKey knocked_out = new SuperKey ("knocked_out");
+        public static readonly term damage = new term ("damage");
+        public static readonly term hooked_up = new term ("hooked_up");
+        public static readonly term knocked_out = new term ("knocked_out");
     }
 }

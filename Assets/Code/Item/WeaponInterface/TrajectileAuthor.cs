@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     [CreateAssetMenu(fileName = "Arrow", menuName = "RPG/ArrowModel")]
-    public class TrajectileAuthor : UnitAuthor
+    public class TrajectileAuthor : VirtusAuthor
     {
         public PieceSkin Skin;
 
@@ -15,12 +15,20 @@ namespace Triheroes.Code
         public string ExplosionEffect;
         public float ExplosionRadius;
 
-        protected override void OnInstance(Unit newUnit)
+        protected override void RequiredPix(in List<Type> a)
         {
-            newUnit.RequirePiece<p_trajectile>().Set(Skin);
-
+            a.A <a_trajectile> ();
+            
             if ( !String.IsNullOrEmpty(ExplosionEffect) )
-                newUnit.RequirePiece<p_t_explosive>().Set ( ExplosionRadius, new SuperKey (ExplosionEffect) );
+            a.A <a_t_explosive> ();
+        }
+
+        public override void OnWriteBlock()
+        {
+            new a_trajectile.package ( Skin );
+            
+            if ( !String.IsNullOrEmpty(ExplosionEffect) )
+            new a_t_explosive.package ( ExplosionRadius, new term (ExplosionEffect) );
         }
     }
 }

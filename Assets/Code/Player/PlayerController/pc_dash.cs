@@ -1,31 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
+using Pixify.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
-{
-    public class pr_dash : reflection
+{/* INPROGRESS
+    public class pr_dash : reflexion
     {
         [Depend]
-        m_actor ma;
+        d_actor da;
         [Depend]
-        m_skin ms;
+        s_skin ss;
 
         [Depend]
         ac_dash ad;
 
-        public override void Main()
+        protected override void Step()
         {
             if (Player.Dash.OnActive)
             {
                 ad.DashDirection = direction.forward;
 
-                if (ma.target)
+                if (da.target)
                 {
                     Vector3 InputAxis;
                     InputAxis = Player.MoveAxis3.normalized;
-                    InputAxis = Vecteur.LDir(Mathf.DeltaAngle(ms.rotY.y, m_camera.o.td.rotY.y) * Vector3.up, InputAxis);
+                    InputAxis = Vecteur.LDir(Mathf.DeltaAngle(ss.rotY.y, s_camera.o.td.rotY.y) * Vector3.up, InputAxis);
 
                     if (Mathf.Abs(InputAxis.x) > Mathf.Abs(InputAxis.z))
                     {
@@ -47,12 +48,12 @@ namespace Triheroes.Code
 
         void UpdateDirectionIfTarget()
         {
-            if (ad.on && ma.target)
+            if (ad.on && da.target)
             {
-                if (Mathf.Abs(Mathf.DeltaAngle(ms.rotY.y, Vecteur.RotDirectionY(ms.Coord.position, ma.target.md.position))) < 90)
-                    ms.rotY = new Vector3(0, Mathf.MoveTowardsAngle(ms.rotY.y, Vecteur.RotDirectionY(ms.Coord.position, ma.target.md.position), Time.deltaTime * 720), 0);
-                ms.SkinDir = Vecteur.LDir(ms.rotY, ac_dash.Direction(ad.DashDirection));
+                if (Mathf.Abs(Mathf.DeltaAngle(ss.rotY.y, Vecteur.RotDirectionY(ss.Coord.position, da.target.md.position))) < 90)
+                    ss.rotY = new Vector3(0, Mathf.MoveTowardsAngle(ss.rotY.y, Vecteur.RotDirectionY(ss.Coord.position, da.target.md.position), Time.deltaTime * 720), 0);
+                ss.SkinDir = Vecteur.LDir(ss.rotY, ac_dash.Direction(ad.DashDirection));
             }
         }
-    }
+    }*/
 }

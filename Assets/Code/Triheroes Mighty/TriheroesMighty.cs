@@ -1,83 +1,70 @@
 using Pixify;
+using Pixify.Spirit;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class TriheroesMighty : PixifyEngine
+    public class TriheroesMighty : Stage
     {
         public SceneData Scene;
-        public script MapStartScript;
+        public Script MapStartScript;
 
-        public override void BeforeCreateSystems()
+        public override void SetDirectorPix( in List <Type> a )
         {
-            Director d = gameObject.AddComponent <Director> ();
+            
+            a.A <Player> ();
+            a.A <VirtualPoolMaster> ();
+            a.A <Vecteur> ();
+            a.A <ActorFaction> ();
+            a.A <BGMMaster> ();
+            a.A <MapId> ();
+            a.A <SFXMaster> ();
+            a.A <Spectre> ();
+            a.A <Element> ();
+            a.A <GroundElement> ();
+            a.A <Interactable> ();
 
-            d.RequireModule <Player> ();
-
-            d.RequireModule <UnitPoolMaster> ();
-            d.RequireModule <Vecteur> ();
-            d.RequireModule <ActorFaction> ();
-            d.RequireModule <BGMMaster> ();
-            d.RequireModule <MapId> ().Scene = Scene;
-            d.RequireModule <SFXMaster> ();
-            d.RequireModule <Spectre> ();
-
-            d.RequireModule <Element> ();
-            d.RequireModule <GroundElement> ();
-            d.RequireModule <Interactable> ();
         }
 
-        public override void AfterCreateSystems()
+        protected override Type[] PixiExecutionOrder()
         {
-            Act.Start ( MapStartScript.WriteTree ( Director.o ) );
-        }
-
-        protected override void CreateSystems(out List<PixifySytemBase> systems)
-        {
-            // Game main systems
-            systems = new List<PixifySytemBase> ()
+            return new Type []
             {
-                // game bios
-                new IntegralSystem<bios>(),
+                typeof ( bios ),
 
-                // character physic datas
-                new s_ground_data_ccc(),
+                typeof ( s_ground_data_ccc ),
 
-                // procedural animations
-                new IntegralSystem<m_skin_procedural>(),
+                typeof ( s_skin_procedural ),
 
-                // character behavior and controller
-                new IntegralSystem<reflection>(),
-                new IntegralSystem<neuron>(),
-                new IntegralSystem<controller>(),
+                typeof ( action ),
+                typeof ( spirit ),
+                typeof ( reflexion ),
+                typeof ( controller ),
 
-                // attacks
-                new IntegralSystem<p_slash_attack>(),
-                new IntegralSystem<p_trajectile>(),
+                typeof ( a_slash_attack ),
+                typeof ( a_trajectile ),
 
-                // stats
-                new IntegralSystem<m_stat_generator>(),
+                typeof ( s_stat_generator ),
 
-                // character movement
-                new IntegralSystem<m_gravity_mccc>(),
-                new IntegralSystem<m_capsule_character_controller>(),
+                typeof ( s_gravity_ccc ),
+                typeof ( s_capsule_character_controller ),
 
-                // character skin and animations
-                new IntegralSystem<m_skin>(),
+                typeof ( s_skin ),
 
-                // camera
-                new IntegralSystem<camera_shot>(),
-                new IntegralSystem<m_camera>(),
+                typeof ( camera_shot ),
+                typeof ( s_camera ),
 
-                // UI
-                new IntegralSystem<graphic_frame>(),
-                new IntegralSystem<m_tween>(),
+                typeof ( graphic_frame ),
+                typeof ( m_tween ),
 
-                // Audio
-                new IntegralSystem<p_sfx>()
+                typeof ( a_sfx )
             };
+        }
+
+        public override void StageStart()
+        {
+            Act.Start ( MapStartScript.WriteTree ( Director ) );
         }
     }
 }

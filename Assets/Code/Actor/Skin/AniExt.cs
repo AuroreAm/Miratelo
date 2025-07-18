@@ -20,8 +20,8 @@ namespace Triheroes.Code
         [SerializeField]
         List<StateExt> SerializedExtStates;
 
-        public Dictionary<SuperKey, State> States;
-        public Dictionary<SuperKey, StateExt> StatesExt;
+        public Dictionary<term, State> States;
+        public Dictionary<term, StateExt> StatesExt;
 
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Triheroes.Code
         [Serializable]
         public struct State
         {
-            public SuperKey Key;
+            public term Key;
             public float Duration;
             public float[] EvPoint;
         }
@@ -40,7 +40,7 @@ namespace Triheroes.Code
         [Serializable]
         public struct StateExt
         {
-            public SuperKey Key;
+            public term Key;
             public float f;
             public Vector3 v3;
             public Quaternion q;
@@ -59,14 +59,14 @@ namespace Triheroes.Code
 
         public void OnAfterDeserialize()
         {
-            States = new Dictionary<SuperKey, State>();
+            States = new Dictionary<term, State>();
             if (SerializedStates != null)
                 foreach (var v in SerializedStates)
                 {
                     States.Add(v.Key, v);
                 }
 
-            StatesExt = new Dictionary<SuperKey, StateExt>();
+            StatesExt = new Dictionary<term, StateExt>();
             if (SerializedExtStates != null)
                 foreach (var v in SerializedExtStates)
                 {

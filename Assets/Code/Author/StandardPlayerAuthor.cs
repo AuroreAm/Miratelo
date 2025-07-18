@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pixify;
+using System;
 
 namespace Triheroes.Code
 {
     // for players character with humanoid characteristics
     // don't need character controller here, automatically added by game master
-    public class StandardPlayerAuthor : Scripter
+    public class StandardPlayerAuthor : Writer
     {
         [Header("Skin (appearance)")]
         public skin_writer skin;
@@ -18,14 +19,34 @@ namespace Triheroes.Code
         [Header("Skills")]
         public skill_writer skill;
 
-        override public ModuleWriter[] GetModules ()
+        public override void AfterSpawn(Vector3 position, Quaternion rotation, block b)
         {
-            return new ModuleWriter[] { skin, actor, stat, skill };
+            skin.AfterWrite (b);
+            actor.AfterWrite (b);
+            stat.AfterWrite (b);
+            skill.AfterWrite (b);
+
+            b.GetPix <s_skin> ().rotY = rotation.eulerAngles;
         }
 
-        override public void OnSpawn ( Vector3 position, Quaternion rotation, Character c )
+        public override void OnWriteBlock()
         {
-            c.GetModule <m_skin> ().rotY = rotation.eulerAngles;
+            skin.OnWriteBlock ();
+            actor.OnWriteBlock ();
+            stat.OnWriteBlock ();
+            skill.OnWriteBlock ();
+        }
+
+        public override Type[] RequiredPix()
+        {
+            var a = new List <Type> ();
+            
+            skin.RequiredPix ( in a );
+            actor.RequiredPix ( in a );
+            stat.RequiredPix ( in a );
+            skill.RequiredPix ( in a );
+
+            return a.ToArray ();
         }
     }
 }

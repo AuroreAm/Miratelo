@@ -5,24 +5,22 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class pm_camera_target_target : core
+    public class pm_camera_target_target : pixi
     {
         [Depend]
-        m_actor ma;
+        d_actor ma;
 
-        public override void Main() {}
-
-        protected override void OnAquire()
+        protected override void Start()
         {
             if (!ma.target)
             Debug.LogWarning ("trying to target a target that doesn't exist");
 
-            m_camera.o.TpsTransitionToTarget ( ma.target.md );
+            s_camera.o.TpsTransitionToTarget ( ma.target.dd );
         }
 
-        protected override void OnFree()
+        protected override void Stop()
         {
-            m_camera.o.TpsTransitionToTps ();
+            s_camera.o.TpsTransitionToTps ();
         }
     }
 }

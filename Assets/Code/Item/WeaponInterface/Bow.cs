@@ -6,8 +6,8 @@ namespace Triheroes.Code
     public class Bow : Weapon
     {
         public override WeaponType Type => WeaponType.Bow;
-        public override SuperKey DefaultDrawAnimation => AnimationKey.take_bow;
-        public override SuperKey DefaultReturnAnimation => AnimationKey.return_bow;
+        public override term DefaultDrawAnimation => AnimationKey.take_bow;
+        public override term DefaultReturnAnimation => AnimationKey.return_bow;
 
 
         public float Speed;

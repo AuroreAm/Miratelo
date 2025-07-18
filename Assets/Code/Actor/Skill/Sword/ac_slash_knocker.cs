@@ -5,6 +5,7 @@ using Pixify;
 
 namespace Triheroes.Code
 {
+    /* INPROGRESS
     public class ac_slash_knocker : action
     {
         [Depend]
@@ -29,7 +30,7 @@ namespace Triheroes.Code
 
         void Slash ()
         {
-            p_slash_attack.Fire ( new SuperKey ( msu.Weapon.SlashName ), msu.Weapon, ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [1] - ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [0], Knock );
+            a_slash_attack.Fire ( new SuperKey ( msu.Weapon.SlashName ), msu.Weapon, ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [1] - ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [0], Knock );
         }
 
         void Knock (int Hitted)
@@ -41,5 +42,5 @@ namespace Triheroes.Code
         {
             AppendStop();
         }
-    }
+    }*/
 }

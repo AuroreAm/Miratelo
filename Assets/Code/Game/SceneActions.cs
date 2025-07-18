@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pixify.Spirit;
 using Pixify;
 
 namespace Triheroes.Code
@@ -13,10 +14,10 @@ namespace Triheroes.Code
         [Depend]
         play play;
 
-        protected override bool Step ()
+        protected override void Start ()
         {
             mgb.Set (play);
-            return true;
+            SelfStop ();
         }
     }
 
@@ -45,10 +46,10 @@ namespace Triheroes.Code
 
         public int BGMName;
 
-        protected override bool Step ()
+        protected override void Start ()
         {
             BGM.PlayBGM ( BGMName );
-            return true;
+            SelfStop ();
         }
     }
 }

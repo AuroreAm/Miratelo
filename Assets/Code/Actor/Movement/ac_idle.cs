@@ -1,20 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
-using UnityEngine;
+using Pixify.Spirit;
 
 namespace Triheroes.Code
 {
     // will set as idle if the character has nothing to do
-    public class r_idle : reflection
+    public class r_idle : reflexion, IMotorHandler
     {
+        [Depend]
+        s_motor sm;
         [Depend]
         ac_idle ai;
 
-        public override void Main()
+        public void OnMotorEnd(motor m)
+        {}
+
+        protected override void Step()
         {
-            if (mm.state == null)
-                mm.SetState (ai);
+            if (sm.state == null)
+                sm.SetState (ai, this);
         }
     }
 
@@ -23,23 +28,23 @@ namespace Triheroes.Code
         public override int Priority => Pri.def;
 
         [Depend]
-        m_capsule_character_controller mccc;
+        s_capsule_character_controller sccc; int key_ccc;
         [Depend]
-        m_gravity_mccc mgm;
+        s_gravity_ccc sgc; int key_gc;
         [Depend]
-        m_skin ms;
+        s_skin ss;
 
-        protected override void BeginStep()
+        protected override void Start()
         {
-            ms.PlayState (0, AnimationKey.idle,0.1f);
-            mccc.Aquire (this);
-            mgm.Aquire (this);
+            ss.PlayState (0, AnimationKey.idle,0.1f);
+            key_ccc = Stage.Start ( sccc );
+            key_gc = Stage.Start ( sgc );
         }
 
         protected override void Stop()
         {
-            mccc.Free (this);
-            mgm.Free (this);
+            Stage.Stop ( key_ccc );
+            Stage.Stop ( key_gc );
         }
     }
 }

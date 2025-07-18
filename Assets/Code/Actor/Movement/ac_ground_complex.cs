@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
+using Pixify.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
@@ -14,17 +15,19 @@ namespace Triheroes.Code
         public override bool AcceptSecondState => true;
 
         [Depend]
-        m_capsule_character_controller mccc;
+        s_capsule_character_controller sccc;
+        int key_ccc;
         [Depend]
-        m_gravity_mccc mgm;
+        s_gravity_ccc sgc;
+        int key_gc;
         [Depend]
-        m_skin ms;
+        s_skin ss;
         [Depend]
-        m_ground_data mgd;
+        d_ground_data dgd;
         [Depend]
-        m_footstep mf;
+        s_footstep sf; int key_f;
 
-        public SuperKey state;
+        public term state;
         /// <summary>
         /// composite walk direction for the character
         /// </summary>
@@ -41,13 +44,13 @@ namespace Triheroes.Code
 
         int CurrentFrame;
 
-        protected override void BeginStep()
+        protected override void Start()
         {
             if ( CurrentFrame != Time.frameCount )
             {
                 sprintCooldown = 0;
                 walkDir = Vector3.zero;
-                rotDir = Vecteur.LDir ( ms.rotY, Vector3.forward );
+                rotDir = Vecteur.LDir ( ss.rotY, Vector3.forward );
                 ToIdle ();
             }
             // don't reset anything if this is aquired/freed on the same frame
@@ -59,28 +62,28 @@ namespace Triheroes.Code
                 ToRun ();
             }
 
-            mccc.Aquire (this);
-            mgm.Aquire (this);
-            mf.Aquire (this);
+             key_ccc = Stage.Start ( sccc );
+             key_gc = Stage.Start ( sgc );
+             key_f = Stage.Start ( sf );
         }
 
-        protected override bool Step()
+        protected override void Step()
         {
             Animation ();
             Rotation ();
             SprintCooldown ();
             ResetDir ();
-            return false;
         }
 
         void ResetDir () => walkDir = Vector3.zero;
 
         protected override void Stop()
         {
-            mccc.Free (this);
-            mgm.Free (this);
-            mf.Free (this);
-            ms.allowMoving = false;
+            Stage.Stop (key_ccc);
+            Stage.Stop (key_gc);
+            Stage.Stop (key_f);
+
+            ss.allowMoving = false;
             CurrentFrame = Time.frameCount;
         }
 
@@ -101,7 +104,7 @@ namespace Triheroes.Code
 
                 if (walkDir.magnitude < 0.01f)
                 {
-                    mf.Stop ();
+                    sf.StopFootStep ();
                     if (state == StateKey.sprint || sprintCooldown > 0 )
                     Brake ();
                     else
@@ -112,7 +115,7 @@ namespace Triheroes.Code
 
         void ToIdle ()
         {
-            ms.PlayState (0, AnimationKey.idle,0.1f);
+            ss.PlayState (0, AnimationKey.idle,0.1f);
             state = StateKey.idle;
         }
 
@@ -121,30 +124,30 @@ namespace Triheroes.Code
             if (state == StateKey.sprint)
                 sprintCooldown = 0.5f;
 
-            SuperKey Animation = (walkFactor == WalkFactor.walk) ? AnimationKey.walk : (walkFactor == WalkFactor.run) ? AnimationKey.run : AnimationKey.sprint;
-            ms.PlayState (0, Animation ,0.2f);
+            term Animation = (walkFactor == WalkFactor.walk) ? AnimationKey.walk : (walkFactor == WalkFactor.run) ? AnimationKey.run : AnimationKey.sprint;
+            ss.PlayState (0, Animation ,0.2f);
 
             // get interval time from two footstep animation events from the clip
-            mf.Play ( ms.EventPointsOfState ( Animation ) [1] - ms.EventPointsOfState ( Animation ) [0] );
+            sf.Play ( ss.EventPointsOfState ( Animation ) [1] - ss.EventPointsOfState ( Animation ) [0] );
 
             state =  (walkFactor == WalkFactor.walk) ? StateKey.walk : (walkFactor == WalkFactor.run) ? StateKey.run : StateKey.sprint;
         }
 
         void Brake ()
         {
-            ms.PlayState (0, AnimationKey.sprint_brake,0.05f, BrakeEnd);
+            ss.PlayState (0, AnimationKey.sprint_brake,0.05f, BrakeEnd);
             state = StateKey.brake;
-            ms.allowMoving = true;
-            ms.SkinDir = ms.Ani.transform.forward.normalized;
+            ss.allowMoving = true;
+            ss.SkinDir = ss.Ani.transform.forward.normalized;
         }
 
         void BrakeEnd ()
         {
-            ms.allowMoving = false;
+            ss.allowMoving = false;
             ToIdle ();
         }
 
-        static bool FactorCorrespondToState(float factor, SuperKey state)
+        static bool FactorCorrespondToState(float factor, term state)
         {
             return (factor == WalkFactor.walk && state == StateKey.walk) || (factor == WalkFactor.run && state == StateKey.run) || (factor == WalkFactor.sprint && state == StateKey.sprint);
         }
@@ -156,20 +159,20 @@ namespace Triheroes.Code
                 RotYTarget =  Vecteur.RotDirectionY ( Vector3.zero, rotDir);
 
             // brake turn animation if rotation difference is too high // and is sprinting
-            if (state == StateKey.sprint && Mathf.Abs(Mathf.DeltaAngle(ms.rotY.y, RotYTarget)) > 120)
+            if (state == StateKey.sprint && Mathf.Abs(Mathf.DeltaAngle(ss.rotY.y, RotYTarget)) > 120)
                 RotationBrake();
 
-            if (state == StateKey.brake && Mathf.Abs(Mathf.DeltaAngle(ms.rotY.y, RotYTarget)) > 120)
+            if (state == StateKey.brake && Mathf.Abs(Mathf.DeltaAngle(ss.rotY.y, RotYTarget)) > 120)
                 RotationBrake();
 
-            ms.rotY = new Vector3(0, Mathf.MoveTowardsAngle(ms.rotY.y, RotYTarget, Time.deltaTime * 720), 0);
+            ss.rotY = new Vector3(0, Mathf.MoveTowardsAngle(ss.rotY.y, RotYTarget, Time.deltaTime * 720), 0);
         }
 
         void RotationBrake()
         {
-            ms.PlayState (0, AnimationKey.rotation_brake,0.05f, RotationBrakeEnd);
+            ss.PlayState (0, AnimationKey.rotation_brake,0.05f, RotationBrakeEnd);
             state = StateKey.brake_rotation;
-            ms.allowMoving = false;
+            ss.allowMoving = false;
         }
 
         void RotationBrakeEnd()
@@ -196,7 +199,7 @@ namespace Triheroes.Code
                 rotDir = walkDir.normalized;
 
                 if (state!=StateKey.brake_rotation && state != StateKey.idle)
-                mccc.dir += Time.deltaTime * walkFactor * ground_movement.SlopeProjection (DirPerSecond, mgd.groundNormal);
+                sccc.dir += Time.deltaTime * walkFactor * ground_movement.SlopeProjection (DirPerSecond, dgd.groundNormal);
             }
         }
         #endregion

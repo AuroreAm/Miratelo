@@ -5,37 +5,23 @@ using Pixify;
 
 namespace Triheroes.Code
 {
-    public class Player : module
+    public class Player : pix
     {
         public override void Create()
         {
-            VMove = New <InputAction> (character);
-            HMove = New <InputAction> (character);
-            MouseX = New <InputAction> (character);
-            MouseY = New <InputAction> (character);
-            Jump = New <InputAction> (character);
-            Action1 = New <InputAction> (character);
-            Action2 = New <InputAction> (character);
-            Action3 = New <InputAction> (character);
-            Focus = New <InputAction> (character);
-            Dash = New <InputAction> (character);
-            Alt = New <InputAction> (character);
-            Aim = New <InputAction> (character);
-            HatDown = New <InputAction> (character);
-
-            VMove.Set("Vertical", true);
-            HMove.Set("Horizontal", true);
-            MouseX.Set("Mouse X", true);
-            MouseY.Set("Mouse Y", true);
-            Jump.Set("Action0");
-            Action1.Set("Action1");
-            Action2.Set("Action2");
-            Action3.Set("Action3");
-            Focus.Set("L2",true);
-            Dash.Set("R2",true);
-            Alt.Set("L1");
-            Aim.Set("R1");
-            HatDown.Set("DPadDown",true);
+            VMove = new InputAction ("Vertical", true);
+            HMove= new InputAction ("Horizontal", true);
+            MouseX= new InputAction ("Mouse X", true);
+            MouseY= new InputAction ("Mouse Y", true);
+            Jump= new InputAction ("Action0");
+            Action1= new InputAction ("Action1");
+            Action2= new InputAction ("Action2");
+            Action3= new InputAction ("Action3");
+            Focus= new InputAction ("L2",true);
+            Dash= new InputAction ("R2",true);
+            Alt= new InputAction ("L1");
+            Aim= new InputAction ("R1");
+            HatDown= new InputAction ("DPadDown",true);
         }
 
         public static Vector3 MoveAxis3 => new Vector3(HMove.Raw,0, VMove.Raw);
@@ -69,14 +55,14 @@ namespace Triheroes.Code
         bool _IsAxis;
         string _InputManagerAccessName;
 
-        public void Set ( string InputManagerAccessName, bool IsInputManagerAccessNameAxis = false )
+        public InputAction ( string InputManagerAccessName, bool IsInputManagerAccessNameAxis = false )
         {
             _IsAxis = IsInputManagerAccessNameAxis;
             _InputManagerAccessName = InputManagerAccessName;
-            Aquire (this);
+            Stage.Start (this);
         }
 
-        public override void Main()
+        protected override void Step()
         {
             _OnDown = false;
             _OnUp = false;

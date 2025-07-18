@@ -1,11 +1,13 @@
 using Pixify;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
 namespace Triheroes.Code
 {
     // sfx for UI and master for every SFX
-    public class SFXMaster : module
+    public class SFXMaster : pix
     {
         public static SFXMaster o;
         public static AudioMixerGroup MainMixer;
@@ -15,22 +17,27 @@ namespace Triheroes.Code
         {
             o = this;
             SubResources <AudioMixer>.LoadAll ( "SE" );
-            MainMixer = SubResources<AudioMixer>.q(new SuperKey("MainMixer")).FindMatchingGroups ("Master") [0];
+            MainMixer = SubResources<AudioMixer>.q(new term("MainMixer")).FindMatchingGroups ("Master") [0];
 
-            AuUI = character.gameObject.AddComponent<AudioSource>();
+            AuUI = Stage.o.gameObject.AddComponent<AudioSource>();
             AuUI.spatialBlend = 0;
 
             // add SFX pool
-            UnitPoolMaster.AddPool ( new SfxAuthor (), "SFX" );
+            VirtualPoolMaster.AddPool ( new SfxAuthor (), "SFX" );
         }
 
-        class SfxAuthor : IUnitAuthor
+        class SfxAuthor : IVirtusAuthor, IBlockAuthor
         {
-            public Unit Instance()
-            {
-                Unit u = new Unit ();
-                u.RequirePiece<p_sfx> ();
-                return u;
+            public void OnWriteBlock()
+            {}
+
+            virtus IVirtusAuthor.Instance()
+            {    
+                List <Type> PixTypes = new List<Type> ();
+                PixTypes.A <virtus> ();
+                PixTypes.A <a_sfx> ();
+                var b = new PreBlock ( PixTypes.ToArray (), this ).CreateBlock ();
+                return b.GetPix <virtus> ();
             }
         }
 
@@ -40,9 +47,9 @@ namespace Triheroes.Code
         }
     }
 
-    public class p_sfx : piece
+    public class a_sfx : virtus.pixi
     {
-        static readonly SuperKey SFX = new SuperKey("SFX");
+        static readonly term SFX = new term ("SFX");
         AudioSource Au;
         public override void Create()
         {
@@ -57,20 +64,20 @@ namespace Triheroes.Code
         {
             _clip = SubResources<AudioClip>.q ( name );
             _pos = pos;
-            UnitPoolMaster.GetUnit ( SFX );
+            VirtualPoolMaster.RentVirtus ( SFX );
         }
 
-        protected override void OnStart()
+        protected override void Start()
         {
             Au.clip = _clip;
             Au.transform.position = _pos;
             Au.Play ();
         }
 
-        public override void Main()
+        protected override void Step()
         {
             if (!Au.isPlaying)
-                unit.Return_();
+                v.Return_();
         }
     }
 }

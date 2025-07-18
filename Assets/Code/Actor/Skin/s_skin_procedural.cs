@@ -5,6 +5,6 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [IntegralBase]
-    public abstract class m_skin_procedural : core {}
+    [PixiBase]
+    public abstract class s_skin_procedural : pixi {}
 }

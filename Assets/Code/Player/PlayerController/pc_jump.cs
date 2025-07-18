@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
+using Pixify.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class pr_jump : reflection
+    public class pr_jump : reflexion, IMotorHandler
     {
         [Depend]
-        m_ground_data mgd;
+        d_ground_data dgd;
 
         [Depend]
-        m_skin_foot_ik msfi;
+        s_skin_foot_ik ssfi;
         
         [Depend]
         ac_jump aj;
@@ -22,23 +23,30 @@ namespace Triheroes.Code
         [Depend]
         ac_ground_complex agc;
 
+        [Depend]
+        s_motor sm;
+
         public override void Create()
         {
             aj.Set (4,3);
         }
 
-        public override void Main()
+        public void OnMotorEnd(motor m)
         {
-            if (mgd.onGround && Player.Jump.OnActive && mm.state != aj)
-            {
-                aj.jumpAnimation = (agc.state == StateKey.idle)? AnimationKey.jump : ( (msfi.DominantFoot == m_skin_foot_ik.FootId.left) ? AnimationKey.jump_left_foot : AnimationKey.jump_right_foot );
+        }
 
-                ac.landAnimation = (agc.state == StateKey.idle)? AnimationKey.fall_end : ( (msfi.DominantFoot == m_skin_foot_ik.FootId.left) ? AnimationKey.fall_end_left_foot : AnimationKey.fall_end_right_foot );
+        protected override void Step()
+        {
+            if (dgd.onGround && Player.Jump.OnActive && sm.state != aj)
+            {
+                aj.jumpAnimation = (agc.state == StateKey.idle)? AnimationKey.jump : ( (ssfi.DominantFoot == s_skin_foot_ik.FootId.left) ? AnimationKey.jump_left_foot : AnimationKey.jump_right_foot );
+
+                ac.landAnimation = (agc.state == StateKey.idle)? AnimationKey.fall_end : ( (ssfi.DominantFoot == s_skin_foot_ik.FootId.left) ? AnimationKey.fall_end_left_foot : AnimationKey.fall_end_right_foot );
                 
-                mm.SetState (aj);
+                sm.SetState (aj,this);
             }
 
-            if (mm.state == aj && Player.Jump.OnRelease)
+            if (sm.state == aj && Player.Jump.OnRelease)
             {
                 aj.StopJump ();
             }

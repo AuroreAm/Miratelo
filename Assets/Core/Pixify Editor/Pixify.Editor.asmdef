@@ -3,8 +3,7 @@
     "rootNamespace": "Pixify.Editor",
     "references": [
         "GUID:b0589b58c1593d7469e35a172dc83873",
-        "GUID:002c1bbed08fa44d282ef34fd5edb138",
-        "GUID:b8e24fd1eb19b4226afebb2810e3c19b"
+        "GUID:8e85161ec6a85c640a9e72082d0af50f"
     ],
     "includePlatforms": [
         "Editor"

@@ -39,14 +39,14 @@ namespace Triheroes.Code
             }
         }
     }*/
-
+/*
 
     public class pc_aim : action
     {
         [Depend]
         m_bow_user mbu;
         [Depend]
-        c_aim ca;
+        ac_aim ca;
 
         protected override void BeginStep()
         {
@@ -55,7 +55,7 @@ namespace Triheroes.Code
 
         protected override bool Step()
         {
-            Vector3 RotDirection = Vecteur.RotDirection ( mbu.Weapon.BowString.position, m_camera.o.PointScreenCenter( mbu.character.transform ) );
+            Vector3 RotDirection = Vecteur.RotDirection ( mbu.Weapon.BowString.position, s_camera.o.PointScreenCenter( mbu.character.transform ) );
             ca.Aim ( RotDirection );
 
             if (Player.Action2.OnActive)
@@ -71,5 +71,5 @@ namespace Triheroes.Code
         {
             ca.Free (this);
         }
-    }
+    }*/
 }

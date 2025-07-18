@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     // TODO spectre linkage with sound effect // random sound effect
-    public class Spectre : module
+    public class Spectre : pix
     {
         public static Spectre o;
 
@@ -19,7 +19,7 @@ namespace Triheroes.Code
             for (int i = 0; i < ParticleSystems.Length; i++)
             {
                 var u = GameObject.Instantiate (ParticleSystems[i]);
-                Effects.Add ( new SuperKey (ParticleSystems[i].name), u );
+                Effects.Add ( new term (ParticleSystems[i].name), u );
             }
         }
 

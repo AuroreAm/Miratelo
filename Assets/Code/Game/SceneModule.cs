@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
+using Pixify.Spirit;
 using Pixify;
 
 namespace Triheroes.Code
@@ -13,7 +13,7 @@ namespace Triheroes.Code
         public string BGMNatif;
     }
 
-    public class MapId : module
+    public class MapId : pix
     {
         public override void Create()
         {
@@ -27,11 +27,11 @@ namespace Triheroes.Code
     [Category ("graphic frame")]
     public class gf_show_map_title : action
     {
-        protected override bool Step()
+        protected override void Start()
         {
             gf_title.SetTitleText ( TriheroesTitle.MapTitle, MapId.o.Scene.NomDeLaCarte );
             gf_title.ShowTitle ( TriheroesTitle.MapTitle );
-            return true;
+            SelfStop ();
         }
     }
 

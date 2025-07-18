@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
+using Pixify.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
@@ -10,26 +11,27 @@ namespace Triheroes.Code
     public class player_cortex : cortex
     {
         [Depend]
-        m_skill ms;
+        d_skill ds;
 
-        protected override void Think()
+        public override void Think()
         {
             // basic movement
-            AddReflection <pr_move> ();
-            AddReflection <pr_jump> ();
-            AddReflection <r_fall_with_hard> ();
+            AddReflexion <pr_move> ();
+            AddReflexion <pr_jump> ();
+            AddReflexion <r_fall_with_hard> ();
 
             // basic commands
-            AddReflection <pr_equip> ();
-            AddReflection <pr_target> ();
-            AddReflection <pr_interact_near_weapon> ();
+            AddReflexion <pr_equip> ();
+            /*
+            sm.AddReflexion <pr_target> ();
+            sm.AddReflexion <pr_interact_near_weapon> ();
 
             // dash skill
-            if ( ms.SkillValid <DS0_dash> () )
-            AddReflection <pr_dash> ();
+            if ( ds.SkillValid <DS0_dash> () )
+            sm.AddReflexion <pr_dash> (); */
 
-            if ( ms.SkillValid <SS2_consecutive> ())
-            AddReflection <pr_slash_consecutive> ();
+            if ( ds.SkillValid <SS2_consecutive> ())
+            AddReflexion <pr_slash_consecutive> ();
         }
     }
 }

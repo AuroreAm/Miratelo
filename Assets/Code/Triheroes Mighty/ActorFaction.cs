@@ -5,22 +5,22 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class ActorFaction : module
+    public class ActorFaction : pix
     {
         public static ActorFaction o;
-        public List<m_actor>[] factions { get; private set; } = new List<m_actor> [] { new List<m_actor>(), new List<m_actor>() };
+        public List<d_actor>[] factions { get; private set; } = new List<d_actor> [] { new List<d_actor>(), new List<d_actor>() };
 
         public override void Create()
         {
             o = this;
         }
 
-        public static void Register (m_actor actor, int faction)
+        public static void Register (d_actor actor, int faction)
         {
             o.factions [faction].Add (actor);
         }
 
-        public static List<m_actor> GetFoes ( int myfaction )
+        public static List<d_actor> GetFoes ( int myfaction )
         {
             return o.factions [ myfaction == 1? 0 : 1 ];
         }

@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class e_foot : module
+    public class e_foot : pix
     {
         public FootType type;
 
         [Depend]
-        public m_sfx ms;
+        public s_sfx ss;
     }
 
     public enum FootType { normal, metal, bare }

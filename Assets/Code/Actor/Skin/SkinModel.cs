@@ -7,34 +7,47 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     [Serializable]
-    public class skin_writer : ModuleWriter
+    public class skin_writer : PixWriter
     {
         public SkinModel Model;
+        SkinModel model;
 
-        public override void WriteModule(Character character)
+        public override void RequiredPix( in List <Type> a)
+        {
+            a.A <s_skin> ();
+            a.A <d_dimension> ();
+            a.A <s_element> ();
+            
+            if (Model.CompatibleIk)
+            a.A <s_skin_foot_ik> ();
+
+            if (Model.Hand != null && Model.Hand.Length >0 )
+            a.A <d_hand> ();
+
+            if (Model.SwordPlaces.Length > 0 || Model.BowPlaces.Length > 0)
+            a.A <s_inv_0> ();
+        }
+
+        public override void OnWriteBlock()
         {
             // Instantiate the model
-            SkinModel model = GameObject.Instantiate(Model).GetComponent<SkinModel>();
+            model = GameObject.Instantiate(Model).GetComponent<SkinModel>();
 
-            character.RequireModule <m_dimension> ().Set ( model.h, model.r, model.m );
-            character.RequireModule <m_skin>().Set ( model.gameObject, model.AniExt, new Vector2 (model.offsetRotationY, model.offsetPositionY) );
-
-            // element modules
-            character.RequireModule <m_element> ();
-            
-            // additional modules for skin
-            if (model.CompatibleIk)
-            character.RequireModule<m_skin_foot_ik>();
+            new d_dimension.package ( model.h, model.r, model.m );
+            new s_skin.package ( model.gameObject, model.AniExt, new Vector2 (model.offsetRotationY, model.offsetPositionY) );
 
             if (model.Hand != null && model.Hand.Length >0 )
-            character.RequireModule <m_hand> ().Hand = model.Hand;
-
+            new d_hand.package ( model.Hand );
+            
             if (model.SwordPlaces.Length > 0 || model.BowPlaces.Length > 0)
-            character.RequireModule<m_inv_0>().SetPlaces(model.SwordPlaces, model.BowPlaces);
+            new s_inv_0.package (model.SwordPlaces, model.BowPlaces);
+        }
 
-            character.RequireModule<m_element>().SetElement ( model.Element.Write () );
+        public override void AfterWrite(block b)
+        {
+            b.GetPix <s_element> ().SetElement ( model.Element.Write () );
 
-            // destroy the model
+            // destroy the model component
             ScriptableObject.Destroy (model);
         }
     }
@@ -62,7 +75,7 @@ namespace Triheroes.Code
         public Transform[] BowPlaces;
 
         [Header("element")]
-        public AtomPaper <element> Element;
+        public PixPaper <element> Element;
         
         #if UNITY_EDITOR
         public void OnDrawGizmosSelected(  )

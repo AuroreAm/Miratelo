@@ -7,6 +7,7 @@ using UnityEngine;
 namespace Triheroes.Code
 {
 
+/* INPROGRESS
     public class ac_active_hooker_up : action
     {
         [Depend]
@@ -90,7 +91,7 @@ namespace Triheroes.Code
 
         void Slash ()
         {
-            p_slash_attack.Fire ( new SuperKey ( msu.Weapon.SlashName ), msu.Weapon, ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [1] - ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [0], Hook );
+            a_slash_attack.Fire ( new SuperKey ( msu.Weapon.SlashName ), msu.Weapon, ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [1] - ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [0], Hook );
         }
 
         void Hook (int Hitted)
@@ -102,5 +103,5 @@ namespace Triheroes.Code
         {
             AppendStop();
         }
-    }
+    }*/
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class Interactable : ThingPointer <p_interactable>
+    public class Interactable : PixIndex <p_interactable>
     {
         static Interactable o;
         public override void Create()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
@@ -6,11 +7,11 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     [CreateAssetMenu(fileName = "Slash", menuName = "RPG/SlashModel")]
-    public class SlashAuthor : UnitAuthor
+    public class SlashAuthor : VirtusAuthor
     {
-        protected override void OnInstance(Unit newUnit)
+        protected override void RequiredPix(in List<Type> a)
         {
-            newUnit.RequirePiece<p_slash_attack>();
+            a.A<a_slash_attack> ();
         }
     }
 }

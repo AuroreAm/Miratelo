@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class BGMMaster : module
+    public class BGMMaster : pix
     {
         AudioSource Main;
 
         public override void Create ()
         {
-            Main = character.gameObject.AddComponent <AudioSource> ();
+            Main = Stage.o.gameObject.AddComponent <AudioSource> ();
             Main.spatialBlend = 0;
             Main.loop = true;
         }

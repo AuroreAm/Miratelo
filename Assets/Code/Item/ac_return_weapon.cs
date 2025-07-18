@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Pixify;
+using Pixify.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
@@ -13,37 +14,39 @@ namespace Triheroes.Code
         public override int Priority => Pri.SubAction;
 
         [Depend]
-        m_cortex mc;
+        s_mind sm;
 
         [Depend]
-        m_skin ms;
+        s_skin ss;
         [Depend]
-        m_equip me;
+        s_equip se;
         
         WeaponPlace to;
 
-        SuperKey ReturnAnimation;
+        term ReturnAnimation;
 
-        protected override void BeginStep()
+        public bool prepared => to != null;
+
+        protected override void Start()
         {
-            if (me.weaponUser == null)
+            if (se.weaponUser == null)
             Debug.LogError("the character have no weapon to return");
             if (to == null)
             throw new InvalidOperationException ("No place to return, must set the place before doing this action");
-            ms.PlayState ( ms.r_arm, ReturnAnimation, 0.1f, null, null, done );
+            ss.PlayState ( ss.r_arm, ReturnAnimation, 0.1f, null, null, done );
         }
 
         public void SetPlaceToReturn ( WeaponPlace toPlace )
         {
             to = toPlace;
-            ReturnAnimation = me.weaponUser.WeaponBase.DefaultReturnAnimation;
+            ReturnAnimation = se.weaponUser.WeaponBase.DefaultReturnAnimation;
         }
 
         override protected void Stop()
         {
-            Weapon w = me.weaponUser.WeaponBase;
-            me.RemoveWeaponUser ();
-            mc.cortex.TriggerThinking ();
+            Weapon w = se.weaponUser.WeaponBase;
+            se.RemoveWeaponUser ();
+            sm.TriggerThinking ();
 
             to.Put(w);
             to = null;
@@ -56,7 +59,7 @@ namespace Triheroes.Code
 
         void done ()
         {
-            AppendStop ();
+            SelfStop ();
         }
     }
 }

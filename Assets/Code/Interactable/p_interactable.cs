@@ -5,6 +5,6 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public abstract class p_interactable : thingptr <p_interactable>
+    public abstract class p_interactable : indexed_pix <p_interactable>
     {}
 }

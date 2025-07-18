@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
+using Pixify.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
@@ -9,21 +10,21 @@ namespace Triheroes.Code
     public abstract class sword_skill : skill_data
     {
         [Depend]
-        m_equip me;
+        s_equip se;
 
         public override bool SkillCondition()
         {
-            return me.weaponUser is m_sword_user ;
+            return se.weaponUser is s_sword_user ;
         }
     }
 
     public class SS2_consecutive : sword_skill
     {
         [Depend]
-        m_equip me;
+        s_equip se;
 
         [Depend]
-        m_cortex mc;
+        s_mind sm;
 
         [Depend]
         ac_SS2 SS2;
@@ -40,13 +41,13 @@ namespace Triheroes.Code
 
             bool SlashCondition ()
             {
-                return me.weaponUser is m_sword_user;
+                return se.weaponUser is s_sword_user;
             }
 
             plan_notion n_SS2 = new plan_notion ( SlashNotion, SS2, commands.SS2 );
             plan_notion n_SS2_next = new plan_notion ( SlashNotion, SS2_next, commands.SS2_next );
-            mc.AddNotion ( n_SS2 );
-            mc.AddNotion ( n_SS2_next );
+            sm.AddNotion ( n_SS2 );
+            sm.AddNotion ( n_SS2_next );
         }
     }
 

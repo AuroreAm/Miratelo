@@ -2,15 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Pixify;
+using Pixify.Spirit;
 
 namespace Triheroes.Code
 {
-    public class pr_equip : reflection
+    public class pr_equip : reflexion, IMotorHandler
     {
         [Depend]
-        m_equip me;
+        s_mind sm;
+
+        
         [Depend]
-        m_inv_0 mi;
+        s_motor m;
+
+        [Depend]
+        s_equip se;
+        [Depend]
+        s_inv_0 si;
         
         [Depend]
         ac_draw_weapon adw;
@@ -18,84 +26,95 @@ namespace Triheroes.Code
         [Depend]
         ac_return_weapon arw;
 
-        [Depend]
-        m_cortex mc;
 
-        //INPROGRESS
-        /*
         public override void Create()
         {
-            TreeStart ( me.character );
-            new sequence () {repeat = false};
-                new ac_return_weapon ();
-                new ac_draw_weapon ();
-            end ();
-            swap_sword = TreeFinalize ();
-        }*/
+            bool draw_condition ()
+            {
+                return se.weaponUser == null && adw.prepared;
+            }
 
-        public override void Main()
+            bool return_condition ()
+            {
+                return se.weaponUser != null && arw.prepared;
+            }
+
+            var draw_notion = new plan_notion ( new Notion ( draw_condition, commands.return_weapon ) , new motor_second_task (adw) , commands.draw_weapon );
+            
+            var return_notion = new plan_notion ( new Notion ( return_condition, commands.draw_weapon ) , new  motor_second_task (arw) , commands.return_weapon );
+
+            // NOTE: draw weapon doesn't provide solution for preparation, so the task will be failled infinitelly if the actions are not prepared, just putting this note here for an eventual case where some other module relly on these tasks
+
+            sm.AddNotion ( draw_notion );
+            sm.AddNotion ( return_notion );
+        }
+
+        public void OnMotorEnd(motor m)
+        {
+        }
+
+        protected override void Step()
         {
             if (Player.Action2.OnActive)
             {
                 var freeSword = GetUsableSword();
-                if (freeSword != -1 && me.weaponUser == null)
+                if (freeSword != -1 && se.weaponUser == null)
                 {
-                    adw.SetPlaceToDrawFrom ( mi.SwordPlaces[freeSword] );
-                    mm.SetSecondState (adw);
+                    adw.SetPlaceToDrawFrom ( si.SwordPlaces[freeSword] );
+                    m.SetSecondState (adw, this);
                 }
             }
 
-            //INPROGRESS
-            /*
             if (Player.HatDown.OnActive)
             {
                 var freeSword = GetUsableSword();
-                if (freeSword != -1 && me.weaponUser != null)
+                if (freeSword != -1 && se.weaponUser != null)
                 {
-                    arw.SetPlaceToReturn ( mi.GetFreePlaceFor( me.weaponUser.WeaponBase ) );
-                    adw.SetPlaceToDrawFrom ( mi.SwordPlaces[freeSword] );
-                    mm.SetSecondState (swap_sword,Pri.SubAction);
-                }
-            }*/
+                    arw.SetPlaceToReturn(si.GetFreePlaceFor(se.weaponUser.WeaponBase));
+                    adw.SetPlaceToDrawFrom(si.SwordPlaces[freeSword]);
 
-            if (Player.Aim.OnActive && mi.BowPlaces [0].Occupied && me.weaponUser == null)
-            {
-                adw.SetPlaceToDrawFrom ( mi.BowPlaces [0] );
-                mm.SetSecondState (adw);
+                    sm.DoTask ( commands.draw_weapon );
+                }
             }
 
-            if (Player.Action1.OnActive && me.weaponUser != null)
+            if (Player.Aim.OnActive && si.BowPlaces [0].Occupied && se.weaponUser == null)
             {
-                arw.SetPlaceToReturn ( mi.GetFreePlaceFor( me.weaponUser.WeaponBase ) );
-                mm.SetSecondState (arw);
+                adw.SetPlaceToDrawFrom ( si.BowPlaces [0] );
+                m.SetSecondState (adw,this);
+            }
+
+            if (Player.Action1.OnActive && se.weaponUser != null)
+            {
+                arw.SetPlaceToReturn ( si.GetFreePlaceFor( se.weaponUser.WeaponBase ) );
+                m.SetSecondState (arw, this);
             }
         }
 
         int GetUsableSword ()
         {
-            for (int i = 0; i < mi.SwordPlaces.Length; i++)
+            for (int i = 0; i < si.SwordPlaces.Length; i++)
             {
-                if (mi.SwordPlaces[i].Occupied)
+                if (si.SwordPlaces[i].Occupied)
                     return i;
             }
             return -1;
         }
     }
 
-    public class pr_interact_near_weapon : reflection
+    public class pr_interact_near_weapon : reflexion
     {
         [Depend]
-        m_inv_0 mi;
+        s_inv_0 si;
 
-        public override void Main()
+        protected override void Step()
         {
             if (play.o.currentInteractable is pi_weapon pw)
             {
-                if (mi.FreePlaceExistFor(pw.weapon))
+                if (si.FreePlaceExistFor(pw.weapon))
                 {
                     gf_interact.ShowInteractText( string.Concat (" take ", pw.weapon.Name) );
                     if (Player.Action1.OnActive)
-                    mi.RegisterWeapon (pw.weapon);
+                    si.RegisterWeapon (pw.weapon);
                 }
             }
         }

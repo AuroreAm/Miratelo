@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using Pixify;
-using System;
+using Pixify.Spirit;
 
 namespace Triheroes.Code
 {
-    public class gf_transition : module
+    public class gf_transition : pix
     {
         static gf_transition o;
 
@@ -16,16 +16,18 @@ namespace Triheroes.Code
         {
             o = this;
             Tween = new mt_linear_u ( GetX, SetX, OnEnd);
-            Tween.Aquire (this);
         }
 
         float alpha = 1;
         RawImage image;
 
-        public void Set (RawImage image)
+        public class package : PreBlock.Package <gf_transition>
         {
-            this.image = image;
-            image.color = new Color(0, 0, 0, alpha);
+            public package ( RawImage image )
+            {
+                o.image = image;
+                image.color = new Color ( 0,0,0, o.alpha );
+            }
         }
 
         public static void FadeFromBlack()
@@ -62,14 +64,14 @@ namespace Triheroes.Code
     {
         [Export]
         public bool ToBlack;
-        protected override bool Step()
+        protected override void Start()
         {
             if (ToBlack)
                 gf_transition.FadeToBlack();
             else
                 gf_transition.FadeFromBlack();
 
-            return true;
+            SelfStop ();
         }
     }
 }

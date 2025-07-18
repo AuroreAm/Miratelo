@@ -1,20 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
-using UnityEngine;
+using Pixify.Spirit;
 
 namespace Triheroes.Code
 {
-    public class ac_SS2 : action
+    public class ac_SS2 : task, IMotorHandler
     {
         [Depend]
-        mc_motor mm;
+        s_motor sm;
         int ComboPtr;
         bool ReadyForCombo;
 
         motor [] Combo;
 
-        protected override void BeginStep()
+        protected override void Start()
         {
             ComboPtr = 0;
             ReadyForCombo = false;
@@ -23,8 +23,8 @@ namespace Triheroes.Code
 
             for (int i = 0; i < 3; i++)
             {
-                var motor_slash = New <ac_slash> ( character );
-                motor_slash.ComboId = i;
+                var motor_slash = new ac_slash (i);
+                b.IntegratePix (motor_slash);
                 Combo[i] = motor_slash;
             }
 
@@ -33,19 +33,19 @@ namespace Triheroes.Code
 
         void StartSlash ()
         {
-            var Success = mm.SetState ( Combo[ComboPtr], SlashEnd );
+            var Success = sm.SetState ( Combo[ComboPtr], this );
 
             if (!Success)
-            AppendStop ();
+            SelfStop ();
         }
 
-        void SlashEnd ()
+        public void OnMotorEnd(motor m)
         {
             if (ReadyForCombo)
             ComboPtr ++;
             else
             {
-                AppendStop ();
+                SelfStop ();
                 return;
             }
 
@@ -53,18 +53,18 @@ namespace Triheroes.Code
             if (ComboPtr < Combo.Length)
             StartSlash ();
             else
-            AppendStop ();
+            SelfStop ();
         }
 
-        public class ac_SS2_next_combo : action
+        public class ac_SS2_next_combo : task
         {
             [Depend]
             ac_SS2 ss2;
 
-            protected override bool Step()
+            protected override void Start()
             {
                 ss2.ReadyForCombo = true;
-                return true;
+                SelfStop ();
             }
         }
     }
@@ -74,31 +74,35 @@ namespace Triheroes.Code
         public override int Priority => Pri.Action;
 
         [Depend]
-        m_sword_user msu;
+        s_sword_user ssu;
         [Depend]
-        m_skin ms;
+        s_skin ss;
 
-        [Export]
-        public int ComboId = 0;
+        int ComboId = 0;
 
-        protected override void BeginStep()
+        public ac_slash (int ComboID)
+        {
+            ComboId = ComboID;
+        }
+
+        protected override void Start()
         {
             BeginSlash(ComboId);
         }
 
         void BeginSlash ( int id )
         {
-            ms.PlayState (0, m_sword_user.SlashKeys[id], 0.1f, EndSlash, null, Slash);
+            ss.PlayState (0, s_sword_user.SlashKeys[id], 0.1f, EndSlash, null, Slash);
         }
 
         void Slash ()
         {
-            p_slash_attack.Fire ( new SuperKey ( msu.Weapon.SlashName ), msu.Weapon, ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [1] - ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [0] );
+            a_slash_attack.Fire ( new term ( ssu.Weapon.SlashName ), ssu.Weapon, ss.EventPointsOfState ( s_sword_user.SlashKeys[ComboId] ) [1] - ss.EventPointsOfState ( s_sword_user.SlashKeys[ComboId] ) [0] );
         }
 
         void EndSlash ()
         {
-            AppendStop();
+            SelfStop();
         }
     }
 }

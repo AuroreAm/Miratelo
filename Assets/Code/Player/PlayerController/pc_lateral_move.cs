@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
+using Pixify.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
@@ -8,32 +9,32 @@ namespace Triheroes.Code
     /// <summary>
     /// player lateral move on ground
     /// </summary>
+    /// // INPROGRESS
     public class pc_lateral_move : action
     {
         [Depend]
-        c_ground_movement_lateral cgml;
+        ac_ground_movement_lateral cgml;
+        int key_gml;
 
         public float speed = 6;
 
-        protected override void BeginStep()
+        protected override void Start ()
         {
-            cgml.Aquire (this);
+            key_gml = Stage.Start (cgml);
         }
 
-        protected override bool Step()
+        protected override void Step()
         {
             Vector3 InputAxis;
             InputAxis = Player.MoveAxis3;
-            InputAxis = Vecteur.LDir ( m_camera.o.td.rotY.OnlyY (),InputAxis) * 6f;
+            InputAxis = Vecteur.LDir ( s_camera.o.td.rotY.OnlyY (),InputAxis) * 6f;
 
             cgml.WalkLateral ( InputAxis );
-
-            return false;
         }
 
         protected override void Stop()
         {
-            cgml.Free (this);
+            Stage.Stop ( key_gml );
         }
 
     }

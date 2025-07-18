@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Pixify;
+using Pixify.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
@@ -13,28 +14,30 @@ namespace Triheroes.Code
         public override int Priority => Pri.SubAction;
 
         [Depend]
-        m_cortex mc;
+        s_mind sm;
 
         [Depend]
-        m_sword_user msu;
+        s_sword_user ssu;
         [Depend]
-        m_bow_user mbu;
+        s_bow_user sbu;
 
         [Depend]
-        m_equip me;
+        s_equip se;
 
         [Depend]
-        m_skin ms;
+        s_skin ss;
         WeaponPlace from;
-        SuperKey DrawAnimation;
+        term DrawAnimation;
 
-        protected override void BeginStep()
+        public bool prepared => from != null;
+
+        protected override void Start()
         {
-            if (me.weaponUser != null)
+            if (se.weaponUser != null)
             Debug.LogError("the character have already equiped a weapon");
             if ( from == null )
             throw new InvalidOperationException ("No place to take weapon, must set the place before doing this action");
-            ms.PlayState ( ms.r_arm, DrawAnimation, 0.1f, null, null, done );
+            ss.PlayState ( ss.r_arm, DrawAnimation, 0.1f, null, null, done );
         }
 
         public void SetPlaceToDrawFrom ( WeaponPlace Place )
@@ -47,9 +50,9 @@ namespace Triheroes.Code
         {
             var mwu = GetCorrespondingWeaponUser ( from.Get().Type );
             mwu.SetWeaponBase ( from.Free() );
-            me.SetWeaponUser ( mwu );
+            se.SetWeaponUser ( mwu );
 
-            mc.cortex.TriggerThinking ();
+            sm.TriggerThinking ();
 
             from = null;
         }
@@ -61,15 +64,15 @@ namespace Triheroes.Code
 
         void done ()
         {
-            AppendStop ();
+            SelfStop ();
         }
 
-        m_weapon_user GetCorrespondingWeaponUser ( WeaponType Wt )
+        s_weapon_user GetCorrespondingWeaponUser ( WeaponType Wt )
         {
             switch (Wt)
             {
-                case WeaponType.Sword: return msu;
-                case WeaponType.Bow: return mbu;
+                case WeaponType.Sword: return ssu;
+                case WeaponType.Bow: return sbu;
             }
             return null;
         }

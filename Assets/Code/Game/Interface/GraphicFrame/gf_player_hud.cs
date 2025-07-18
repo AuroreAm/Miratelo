@@ -6,7 +6,7 @@ using Pixify;
 
 namespace Triheroes.Code
 {
-    public class gf_player_hud : module
+    public class gf_player_hud : pix
     {
         public static gf_player_hud o;
 
@@ -23,39 +23,39 @@ namespace Triheroes.Code
         {
             o = this;
             HPTween = new mt_linear_u ( GetHPX, SetHPX );
-            HPTween.Aquire (this);
             IETween = new mt_linear_u( GetIEX, SetIEX );
-            IETween.Aquire (this);
             IETweenAlpha = new mt_linear_u ( GetIEAlpha, SetIEAlpha );
-            IETweenAlpha.Aquire (this);
         }
 
-        public void Set ( Transform Base )
+        public class package : PreBlock.Package <gf_player_hud>
         {
-            // HP HUD
-            Transform HPBase = Base.GetChild (0);
-            int hearCount = HPBase.childCount;
-            Heart = new Image [hearCount];
-            HeartContainer = new Image [hearCount];
-            for (int i = 0; i < hearCount; i++)
+            public package ( Transform Base )
             {
-                Heart[i] = HPBase.GetChild(i).GetChild(0).GetComponent<Image> ();
-                HeartContainer[i] = HPBase.GetChild (i).GetComponent<Image> ();
-            }
+                // HP HUD
+                Transform HPBase = Base.GetChild (0);
+                int hearCount = HPBase.childCount;
+                o.Heart = new Image [hearCount];
+                o.HeartContainer = new Image [hearCount];
+                for (int i = 0; i < hearCount; i++)
+                {
+                    o.Heart[i] = HPBase.GetChild(i).GetChild(0).GetComponent<Image> ();
+                    o.HeartContainer[i] = HPBase.GetChild (i).GetComponent<Image> ();
+                }
 
-            // IE HUD
-            Transform IEBase = Base.GetChild (1);
-            IECenter = IEBase.GetChild (0).GetComponent<RectTransform> ();
-            IE = new Image [IECenter.childCount];
-            for (int i = 0; i < IECenter.childCount; i++)
-                IE[i] = IECenter.GetChild (i).GetComponent<Image> ();
+                // IE HUD
+                Transform IEBase = Base.GetChild (1);
+                o.IECenter = IEBase.GetChild (0).GetComponent<RectTransform> ();
+                o.IE = new Image [o.IECenter.childCount];
+                for (int i = 0; i < o.IECenter.childCount; i++)
+                    o.IE[i] = o.IECenter.GetChild (i).GetComponent<Image> ();
+            }
         }
 
-        public void SetIdentity ( float MaxHP, float CurrentHP, float MaxIE, float CurrentIE, m_dimension refChar )
+        public void SetIdentity ( float MaxHP, float CurrentHP, float MaxIE, float CurrentIE, d_dimension refChar )
         {
             for (int i = 0; i < HeartContainer.Length; i++)
             HeartContainer [i].gameObject.SetActive ( i<MaxHP? true : false );
-            HPTween.Stop ();
+            HPTween.StopTween ();
             SetShownHP ( CurrentHP );
 
             IEReference = refChar;
@@ -63,7 +63,7 @@ namespace Triheroes.Code
             for (int i = 0; i < IE.Length; i++)
             IE[i].gameObject.SetActive ( i<MaxIE? true : false );
             ArrangeIEImage ( (int) Mathf.Ceil (MaxIE) );
-            IETween.Stop ();
+            IETween.StopTween ();
             SetShownIE ( CurrentIE );
         }
 
@@ -106,14 +106,14 @@ namespace Triheroes.Code
             SetShownIE ( value );
         }
 
-        m_dimension IEReference;
+        d_dimension IEReference;
         float MaxIE;
         float ShownIE;
         void SetShownIE ( float imediateEnergy )
         {
             ShownIE = imediateEnergy;
             // get raw screen space position next to the character
-            Vector3 ppos = m_camera.o.Cam.WorldToViewportPoint ( IEReference.position );
+            Vector3 ppos = s_camera.o.Cam.WorldToViewportPoint ( IEReference.position );
             // move IE Center there
             IECenter.anchoredPosition = new Vector2 ( ppos.x * graphic_frame.Wd, ppos.y * graphic_frame.Hd ) + new Vector2 (-64,0);
 

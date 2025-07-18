@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using Pixify;
 using UnityEngine;
 
+/*
 namespace Triheroes.Code
 {
+
+    
+    // INPROGRESS
     public class ai_move_way : action
     {
         [Depend]
@@ -67,7 +71,7 @@ namespace Triheroes.Code
     public abstract class waypointer2d : controller
     {
         [Depend]
-        protected m_dimension md;
+        protected d_dimension dd;
         
         /// <summary>
         /// get a point in the waypoints flat in 2d
@@ -78,9 +82,12 @@ namespace Triheroes.Code
         public int ptr;
 
         #if UNITY_EDITOR
+        [Depend]
+        character c;
+
         public sealed override void Create()
         {
-            md.character.OnDrawGizmos += Debug;
+            c.OnDrawGizmos += Debug;
         }
 
         protected void SetWayPoints ( Vector3 [] WayPoints )
@@ -101,4 +108,4 @@ namespace Triheroes.Code
         }
         #endif
     }
-}
+}*/

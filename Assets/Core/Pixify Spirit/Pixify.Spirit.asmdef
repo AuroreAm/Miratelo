@@ -1,0 +1,16 @@
+{
+    "name": "Pixify.Spirit",
+    "rootNamespace": "Pixify.Spirit",
+    "references": [
+        "GUID:b0589b58c1593d7469e35a172dc83873"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

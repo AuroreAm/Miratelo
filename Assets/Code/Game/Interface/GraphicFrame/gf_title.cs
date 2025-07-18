@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
+using Pixify.Spirit;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ namespace Triheroes.Code
         public override void Create()
         {
             o = this;
-            Aquire (this);
+            Stage.Start (this);
         }
 
         Dictionary<int, Text> Titles = new Dictionary<int, Text>();
@@ -43,7 +44,7 @@ namespace Triheroes.Code
             o.Titles[id].text = text;
         }
 
-        public override void Main()
+        protected override void Step()
         {
             for (int i = RunningAnimations.Count - 1; i >= 0 ; i--)
             {
@@ -60,19 +61,19 @@ namespace Triheroes.Code
     public class g_show_title : action
     {
         public string Text;
-        public SuperKey TitleId;
+        public term TitleId;
 
-        protected override bool Step()
+        protected override void Start()
         {
             gf_title.SetTitleText ( TitleId, Text );
             gf_title.ShowTitle ( TitleId );
-            return true;
+            SelfStop ();
         }
     }
 
     public static class TriheroesTitle
     {
-        public static readonly SuperKey MapTitle = new SuperKey ("MapTitle");
-        public static readonly SuperKey EventTitle = new SuperKey ("EventTitle");
+        public static readonly term MapTitle = new term ("MapTitle");
+        public static readonly term EventTitle = new term ("EventTitle");
     }
 }

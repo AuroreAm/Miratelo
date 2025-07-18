@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class delta_curve : atom
+    public class delta_curve : pix
     {
         AnimationCurve curve;
 
