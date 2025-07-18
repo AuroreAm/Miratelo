@@ -42,6 +42,8 @@ namespace Triheroes.Code
 
         public void SetPlaceToDrawFrom ( WeaponPlace Place )
         {
+            if (on) return;
+
             from = Place;
             DrawAnimation = Place.Get().DefaultDrawAnimation;
         }
@@ -64,6 +66,7 @@ namespace Triheroes.Code
 
         void done ()
         {
+            if (on)
             SelfStop ();
         }
 

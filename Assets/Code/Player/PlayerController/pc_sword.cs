@@ -78,23 +78,28 @@ namespace Triheroes.Code
 
     public class pr_slash_consecutive : reflexion
     {
-
         [Depend]
         s_mind sm;
 
+        [Depend]
+        ac_SS2 ac_SS2;
+        [Depend]
+        ac_SS2.ac_SS2_next_combo ac_SS2_Next_Combo;
+
         protected override void Step()
         {
-            if (Player.Action2.OnActive)
+            if ( !Player.Action2.OnActive )
+            return;
+
+            if ( !ac_SS2.on )
             {
-                if ( !sm.IsTaskRunning ( commands.SS2 ) )
-                {
-                    sm.DoTask ( commands.SS2 );
-                    return;
-                }
-                else if ( !sm.IsTaskRunning ( commands.SS2_next ) )
-                sm.DoTask ( commands.SS2_next );
+                Stage.Start ( ac_SS2 );
+                return;
+            }
+            else if ( ! ac_SS2_Next_Combo.on )
+            {
+                Stage.Start ( ac_SS2_Next_Combo );
             }
         }
-
     }
 }

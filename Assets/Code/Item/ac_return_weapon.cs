@@ -38,6 +38,8 @@ namespace Triheroes.Code
 
         public void SetPlaceToReturn ( WeaponPlace toPlace )
         {
+            if (on) return;
+
             to = toPlace;
             ReturnAnimation = se.weaponUser.WeaponBase.DefaultReturnAnimation;
         }
@@ -59,6 +61,7 @@ namespace Triheroes.Code
 
         void done ()
         {
+            if (on)
             SelfStop ();
         }
     }

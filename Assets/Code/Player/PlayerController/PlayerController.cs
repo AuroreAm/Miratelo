@@ -22,13 +22,12 @@ namespace Triheroes.Code
 
             // basic commands
             AddReflexion <pr_equip> ();
-            /*
-            sm.AddReflexion <pr_target> ();
-            sm.AddReflexion <pr_interact_near_weapon> ();
+            AddReflexion <pr_target> ();
+            AddReflexion <pr_interact_near_weapon> ();
 
             // dash skill
             if ( ds.SkillValid <DS0_dash> () )
-            sm.AddReflexion <pr_dash> (); */
+            AddReflexion <pr_dash> (); 
 
             if ( ds.SkillValid <SS2_consecutive> ())
             AddReflexion <pr_slash_consecutive> ();

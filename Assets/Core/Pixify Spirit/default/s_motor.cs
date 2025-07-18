@@ -55,6 +55,18 @@ namespace Pixify.Spirit
             return true;
         }
 
+        /// <summary>
+        /// end the main state at request of the original handler only
+        /// </summary>
+        /// <param name="handler"></param>
+        /*public void EndState ( IMotorHandler handler )
+        {
+            if ( handler == main )
+            EndMainState ();
+            else
+            Debug.LogError (" handler can't stop state ");
+        }*/
+
         public bool SetSecondState ( motor _secondState, IMotorHandler handler )
         {
             if (!acceptSecondState) return false;
@@ -66,11 +78,23 @@ namespace Pixify.Spirit
             second = handler;
 
             secondState = _secondState;
-            secondPriority = state.Priority;
+            secondPriority = _secondState.Priority;
 
             secondState.Tick (this);
             return true;
         }
+
+        /// <summary>
+        /// end the main state at request of the original handler only
+        /// </summary>
+        /// <param name="handler"></param>
+        /*public void EndSecondState ( IMotorHandler handler )
+        {
+            if ( handler == second )
+            EndSecondState ();
+            else
+            Debug.LogError (" handler can't stop state ");
+        }*/
 
         void EndMainState ()
         {

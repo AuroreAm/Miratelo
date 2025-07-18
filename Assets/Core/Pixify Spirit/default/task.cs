@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/*
 namespace Pixify.Spirit
 {
     public abstract class task : pixi.self_managed
@@ -34,6 +36,7 @@ namespace Pixify.Spirit
 
         public void OnMotorEnd(motor m)
         {
+            if (on)
             SelfStop ();
         }
     }
@@ -54,7 +57,6 @@ namespace Pixify.Spirit
             b.IntegratePix ( main );
         }
 
-
         protected override void Start()
         {
             var Success = sm.SetSecondState (main, this);
@@ -65,7 +67,8 @@ namespace Pixify.Spirit
 
         public void OnMotorEnd(motor m)
         {
+            if (on)
             SelfStop ();
         }
     }
-}
+}*/

@@ -5,7 +5,7 @@ using Pixify.Spirit;
 
 namespace Triheroes.Code
 {
-    public class ac_SS2 : task, IMotorHandler
+    public class ac_SS2 : action, IMotorHandler
     {
         [Depend]
         s_motor sm;
@@ -41,6 +41,9 @@ namespace Triheroes.Code
 
         public void OnMotorEnd(motor m)
         {
+            if (!on)
+            return;
+
             if (ReadyForCombo)
             ComboPtr ++;
             else
@@ -56,7 +59,7 @@ namespace Triheroes.Code
             SelfStop ();
         }
 
-        public class ac_SS2_next_combo : task
+        public class ac_SS2_next_combo : action
         {
             [Depend]
             ac_SS2 ss2;

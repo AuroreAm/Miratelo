@@ -5,9 +5,11 @@ using Pixify.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
-{/* INPROGRESS
-    public class pr_dash : reflexion
+{
+    public class pr_dash : reflexion, IMotorHandler
     {
+        [Depend]
+        s_motor sm;
         [Depend]
         d_actor da;
         [Depend]
@@ -15,6 +17,9 @@ namespace Triheroes.Code
 
         [Depend]
         ac_dash ad;
+
+        public void OnMotorEnd(motor m)
+        {}
 
         protected override void Step()
         {
@@ -39,7 +44,7 @@ namespace Triheroes.Code
                         ad.DashDirection = direction.back;
                 }
 
-                mm.SetState(ad);
+                sm.SetState(ad,this);
                 return;
             }
 
@@ -50,10 +55,10 @@ namespace Triheroes.Code
         {
             if (ad.on && da.target)
             {
-                if (Mathf.Abs(Mathf.DeltaAngle(ss.rotY.y, Vecteur.RotDirectionY(ss.Coord.position, da.target.md.position))) < 90)
-                    ss.rotY = new Vector3(0, Mathf.MoveTowardsAngle(ss.rotY.y, Vecteur.RotDirectionY(ss.Coord.position, da.target.md.position), Time.deltaTime * 720), 0);
+                if (Mathf.Abs(Mathf.DeltaAngle(ss.rotY.y, Vecteur.RotDirectionY(ss.Coord.position, da.target.dd.position))) < 90)
+                    ss.rotY = new Vector3(0, Mathf.MoveTowardsAngle(ss.rotY.y, Vecteur.RotDirectionY(ss.Coord.position, da.target.dd.position), Time.deltaTime * 720), 0);
                 ss.SkinDir = Vecteur.LDir(ss.rotY, ac_dash.Direction(ad.DashDirection));
             }
         }
-    }*/
+    }
 }
