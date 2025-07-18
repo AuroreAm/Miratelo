@@ -59,13 +59,13 @@ namespace Pixify.Spirit
         /// end the main state at request of the original handler only
         /// </summary>
         /// <param name="handler"></param>
-        /*public void EndState ( IMotorHandler handler )
+        public void EndState ( IMotorHandler handler )
         {
             if ( handler == main )
-            EndMainState ();
+            state.ForceStop (this);
             else
             Debug.LogError (" handler can't stop state ");
-        }*/
+        }
 
         public bool SetSecondState ( motor _secondState, IMotorHandler handler )
         {
@@ -88,13 +88,13 @@ namespace Pixify.Spirit
         /// end the main state at request of the original handler only
         /// </summary>
         /// <param name="handler"></param>
-        /*public void EndSecondState ( IMotorHandler handler )
+        public void EndSecondState ( IMotorHandler handler )
         {
             if ( handler == second )
-            EndSecondState ();
+            secondState.ForceStop (this);
             else
             Debug.LogError (" handler can't stop state ");
-        }*/
+        }
 
         void EndMainState ()
         {

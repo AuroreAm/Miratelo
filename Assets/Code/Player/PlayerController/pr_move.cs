@@ -16,8 +16,7 @@ namespace Triheroes.Code
         float speed = 7;
 
         public void OnMotorEnd(motor m)
-        {
-        }
+        {}
 
         protected override void Step()
         {

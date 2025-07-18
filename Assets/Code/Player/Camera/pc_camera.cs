@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
+using Pixify.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class pm_camera_target_target : pixi
+    public class pm_camera_target_target : action
     {
         [Depend]
         d_actor ma;

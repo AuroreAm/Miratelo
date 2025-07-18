@@ -44,6 +44,7 @@ namespace Triheroes.Code
 
                 typeof ( a_slash_attack ),
                 typeof ( a_trajectile ),
+                typeof ( a_t_explosive ),
 
                 typeof ( s_stat_generator ),
 

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class ac_aim : controller
+    public class ac_aim : motor
     {
         [Depend]
         s_bow_user sbu;
@@ -15,6 +15,8 @@ namespace Triheroes.Code
 
         [Depend]
         sp_bow sb; int key_b;
+
+        public override int Priority => Pri.SubAction;
 
         protected override void Start()
         {

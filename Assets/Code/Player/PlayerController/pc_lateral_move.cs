@@ -10,32 +10,35 @@ namespace Triheroes.Code
     /// player lateral move on ground
     /// </summary>
     /// // INPROGRESS
-    public class pc_lateral_move : action
+    public class pc_lateral_move : action , IMotorHandler
     {
         [Depend]
-        ac_ground_movement_lateral cgml;
-        int key_gml;
+        s_motor sm;
+
+        [Depend]
+        ac_ground_movement_lateral agml;
 
         public float speed = 6;
 
-        protected override void Start ()
-        {
-            key_gml = Stage.Start (cgml);
-        }
+        public void OnMotorEnd(motor m)
+        {}
 
         protected override void Step()
         {
+            if ( !agml.on )
+            sm.SetState ( agml, this );
+
             Vector3 InputAxis;
             InputAxis = Player.MoveAxis3;
             InputAxis = Vecteur.LDir ( s_camera.o.td.rotY.OnlyY (),InputAxis) * 6f;
 
-            cgml.WalkLateral ( InputAxis );
+            agml.WalkLateral ( InputAxis );
         }
 
         protected override void Stop()
         {
-            Stage.Stop ( key_gml );
+            if ( sm.state == agml )
+            sm.EndState ( this );
         }
-
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
+using Pixify.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
@@ -8,8 +9,10 @@ namespace Triheroes.Code
     // core command between idle - walk lateral
     // uses CharacterController physics
     // manages animations
-    public class ac_ground_movement_lateral : controller
+    public class ac_ground_movement_lateral : motor
     {
+        public override int Priority => Pri.def2nd;
+        public override bool AcceptSecondState => true;
 
         [Depend]
         s_capsule_character_controller sccc; int key_ccc;

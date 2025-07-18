@@ -5,76 +5,59 @@ using Pixify;
 using Pixify.Spirit;
 
 namespace Triheroes.Code
-{//INPROGRESS
-    /*
-    // do lateral move and focus the camera when targetting
-    public class pr_sword_target : reflection
+{
+    public class pr_sword_target : reflexion
     {
         [Depend]
-        m_actor ma;
+        d_actor da;
         [Depend]
-        m_equip me;
+        s_equip se;
         [Depend]
-        pm_camera_target_target pmctt;
-        
-        action LockTargetSword;
+        pc_sword_target pst;
 
-        override public void Create()
+        protected override void Step()
         {
-            TreeStart ( me.character );
-            new parallel () {StopWhenFirstNodeStopped = true};
-                new ac_have_target ();
-                new pc_lateral_move ();
-                new ac_lock_target ();
-            end();
-            LockTargetSword = TreeFinalize ();
-        }
-
-        public override void Main()
-        {
-            if ( ma.target && me.weaponUser is m_sword_user && mm.priority < Pri.def2nd)
-                mm.SetState ( LockTargetSword, Pri.def2nd );
-
-            if ( me.weaponUser is m_sword_user && ma.target && !pmctt.aquired )
-                pmctt.Aquire (this);
-
-            if ( me.weaponUser is m_sword_user && !ma.target && pmctt.aquired )
-                pmctt.Free (this);
+            if ( !pst.on && da.target && se.weaponUser is s_sword_user )
+            Stage.Start (pst);
         }
     }
 
-    public class pr_slash_consecutive : reflection
+    public class pc_sword_target : action
     {
+        [Depend]
+        d_actor da;
+        [Depend]
+        s_equip se;
 
         [Depend]
-        m_equip me;
+        ac_lock_target alt;
+        [Depend]
+        pc_lateral_move plm;
+        [Depend]
+        pm_camera_target_target pmctt;
 
-        controlled_sequence slash_combo;
+        int key_lt, key_ctt, key_lm;
 
-        public override void Create()
+        protected override void Start()
         {
-            TreeStart ( me.character );
-            new controlled_sequence () { repeat = false };
-                new ac_slash () { ComboId = 0 };
-                new ac_slash () { ComboId = 1 };
-                new ac_slash () { ComboId = 2 };
-            end ();
-            slash_combo = TreeFinalize () as controlled_sequence;
+            key_lt = Stage.Start (alt);
+            key_ctt = Stage.Start ( pmctt );
+            key_lm = Stage.Start ( plm );
         }
 
-        override public void Main()
+        protected override void Step()
         {
-            if (Player.Action2.OnActive)
-            {
-                if ( mm.state != slash_combo )
-                    mm.SetState (slash_combo, Pri.Action);
-                else
-                {
-                    slash_combo.TaskStatus = controlled_sequence.TaskStatusEnum.Success;
-                }
-            }
+            if (!( da.target && se.weaponUser is s_sword_user ))
+            SelfStop ();
         }
-    }*/
+
+        protected override void Stop()
+        {
+            Stage.Stop ( key_lt );
+            Stage.Stop ( key_ctt );
+            Stage.Stop ( key_lm );
+        }
+    }
 
     public class pr_slash_consecutive : reflexion
     {
