@@ -4,13 +4,19 @@ using UnityEngine;
 
 namespace Pixify.Spirit
 {
-    public class abstraction : thought.final
+    public class conditional : thought.final
     {
         [Depend]
         s_mind sm;
 
         condition [] conditions;
         thought main;
+
+        public conditional ( condition [] _conditions, thought _thought )
+        {
+            conditions = _conditions;
+            main = _thought;
+        }
 
         protected override void OnAquire()
         {
@@ -36,7 +42,7 @@ namespace Pixify.Spirit
                         return;
                     }
                 }
-                Aquire (main);
+                main.Aquire (this);
             }
         }
 

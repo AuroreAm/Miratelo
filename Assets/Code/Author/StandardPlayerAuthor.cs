@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pixify;
 using System;
+using Pixify.Spirit;
 
 namespace Triheroes.Code
 {
@@ -45,6 +46,8 @@ namespace Triheroes.Code
             actor.RequiredPix ( in a );
             stat.RequiredPix ( in a );
             skill.RequiredPix ( in a );
+
+            a.A <s_mind> ();
 
             return a.ToArray ();
         }

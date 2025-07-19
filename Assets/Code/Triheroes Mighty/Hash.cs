@@ -98,6 +98,8 @@ namespace Triheroes.Code
     public static class Commands
     {
         public static readonly term zero = new term("zero");
+
+        public static readonly term draw_sword = new term ("draw_sword");
     }
 
     public enum direction { forward, right, left, back }

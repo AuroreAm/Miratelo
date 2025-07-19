@@ -20,17 +20,19 @@ namespace Triheroes.Code
 
     public class SS2_consecutive : sword_skill
     {
-        [Depend]
-        s_equip se;
+        public motor [] Combo;
 
-        [Depend]
-        s_mind sm;
+        public override void Create()
+        {
+            Combo = new motor[3];
 
-        [Depend]
-        ac_SS2 SS2;
-
-        [Depend]
-        ac_SS2.ac_SS2_next_combo SS2_next;
+            for (int i = 0; i < 3; i++)
+            {
+                var motor_slash = new ac_slash (i);
+                b.IntegratePix (motor_slash);
+                Combo[i] = motor_slash;
+            }
+        }
     }
 
     public class SS3_hooker_up : sword_skill

@@ -30,7 +30,7 @@ namespace Triheroes.Code
 
             if ( ds.SkillValid <SS2_consecutive> ())
             {
-                AddReflexion <pr_slash_consecutive> ();
+                AddReflexion <pr_sword> ();
                 AddReflexion <pr_sword_target> ();
             }
 

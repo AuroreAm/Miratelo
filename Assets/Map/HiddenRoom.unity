@@ -218,6 +218,54 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &180658072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 180658073}
+  - component: {fileID: 180658074}
+  m_Layer: 0
+  m_Name: Slash condition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &180658073
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180658072}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 835038462}
+  m_Father: {fileID: 1340302966}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &180658074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180658072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df940a7f030a0b42bb6e849ad0b3383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paper:
+  - StrNodeType: Triheroes.Code.slash_condition, Triheroes.Code, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    StrNodeData: '{"term":{"value":0,"name":""}}'
 --- !u!1 &187682258
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,6 +590,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1340302966}
+  - {fileID: 1216724501}
   m_Father: {fileID: 2100811793}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -677,6 +726,53 @@ MonoBehaviour:
     StrNodeType: Triheroes.Code.t_move_arround_target+move_arround_target, Triheroes.Code,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     StrNodeData: '{"term":{"value":0,"name":""},"AngleAmount":180.0,"Distance":2.0}'
+--- !u!1 &835038461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 835038462}
+  - component: {fileID: 835038463}
+  m_Layer: 0
+  m_Name: slash_SS2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &835038462
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835038461}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 180658073}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &835038463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835038461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f7d6eaecce59f7418f0aeb39f9c442b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paper:
+    StrNodeType: Triheroes.Code.t_SS2+slash_SS2, Triheroes.Code, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    StrNodeData: '{"term":{"value":0,"name":""}}'
 --- !u!1 &939945831
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,6 +1140,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1216724500
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1216724501}
+  - component: {fileID: 1216724502}
+  m_Layer: 0
+  m_Name: draw_sword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1216724501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216724500}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 604346748}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1216724502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216724500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f7d6eaecce59f7418f0aeb39f9c442b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paper:
+    StrNodeType: Triheroes.Code.t_draw_from_inv_0+draw_from_inv_0, Triheroes.Code,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    StrNodeData: '{"term":{"value":0,"name":""},"index":0,"weaponType":0}'
 --- !u!1 &1340302965
 GameObject:
   m_ObjectHideFlags: 0
@@ -1074,6 +1217,7 @@ Transform:
   m_Children:
   - {fileID: 392215981}
   - {fileID: 639440951}
+  - {fileID: 180658073}
   m_Father: {fileID: 604346748}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

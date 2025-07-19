@@ -19,6 +19,38 @@ namespace Pixify.Spirit
 
         thought GetThought ( ThoughtAuthor T, block b )
         {
+            if (T is ConditionPaper conditionPaper)
+            {
+                condition [] conditions = new condition [conditionPaper.paper.Length];
+
+                for (int i = 0; i < conditionPaper.paper.Length; i++)
+                {
+                    conditions [i] = conditionPaper.paper[i].Write ();
+                    b.IntegratePix ( conditions [i] );
+                }
+
+                var t = new conditional ( conditions, GetThought ( T.transform.GetChild (0).GetComponent <ThoughtAuthor>(),b) );
+
+                b.IntegratePix ( t );
+                return t;
+            }
+
+            if ( T is ReflexionPaper reflexionPaper )
+            {
+                reflexion [] reflexions = new reflexion [ reflexionPaper.paper.Length ];
+                for (int i = 0; i < reflexionPaper.paper.Length; i++)
+                {
+                    reflexions [i] = reflexionPaper.paper[i].Write ();
+                    b.IntegratePix ( reflexions [i] );
+                }
+
+                var t = new guard ( reflexions, GetThought ( T.transform.GetChild (0).GetComponent <ThoughtAuthor>(), b ) );
+
+                b.IntegratePix ( t );
+
+                return t;
+            }
+
             if ( T is ThoughtPaper thoughtPaper )
             {
                 var t = thoughtPaper.paper.Write ();
@@ -42,21 +74,6 @@ namespace Pixify.Spirit
                 return t;
             }
 
-            if ( T is ReflexionPaper reflexionPaper )
-            {
-                reflexion [] reflexions = new reflexion [ reflexionPaper.paper.Length ];
-                for (int i = 0; i < reflexionPaper.paper.Length; i++)
-                {
-                    reflexions [i] = reflexionPaper.paper[i].Write ();
-                    b.IntegratePix ( reflexions [i] );
-                }
-
-                var t = new guard ( reflexions, GetThought ( T.transform.GetChild (0).GetComponent <ThoughtAuthor>(), b ) );
-
-                b.IntegratePix ( t );
-
-                return t;
-            }
             return null;
         }
 

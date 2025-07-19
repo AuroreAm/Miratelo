@@ -6,10 +6,6 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    /// <summary>
-    /// player lateral move on ground
-    /// </summary>
-    /// // INPROGRESS
     public class pc_lateral_move : action , IMotorHandler
     {
         [Depend]

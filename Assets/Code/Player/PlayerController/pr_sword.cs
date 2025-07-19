@@ -59,30 +59,90 @@ namespace Triheroes.Code
         }
     }
 
-    public class pr_slash_consecutive : reflexion
+    public class pr_sword : reflexion
     {
         [Depend]
         s_mind sm;
 
         [Depend]
-        ac_SS2 ac_SS2;
-        [Depend]
-        ac_SS2.ac_SS2_next_combo ac_SS2_Next_Combo;
+        pc_SS2 pc_SS2;
 
         protected override void Step()
         {
             if ( !Player.Action2.OnActive )
             return;
 
-            if ( !ac_SS2.on )
+            if ( !pc_SS2.on )
             {
-                Stage.Start ( ac_SS2 );
+                Stage.Start ( pc_SS2 );
                 return;
             }
-            else if ( ! ac_SS2_Next_Combo.on )
-            {
-                Stage.Start ( ac_SS2_Next_Combo );
-            }
+            else
+                pc_SS2.PrepareNextCombo ();
         }
     }
+
+    public class pc_SS2 : action, IMotorHandler
+    {
+        [Depend]
+        s_motor sm;
+        motor [] Combo;
+
+        int ComboPtr;
+        bool ReadyForCombo;
+
+        public override void Create()
+        {
+            Combo = new motor[3];
+
+            for (int i = 0; i < 3; i++)
+            {
+                var motor_slash = new ac_slash (i);
+                b.IntegratePix (motor_slash);
+                Combo[i] = motor_slash;
+            }
+        }
+
+        protected override void Start()
+        {
+            ComboPtr = 0;
+            ReadyForCombo = false;
+
+            StartSlash ();
+        }
+
+        void StartSlash ()
+        {
+            var Success = sm.SetState ( Combo[ComboPtr], this );
+
+            if (!Success)
+            SelfStop ();
+        }
+
+        public void PrepareNextCombo ()
+        {
+            ReadyForCombo = true;
+        }
+
+        public void OnMotorEnd(motor m)
+        {
+            if (!on)
+            return;
+
+            if (ReadyForCombo)
+            ComboPtr ++;
+            else
+            {
+                SelfStop ();
+                return;
+            }
+
+            ReadyForCombo = false;
+            if (ComboPtr < Combo.Length)
+            StartSlash ();
+            else
+            SelfStop ();
+        }
+    }
+
 }
