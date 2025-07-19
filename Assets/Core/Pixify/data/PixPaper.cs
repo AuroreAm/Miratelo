@@ -17,9 +17,6 @@ namespace Pixify
         {
             if ( !string.IsNullOrEmpty (StrNodeType) && Type.GetType (StrNodeType) != null )
             {
-                Debug.Log (typeof(T).Name);
-                Debug.Log ( Type.GetType (StrNodeType).Name );
-
                 T p = Activator.CreateInstance ( Type.GetType (StrNodeType) ) as T;
                 JsonUtility.FromJsonOverwrite ( StrNodeData, p );
                 return p;

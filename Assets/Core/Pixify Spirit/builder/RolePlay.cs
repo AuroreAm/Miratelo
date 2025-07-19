@@ -19,9 +19,9 @@ namespace Pixify.Spirit
 
         thought GetThought ( ThoughtAuthor T, block b )
         {
-            if ( T is ThoughtPaper thoughtFinalPaper )
+            if ( T is ThoughtPaper thoughtPaper )
             {
-                var t = thoughtFinalPaper.paper.Write ();
+                var t = thoughtPaper.paper.Write ();
                 b.IntegratePix ( t );
                 return t;
             }

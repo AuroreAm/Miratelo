@@ -12,6 +12,7 @@ public class scr_enemy_test : cortex
     {
         AddReflexion < ar_move_way_point > ();
         AddReflexion < ar_way_to_target > (); 
+        AddReflexion < ar_way_arround_target > (); 
     }
 }
 

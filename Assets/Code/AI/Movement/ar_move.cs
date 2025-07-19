@@ -18,6 +18,12 @@ namespace Triheroes.Code
         List <Vector3> Points = new List<Vector3> ();
         float speed = 7;
 
+        public int Count => Points.Count;
+        public void SetPoint (int i, Vector3 point)
+        {
+            Points [i] = point;
+        }
+
         public void OnMotorEnd(motor m) {}
 
         protected override void Start()
