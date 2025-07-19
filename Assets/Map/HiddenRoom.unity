@@ -262,6 +262,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   New: {fileID: 11400000, guid: 8dd33c411ce57004eb7cc781af32740e, type: 2}
+--- !u!1 &405405060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 405405061}
+  - component: {fileID: 405405062}
+  m_Layer: 0
+  m_Name: g_give_target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &405405061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405405060}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2067774285}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &405405062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405405060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ba3165b3775543449177e08daa73e67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paper:
+    StrNodeType: Triheroes.Code.g_give_target, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    StrNodeData: '{"term":{"value":0,"name":""},"Actor":"enemy","Target":"player"}'
 --- !u!1 &564096426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1156,6 +1203,7 @@ Transform:
   - {fileID: 953040923}
   - {fileID: 1672894031}
   - {fileID: 564096427}
+  - {fileID: 405405061}
   m_Father: {fileID: 1194790016}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1211,6 +1259,7 @@ MonoBehaviour:
     Model: {fileID: 625405394}
   actor:
     Faction: 1
+    ActorName: enemy
     AttachedWeapon:
     - {fileID: 1055048676453944166, guid: 981e6b2a03a173a498db5b6c07c2694f, type: 3}
   stat:

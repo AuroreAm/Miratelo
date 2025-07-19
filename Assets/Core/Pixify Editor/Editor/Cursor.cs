@@ -42,7 +42,7 @@ namespace Pixify.Editor
 
             searchQuerry = Search.OnGUI(searchQuerry);
 
-            scroll = GUILayout.BeginScrollView(scroll, GUILayout.Height(128));
+            scroll = GUILayout.BeginScrollView(scroll, GUILayout.Height(512));
 
             Rect Section;
             for (int i = 0; i < Types.Count; i++)

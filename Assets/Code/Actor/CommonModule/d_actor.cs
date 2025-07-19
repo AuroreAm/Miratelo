@@ -6,11 +6,11 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    // TODO: dependence order: need m_skin to be initialized first
     [Serializable]
     public class actor_writer : PixWriter
     {
         public int Faction;
+        public string ActorName;
         public List <Weapon> AttachedWeapon;
 
         public override void RequiredPix(in List<Type> a)
@@ -18,14 +18,12 @@ namespace Triheroes.Code
             a.A < d_actor > ();
 
             if (AttachedWeapon.Count > 0)
-            {
                 a.A < s_equip > ();
-            }
         }
 
         public override void OnWriteBlock()
         {
-            new d_actor.package ( Faction );
+            new d_actor.package ( Faction, ActorName );
         }
 
         public override void AfterWrite(block b)
@@ -47,13 +45,16 @@ namespace Triheroes.Code
 
         // TODO faction reregister to ActorFaction
         public int faction {private set; get;}
+        public string ActorName { private set; get; }
 
         public class package : PreBlock.Package <d_actor>
         {
-            public package (int faction)
+            public package (int faction, string actorName)
             {
                 o.faction = faction;
-                ActorFaction.Register (o, faction);
+                o.ActorName = actorName ;
+
+                ActorList.Register (o, faction);
             }
         }
 
@@ -87,7 +88,7 @@ namespace Triheroes.Code
 
         public d_actor GetNearestFacedFoe ( float distance )
         {
-            List<d_actor> foe = ActorFaction.GetFoes(faction);
+            List<d_actor> foe = ActorList.GetFoes(faction);
             foe.Sort( new SortDistanceA (ss.rotY.y, ss.Coord.position, distance) );
 
             if (foe.Count > 0 && Vector3.Distance(ss.Coord.position, foe[0].ss.Coord.position) < distance)

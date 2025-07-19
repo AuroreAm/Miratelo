@@ -6,7 +6,7 @@ namespace Pixify
 {
     public class CharacterAuthor : MonoBehaviour, IBlockAuthor
     {
-        public void Start()
+        public void Awake()
         {
             Spawn ( transform.position, transform.rotation );
             Destroy (gameObject);

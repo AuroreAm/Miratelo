@@ -16,7 +16,7 @@ namespace Triheroes.Code
             a.A <Player> ();
             a.A <VirtualPoolMaster> ();
             a.A <Vecteur> ();
-            a.A <ActorFaction> ();
+            a.A <ActorList> ();
             a.A <BGMMaster> ();
             a.A <MapId> ();
             a.A <SFXMaster> ();
