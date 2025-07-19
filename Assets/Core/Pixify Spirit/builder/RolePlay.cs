@@ -26,6 +26,22 @@ namespace Pixify.Spirit
                 return t;
             }
 
+            if ( T is FlowPaper flowPaper )
+            {
+                thought [] o = new thought [ flowPaper.transform.childCount ];
+
+                for (int i = 0; i < o.Length; i++)
+                {
+                    o [i] = GetThought ( flowPaper.transform.GetChild (i).GetComponent <ThoughtAuthor> (), b );
+                    b.IntegratePix ( o [i] );
+                }
+
+                var t = new flow ( o );
+                b.IntegratePix ( t );
+
+                return t;
+            }
+
             if ( T is ReflexionPaper reflexionPaper )
             {
                 reflexion [] reflexions = new reflexion [ reflexionPaper.paper.Length ];

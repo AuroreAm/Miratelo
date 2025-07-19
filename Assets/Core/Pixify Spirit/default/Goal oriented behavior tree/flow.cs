@@ -12,8 +12,12 @@ namespace Pixify.Spirit
         protected override void OnAquire()
         {
             ptr = 0;
-
             o[ptr].Aquire (this);
+        }
+
+        public flow ( thought [] thoughts )
+        {
+            o = thoughts;
         }
 
         protected override bool OnGuestSelfFree(thought guest)
