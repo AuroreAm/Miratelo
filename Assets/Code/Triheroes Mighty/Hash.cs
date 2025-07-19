@@ -94,22 +94,10 @@ namespace Triheroes.Code
         public static readonly int SubAction = 2;
     }
 
-    public static class TaskLayer
-    {
-        public static readonly term thought = new term ("thought");
-        public static readonly term action = new term ("action");
-    }
-
     // AI commands
-    public static class commands
+    public static class Commands
     {
-        public static readonly term zero = new term("zero"); 
-        // Sword commands
-        public static readonly term draw_weapon = new term("draw_weapon");
-        public static readonly term return_weapon = new term("return_weapon");
-        public static readonly term draw_sword = new term("draw_sword");
-        public static readonly term SS2 = new term("SS2");
-        public  static readonly term SS2_next = new term("SS2_next");
+        public static readonly term zero = new term("zero");
     }
 
     public enum direction { forward, right, left, back }

@@ -5,3 +5,4 @@ Often source of bug
 - recursive call
 - argument ambuigity name
 - bad code copy
+- Coroutine yeld resume, not return

@@ -1,23 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
+using Pixify.Spirit;
 using Triheroes.Code;
 using UnityEngine;
-/*
-[Category ("Test")]
+
+[Category ("ai")]
 public class scr_enemy_test : cortex
 {
-    [Depend]
-    m_skill ms;
-
-    [Depend]
-    m_actor ma;
-
-    public override void Create()
+    public override void Think()
     {
+        AddReflexion < ar_move_way_point > ();
+        AddReflexion < ar_way_to_target > (); 
     }
+}
 
-    protected override void Think()
+[Category ("ai")]
+public class reflexion_test : reflexion
+{
+    protected override void Step()
     {
+        Debug.Log ("a");
     }
-}*/
+}

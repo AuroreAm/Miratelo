@@ -9,8 +9,10 @@ namespace Pixify.Spirit
         List <reflexion> Reflexions = new List<reflexion> ();
         List <int> ReflexionKeys = new List<int> ();
 
-        cortex cortex;
+        Dictionary < term, thought > ConceptThoughts = new Dictionary<term, thought> ();
+        public mind master {private set; get;} = new mind ();
 
+        cortex cortex;
         public void SetCortex ( cortex newCortex )
         {
             cortex = newCortex;
@@ -39,6 +41,39 @@ namespace Pixify.Spirit
 
             Reflexions.Clear ();
             ReflexionKeys.Clear ();
+        }
+
+        public void AddConcepts ( params ( term, thought ) [] values )
+        {
+            for (int i = 0; i < values.Length; i++)
+                ConceptThoughts.Add ( values [i].Item1, values [i].Item2 );
+        }
+
+        public bool ThoughtExists ( term key )
+        {
+            return ConceptThoughts.ContainsKey ( key );
+        }
+
+        public thought GetThought ( term key )
+        {
+            return ConceptThoughts [ key ];
+        }
+    }
+
+    public class mind : thought
+    {
+        thought main;
+
+        public void StartRootThought ( thought thought )
+        {
+            main = thought;
+            thought.Aquire (this);
+        }
+
+        protected override bool OnGuestSelfFree(thought guest)
+        {
+            // TODO safe stop
+            return false;
         }
     }
 }

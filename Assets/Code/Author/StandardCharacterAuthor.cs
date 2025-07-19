@@ -10,6 +10,7 @@ namespace Triheroes.Code
     public class StandardCharacterAuthor : Writer
     {
         public PixPaper<cortex> MainCortex;
+        public RolePlay AI;
 
         [Header("Skin (appearance)")]
         public skin_writer skin;
@@ -35,7 +36,9 @@ namespace Triheroes.Code
             skin.RequiredPix ( in a );
             actor.RequiredPix ( in a );
             stat.RequiredPix ( in a );
-            skill.RequiredPix ( in a );
+            skill.RequiredPix ( in a ); 
+
+            a.A <s_mind> ();
 
             return a.ToArray ();
         }
@@ -48,6 +51,11 @@ namespace Triheroes.Code
             skill.AfterWrite (b);
 
             b.GetPix <s_skin> ().rotY = rotation.eulerAngles;
+
+            b.GetPix <s_mind> ().SetCortex ( MainCortex.Write () );
+            var AIBehaviors = AI.GetThoughtConcepts (b);
+            b.GetPix <s_mind> ().AddConcepts ( AIBehaviors );
+            b.GetPix <s_mind> ().master.StartRootThought ( AIBehaviors [0].Item2 );
         }
 
     }

@@ -6,8 +6,6 @@ using UnityEngine;
 /*
 namespace Triheroes.Code
 {
-
-    
     // INPROGRESS
     public class ai_move_way : action
     {

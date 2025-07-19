@@ -42,7 +42,7 @@ namespace Pixify.Spirit
 
         public void Start ()
         {
-            Destroy (this);
+            Destroy (this.gameObject);
         }
     }
 }

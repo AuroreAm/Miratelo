@@ -22,7 +22,6 @@ namespace Pixify
 
             Destroy (this);
         }
-
         
         public void OnWriteBlock()
         {

@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace Pixify.Spirit
 {
-    public class ActionPaper : MonoBehaviour
-    {
-        public PixPaper <action> paper;
-    }
+    public sealed class FlowPaper : ThoughtAuthor
+    {}
 }
