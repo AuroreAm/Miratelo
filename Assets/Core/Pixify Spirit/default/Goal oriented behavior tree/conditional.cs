@@ -10,12 +10,13 @@ namespace Pixify.Spirit
         s_mind sm;
 
         condition [] conditions;
-        thought main;
+        chain endgoal;
+        chain main;
 
-        public conditional ( condition [] _conditions, thought _thought )
+        public conditional ( condition [] _conditions, chain _thought )
         {
             conditions = _conditions;
-            main = _thought;
+            endgoal = _thought;
         }
 
         protected override void OnAquire()
@@ -32,7 +33,8 @@ namespace Pixify.Spirit
                 {
                     if ( sm.ThoughtExists ( conditions [i].solution ) )
                     {
-                        sm.GetThought ( conditions [i].solution ).Aquire (this);
+                        main = sm.GetThought ( conditions [i].solution );
+                        main.Aquire (this);
                         // NOTE: sometimes this might aquire its own parent, then there's error, I have to make sure this doesn't happen when building the behavior tree
                         return;
                     }
@@ -42,13 +44,19 @@ namespace Pixify.Spirit
                         return;
                     }
                 }
-                main.Aquire (this);
+                main = endgoal;
+                endgoal.Aquire (this);
             }
+        }
+
+        protected override void OnFree()
+        {
+            main.Free (this);
         }
 
         protected override bool OnGuestSelfFree(thought guest)
         {
-            if (guest != main)
+            if (guest != endgoal)
             {
                 Rethought ();
                 return false;

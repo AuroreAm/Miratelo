@@ -9,21 +9,6 @@ namespace Pixify.Spirit
         thought host;
         public bool on { private set; get; }
 
-        public void Aquire ( thought _host )
-        {
-            if ( !on )
-            {
-                on = true;
-                host = _host;
-                OnAquire ();
-            }
-            else
-                throw new InvalidOperationException("this thought is already aquired");
-        }
-
-        protected virtual void OnAquire ()
-        {}
-
         void GuestSelfFree (thought guest)
         {
             if ( OnGuestSelfFree (guest) )
@@ -41,7 +26,72 @@ namespace Pixify.Spirit
             return true;
         }
 
-        public class final : thought
+        public abstract class chain : thought
+        {
+
+            public void Aquire ( thought _host )
+            {
+                if ( !on )
+                {
+                    on = true;
+                    host = _host;
+                    OnAquire ();
+                }
+                else
+                    throw new InvalidOperationException("this thought is already aquired");
+            }
+
+            protected virtual void OnAquire ()
+            {}
+
+            public void Free ( thought _host )
+            {
+                if ( on && host == _host )
+                {
+                    on = false;
+                    host = null;
+                    OnFree ();
+                }
+                else
+                    throw new InvalidOperationException("this thought is not aquired");
+            }
+
+            protected virtual void OnFree ()
+            {
+            }
+        }
+
+        public abstract class package : chain
+        {
+            private package () {}
+
+            public abstract class o <T> : package where T: final, new ()
+            {
+                protected T main;
+
+                public sealed override void Create()
+                {
+                    main = b.RequirePix <T> ();
+                }
+
+                protected sealed override void OnAquire()
+                {
+                    BeforeStart ();
+                    main.Aquire (this);
+                }
+
+                protected virtual void BeforeStart ()
+                {}
+
+                protected sealed override void OnFree()
+                {
+                    main.on = false;
+                    main.host = null;
+                }
+            }
+        }
+
+        public abstract class final : chain
         {
             public void Finish ()
             {
@@ -51,5 +101,21 @@ namespace Pixify.Spirit
                 _host.GuestSelfFree ( this );
             }
         }
+    }
+
+    public abstract class reflexion_flow : reflexion
+    {
+        /// <summary>
+        /// invalid on Create
+        /// </summary>
+        protected flow anchor { private set; get; }
+    }
+
+    public abstract class reflexion_guard : reflexion
+    {
+        /// <summary>
+        /// invalid on Create
+        /// </summary>
+        protected guard anchor { private set; get; }
     }
 }

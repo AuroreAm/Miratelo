@@ -19,18 +19,14 @@ namespace Triheroes.Code
         }
 
         [Category ("movement")]
-        public class move_to_target : thought
+        public class move_to_target : package.o <t_move_to_target>
         {
-            [Depend]
-            t_move_to_target main;
-
             [Export]
             public float StopDistance;
 
-            protected override void OnAquire ()
+            protected override void BeforeStart()
             {
                 main.StopDistance = StopDistance;
-                main.Aquire (this);
             }
         }
     }

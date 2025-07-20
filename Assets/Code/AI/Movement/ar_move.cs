@@ -16,7 +16,7 @@ namespace Triheroes.Code
         d_dimension dd;
 
         List <Vector3> Points = new List<Vector3> ();
-        float speed = 7;
+        public float speed = 7;
 
         public int Count => Points.Count;
         public void SetPoint (int i, Vector3 point)
@@ -32,6 +32,10 @@ namespace Triheroes.Code
             lastDir = Vector3.zero;
         }
 
+        /// <summary>
+        /// last direction the character moved
+        /// </summary>
+        public Vector3 LastDir => lastDir;
         Vector3 lastDir;
         protected override void Step()
         {

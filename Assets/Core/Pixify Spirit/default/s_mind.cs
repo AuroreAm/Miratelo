@@ -9,7 +9,7 @@ namespace Pixify.Spirit
         List <reflexion> Reflexions = new List<reflexion> ();
         List <int> ReflexionKeys = new List<int> ();
 
-        Dictionary < term, thought > ConceptThoughts = new Dictionary<term, thought> ();
+        Dictionary < term, thought.chain > ConceptThoughts = new Dictionary<term, thought.chain> ();
         public mind master {private set; get;} = new mind ();
 
         cortex cortex;
@@ -43,7 +43,7 @@ namespace Pixify.Spirit
             ReflexionKeys.Clear ();
         }
 
-        public void AddConcepts ( params ( term, thought ) [] values )
+        public void AddConcepts ( params ( term, thought.chain ) [] values )
         {
             for (int i = 0; i < values.Length; i++)
                 ConceptThoughts.Add ( values [i].Item1, values [i].Item2 );
@@ -54,7 +54,7 @@ namespace Pixify.Spirit
             return ConceptThoughts.ContainsKey ( key );
         }
 
-        public thought GetThought ( term key )
+        public thought.chain GetThought ( term key )
         {
             return ConceptThoughts [ key ];
         }
@@ -64,7 +64,7 @@ namespace Pixify.Spirit
     {
         thought main;
 
-        public void StartRootThought ( thought thought )
+        public void StartRootThought ( chain thought )
         {
             main = thought;
             thought.Aquire (this);

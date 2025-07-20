@@ -12,18 +12,14 @@ namespace Triheroes.Code
         public int ComboId;
 
         [Category ("actor")]
-        public class slash_SS2 : thought
+        public class slash_SS2 : package.o <t_SS2>
         {
-            [Depend]
-            t_SS2 t_SS2;
-
             [Export]
             public int ComboId;
 
-            protected override void OnAquire()
+            protected override void BeforeStart()
             {
-                t_SS2.ComboId = ComboId;
-                t_SS2.Aquire (this);
+                main.ComboId = ComboId;
             }
         }
 

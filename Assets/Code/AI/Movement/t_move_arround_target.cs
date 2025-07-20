@@ -12,21 +12,17 @@ namespace Triheroes.Code
         public float distance {get; private set;}
         
         [Category ("movement")]
-        public class move_arround_target : thought
+        public class move_arround_target : package.o <t_move_arround_target>
         {
-            [Depend]
-            t_move_arround_target main;
-
             [Export]
             public float AngleAmount;
             [Export]
             public float Distance;
 
-            protected override void OnAquire()
+            protected override void BeforeStart()
             {
                 main.angleAmount = AngleAmount;
                 main.distance = Distance;
-                main.Aquire (this);
             }
         }
     }

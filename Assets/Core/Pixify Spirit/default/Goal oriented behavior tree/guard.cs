@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Pixify.Spirit
 {
-    public class guard : thought
+    public class guard : thought.chain
     {
         reflexion [] Reflexions;
         int [] ReflexionKeys;
-        thought main;
+        chain main;
 
         protected override void OnAquire()
         {
@@ -20,7 +20,7 @@ namespace Pixify.Spirit
             main.Aquire (this);
         }
 
-        public guard ( reflexion [] _reflexions, thought thought )
+        public guard ( reflexion [] _reflexions, chain thought )
         {
             main = thought;
             Reflexions = _reflexions;
@@ -32,6 +32,14 @@ namespace Pixify.Spirit
             for (int i = 0; i < ReflexionKeys.Length; i++)
             Stage.Stop ( ReflexionKeys [i] ) ;
             return true;
+        }
+
+        protected override void OnFree()
+        {
+            for (int i = 0; i < ReflexionKeys.Length; i++)
+            Stage.Stop ( ReflexionKeys [i] );
+
+            main.Free (this);
         }
     }
 }

@@ -4,18 +4,20 @@ using UnityEngine;
 
 namespace Pixify.Spirit
 {
-    public class flow : thought
+    public class flow : thought.chain
     {
         int ptr;
-        thought [] o;
+        chain main;
+        chain [] o;
 
         protected override void OnAquire()
         {
             ptr = 0;
+            main = o [ptr];
             o[ptr].Aquire (this);
         }
 
-        public flow ( thought [] thoughts )
+        public flow ( chain [] thoughts )
         {
             o = thoughts;
         }
@@ -25,8 +27,24 @@ namespace Pixify.Spirit
             ptr ++;
             if ( ptr >= o.Length )
                 return true;
+
+            main = o [ptr];
             o[ptr].Aquire (this);
             return false;
+        }
+
+        public void Substitute ( chain thought )
+        {
+            if (!on) return;
+            
+            main.Free (this);
+            main = thought;
+            thought.Aquire (this);
+        }
+
+        protected override void OnFree()
+        {
+            main.Free (this);
         }
     }
 }

@@ -6,10 +6,9 @@ namespace Pixify.Spirit
 {
     public class RolePlay : MonoBehaviour
     {
-
-        public (term,thought) [] GetThoughtConcepts ( block b )
+        public (term,thought.chain) [] GetThoughtConcepts ( block b )
         {
-            List < (term, thought) > a = new List<(term, thought)> ();
+            List < (term, thought.chain) > a = new List<(term, thought.chain)> ();
 
             for (int i = 0; i < transform.childCount; i++)
             a.Add ( ( new term ( transform.GetChild (i).gameObject.name ), GetThought ( transform.GetChild (i).GetComponent <ThoughtAuthor> () , b ) ) );
@@ -17,72 +16,37 @@ namespace Pixify.Spirit
             return a.ToArray ();
         }
 
-        thought GetThought ( ThoughtAuthor T, block b )
+        thought.chain GetThought ( ThoughtAuthor T, block b )
         {
-            if (T is ConditionPaper conditionPaper)
-            {
-                condition [] conditions = new condition [conditionPaper.paper.Length];
-
-                for (int i = 0; i < conditionPaper.paper.Length; i++)
-                {
-                    conditions [i] = conditionPaper.paper[i].Write ();
-                    b.IntegratePix ( conditions [i] );
-                }
-
-                var t = new conditional ( conditions, GetThought ( T.transform.GetChild (0).GetComponent <ThoughtAuthor>(),b) );
-
-                b.IntegratePix ( t );
-                return t;
-            }
-
-            if ( T is ReflexionPaper reflexionPaper )
-            {
-                reflexion [] reflexions = new reflexion [ reflexionPaper.paper.Length ];
-                for (int i = 0; i < reflexionPaper.paper.Length; i++)
-                {
-                    reflexions [i] = reflexionPaper.paper[i].Write ();
-                    b.IntegratePix ( reflexions [i] );
-                }
-
-                var t = new guard ( reflexions, GetThought ( T.transform.GetChild (0).GetComponent <ThoughtAuthor>(), b ) );
-
-                b.IntegratePix ( t );
-
-                return t;
-            }
-
-            if ( T is ThoughtPaper thoughtPaper )
-            {
-                var t = thoughtPaper.paper.Write ();
-                b.IntegratePix ( t );
-                return t;
-            }
-
-            if ( T is FlowPaper flowPaper )
-            {
-                thought [] o = new thought [ flowPaper.transform.childCount ];
-
-                for (int i = 0; i < o.Length; i++)
-                {
-                    o [i] = GetThought ( flowPaper.transform.GetChild (i).GetComponent <ThoughtAuthor> (), b );
-                    b.IntegratePix ( o [i] );
-                }
-
-                var t = new flow ( o );
-                b.IntegratePix ( t );
-
-                return t;
-            }
-
-            return null;
+            return T.Write ( b );
         }
 
         public void Start ()
         {
-            Destroy (this.gameObject);
+            Destroy (gameObject);
         }
     }
 
     public abstract class ThoughtAuthor : MonoBehaviour
-    {}
+    {
+        public abstract thought.chain Write ( block b );
+    }
+
+    public abstract class ThoughtAuthor <T> : ThoughtAuthor where T : thought.chain
+    {
+        T result;
+
+        public sealed override thought.chain Write ( block b ) => WriteGeneric ( b );
+
+        T WriteGeneric ( block b )
+        {
+            if (result != null)
+                return result;
+
+            result = Get ( b );
+            return result;
+        }
+
+        protected abstract T Get ( block b );
+    }
 }

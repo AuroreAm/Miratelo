@@ -12,7 +12,7 @@ namespace Pixify.Editor
     {
         ThoughtPaper Target;
         thought paper;
-        Cursor <thought> cursor;
+        Cursor <thought.package> cursor;
         PixEditor pE;
 
         void OnEnable ()
@@ -38,7 +38,7 @@ namespace Pixify.Editor
             if ( paper != null ) return;
 
             if ( cursor == null )
-            cursor = new Cursor<thought> ( SetPix );
+            cursor = new Cursor<thought.package> ( SetPix );
 
             cursor.GUI ();
 

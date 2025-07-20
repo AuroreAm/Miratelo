@@ -12,21 +12,17 @@ namespace Triheroes.Code
         public WeaponType WeaponType;
 
         [Category ("actor")]
-        public class draw_from_inv_0 : thought
+        public class draw_from_inv_0 : package.o <t_draw_from_inv_0>
         {
-            [Depend]
-            t_draw_from_inv_0 main;
-
             [Export]
             public int index;
             [Export]
             public WeaponType weaponType;
 
-            protected override void OnAquire()
+            protected override void BeforeStart()
             {
                 main.index = index;
                 main.WeaponType = weaponType;
-                main.Aquire (this);
             }
         }
     }
@@ -34,16 +30,8 @@ namespace Triheroes.Code
     public class t_return_from_se_to_inv_0 : thought.final
     {
         [Category ("actor")]
-        public class return_from_se_to_inv_0 : thought
-        {
-            [Depend]
-            t_return_from_se_to_inv_0 main;
-
-            protected override void OnAquire()
-            {
-                main.Aquire (this);
-            }
-        }
+        public class return_from_se_to_inv_0 : package.o <t_return_from_se_to_inv_0>
+        {}
     }
 
 }

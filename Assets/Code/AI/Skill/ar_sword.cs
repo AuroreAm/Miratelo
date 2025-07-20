@@ -33,7 +33,7 @@ namespace Triheroes.Code
 
         public void OnMotorEnd(motor m)
         {
-            SelfStop ();
+            t_SS2.Finish ();
         }
 
         public override void Create()
@@ -54,11 +54,6 @@ namespace Triheroes.Code
 
             if (!Success)
             SelfStop ();
-        }
-
-        protected override void Stop()
-        {
-            t_SS2.Finish ();
         }
     }
 

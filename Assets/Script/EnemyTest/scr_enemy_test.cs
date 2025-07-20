@@ -18,11 +18,30 @@ public class scr_enemy_test : cortex
     }
 }
 
-[Category ("ai")]
-public class reflexion_test : reflexion
+[Category ("script")]
+public class scr_enemy_test_while_target_aprroach_rapidly_reaction : reflexion_flow
 {
+    [Depend]
+    d_actor da;
+    [Depend]
+    ar_move_way_point amwp;
+
+    float DistanceToTarget;
+
+    protected override void Start()
+    {
+        if (!da.target) return;
+
+        DistanceToTarget = Vector3.Distance ( da.dd.position, da.target.dd.position );
+    }
+
     protected override void Step()
     {
-        Debug.Log ("a");
+        if (!da.target) return;
+
+        if ( Vector3.Distance ( da.dd.position, da.target.dd.position ) < DistanceToTarget - amwp.LastDir.magnitude * 2 )
+            Debug.Log ("the player approach the target");
+
+        DistanceToTarget = Vector3.Distance ( da.dd.position, da.target.dd.position );
     }
 }
