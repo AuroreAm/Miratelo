@@ -22,9 +22,9 @@ namespace Triheroes.Code
             return false;
         }
 
-        public static void SendMessage <T> (  int to, int message, T context ) where T:struct
+        public static void SendMessage <T> (  int to, T context ) where T:struct
         {
-            o.ptr[to].SendMessage (message, context);
+            o.ptr[to].SendMessage (context);
         }
 
         public static void Clash ( element from, int to, Slash force )
@@ -49,7 +49,7 @@ namespace Triheroes.Code
     {}
     public interface IElementListener <T> : IELBFC where T : struct
     {
-        public void OnMessage (int message, T context);
+        public void OnMessage ( T context );
     }
 
     public class s_element : character_indexed_pix <s_element>, IElementContainer
@@ -70,10 +70,10 @@ namespace Triheroes.Code
             elementListeners.Remove (listener);
         }
 
-        public void SendMessage <T> (int message, T context) where T:struct
+        public void SendMessage <T> ( T context ) where T:struct
         {
             foreach (var i in elementListeners)
-            (i as IElementListener<T>) ? .OnMessage (message, context);
+            (i as IElementListener<T>) ? .OnMessage ( context);
         }
 
         public void SetElement (element e)
@@ -85,7 +85,7 @@ namespace Triheroes.Code
 
     public interface IElementContainer 
     {
-        public void SendMessage <T> (int message, T context) where T:struct;
+        public void SendMessage <T> ( T context ) where T:struct;
     }
 
     public abstract class element : pix

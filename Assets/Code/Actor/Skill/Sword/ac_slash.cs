@@ -48,7 +48,7 @@ namespace Triheroes.Code
             foreach (Collider col in NearbyColliders)
             {
                 if ( Element.Contains (col.id ()) )
-                Element.SendMessage ( col.id(), Signal.incomming_slash, new incomming_slash ( da.term, true ) );
+                Element.SendMessage ( col.id(), new incomming_slash ( da.term, true ) );
             }
         }
 

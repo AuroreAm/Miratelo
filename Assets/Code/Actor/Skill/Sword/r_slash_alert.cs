@@ -21,11 +21,8 @@ namespace Triheroes.Code
             se.UnlinkMessage (this);
         }
 
-        public void OnMessage(int message, incomming_slash context)
+        public void OnMessage(incomming_slash context)
         {
-            if (message != Signal.incomming_slash)
-            return;
-
             Debug.Log ( context.sender.name + "is planning a slash" );
         }
     }

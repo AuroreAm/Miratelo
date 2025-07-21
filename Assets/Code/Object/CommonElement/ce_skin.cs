@@ -14,18 +14,18 @@ namespace Triheroes.Code
         public override void Clash(element from, Slash force)
         {
             float damage = force.raw * force.sharpness;
-            host.SendMessage ( Signal.damage, damage );
+            host.SendMessage ( new Damage (damage) );
         }
 
         public override void Clash(element from, Knock force)
         {
-            host?.SendMessage ( Signal.knocked_out, force );
+            host?.SendMessage ( force );
         }
     }
 
     public struct Damage
     {
-        float damage;
+        public float damage;
 
         public Damage ( float damage )
         {
