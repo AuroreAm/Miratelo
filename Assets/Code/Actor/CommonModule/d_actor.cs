@@ -42,6 +42,7 @@ namespace Triheroes.Code
         public s_skin ss;
         [Depend]
         public d_dimension dd;
+        public block block => b;
 
         // TODO faction reregister to ActorFaction
         public int faction {private set; get;}
