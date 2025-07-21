@@ -9,7 +9,7 @@ namespace Triheroes.Code
     {
         static ActorList o;
         public List<d_actor>[] factions { get; private set; } = new List<d_actor> [] { new List<d_actor>(), new List<d_actor>() };
-        Dictionary <string, d_actor> Actors = new Dictionary<string, d_actor> ();
+        Dictionary <term, d_actor> Actors = new Dictionary<term, d_actor> ();
 
         public override void Create()
         {
@@ -19,10 +19,15 @@ namespace Triheroes.Code
         public static void Register (d_actor actor, int faction)
         {
             o.factions [faction].Add (actor);
-            o.Actors.Add ( actor.ActorName, actor );
+            o.Actors.Add ( new term (actor.ActorName), actor );
         }
 
         public static d_actor Get (string name)
+        {
+            return o.Actors [new term (name)];
+        }
+
+        public static d_actor Get ( term name )
         {
             return o.Actors [name];
         }

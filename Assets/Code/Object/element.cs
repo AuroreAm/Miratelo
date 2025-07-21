@@ -108,10 +108,12 @@ namespace Triheroes.Code
         }
     }
 
-    public static class MessageKey
+    public static class Signal
     {
         public static readonly term damage = new term ("damage");
         public static readonly term hooked_up = new term ("hooked_up");
         public static readonly term knocked_out = new term ("knocked_out");
+
+        public static readonly term incomming_slash = new term ("incomming_slash");
     }
 }

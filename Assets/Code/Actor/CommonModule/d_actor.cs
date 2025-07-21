@@ -53,6 +53,7 @@ namespace Triheroes.Code
             {
                 o.faction = faction;
                 o.ActorName = actorName ;
+                o.term = new term (actorName);
 
                 ActorList.Register (o, faction);
             }
