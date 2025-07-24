@@ -16,233 +16,259 @@ MonoBehaviour:
   SerializedStates:
   - Key:
       value: -601574123
-      keyName: idle
+      name: idle
     Duration: Infinity
     EvPoint: []
   - Key:
       value: 1349952704
-      keyName: run
+      name: run
     Duration: Infinity
     EvPoint:
     - 0.042136103
     - 0.38176197
   - Key:
       value: -1919845803
-      keyName: walk
+      name: walk
     Duration: Infinity
     EvPoint:
     - 0.111554526
     - 0.78480715
   - Key:
       value: -276802121
-      keyName: sprint
+      name: sprint
     Duration: Infinity
     EvPoint:
     - 0.3132759
     - 0.6578378
   - Key:
       value: -78586100
-      keyName: fall
+      name: fall
     Duration: Infinity
     EvPoint: []
   - Key:
       value: -1481439722
-      keyName: jump
+      name: jump
     Duration: 0.33333334
     EvPoint: []
   - Key:
       value: -1086562103
-      keyName: slash_0
+      name: slash_0
     Duration: 0.4666667
     EvPoint:
     - 0.13237771
     - 0.313503
   - Key:
       value: -935636897
-      keyName: slash_1
+      name: slash_1
     Duration: 0.40000004
     EvPoint:
     - 0.1517102
     - 0.31902984
   - Key:
       value: 1362231781
-      keyName: slash_2
+      name: slash_2
     Duration: 0.5
     EvPoint:
     - 0.13881618
     - 0.345496
   - Key:
       value: -1194472396
-      keyName: jump_right_foot
+      name: jump_right_foot
     Duration: 0.33333337
     EvPoint: []
   - Key:
       value: 541808064
-      keyName: jump_left_foot
+      name: jump_left_foot
     Duration: 0.33333337
     EvPoint: []
   - Key:
       value: 1523721793
-      keyName: hit
+      name: hit
     Duration: 0.6666667
     EvPoint: []
   - Key:
       value: 630054821
-      keyName: run_lateral
+      name: run_lateral
     Duration: Infinity
     EvPoint: []
   - Key:
       value: 595608524
-      keyName: dash_left
-    Duration: 0.6666667
+      name: dash_left
+    Duration: 0.44444445
     EvPoint: []
   - Key:
       value: 1697183041
-      keyName: dash_right
-    Duration: 0.6666667
+      name: dash_right
+    Duration: 0.44444445
     EvPoint: []
   - Key:
-      value: 875128211
-      keyName: dash_back
+      value: 18169631
+      name: backflip
     Duration: 0.53333336
     EvPoint: []
   - Key:
       value: -840575915
-      keyName: dash_forward
-    Duration: 0.53333336
+      name: dash_forward
+    Duration: 0.35555556
     EvPoint: []
   - Key:
       value: 616666055
-      keyName: sprint_brake
+      name: sprint_brake
     Duration: 0.6666667
     EvPoint: []
   - Key:
       value: -1244195535
-      keyName: rotation_brake
+      name: rotation_brake
     Duration: 0.15777777
     EvPoint: []
   - Key:
       value: -1336792326
-      keyName: parry_0
+      name: parry_0
     Duration: 0.53333336
     EvPoint: []
   - Key:
       value: -950723988
-      keyName: parry_1
+      name: parry_1
     Duration: 0.5
     EvPoint:
     - 0.08280518
     - 0.28985506
   - Key:
       value: 1583107030
-      keyName: parry_2
+      name: parry_2
     Duration: 0.5
     EvPoint:
     - 0.054541413
     - 0.3164251
   - Key:
       value: 599360491
-      keyName: idle_tired
+      name: idle_tired
     Duration: Infinity
     EvPoint: []
   - Key:
       value: 7736482
-      keyName: walk_tired
+      name: walk_tired
     Duration: Infinity
     EvPoint: []
   - Key:
       value: -1442825392
-      keyName: hit_knocked_a
+      name: hit_knocked_a
     Duration: 0.33333334
     EvPoint: []
   - Key:
       value: 856255210
-      keyName: hit_knocked_b
+      name: hit_knocked_b
     Duration: 0.5
     EvPoint: []
   - Key:
       value: 1805213095
-      keyName: stand_up
+      name: stand_up
     Duration: 1.2666668
     EvPoint: []
   - Key:
       value: 563981300
-      keyName: slash_3a
+      name: slash_3a
     Duration: 0.43333334
     EvPoint:
     - 0.36413273
   - Key:
       value: -1198196146
-      keyName: slash_3b
+      name: slash_3b
     Duration: 0.79999995
     EvPoint: []
   - Key:
       value: -1533132481
-      keyName: fall_end_hard
+      name: fall_end_hard
     Duration: 1.4333334
     EvPoint:
     - 0.16739249
   - Key:
+      value: 290864412
+      name: perfect_dash
+    Duration: 0.08888889
+    EvPoint: []
+  - Key:
+      value: 1526161512
+      name: SS7_0
+    Duration: 0.023333335
+    EvPoint:
+    - 0.006618886
+    - 0.01567515
+  - Key:
+      value: 770724094
+      name: SS7_1
+    Duration: 0.020000001
+    EvPoint:
+    - 0.0075855097
+    - 0.015951492
+  - Key:
+      value: -1258749628
+      name: SS7_2
+    Duration: 0.025
+    EvPoint:
+    - 0.006940809
+    - 0.0172748
+  - Key:
       value: 289444158
-      keyName: fall_end
+      name: fall_end
     Duration: 0.3
     EvPoint:
     - 0.07298711
   - Key:
       value: -1411452526
-      keyName: zero
+      name: zero
     Duration: Infinity
     EvPoint: []
   - Key:
       value: -529248224
-      keyName: fall_end_left_foot
+      name: fall_end_left_foot
     Duration: 0.2666667
     EvPoint:
     - 0.08242566
   - Key:
       value: 403116361
-      keyName: fall_end_right_foot
+      name: fall_end_right_foot
     Duration: 0.2666667
     EvPoint:
     - 0.08382632
   - Key:
       value: -1574924820
-      keyName: take_sword
+      name: take_sword
     Duration: 0.5
     EvPoint:
     - 0.25483367
   - Key:
       value: 1129474915
-      keyName: return_sword
+      name: return_sword
     Duration: 0.5
     EvPoint:
     - 0.25483367
   - Key:
       value: 89747317
-      keyName: return_bow
+      name: return_bow
     Duration: 0.5
     EvPoint:
     - 0.25483367
   - Key:
       value: -1490971717
-      keyName: take_bow
+      name: take_bow
     Duration: 0.5
     EvPoint:
     - 0.25483367
   - Key:
       value: 372802926
-      keyName: begin_aim
+      name: begin_aim
     Duration: 0.5
     EvPoint: []
   - Key:
       value: 85059151
-      keyName: start_shoot
+      name: start_shoot
     Duration: 0.8333334
     EvPoint:
     - 0.050630823
   - Key:
       value: -202585826
-      keyName: hitu
+      name: hitu
     Duration: 0.6666667
     EvPoint: []
   SerializedExtStates: []

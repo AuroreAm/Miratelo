@@ -39,7 +39,6 @@ namespace Triheroes.Code
 
         public void OnMotorEnd(motor m)
         {
-            if (on)
             SelfStop ();
         }
 

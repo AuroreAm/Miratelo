@@ -28,10 +28,10 @@ namespace Pixify.Spirit
         protected override void Step()
         {
             if (state != null && state.on)
-            state.Tick (this);
+                state.Tick(this);
 
             if (secondState != null && secondState.on)
-            secondState.Tick (this);
+                secondState.Tick(this);
         }
 
         // priority makes state can be overriden by other state with higher priority
@@ -107,6 +107,7 @@ namespace Pixify.Spirit
             
             acceptSecondState = false;
 
+            if (h.on)
             h.OnMotorEnd (m);
         }
 
@@ -119,6 +120,7 @@ namespace Pixify.Spirit
             second = null;
             secondPriority = -1;
 
+            if (h.on)
             h.OnMotorEnd (m);
         }
 

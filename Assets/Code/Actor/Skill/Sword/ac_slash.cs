@@ -17,27 +17,27 @@ namespace Triheroes.Code
         [Depend]
         s_skin ss;
 
-        int ComboId = 0;
+        term SlashKey;
 
-        public ac_slash (int ComboID)
+        public ac_slash(term SlashAnimation)
         {
-            ComboId = ComboID;
+            SlashKey = SlashAnimation;
         }
 
         protected override void Start()
         {
-            BeginSlash(ComboId);
+            BeginSlash();
         }
 
-        void BeginSlash ( int id )
+        void BeginSlash ( )
         {
-            ss.PlayState (0, s_sword_user.SlashKeys[id], 0.1f, EndSlash, null, Slash);
+            ss.PlayState (0, SlashKey, 0.1f * Time.timeScale, EndSlash, null, Slash);
             SendSlashSignal ();
         }
 
         void Slash ()
         {
-            a_slash_attack.Fire ( new term ( ssu.Weapon.SlashName ), ssu.Weapon, ss.EventPointsOfState ( s_sword_user.SlashKeys[ComboId] ) [1] - ss.EventPointsOfState ( s_sword_user.SlashKeys[ComboId] ) [0] );
+            a_slash_attack.Fire ( new term ( ssu.Weapon.SlashName ), ssu.Weapon, ss.EventPointsOfState ( SlashKey ) [1] - ss.EventPointsOfState ( SlashKey ) [0] );
         }
 
         void SendSlashSignal ()

@@ -18,14 +18,17 @@ namespace Triheroes.Code
         [Depend]
         ac_dash ad;
 
+        [Depend]
+        ac_backflip ab;
+
         public void OnMotorEnd(motor m)
-        {}
+        { }
 
         protected override void Step()
         {
             if (Player.Dash.OnActive)
             {
-                ad.DashDirection = direction.forward;
+                direction direction = direction.forward;
 
                 if (da.target)
                 {
@@ -36,15 +39,22 @@ namespace Triheroes.Code
                     if (Mathf.Abs(InputAxis.x) > Mathf.Abs(InputAxis.z))
                     {
                         if (InputAxis.x < 0)
-                            ad.DashDirection = direction.left;
+                            direction = direction.left;
                         else
-                            ad.DashDirection = direction.right;
+                            direction = direction.right;
                     }
                     else if (InputAxis.z < 0)
-                        ad.DashDirection = direction.back;
+                        direction = direction.back;
                 }
 
-                sm.SetState(ad,this);
+                if (direction != direction.back)
+                { 
+                    ad.SetDashDirection(direction);
+                    sm.SetState(ad, this);
+                }
+                else
+                    sm.SetState(ab, this);
+
                 return;
             }
 
@@ -57,7 +67,6 @@ namespace Triheroes.Code
             {
                 if (Mathf.Abs(Mathf.DeltaAngle(ss.rotY.y, Vecteur.RotDirectionY(ss.Coord.position, da.target.dd.position))) < 90)
                     ss.rotY = new Vector3(0, Mathf.MoveTowardsAngle(ss.rotY.y, Vecteur.RotDirectionY(ss.Coord.position, da.target.dd.position), Time.deltaTime * 720), 0);
-                ss.SkinDir = Vecteur.LDir(ss.rotY, ac_dash.Direction(ad.DashDirection));
             }
         }
     }

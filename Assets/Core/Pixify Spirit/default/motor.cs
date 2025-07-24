@@ -13,6 +13,11 @@ namespace Pixify.Spirit
 
     public interface IMotorHandler
     {
-        public void OnMotorEnd (motor m);
+        /// <summary>
+        /// called when the motor is stopped, only called when the handler is on
+        /// </summary>
+        /// <param name="m"></param>
+        public void OnMotorEnd(motor m);
+        public bool on { get; }
     }
 }

@@ -42,7 +42,7 @@ namespace Triheroes.Code
 
             for (int i = 0; i < 3; i++)
             {
-                var motor_slash = new ac_slash (i);
+                var motor_slash = new ac_slash ( SS2.SlashKeys [i] );
                 b.IntegratePix (motor_slash);
                 Combo[i] = motor_slash;
             }

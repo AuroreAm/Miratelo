@@ -97,7 +97,7 @@ namespace Triheroes.Code
 
             for (int i = 0; i < 3; i++)
             {
-                var motor_slash = new ac_slash (i);
+                var motor_slash = new ac_slash ( SS2.SlashKeys [i] );
                 b.IntegratePix (motor_slash);
                 Combo[i] = motor_slash;
             }
@@ -126,9 +126,6 @@ namespace Triheroes.Code
 
         public void OnMotorEnd(motor m)
         {
-            if (!on)
-            return;
-
             if (ReadyForCombo)
             ComboPtr ++;
             else

@@ -7,8 +7,6 @@ namespace Triheroes.Code
 {
     public class tps_target : tps_shot
     {
-        [Depend]
-        s_camera mc;
         Vector3 rotYOffset;
 
         public d_dimension target;
@@ -33,7 +31,7 @@ namespace Triheroes.Code
             rotYOffset.x = Mathf.Clamp(rotYOffset.x, -65, 65);
 
             float AngleDiff = Mathf.DeltaAngle(yPrevious, Vecteur.RotDirectionY(spos, tpos));
-            if ( Mathf.Abs ( Mathf.DeltaAngle(0, AngleDiff) ) < 180*Time.unscaledDeltaTime )
+            if ( Mathf.Abs ( Mathf.DeltaAngle(0, AngleDiff) ) < 360*Time.unscaledDeltaTime )
                 rotYOffset.y += AngleDiff;
             yPrevious = Vecteur.RotDirectionY(spos, tpos);
 

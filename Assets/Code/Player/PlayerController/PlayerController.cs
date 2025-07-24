@@ -28,7 +28,7 @@ namespace Triheroes.Code
             if ( ds.SkillValid <DS0_dash> () )
             AddReflexion <pr_dash> (); 
 
-            if ( ds.SkillValid <SS2_consecutive> ())
+            if ( ds.SkillValid <SS2> ())
             {
                 AddReflexion <pr_sword> ();
                 AddReflexion <pr_sword_target> ();

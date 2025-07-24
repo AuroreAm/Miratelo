@@ -18,21 +18,28 @@ namespace Triheroes.Code
         }
     }
 
-    public class SS2_consecutive : sword_skill
+    public class SS2 : sword_skill
     {
-        public motor [] Combo;
+        public static readonly term[] SlashKeys = { AnimationKey.slash_0, AnimationKey.slash_1, AnimationKey.slash_2 };
+
+        public motor[] DefaultCombo;
 
         public override void Create()
         {
-            Combo = new motor[3];
+            DefaultCombo = new motor[3];
 
             for (int i = 0; i < 3; i++)
             {
-                var motor_slash = new ac_slash (i);
+                var motor_slash = new ac_slash ( SlashKeys[i] );
                 b.IntegratePix (motor_slash);
-                Combo[i] = motor_slash;
+                DefaultCombo[i] = motor_slash;
             }
         }
+    }
+
+    public class SS7
+    {
+        public static readonly term[] SlashKeys = { AnimationKey.SS7_0, AnimationKey.SS7_1, AnimationKey.SS7_2 };
     }
 
     public class SS3_hooker_up : sword_skill
