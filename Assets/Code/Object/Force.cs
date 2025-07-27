@@ -20,18 +20,6 @@ namespace Triheroes.Code
         }
     }
 
-    public struct Knock
-    {
-        public Vector3 dir;
-        public float speed;
-
-        public Knock ( Vector3 ForceDir, float speed )
-        {
-            dir = ForceDir;
-            this.speed = speed;
-        }
-    }
-
     public struct Perce
     {
         public Vector3 point;

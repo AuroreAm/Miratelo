@@ -2,106 +2,73 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Pixify;
+using Pixify.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
 {
 
-/* INPROGRESS
-    public class ac_active_hooker_up : action
+    public sealed class ac_slash_hooker_up : motor
     {
-        [Depend]
-        m_hooker_up mhu;
-        protected override void BeginStep()
-        {
-            mhu.Aquire (this);
-        }
+        public override int Priority => Pri.Action;
 
-        protected override void Stop()
-        {
-            mhu.Free (this);
-        }
-    }
+        [Depend]
+        d_actor da;
+        [Depend]
+        s_sword_user ssu;
+        [Depend]
+        s_skin ss;
 
-    public class m_hooker_up : controller
-    {
         [Depend]
-        m_sword_user msu;
-        [Depend]
-        m_capsule_character_controller mccc;
-        int Target;
+        s_capsule_character_controller sccc; int key_ccc;
 
         delta_curve cu;
+        term SlashKey;
+
+        readonly float duration = .5f;
+        readonly float jumpHeight = 2;
+
+        public ac_slash_hooker_up(term SlashAnimation)
+        {
+            SlashKey = SlashAnimation;
+        }
 
         public override void Create()
         {
-            cu = new delta_curve ( SubResources <CurveRes>.q ( new SuperKey ("jump") ).Curve );
+            cu = new delta_curve ( SubResources <CurveRes>.q ( new term ("jump") ).Curve );
+            // base.create ();
         }
 
-        protected override void OnAquire()
+        protected override void Start()
         {
-            mccc.Aquire (this);
-            Target = -1;
+            key_ccc = Stage.Start ( sccc );
+            cu.Start ( jumpHeight, duration );
+            BeginSlash ();
         }
 
-        public override void Main()
+        void BeginSlash ( )
         {
-            mccc.dir += new Vector3 ( 0, cu.TickDelta (), 0 );
-
-            if (Target != -1)
-            Element.SendMessage ( Target, MessageKey.hooked_up, new Hook ( Vector3.up * 2, .5f ) );
+            ss.PlayState (0, SlashKey, 0.1f * Time.timeScale, EndSlash, null, Slash);
         }
 
-        public void SetTarget (int Hitted)
+        protected override void Step()
         {
-            Target = Hitted;
-            cu.Start ( 2, .5f );
-        }
-
-        protected override void OnFree()
-        {
-            mccc.Free (this);
-            Target = -1;
-        }
-    }
-
-    public class ac_slash_hooker_up : action
-    {
-        [Depend]
-        m_sword_user msu;
-        [Depend]
-        m_skin ms;
-        [Depend]
-        m_hooker_up mhu;
-
-        int ComboId = 0;
-
-        protected override void BeginStep()
-        {
-            BeginSlash(ComboId);
-        }
-
-        void BeginSlash ( int id )
-        {
-            if (!msu.on)
-            Debug.LogError("the character is not sword ready");
-
-            ms.PlayState (0, m_sword_user.SlashKeys[id], 0.1f, EndSlash, null, Slash);
+            // sccc.dir += new Vector3 ( 0, cu.TickDelta (), 0 );
         }
 
         void Slash ()
         {
-            a_slash_attack.Fire ( new SuperKey ( msu.Weapon.SlashName ), msu.Weapon, ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [1] - ms.EventPointsOfState ( m_sword_user.SlashKeys[ComboId] ) [0], Hook );
+            a_hook_attack.Fire ( new term ( ssu.Weapon.HookSlashName ), ssu.Weapon, duration, cu.curve, Vector3.up );
         }
 
-        void Hook (int Hitted)
+        protected override void Stop()
         {
-            mhu.SetTarget (Hitted);
+            Stage.Stop ( key_ccc );
         }
 
         void EndSlash ()
         {
-            AppendStop();
+            SelfStop();
         }
-    }*/
+    }
 }

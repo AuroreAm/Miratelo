@@ -2,7 +2,6 @@ using System;
 using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 namespace Pixify
 {
@@ -97,11 +96,13 @@ namespace Pixify
         }
         
         #if UNITY_EDITOR
+
         public Action OnDrawGizmos;
         public void OnDrawGizmosSelected(  )
         {
             OnDrawGizmos?.Invoke ();
         }
+
         #endif
     }
 }

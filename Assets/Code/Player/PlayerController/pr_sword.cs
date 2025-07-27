@@ -70,8 +70,21 @@ namespace Triheroes.Code
         [Depend]
         ac_parry ac_parry;
 
+        [Depend]
+        s_element se;
+
         public void OnMotorEnd(motor m)
         {}
+
+        protected override void Start()
+        {
+            se.LinkMessage (this);
+        }
+
+        protected override void Stop()
+        {
+            se.UnlinkMessage (this);
+        }
 
         protected override void Step()
         {
@@ -104,7 +117,7 @@ namespace Triheroes.Code
 
         public void OnMessage(incomming_slash context)
         {
-            ac_parry.OverrideAnimation ( SS7.SlashKeys [context.slash] );
+            ac_parry.OverrideAnimation ( SS3_parry.ParryKeys [context.slash] );
         }
     }
 
@@ -119,7 +132,7 @@ namespace Triheroes.Code
 
         public override void Create()
         {
-            Combo = new motor[3];
+            Combo = new motor[4];
 
             for (int i = 0; i < 3; i++)
             {
@@ -127,6 +140,9 @@ namespace Triheroes.Code
                 b.IntegratePix (motor_slash);
                 Combo[i] = motor_slash;
             }
+
+            Combo [3] = new ac_slash_hooker_up ( SS2.SlashKeys [1] );
+            b.IntegratePix (Combo [3]);
         }
 
         protected override void Start()

@@ -51,7 +51,7 @@ namespace Triheroes.Code
     {
         static readonly term SFX = new term ("SFX");
         AudioSource Au;
-        public override void Create()
+        protected override void Create1()
         {
             Au = new GameObject("SFX Channel").AddComponent<AudioSource>();
             Au.spatialBlend = 1;

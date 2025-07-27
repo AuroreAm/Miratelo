@@ -16,6 +16,7 @@ namespace Triheroes.Code
         public float Sharpness = 10;
         // TODO: change this to hash
         public String SlashName;
+        public String HookSlashName;
 
         
     #if UNITY_EDITOR

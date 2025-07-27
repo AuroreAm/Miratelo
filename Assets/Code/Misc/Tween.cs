@@ -7,7 +7,7 @@ namespace Triheroes.Code
 {
     public class delta_curve : pix
     {
-        AnimationCurve curve;
+        public AnimationCurve curve {get; private set;}
 
         public bool on {get; private set;}
         public float currentValue {get; private set;}

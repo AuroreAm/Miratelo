@@ -15,6 +15,7 @@ public class scr_enemy_test : cortex
         AddReflexion < ar_way_arround_target > (); 
         AddReflexion < ar_equip_equip_from_inv_0 > ();
         AddReflexion < ar_sword > ();
+        AddReflexion < r_hooked_up_ccc > ();
     }
 }
 
@@ -40,7 +41,7 @@ public class scr_enemy_test_while_target_aprroach_rapidly_reaction : reflexion_f
         if (!da.target) return;
 
         if ( Vector3.Distance ( da.dd.position, da.target.dd.position ) < DistanceToTarget - amwp.LastDir.magnitude * 2 )
-            Debug.Log ("the player approach the target");
+            {}
 
         DistanceToTarget = Vector3.Distance ( da.dd.position, da.target.dd.position );
     }

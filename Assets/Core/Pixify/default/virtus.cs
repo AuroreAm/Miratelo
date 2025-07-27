@@ -69,10 +69,13 @@ namespace Pixify
             [Depend]
             protected virtus v;
 
-            public override void Create()
+            public sealed override void Create()
             {
                 v.Register ( this );
+                Create1 ();
             }
+
+            protected virtual void Create1 () {}
         }
 
         public void Return_ ()

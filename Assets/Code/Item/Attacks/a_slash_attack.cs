@@ -20,12 +20,10 @@ namespace Triheroes.Code
 
         static Sword _sword;
         static float _duration;
-        static Action <int> _onHit;
-        public static void Fire ( int name, Sword sword, float duration, Action <int> onHit = null )
+        public static void Fire ( int name, Sword sword, float duration )
         {
             _sword = sword;
             _duration = duration;
-            _onHit = onHit;
             VirtualPoolMaster.RentVirtus(name);
         }
 
@@ -38,11 +36,10 @@ namespace Triheroes.Code
             previousRotation = rotation;
             length = sword.Length;
             timeLeft = _duration;
-            onHit = _onHit;
             Hitted.Clear ();
         }
 
-        public override void Create()
+        protected override void Create1()
         {
             rays = new Line [5];
             hit = new RaycastHit[5];
@@ -98,6 +95,11 @@ namespace Triheroes.Code
                     }
                 }
             }
+        }
+
+        public void Link ( Action <int> _OnHit )
+        {
+            onHit = _OnHit;
         }
         
         public struct Line

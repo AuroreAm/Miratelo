@@ -7,9 +7,9 @@ namespace Triheroes.Code
 {
     public class a_trajectile : virtus.pixi
     {
-        float speed;
+        public float speed { private set; get; }
         float timeLeft;
-        public Vector3 position;
+        public Vector3 position { private set; get; }
         Quaternion rotation;
         PieceSkin skin;
 
@@ -43,6 +43,14 @@ namespace Triheroes.Code
 
         protected override void Step()
         {
+            ShootCast ();
+            DrawGraphic ();
+            SendAlert ();
+            LifeTime ();
+        }
+
+        void ShootCast ()
+        {
             float spd = speed * Time.deltaTime;
 
             if (Physics.Raycast(position, Vecteur.Forward(rotation), out RaycastHit Hit, spd, Vecteur.SolidCharacterAttack))
@@ -52,13 +60,42 @@ namespace Triheroes.Code
             }
             else
                 position += Vecteur.Forward(rotation) * spd;
+        }
 
+        void DrawGraphic ()
+        {
             Graphics.DrawMesh(skin.Mesh, position, rotation.AppliedAfter(skin.RotY), skin.Material, 0);
+        }
 
+        void SendAlert ()
+        {
+            if (Physics.Raycast(position, Vecteur.Forward(rotation), out RaycastHit hit, 2 * speed, Vecteur.Character))
+            {
+                if (Element.Contains(hit.collider.id()))
+                {
+                    Element.SendMessage(hit.collider.id(), new incomming_trajectile(position, speed));
+                }
+            }
+        }
+
+        void LifeTime ()
+        {
             timeLeft -= Time.deltaTime;
 
             if (timeLeft <= 0)
             v.Return_();
+        }
+    }
+
+    public struct incomming_trajectile
+    {
+        public Vector3 position;
+        public float speed;
+
+        public incomming_trajectile ( Vector3 position, float speed )
+        {
+            this.position = position;
+            this.speed = speed;
         }
     }
 }

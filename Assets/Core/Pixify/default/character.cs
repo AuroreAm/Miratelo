@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Pixify
 {
-
     public class character : pix
     {
         public GameObject gameObject {private set; get;}
@@ -15,10 +14,9 @@ namespace Pixify
         {
             public package ( GameObject g )
             {     
-            o.gameObject = g;
-            o.Coord = g.transform;
+                o.gameObject = g;
+                o.Coord = g.transform;
             }
         }
     }
-
 }

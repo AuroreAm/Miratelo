@@ -37,11 +37,6 @@ namespace Triheroes.Code
             o.ptr[to].element.Clash ( from, force );
         }
 
-        public static void Clash ( element from, int to, Knock force )
-        {
-            o.ptr[to].element.Clash ( from, force );
-        }
-
     }
 
 
@@ -97,23 +92,11 @@ namespace Triheroes.Code
         public virtual void Clash ( element from, Perce force )
         {}
 
-        public virtual void Clash ( element from, Knock force )
-        {}
-
         protected IElementContainer host;
 
         public void Link ( IElementContainer container )
         {
             host = container;
         }
-    }
-
-    public static class Signal
-    {
-        public static readonly term damage = new term ("damage");
-        public static readonly term hooked_up = new term ("hooked_up");
-        public static readonly term knocked_out = new term ("knocked_out");
-
-        public static readonly term incomming_slash = new term ("incomming_slash");
     }
 }

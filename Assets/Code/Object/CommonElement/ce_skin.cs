@@ -16,11 +16,6 @@ namespace Triheroes.Code
             float damage = force.raw * force.sharpness;
             host.SendMessage ( new Damage (damage) );
         }
-
-        public override void Clash(element from, Knock force)
-        {
-            host?.SendMessage ( force );
-        }
     }
 
     public struct Damage

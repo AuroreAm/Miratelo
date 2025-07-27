@@ -23,7 +23,7 @@ namespace Triheroes.Code
         delta_curve movement;
         term dashAnimation;
 
-        Single TransitionDuration;
+        float TransitionDuration;
 
         public void SetDashDirection(direction direction)
         {

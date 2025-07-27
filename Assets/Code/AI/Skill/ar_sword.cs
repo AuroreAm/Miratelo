@@ -34,6 +34,7 @@ namespace Triheroes.Code
         public void OnMotorEnd(motor m)
         {
             t_SS2.Finish ();
+            SelfStop ();
         }
 
         public override void Create()

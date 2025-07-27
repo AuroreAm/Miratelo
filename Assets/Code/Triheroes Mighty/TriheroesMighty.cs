@@ -2,6 +2,7 @@ using Pixify;
 using Pixify.Spirit;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Triheroes.Code
 {
@@ -43,6 +44,7 @@ namespace Triheroes.Code
                 typeof ( controller ),
 
                 typeof ( a_slash_attack ),
+                typeof ( a_hook_attack ),
                 typeof ( a_trajectile ),
                 typeof ( a_t_explosive ),
 
