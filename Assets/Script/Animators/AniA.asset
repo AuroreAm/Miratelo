@@ -122,20 +122,20 @@ MonoBehaviour:
     Duration: 0.15777777
     EvPoint: []
   - Key:
-      value: -1336792326
-      name: parry_0
+      value: -1042043021
+      name: parry_t
     Duration: 0.53333336
     EvPoint: []
   - Key:
-      value: -950723988
-      name: parry_1
+      value: -1336792326
+      name: parry_0
     Duration: 0.5
     EvPoint:
     - 0.08280518
     - 0.28985506
   - Key:
-      value: 1583107030
-      name: parry_2
+      value: -950723988
+      name: parry_1
     Duration: 0.5
     EvPoint:
     - 0.054541413

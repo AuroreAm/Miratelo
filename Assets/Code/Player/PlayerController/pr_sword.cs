@@ -59,15 +59,27 @@ namespace Triheroes.Code
         }
     }
 
-    public class pr_sword : reflexion
+    public class pr_sword : reflexion, IMotorHandler, IElementListener <incomming_slash>
     {
         [Depend]
-        s_mind sm;
+        s_motor sm;
 
         [Depend]
         pc_SS2 pc_SS2;
 
+        [Depend]
+        ac_parry ac_parry;
+
+        public void OnMotorEnd(motor m)
+        {}
+
         protected override void Step()
+        {
+            SS2_skill ();
+            SS3_skill ();
+        }
+
+        void SS2_skill ()
         {
             if ( !Player.Action2.OnActive )
             return;
@@ -79,6 +91,20 @@ namespace Triheroes.Code
             }
             else
                 pc_SS2.PrepareNextCombo ();
+        }
+
+        void SS3_skill ()
+        {
+            if ( !Player.Alt.OnActive )
+            return;
+
+            if ( !ac_parry.on )
+                sm.SetState ( ac_parry, this );
+        }
+
+        public void OnMessage(incomming_slash context)
+        {
+            ac_parry.OverrideAnimation ( SS7.SlashKeys [context.slash] );
         }
     }
 

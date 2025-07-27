@@ -48,7 +48,7 @@ namespace Triheroes.Code
             foreach (Collider col in NearbyColliders)
             {
                 if ( Element.Contains (col.id ()) )
-                Element.SendMessage ( col.id(), new incomming_slash ( da.term, true ) );
+                Element.SendMessage ( col.id(), new incomming_slash ( da.term, SlashKey, true ) );
             }
         }
 
@@ -61,11 +61,13 @@ namespace Triheroes.Code
     public struct incomming_slash
     {
         public term sender;
+        public term slash;
         public bool MostLikelyHit;
 
-        public incomming_slash ( term sender, bool MostLikelyHit )
+        public incomming_slash ( term sender, term slash, bool MostLikelyHit )
         {
             this.sender = sender;
+            this.slash = slash;
             this.MostLikelyHit = MostLikelyHit;
         }
     }

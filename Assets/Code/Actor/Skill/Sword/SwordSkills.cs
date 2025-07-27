@@ -22,22 +22,33 @@ namespace Triheroes.Code
     {
         public static readonly term[] SlashKeys = { AnimationKey.slash_0, AnimationKey.slash_1, AnimationKey.slash_2 };
 
-        public motor[] DefaultCombo;
+        public motor[] Combo;
 
         public override void Create()
         {
-            DefaultCombo = new motor[3];
+            Combo = new motor[3];
 
             for (int i = 0; i < 3; i++)
             {
                 var motor_slash = new ac_slash ( SlashKeys[i] );
                 b.IntegratePix (motor_slash);
-                DefaultCombo[i] = motor_slash;
+                Combo[i] = motor_slash;
             }
         }
     }
 
-    public class SS7
+    public class SS3_parry : sword_skill
+    {
+        public static readonly term[] SlashKeys = { AnimationKey.parry_0, AnimationKey.parry_1 };
+        public static readonly Dictionary < term, term > ParryKeys = new Dictionary<term, term> 
+        {
+            { AnimationKey.slash_0, AnimationKey.parry_0 },
+            { AnimationKey.slash_1, AnimationKey.parry_1 },
+            { AnimationKey.slash_2, AnimationKey.parry_0 },
+        };
+    }
+
+    public class SS7 : sword_skill
     {
         public static readonly term[] SlashKeys = { AnimationKey.SS7_0, AnimationKey.SS7_1, AnimationKey.SS7_2 };
     }
