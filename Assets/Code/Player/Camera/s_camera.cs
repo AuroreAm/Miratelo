@@ -8,7 +8,7 @@ namespace Triheroes.Code
     {
         public static s_camera o { private set; get; }
         public Transform Coord {private set; get;}
-        public Camera Cam {private set; get;}
+        public static Camera cam {private set; get;}
         camera_shot Shot;
 
         public class package  : PreBlock.Package <s_camera>
@@ -16,7 +16,7 @@ namespace Triheroes.Code
             public package ( Transform coord, Camera camera )
             {
                 o.Coord = coord;
-                o.Cam = camera;
+                cam = camera;
             }
         }
 
@@ -31,7 +31,7 @@ namespace Triheroes.Code
         {
             Coord.position = Shot.CamPos;
             Coord.rotation = Shot.CamRot;
-            Cam.fieldOfView = Shot.CamFoV;
+            cam.fieldOfView = Shot.CamFoV;
         }
 
         int key_cs;

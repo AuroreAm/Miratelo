@@ -8,7 +8,6 @@ namespace Triheroes.Code
 {
     public class t_SS2 : thought.final
     {
-
         public int ComboId;
 
         [Category ("actor")]
@@ -22,6 +21,5 @@ namespace Triheroes.Code
                 main.ComboId = ComboId;
             }
         }
-
     }
 }

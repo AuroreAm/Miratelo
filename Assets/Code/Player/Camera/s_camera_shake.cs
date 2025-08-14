@@ -7,15 +7,13 @@ namespace Triheroes.Code
 {
     public class s_camera_shake : pix
     {
-        [Depend]
-        s_camera sc;
         Animator Ani;
 
         static s_camera_shake o;
         public override void Create()
         {
             o = this;
-            Ani = sc.Cam.GetComponent <Animator> ();
+            Ani = s_camera.cam.GetComponent <Animator> ();
         }
 
         public static void Shake ( Vector3 pos )

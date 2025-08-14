@@ -6,3 +6,4 @@ Often source of bug
 - argument ambuigity name
 - bad code copy
 - Coroutine yeld resume, not return
+- static stays after replaying

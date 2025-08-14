@@ -2,7 +2,6 @@ using Pixify;
 using Pixify.Spirit;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Triheroes.Code
 {
@@ -13,7 +12,6 @@ namespace Triheroes.Code
 
         public override void SetDirectorPix( in List <Type> a )
         {
-            
             a.A <Player> ();
             a.A <VirtualPoolMaster> ();
             a.A <Vecteur> ();
@@ -25,7 +23,6 @@ namespace Triheroes.Code
             a.A <Element> ();
             a.A <GroundElement> ();
             a.A <Interactable> ();
-
         }
 
         protected override Type[] PixiExecutionOrder()

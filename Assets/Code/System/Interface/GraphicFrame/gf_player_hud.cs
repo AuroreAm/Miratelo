@@ -113,7 +113,7 @@ namespace Triheroes.Code
         {
             ShownIE = imediateEnergy;
             // get raw screen space position next to the character
-            Vector3 ppos = s_camera.o.Cam.WorldToViewportPoint ( IEReference.position );
+            Vector3 ppos = s_camera.cam.WorldToViewportPoint ( IEReference.position );
             // move IE Center there
             IECenter.anchoredPosition = new Vector2 ( ppos.x * graphic_frame.Wd, ppos.y * graphic_frame.Hd ) + new Vector2 (-64,0);
 

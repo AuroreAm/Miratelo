@@ -12,6 +12,9 @@ namespace Triheroes.Code
 
         public override void RequiredPix( in List <Type> a)
         {
+            // Instantiate the model
+            model = Instantiate(Model).GetComponent<SkinModel>();
+
             a.A <s_skin> ();
             a.A <d_dimension> ();
             a.A <s_element> ();
@@ -24,12 +27,17 @@ namespace Triheroes.Code
 
             if (Model.SwordPlaces.Length > 0 || Model.BowPlaces.Length > 0)
             a.A <s_inv_0> ();
+
+            model.RequiredPix ( in a );
+        }
+
+        public override void AfterSpawn(Vector3 position, Quaternion rotation, block b)
+        {
+            model.AfterSpawn(position, rotation, b);
         }
 
         public override void OnWriteBlock()
         {
-            // Instantiate the model
-            model = Instantiate(Model).GetComponent<SkinModel>();
 
             new d_dimension.package ( model.h, model.r, model.m );
             new s_skin.package ( model.gameObject, new Vector2 (model.offsetRotationY, model.offsetPositionY) );
@@ -39,12 +47,15 @@ namespace Triheroes.Code
             
             if (model.SwordPlaces.Length > 0 || model.BowPlaces.Length > 0)
             new s_inv_0.package (model.SwordPlaces, model.BowPlaces);
+
+            model.OnWriteBlock ();
         }
 
         public override void AfterWrite(block b)
         {
             b.GetPix <s_element> ().SetElement ( model.Element.Write () );
 
+            model.AfterWrite (b);
             // destroy the model component
             Destroy (model);
         }

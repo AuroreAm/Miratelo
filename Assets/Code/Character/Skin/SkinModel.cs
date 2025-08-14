@@ -28,6 +28,37 @@ namespace Triheroes.Code
 
         [Header("element")]
         public PixPaper <element> Element;
+
+        public void RequiredPix( in List <Type> a)
+        {
+            var writers = GetComponents<Writer>();
+            foreach (var writer in writers)
+            writer.RequiredPix(in a);
+        }
+
+        public void OnWriteBlock ()
+        {
+            var writers = GetComponents<Writer>();
+            foreach (var a in writers)
+            a.OnWriteBlock ();
+        }
+
+        public void AfterSpawn ( Vector3 position, Quaternion rotation, block b )
+        {
+            var writers = GetComponents<Writer>();
+            foreach ( var a in writers )
+            a.AfterSpawn (position, rotation , b);
+        }
+
+        public void AfterWrite ( block b )
+        {
+            var writers = GetComponents<Writer>();
+            foreach (var a in writers)
+            {
+                a.AfterWrite (b);
+                Destroy (a);
+            }
+        }
         
         #if UNITY_EDITOR
         public void OnDrawGizmosSelected(  )
