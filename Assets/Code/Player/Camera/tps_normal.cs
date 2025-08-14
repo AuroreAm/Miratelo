@@ -48,7 +48,7 @@ namespace Triheroes.Code
     {
         protected override void Start()
         {
-            height = td.Subject.h;
+            height = td.Subject.h + .25f;
             distance = 4;
         }
 
@@ -56,8 +56,8 @@ namespace Triheroes.Code
         {
             // rotate using the mouse
             // TODO: add sensitivity tweak, add inverted mouse
-            td.rotY.y += Player.DeltaMouse.x * 3;
-            td.rotY.x -= Player.DeltaMouse.y * 3;
+            td.rotY.y += Player.DeltaMouse.x;
+            td.rotY.x -= Player.DeltaMouse.y;
             td.rotY.x = Mathf.Clamp(td.rotY.x, -65, 65);
 
             RayCameraPosition ();

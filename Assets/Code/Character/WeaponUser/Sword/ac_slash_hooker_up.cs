@@ -53,7 +53,7 @@ namespace Triheroes.Code
 
         protected override void Step()
         {
-            // sccc.dir += new Vector3 ( 0, cu.TickDelta (), 0 );
+            sccc.dir += new Vector3 ( 0, cu.TickDelta (), 0 );
         }
 
         void Slash ()

@@ -27,7 +27,7 @@ namespace Pixify.Editor
             }
         }
 
-        [MenuItem ("GameObject/ActionPaper")]
+        [MenuItem ("GameObject/Script")]
         static void CreateActionPaper ()
         {
             var a = new GameObject ().AddComponent <Script> ();
@@ -43,7 +43,6 @@ namespace Pixify.Editor
         {
             PixSelectionGUI ();
             PixEditorGUI ();
-            DecoratorExtraGUI ();
         }
 
         void PixSelectionGUI ()
@@ -89,29 +88,6 @@ namespace Pixify.Editor
                 Target.paper.StrNodeType = "";
                 Target.paper.StrNodeData = "";
                 EditorUtility.SetDirty ( Target );
-            }
-        }
-
-        Cursor <action> ExtraCursor;
-        void DecoratorExtraGUI ()
-        {
-            if (paper == null) return;
-            if ( ! (paper is decorator) ) return;
-
-            if (ExtraCursor == null) ExtraCursor = new Cursor<action> (AddPix);
-
-            ExtraCursor.GUI ();
-
-            void AddPix (Type t)
-            {
-                ActionPaper p = new GameObject (t.Name).AddComponent <ActionPaper> ();
-
-                p.paper.StrNodeType = t.AssemblyQualifiedName;
-                p.paper.StrNodeData = JsonUtility.ToJson (  FormatterServices.GetUninitializedObject ( t ) );
-
-                p.transform.SetParent ( Target.transform );
-
-                EditorUtility.SetDirty (p);
             }
         }
     }

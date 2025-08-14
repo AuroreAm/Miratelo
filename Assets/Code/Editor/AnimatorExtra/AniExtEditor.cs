@@ -5,87 +5,145 @@ using UnityEditor;
 using UnityEditor.Animations;
 using Pixify;
 using Triheroes.Code;
+using System.IO;
 
 namespace Triheroes.Editor
 {
-    // TODO: add a way to generate the data automatically from the animator controller
-    [CustomEditor(typeof(AniExt))]
-    public class AniExtEditor : UnityEditor.Editor
+
+    public class AniExtProcessor : AssetPostprocessor
     {
-        AniExt Target;
+        const string MetadataFolder = "Assets/Content/Resources/AnimatorMetadata";
 
-        void OnEnable()
+        void OnPostprocessModel(GameObject gameObject)
         {
-            Target = (AniExt)target;
-            if (Target.States == null)
-                Target.States = new Dictionary<term, AniExt.State>();
+            if (!RefreshPending)
+            {
+                EditorApplication.delayCall += Refresh;
+                RefreshPending = true;
+            }
         }
 
-        public override void OnInspectorGUI()
+        static bool RefreshPending;
+        void Refresh ()
         {
-            Target.Model = (RuntimeAnimatorController)EditorGUILayout.ObjectField(Target.Model, typeof(RuntimeAnimatorController), false);
-
-            if (Target.Model && GUILayout.Button("Generate / Update Data"))
-                GenerateData();
-
-            base.OnInspectorGUI();
+            // get all metadata assets and recreate all metadata
+            AniExt[] metadata = Resources.LoadAll<AniExt>("AnimatorMetadata");
+            foreach (AniExt m in metadata)
+            {
+                if (m.Model != null)
+                {
+                    TransferMetadata(m.Model as AnimatorController, m);
+                    EditorUtility.SetDirty(m);
+                }
+                else
+                    AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(m));
+            }
+            AssetDatabase.SaveAssets();
+            RefreshPending = false;
         }
 
-        void GenerateData()
+        static void OnPostprocessAllAssets (string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
-            AnimatorControllerLayer[] layers = ((AnimatorController)Target.Model).layers;
+            foreach (string assetPath in importedAssets)
+            if ( assetPath.EndsWith(".controller") )
+            {
+                // get the name of the controller
+                string controllerName = Path.GetFileNameWithoutExtension(assetPath);
+                AnimatorController controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(assetPath);
+
+                // check for metadata folder path
+                if (!AssetDatabase.IsValidFolder(MetadataFolder))
+                {
+                    Directory.CreateDirectory(MetadataFolder);
+                    AssetDatabase.Refresh();
+                }
+
+                // get the file metadata target path
+                string targetPath = MetadataFolder + "/" + controllerName + ".asset";
+
+                // get the file
+                AniExt target = AssetDatabase.LoadAssetAtPath<AniExt>(targetPath);
+
+                // check for duplicate
+                if (target != null && target.Model != null && target.Model != controller)
+                {
+                    Debug.LogError(controllerName + " " + "already exists");
+                    return;
+                }
+
+                // Create the file if it doesn't exist
+                if (target == null)
+                {
+                    target = ScriptableObject.CreateInstance<AniExt>();
+                    AssetDatabase.CreateAsset(target, targetPath);
+                }
+
+                // transfer metadata
+                TransferMetadata(controller, target);
+                target.Model = controller;
+
+                // save the file
+                EditorUtility.SetDirty(target);
+                AssetDatabase.SaveAssets();
+            }
+        }
+
+        static void TransferMetadata ( AnimatorController from, AniExt target )
+        {
+            AnimatorControllerLayer[] layers = from.layers;
             List<bool> realLayer = new List<bool>();
-            Target.States.Clear();
+            target.States = new Dictionary<term, AniExt.State>();
 
             for (int i = 0; i < layers.Length; i++)
             {
                 if (layers[i].syncedLayerIndex == -1)
                 {
-                    GenerateData(layers[i].stateMachine, ref Target.States);
+                    WriteMetadataPerLayer(layers[i].stateMachine, ref target.States);
                     realLayer.Add(true);
                 }
                 else
                     realLayer.Add(false);
             }
 
-            Target.RealLayer = realLayer.ToArray();
-            EditorUtility.SetDirty(Target);
-        }
+            target.RealLayer = realLayer.ToArray();
+            EditorUtility.SetDirty(target);
 
-        void GenerateData(AnimatorStateMachine StateMachine, ref Dictionary<term, AniExt.State> States)
-        {
-            var states = StateMachine.states;
-            foreach (var s in states)
+
+            void WriteMetadataPerLayer(AnimatorStateMachine stateMachine, ref Dictionary<term, AniExt.State> metaStates)
             {
-                if (States.ContainsKey(new term(s.state.name)))
-                    continue;
-
-                if (s.state.motion is AnimationClip c)
+                var states = stateMachine.states;
+                foreach (var s in states)
                 {
-                    float[] ef = new float[c.events.Length];
+                    if (metaStates.ContainsKey(new term(s.state.name)))
+                        continue;
 
-                    for (int i = 0; i < c.events.Length; i++)
+                    if (s.state.motion is AnimationClip c)
                     {
-                        ef[i] = c.events[i].time / s.state.speed;
-                    }
+                        float[] ef = new float[c.events.Length];
 
-                    States.Add(new term(s.state.name),
-                    new AniExt.State()
-                    {
-                        Key = new term(s.state.name),
-                        Duration = c.isLooping ? Mathf.Infinity : c.length / s.state.speed,
-                        EvPoint = ef
+                        for (int i = 0; i < c.events.Length; i++)
+                        {
+                            ef[i] = c.events[i].time / s.state.speed;
+                        }
+
+                        metaStates.Add(new term(s.state.name),
+                        new AniExt.State()
+                        {
+                            Key = new term(s.state.name),
+                            Duration = c.isLooping ? Mathf.Infinity : c.length / s.state.speed,
+                            EvPoint = ef
+                        }
+                        );
                     }
-                    );
+                    else
+                        metaStates.Add(new term(s.state.name),
+                        new AniExt.State()
+                        {
+                            Key = new term(s.state.name),
+                            Duration = Mathf.Infinity
+                        }
+                        );
                 }
-                else
-                    States.Add(new term(s.state.name),
-                       new AniExt.State()
-                       {
-                           Key = new term(s.state.name),
-                           Duration = Mathf.Infinity
-                       }
-                       );
             }
         }
     }

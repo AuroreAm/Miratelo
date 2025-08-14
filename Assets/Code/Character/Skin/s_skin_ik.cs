@@ -47,7 +47,7 @@ namespace Triheroes.Code
 
         void CheckIkRot()
         {
-            // TODO: foot rotation are diferent from character to character, this is a quick fix
+            // TODO: foot rotation are different from character to character, this is a quick fix
             // foot rotation
             Foot[0].rotation = Quaternion.Lerp(Foot[0].rotation, Rotlik, S.iklx);
             Foot[1].rotation = Quaternion.Lerp(Foot[1].rotation, Rotrik, S.ikrx);
@@ -74,18 +74,18 @@ namespace Triheroes.Code
             S.iklx = GetLeftFootIkCurves();
             S.ikrx = GetRightFootIkCurves();
 
-            if (Physics.Raycast(Foot[0].position + Vector3.up * 0.5f, Vector3.down, out RaycastHit hit, 1, Vecteur.Solid))
+            /*if (Physics.Raycast(Foot[0].position + Vector3.up * 0.5f, Vector3.down, out RaycastHit hit, 1, Vecteur.Solid))
             {
                 PosYl = hit.point.y - ss.Coord.position.y + 0.1f;
                 S.ikl = hit.point + new Vector3(0, 0.1f, 0);
-                Rotlik = Quaternion.FromToRotation(Foot[0].up, hit.normal) * Foot[0].rotation;
+                Rotlik = Quaternion.FromToRotation(Foot[0].forward, hit.normal) * Foot[0].rotation;
             }
             if (Physics.Raycast(Foot[1].position + Vector3.up * 0.5f, Vector3.down, out hit, 1, Vecteur.Solid))
             {
                 PosYr = hit.point.y - ss.Coord.position.y + 0.1f;
                 S.ikr = hit.point + new Vector3(0, 0.1f, 0);
-                Rotrik = Quaternion.FromToRotation(Foot[1].up, hit.normal) * Foot[1].rotation;
-            }
+                Rotrik = Quaternion.FromToRotation(Foot[1].forward, hit.normal) * Foot[1].rotation;
+            }*/
 
             ss.offPosY = Mathf.Min(PosYl * S.iklx, PosYr * S.ikrx, 0);
         }

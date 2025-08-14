@@ -39,10 +39,10 @@ namespace Triheroes.Code
 
         public class package : PreBlock.Package <s_skin>
         {
-            public package ( GameObject skinGameObject, AniExt aniExt, Vector2 offsets )
+            public package ( GameObject skinGameObject, Vector2 offsets )
             {
                 o.Ani = skinGameObject.GetComponent<Animator> ();
-                o.AniExt = aniExt;
+                o.AniExt = AniExt.Get (o.Ani.runtimeAnimatorController);
                 o.offRotY = offsets.x;
                 o.offPosY = offsets.y;
             }

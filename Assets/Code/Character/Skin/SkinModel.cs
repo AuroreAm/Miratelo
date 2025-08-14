@@ -34,7 +34,7 @@ namespace Triheroes.Code
             model = GameObject.Instantiate(Model).GetComponent<SkinModel>();
 
             new d_dimension.package ( model.h, model.r, model.m );
-            new s_skin.package ( model.gameObject, model.AniExt, new Vector2 (model.offsetRotationY, model.offsetPositionY) );
+            new s_skin.package ( model.gameObject, new Vector2 (model.offsetRotationY, model.offsetPositionY) );
 
             if (model.Hand != null && model.Hand.Length >0 )
             new d_hand.package ( model.Hand );
@@ -62,8 +62,6 @@ namespace Triheroes.Code
         [Tooltip("mass")]
         public float m;
 
-        // metadata
-        public AniExt AniExt;
         public float offsetRotationY;
         public float offsetPositionY;
 

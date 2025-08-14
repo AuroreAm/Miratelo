@@ -11,23 +11,23 @@ namespace Triheroes.Code
     [CreateAssetMenu(menuName = "Triheroes/Animation Metadata")]
     public class AniExt : ScriptableObject, ISerializationCallbackReceiver
     {
-        
-        public RuntimeAnimatorController Model;
-
         // SERIALIZED FIELDS
         [SerializeField]
         List<State> SerializedStates;
         [SerializeField]
         List<StateExt> SerializedExtStates;
+        public RuntimeAnimatorController Model;
 
+        // RUNTIME FIELDS
         public Dictionary<term, State> States;
         public Dictionary<term, StateExt> StatesExt;
-
 
         /// <summary>
         /// true if layer in the index layer is not a sync layer
         /// </summary>
         public bool[] RealLayer;
+
+        public static AniExt Get ( RuntimeAnimatorController model ) => Resources.Load<AniExt>("AnimatorMetadata/" + model.name);
 
         [Serializable]
         public struct State
