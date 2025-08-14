@@ -17,7 +17,7 @@ namespace Triheroes.Code
         protected override void Step()
         {
             if ( !pa.on && Player.Aim.Active && se.weaponUser is s_bow_user )
-                Stage.Start1 ( pa );
+                Stage.Start ( pa );
         }
     }
 

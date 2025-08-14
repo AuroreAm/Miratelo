@@ -60,14 +60,14 @@ namespace Pixify
         void StartLink ()
         {
             for (int i = 0; i < Links.Count; i++)
-                LinkKeys [i] = Stage.Start1 ( Links [i] );
+                LinkKeys [i] = Stage.Start ( Links [i] );
         }
 
         void EndLink ()
         {
             for (int i = 0; i < Links.Count; i++)
             {
-                Stage.Stop1 ( LinkKeys [i] );
+                Stage.Stop ( LinkKeys [i] );
                 LinkKeys [i] = -1;
             }
         }

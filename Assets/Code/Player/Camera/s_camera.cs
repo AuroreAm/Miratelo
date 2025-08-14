@@ -23,7 +23,7 @@ namespace Triheroes.Code
         public override void Create()
         {
             o = this;
-            Stage.Start1 (this);
+            Stage.Start (this);
             SetCameraShot(dummy);
         }
 
@@ -38,10 +38,10 @@ namespace Triheroes.Code
         void SetCameraShot(camera_shot Shot)
         {
             if (this.Shot != null)
-                Stage.Stop1 ( key_cs );
+                Stage.Stop ( key_cs );
 
             this.Shot = Shot;
-            key_cs = Stage.Start1 (Shot);
+            key_cs = Stage.Start (Shot);
         }
 
         // public methods
@@ -146,7 +146,7 @@ namespace Triheroes.Code
                 inDistance = IN.distance;
                 inOffset = IN.offset;
 
-                key_cs = Stage.Start1 ( OUT );
+                key_cs = Stage.Start ( OUT );
                 t = 0;
             }
 
@@ -164,7 +164,7 @@ namespace Triheroes.Code
 
                 if (t >= .95f)
                 {
-                    Stage.Stop1 ( key_cs );
+                    Stage.Stop ( key_cs );
                     o.SetCameraShot(OUT);
                 }
             }

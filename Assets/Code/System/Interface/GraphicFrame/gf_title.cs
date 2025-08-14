@@ -14,7 +14,7 @@ namespace Triheroes.Code
         public override void Create()
         {
             o = this;
-            Stage.Start1 (this);
+            Stage.Start (this);
         }
 
         Dictionary<int, Text> Titles = new Dictionary<int, Text>();

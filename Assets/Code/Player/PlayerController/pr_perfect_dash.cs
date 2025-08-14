@@ -39,7 +39,7 @@ namespace Triheroes.Code
             if (Ready && attacker.on == false && !pfdbt.on)
             {
                 if (dodging)
-                    Stage.Start1(pfdbt);
+                    Stage.Start(pfdbt);
                 Reset();
             }
         }
@@ -104,7 +104,7 @@ namespace Triheroes.Code
         protected override void Stop()
         {
             if (ReadyForDash)
-                Stage.Start1(pfd);
+                Stage.Start(pfd);
         }
     }
 
@@ -163,7 +163,7 @@ namespace Triheroes.Code
 
         protected override void Stop()
         {
-            Stage.Start1(ss7);
+            Stage.Start(ss7);
         }
     }
 

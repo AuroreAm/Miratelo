@@ -43,7 +43,7 @@ namespace Triheroes.Code
             this.speed = speed;
 
             if (!on)
-            Stage.Start1 ( this );
+            Stage.Start ( this );
         }
 
         public void StopTween ()

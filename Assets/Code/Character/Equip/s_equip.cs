@@ -17,7 +17,7 @@ namespace Triheroes.Code
             Debug.LogError ("there's still weapon user active but changed it, a bug will occur since the previous weapon user was not free");
 
             weaponUser = swu;
-            swu_key = Stage.Start1 ( swu );
+            swu_key = Stage.Start ( swu );
         }
 
         public void RemoveWeaponUser ()
@@ -25,7 +25,7 @@ namespace Triheroes.Code
             if (weaponUser == null)
             Debug.LogError ("Trying to remove unexisting weapon user");
 
-            Stage.Stop1 (swu_key);
+            Stage.Stop (swu_key);
             weaponUser = null;
         }
 

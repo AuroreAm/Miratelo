@@ -22,7 +22,7 @@ namespace Pixify.Spirit
 
         public override void Create()
         {
-            Stage.Start1 (this);
+            Stage.Start (this);
         }
 
         protected override void Step()

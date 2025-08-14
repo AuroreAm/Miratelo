@@ -14,7 +14,7 @@ namespace Pixify.Spirit
         {
             for (int i = 0; i < Reflexions.Length; i++)
             {
-                ReflexionKeys [i] = Stage.Start1 ( Reflexions [i] );
+                ReflexionKeys [i] = Stage.Start ( Reflexions [i] );
             }
 
             main.Aquire (this);
@@ -30,14 +30,14 @@ namespace Pixify.Spirit
         protected override bool OnGuestSelfFree(thought guest)
         {
             for (int i = 0; i < ReflexionKeys.Length; i++)
-            Stage.Stop1 ( ReflexionKeys [i] ) ;
+            Stage.Stop ( ReflexionKeys [i] ) ;
             return true;
         }
 
         protected override void OnFree()
         {
             for (int i = 0; i < ReflexionKeys.Length; i++)
-            Stage.Stop1 ( ReflexionKeys [i] );
+            Stage.Stop ( ReflexionKeys [i] );
 
             main.Free (this);
         }

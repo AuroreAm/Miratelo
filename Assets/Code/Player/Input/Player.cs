@@ -59,7 +59,7 @@ namespace Triheroes.Code
         {
             _IsAxis = IsInputManagerAccessNameAxis;
             _InputManagerAccessName = InputManagerAccessName;
-            Stage.Start1 (this);
+            Stage.Start (this);
         }
 
         protected override void Step()

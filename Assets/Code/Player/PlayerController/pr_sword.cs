@@ -18,7 +18,7 @@ namespace Triheroes.Code
         protected override void Step()
         {
             if ( !pst.on && da.target && se.weaponUser is s_sword_user )
-            Stage.Start1 (pst);
+            Stage.Start (pst);
         }
     }
 
@@ -91,7 +91,7 @@ namespace Triheroes.Code
 
             if ( !pc_SS2.on )
             {
-                Stage.Start1 ( pc_SS2 );
+                Stage.Start ( pc_SS2 );
                 return;
             }
             else

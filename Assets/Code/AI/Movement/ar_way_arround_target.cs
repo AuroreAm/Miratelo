@@ -17,7 +17,7 @@ namespace Triheroes.Code
         protected override void Step()
         {
             if (tmat.on && !awat.on)
-            Stage.Start1 ( awat );
+            Stage.Start ( awat );
         }
     }
 
