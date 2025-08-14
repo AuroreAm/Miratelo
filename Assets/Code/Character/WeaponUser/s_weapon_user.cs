@@ -7,7 +7,6 @@ namespace Triheroes.Code
 {
     public abstract class s_weapon_user : controller
     {
-        public abstract term key {get;}
         public abstract Weapon WeaponBase {get;}
         public abstract void SetWeaponBase ( Weapon weapon );
     }

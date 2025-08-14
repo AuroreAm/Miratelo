@@ -6,9 +6,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [PixiBase]
-    public abstract class s_stat_generator : pixi
+    public class MechaSkinModel : MonoBehaviour
     {
-
     }
 }

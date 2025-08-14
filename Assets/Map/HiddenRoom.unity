@@ -456,6 +456,9 @@ GameObject:
   m_Component:
   - component: {fileID: 810662976}
   - component: {fileID: 810662978}
+  - component: {fileID: 810662981}
+  - component: {fileID: 810662980}
+  - component: {fileID: 810662979}
   - component: {fileID: 810662977}
   m_Layer: 0
   m_Name: KN0
@@ -489,7 +492,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 810662975}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3241faa14e2439c41be9d0496dcb2fe7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f0c0d4a193391248b70d35b93f6da5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MainCortex:
@@ -497,19 +500,6 @@ MonoBehaviour:
       PublicKeyToken=null
     StrNodeData: '{"term":{"value":0,"name":""}}'
   AI: {fileID: 199235838}
-  skin:
-    Model: {fileID: 2031852914580170525}
-  actor:
-    Faction: 1
-    ActorName: KN0
-    AttachedWeapon: []
-  stat:
-    MaxHP: 12
-    MaxIE: 8
-    IEPerSecond: 1
-    DelayTime: 2
-  skill:
-    skills: []
 --- !u!114 &810662978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,6 +512,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9596c04fa15e4314b9d787de3acf0b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &810662979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810662975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3241faa14e2439c41be9d0496dcb2fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &810662980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810662975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50528ba14bb9bc447b5ede8eb41fc17f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Model: {fileID: 2031852914580170525}
+--- !u!114 &810662981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810662975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da1b72a04f551fc4ea6b7f3d7e17b2ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Faction: 1
+  ActorName: KN0
+  AttachedWeapon: []
 --- !u!1 &811970958
 GameObject:
   m_ObjectHideFlags: 0

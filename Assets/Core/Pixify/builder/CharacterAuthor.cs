@@ -21,14 +21,17 @@ namespace Pixify
             var writers = GetComponents<Writer>();
             List <Type> PixTypes = new List<Type> ();
 
-            foreach (var a in writers)
-            PixTypes.AddRange ( a.RequiredPix() );
+            foreach ( var a in writers )
+            a.RequiredPix( in PixTypes );
             PixTypes.Add ( typeof (character) );
 
             var Constructor = new PreBlock ( PixTypes.ToArray(), this );
             var b = Constructor.CreateBlock ();
 
             foreach (var a in writers)
+            a.AfterWrite (b);
+
+            foreach ( var a in writers )
             a.AfterSpawn (position, rotation , b);
 
             return b;

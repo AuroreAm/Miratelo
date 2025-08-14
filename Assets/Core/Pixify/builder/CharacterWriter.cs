@@ -12,13 +12,16 @@ namespace Pixify
             List <Type> PixTypes = new List<Type> ();
 
             foreach (var a in writers)
-            PixTypes.AddRange ( a.RequiredPix() );
+            a.RequiredPix(in PixTypes);
 
             var Constructor = new PreBlock ( PixTypes.ToArray(), this );
             var b = Constructor.CreateBlock ();
 
             foreach (var a in writers)
-            a.AfterWrite (b);
+            {
+                a.AfterWrite (b);
+                Destroy (a);
+            }
 
             Destroy (this);
         }
@@ -27,7 +30,7 @@ namespace Pixify
         {
             var writers = GetComponents<Writer>();
             foreach (var a in writers)
-            a.OnWriteBlock ();
+                a.OnWriteBlock ();
         }
     }
 }

@@ -22,16 +22,13 @@ namespace Triheroes.Code
 
         public Text Debug;
 
-        public override Type[] RequiredPix()
+        public override void RequiredPix( in List<Type> a )
         {
-            return new Type []
-            {
-                Q <gf_transition> (),
-                Q <gf_title> (),
-                Q <gf_interact> (),
-                Q <gf_player_hud> (),
-                Q <gf_debug> ()
-            };
+            a.A <gf_transition> ();
+            a.A <gf_title> ();
+            a.A <gf_interact> ();
+            a.A <gf_player_hud> ();
+            a.A <gf_debug> ();
         }
 
         public override void OnWriteBlock()

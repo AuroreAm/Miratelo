@@ -13,12 +13,10 @@ namespace Triheroes.Code
             new s_camera.package ( transform, transform.GetChild (0).GetComponent <Camera> () );
         }
 
-        public override Type[] RequiredPix()
+        public override void RequiredPix( in List <Type> a )
         {
-            return new Type [] { 
-                Q <s_camera> (),
-                Q < s_camera_shake> ()
-            };
+            a.A <s_camera> ();
+            a.A < s_camera_shake> ();
         }
     }
 }
