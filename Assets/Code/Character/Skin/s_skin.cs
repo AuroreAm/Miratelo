@@ -58,7 +58,7 @@ namespace Triheroes.Code
             Ani.fireEvents = false;
 
             // self start
-            Stage.Start (this);
+            Stage.Start1 (this);
         }
 
         void CacheLayerIndex()

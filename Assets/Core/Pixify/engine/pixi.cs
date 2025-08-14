@@ -46,12 +46,39 @@ namespace Pixify
             Stop ();
         }
 
+        List <int> LinkKeys = new List<int> ();
+        List <pixi> Links = new List<pixi> ();
+        protected void Link ( pixi p )
+        {
+            if ( !Links.Contains ( p ) )
+            {
+                Links.Add ( p );
+                LinkKeys.Add ( -1 );
+            }
+        }
+
+        void StartLink ()
+        {
+            for (int i = 0; i < Links.Count; i++)
+                LinkKeys [i] = Stage.Start1 ( Links [i] );
+        }
+
+        void EndLink ()
+        {
+            for (int i = 0; i < Links.Count; i++)
+            {
+                Stage.Stop1 ( LinkKeys [i] );
+                LinkKeys [i] = -1;
+            }
+        }
+
         private void iTick ()
         {
             if (!on)
             {
                 on = true;
                 Start ();
+                StartLink ();
                 return;
             }
 
@@ -65,6 +92,7 @@ namespace Pixify
             {
                 on = false;
                 Abort ();
+                EndLink ();
                 HandleEnd ();
             }
             else
@@ -77,6 +105,7 @@ namespace Pixify
             {
                 on = false;
                 Stop ();
+                EndLink ();
                 HandleEnd ();
             }
             else

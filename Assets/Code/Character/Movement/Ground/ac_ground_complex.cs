@@ -16,16 +16,14 @@ namespace Triheroes.Code
 
         [Depend]
         s_capsule_character_controller sccc;
-        int key_ccc;
         [Depend]
         s_gravity_ccc sgc;
-        int key_gc;
         [Depend]
         s_skin ss;
         [Depend]
         d_ground_data dgd;
         [Depend]
-        s_footstep sf; int key_f;
+        s_footstep sf;
 
         public term state;
         /// <summary>
@@ -44,6 +42,13 @@ namespace Triheroes.Code
 
         int CurrentFrame;
 
+        public override void Create()
+        {
+            Link (sccc);
+            Link (sgc);
+            Link (sf);
+        }
+
         protected override void Start()
         {
             if ( CurrentFrame != Time.frameCount )
@@ -61,10 +66,6 @@ namespace Triheroes.Code
                 else
                 ToRun ();
             }
-
-             key_ccc = Stage.Start ( sccc );
-             key_gc = Stage.Start ( sgc );
-             key_f = Stage.Start ( sf );
         }
 
         protected override void Step()
@@ -79,10 +80,6 @@ namespace Triheroes.Code
 
         protected override void Stop()
         {
-            Stage.Stop (key_ccc);
-            Stage.Stop (key_gc);
-            Stage.Stop (key_f);
-
             ss.allowMoving = false;
             CurrentFrame = Time.frameCount;
         }

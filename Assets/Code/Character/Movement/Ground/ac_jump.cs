@@ -12,7 +12,7 @@ namespace Triheroes.Code
         public override bool AcceptSecondState => true;
 
         [Depend]
-        public s_capsule_character_controller sccc; int key_ccc;
+        public s_capsule_character_controller sccc;
         [Depend]
         s_skin ss;
 
@@ -25,6 +25,8 @@ namespace Triheroes.Code
 
         public override void Create()
         {
+            Link (sccc);
+
             cu = new delta_curve ( SubResources <CurveRes>.q ( new term ("jump") ).Curve );
         }
 
@@ -36,7 +38,6 @@ namespace Triheroes.Code
 
         protected override void Start()
         {
-            key_ccc = Stage.Start ( sccc );
             cu.Start ( jumpHeight, .5f );
             ss.PlayState(0, jumpAnimation, 0.1f);
             done = false;
@@ -44,7 +45,6 @@ namespace Triheroes.Code
 
         protected override void Stop()
         {
-            Stage.Stop ( key_ccc );
             done = false;
         }
 

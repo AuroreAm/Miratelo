@@ -15,7 +15,7 @@ namespace Triheroes.Code
         [Depend]
         s_skin ss;
         [Depend]
-        s_ground_data_ccc sgdc; int key_gdc;
+        s_ground_data_ccc sgdc;
 
         int CurrentFrame;
 
@@ -29,6 +29,8 @@ namespace Triheroes.Code
 
         public override void Create()
         {
+            Link (sgdc);
+
             Coord = dd.Coord;
             CCA = c.gameObject.AddComponent<CharacterController>();
             UpdateCCADimension ();
@@ -43,7 +45,6 @@ namespace Triheroes.Code
 
         protected override void Start()
         {
-            key_gdc = Stage.Start (sgdc);
 
             // don't reset anything if this is started/stopped on the same frame or next frame
             if (Time.frameCount == CurrentFrame || Time.frameCount == CurrentFrame + 1)
@@ -55,8 +56,6 @@ namespace Triheroes.Code
         protected override void Stop()
         {
             CurrentFrame = Time.frameCount;
-
-            Stage.Stop (key_gdc);
         }
 
         protected override void Step()

@@ -58,7 +58,7 @@ namespace Pixify
             StageStart ();
         }
 
-        public static int Start ( pixi brick ) => o._Start (brick);
+        public static int Start1 ( pixi brick ) => o._Start (brick);
         int _Start ( pixi brick )
         {
             int StartId = counter + 1;
@@ -78,7 +78,7 @@ namespace Pixify
             return StartId;
         }
 
-        public static void Stop ( int id ) => o._Stop (id);
+        public static void Stop1 ( int id ) => o._Stop (id);
         void _Stop ( int id )
         {
             PixiIndex [id].ForceStop (this);

@@ -28,23 +28,21 @@ namespace Triheroes.Code
         public override int Priority => Pri.def;
 
         [Depend]
-        s_capsule_character_controller sccc; int key_ccc;
+        s_capsule_character_controller sccc;
         [Depend]
-        s_gravity_ccc sgc; int key_gc;
+        s_gravity_ccc sgc;
         [Depend]
         s_skin ss;
+
+        public override void Create()
+        {
+            Link (sccc);
+            Link (sgc);
+        }
 
         protected override void Start()
         {
             ss.PlayState (0, AnimationKey.idle,0.1f);
-            key_ccc = Stage.Start ( sccc );
-            key_gc = Stage.Start ( sgc );
-        }
-
-        protected override void Stop()
-        {
-            Stage.Stop ( key_ccc );
-            Stage.Stop ( key_gc );
         }
     }
 }

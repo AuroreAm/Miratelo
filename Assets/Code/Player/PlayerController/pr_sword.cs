@@ -18,7 +18,7 @@ namespace Triheroes.Code
         protected override void Step()
         {
             if ( !pst.on && da.target && se.weaponUser is s_sword_user )
-            Stage.Start (pst);
+            Stage.Start1 (pst);
         }
     }
 
@@ -36,13 +36,11 @@ namespace Triheroes.Code
         [Depend]
         pm_camera_target_target pmctt;
 
-        int key_lt, key_ctt, key_lm;
-
-        protected override void Start()
+        public override void Create()
         {
-            key_lt = Stage.Start (alt);
-            key_ctt = Stage.Start ( pmctt );
-            key_lm = Stage.Start ( plm );
+            Link (alt);
+            Link (plm);
+            Link (pmctt);
         }
 
         protected override void Step()
@@ -51,12 +49,6 @@ namespace Triheroes.Code
             SelfStop ();
         }
 
-        protected override void Stop()
-        {
-            Stage.Stop ( key_lt );
-            Stage.Stop ( key_ctt );
-            Stage.Stop ( key_lm );
-        }
     }
 
     public class pr_sword : reflexion, IMotorHandler, IElementListener <incomming_slash>
@@ -99,7 +91,7 @@ namespace Triheroes.Code
 
             if ( !pc_SS2.on )
             {
-                Stage.Start ( pc_SS2 );
+                Stage.Start1 ( pc_SS2 );
                 return;
             }
             else

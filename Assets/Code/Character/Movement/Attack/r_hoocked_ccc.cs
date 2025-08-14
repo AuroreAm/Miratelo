@@ -44,7 +44,7 @@ namespace Triheroes.Code
         public override int Priority => Pri.ForcedAction;
 
         [Depend]
-        s_capsule_character_controller sccc; int key_ccc;
+        s_capsule_character_controller sccc;
 
         float t;
         const float TimeOut = 1;
@@ -60,10 +60,14 @@ namespace Triheroes.Code
             t = 0;
         }
 
+        public override void Create()
+        {
+            Link (sccc);
+        }
+
         protected override void Start()
         {
             t = 0;
-            key_ccc = Stage.Start ( sccc );
         }
 
         protected override void Step()
@@ -73,11 +77,6 @@ namespace Triheroes.Code
             
             if (t > TimeOut)
             SelfStop ();
-        }
-
-        protected override void Stop()
-        {
-            Stage.Stop ( key_ccc );
         }
     }
 }

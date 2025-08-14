@@ -10,7 +10,7 @@ namespace Pixify.Spirit
         {
             if (ScriptRoot != null)
             {
-                Stage.Start ( ScriptRoot );
+                Stage.Start1 ( ScriptRoot );
             }
             else
             Debug.LogWarning ("script is null");

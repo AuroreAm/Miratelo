@@ -18,7 +18,7 @@ namespace Triheroes.Code
         protected override void Step()
         {
             if (t_SS2.on && !ac_SS2.on)
-            Stage.Start ( ac_SS2 );
+            Stage.Start1 ( ac_SS2 );
         }
     }
 

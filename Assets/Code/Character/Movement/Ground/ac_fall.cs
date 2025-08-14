@@ -12,9 +12,9 @@ namespace Triheroes.Code
         public override bool AcceptSecondState => true;
 
         [Depend]
-        s_capsule_character_controller sccc; int key_ccc;
+        s_capsule_character_controller sccc;
         [Depend]
-        protected s_gravity_ccc sgc; int key_gc;
+        protected s_gravity_ccc sgc;
 
         [Depend]
         public d_ground_data dgd;
@@ -25,11 +25,15 @@ namespace Triheroes.Code
 
         public term landAnimation = AnimationKey.fall_end;
 
+        public override void Create()
+        {
+            Link (sccc);
+            Link (sgc);
+        }
+
         protected override void Start()
         {
             ss.PlayState ( 0, AnimationKey.fall, 0.1f );
-            key_ccc = Stage.Start ( sccc );
-            key_gc = Stage.Start ( sgc );
         }
 
         protected override void Step()
@@ -44,12 +48,6 @@ namespace Triheroes.Code
         protected void LandSFX ()
         {
             sf.PlayFootstep ();
-        }
-
-        protected override void Stop()
-        {
-            Stage.Stop ( key_ccc );
-            Stage.Stop ( key_gc );
         }
 
         public virtual void AirMove(Vector3 DirPerSecond,float WalkFactor = WalkFactor.run)

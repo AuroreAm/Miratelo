@@ -55,13 +55,13 @@ namespace Pixify
             keys = new int [virtual_pix.Count];
 
             for (int i = 0; i < keys.Length; i++)
-            keys [i] = Stage.Start ( virtual_pix [i] );
+            keys [i] = Stage.Start1 ( virtual_pix [i] );
         }
 
         void Free ()
         {
             for (int i = 0; i < keys.Length; i++)
-            Stage.Stop ( keys [i] );
+            Stage.Stop1 ( keys [i] );
         }
 
         public abstract class pixi : Pixify.pixi.managed

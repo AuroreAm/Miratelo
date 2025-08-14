@@ -13,14 +13,12 @@ namespace Triheroes.Code
         public override int Priority => Pri.Action;
 
         [Depend]
-        d_actor da;
-        [Depend]
         s_sword_user ssu;
         [Depend]
         s_skin ss;
 
         [Depend]
-        s_capsule_character_controller sccc; int key_ccc;
+        s_capsule_character_controller sccc;
 
         delta_curve cu;
         term SlashKey;
@@ -35,13 +33,13 @@ namespace Triheroes.Code
 
         public override void Create()
         {
+            Link ( sccc );
             cu = new delta_curve ( SubResources <CurveRes>.q ( new term ("jump") ).Curve );
             // base.create ();
         }
 
         protected override void Start()
         {
-            key_ccc = Stage.Start ( sccc );
             cu.Start ( jumpHeight, duration );
             BeginSlash ();
         }
@@ -61,10 +59,6 @@ namespace Triheroes.Code
             a_hook_attack.Fire ( new term ( ssu.Weapon.HookSlashName ), ssu.Weapon, duration, cu.curve, Vector3.up );
         }
 
-        protected override void Stop()
-        {
-            Stage.Stop ( key_ccc );
-        }
 
         void EndSlash ()
         {

@@ -30,14 +30,14 @@ namespace Pixify.Spirit
         {
             if (Reflexions.Contains (r))
                 return;
-            ReflexionKeys.Add ( Stage.Start ( r ) );
+            ReflexionKeys.Add ( Stage.Start1 ( r ) );
             Reflexions.Add (r);
         }
 
         public void ClearReflexion ()
         {
             foreach ( var i in ReflexionKeys )
-            Stage.Stop ( i );
+            Stage.Stop1 ( i );
 
             Reflexions.Clear ();
             ReflexionKeys.Clear ();

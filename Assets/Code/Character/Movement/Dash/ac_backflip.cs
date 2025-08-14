@@ -11,7 +11,7 @@ namespace Triheroes.Code
         public override int Priority => Pri.Action;
 
         [Depend]
-        s_capsule_character_controller sccc; int key_ccc;
+        s_capsule_character_controller sccc;
         [Depend]
         s_skin ss;
 
@@ -21,13 +21,13 @@ namespace Triheroes.Code
 
         public override void Create()
         {
+            Link (sccc);
             movement = new delta_curve(SubResources<CurveRes>.q(new term("backflip")).Curve);
             jump = new delta_curve(SubResources<CurveRes>.q(new term("jump")).Curve);
         }
 
         protected override void Start()
         {
-            key_ccc = Stage.Start(sccc);
             ss.PlayState(0, AnimationKey.backflip, 0.1f, BackFlipEnd);
 
             movement.Start(5, ss.DurationOfState(AnimationKey.backflip));
@@ -42,11 +42,6 @@ namespace Triheroes.Code
         void BackFlipEnd()
         {
             SelfStop();
-        }
-
-        protected override void Stop()
-        {
-            Stage.Stop(key_ccc);
         }
     }
 }

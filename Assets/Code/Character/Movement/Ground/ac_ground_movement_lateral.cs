@@ -15,9 +15,9 @@ namespace Triheroes.Code
         public override bool AcceptSecondState => true;
 
         [Depend]
-        s_capsule_character_controller sccc; int key_ccc;
+        s_capsule_character_controller sccc;
         [Depend]
-        s_gravity_ccc sgc; int key_gc;
+        s_gravity_ccc sgc;
 
         [Depend]
         s_skin ss;
@@ -29,6 +29,12 @@ namespace Triheroes.Code
         public Vector3 rotDir;
 
         bool firstFrame;
+
+        public override void Create()
+        {
+            Link (sccc);
+            Link (sgc);
+        }
 
         protected override void Start()
         {
@@ -45,9 +51,6 @@ namespace Triheroes.Code
                 ToIdle ();
                 else ToLateral ();
             }
-
-             key_ccc = Stage.Start ( sccc );
-             key_gc = Stage.Start ( sgc );
         }
 
         protected override void Step()
@@ -55,12 +58,6 @@ namespace Triheroes.Code
             Animation ();
             Rotation ();
             lateralDir = Vector3.zero;
-        }
-
-        protected override void Stop()
-        {
-            Stage.Stop (key_ccc);
-            Stage.Stop (key_gc);
         }
 
         void Animation ()

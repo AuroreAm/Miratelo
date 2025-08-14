@@ -17,22 +17,21 @@ namespace Triheroes.Code
         s_skin ss;
 
         [Depend]
-        sp_mb smb; int key_mb;
+        sp_mb smb;
+
+        public override void Create()
+        {
+            Link ( smb );
+        }
 
         protected override void Start()
         {
-            key_mb = Stage.Start (smb);
             ss.HoldState ( 0, AnimationKey.begin_aim, .1f );
         }
 
         public void Aim ( Vector3 Rotation )
         {
             smbu.rotY = Rotation;
-        }
-
-        protected override void Stop()
-        {
-            Stage.Stop ( key_mb );
         }
     }
 

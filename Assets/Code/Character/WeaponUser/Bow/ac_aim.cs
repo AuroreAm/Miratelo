@@ -14,13 +14,17 @@ namespace Triheroes.Code
         s_skin ss;
 
         [Depend]
-        sp_bow sb; int key_b;
+        sp_bow sb;
 
         public override int Priority => Pri.SubAction;
 
+        public override void Create()
+        {
+            Link (sb);
+        }
+
         protected override void Start()
         {
-            key_b = Stage.Start (sb);
             BeginAim ();
         }
 
@@ -55,8 +59,6 @@ namespace Triheroes.Code
         {
             sb.FollowTargetRotation = false;
             ss.ControlledStop ( ss.upper );
-
-            Stage.Stop (key_b);
         }
     }
 }

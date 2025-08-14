@@ -16,10 +16,10 @@ namespace Triheroes.Code
             if (Current == bios) return;
 
             if (Current != null)
-                Stage.Stop (key_i);
+                Stage.Stop1 (key_i);
 
                 Current = bios;
-                key_i = Stage.Start (bios);
+                key_i = Stage.Start1 (bios);
         }
 
     }

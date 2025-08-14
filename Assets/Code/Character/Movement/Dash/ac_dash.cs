@@ -15,7 +15,7 @@ namespace Triheroes.Code
         public static Vector3 Direction ( direction direction ) => (direction == direction.forward)? Vector3.forward : (direction == direction.back)? Vector3.back:(direction == direction.right)? Vector3.right:Vector3.left;
 
         [Depend]
-        s_capsule_character_controller sccc; int key_ccc;
+        s_capsule_character_controller sccc;
         [Depend]
         s_skin ss;
 
@@ -33,7 +33,7 @@ namespace Triheroes.Code
         }
 
         public void OverrideDashAnimation(term animation) => dashAnimation = animation;
-        public void OverrideDashAnimation(term animation, Single transitionDuration)
+        public void OverrideDashAnimation(term animation, float transitionDuration)
         {
             dashAnimation = animation;
             TransitionDuration = transitionDuration;
@@ -41,12 +41,13 @@ namespace Triheroes.Code
 
         public override void Create()
         {
+            Link (sccc);
+
             movement = new delta_curve(SubResources<CurveRes>.q(new term("jump")).Curve);
         }
 
         protected override void Start()
         {
-            key_ccc = Stage.Start ( sccc );
             ss.PlayState (0, dashAnimation, TransitionDuration, DashEnd);
             movement.Start ( 5, ss.DurationOfState ( dashAnimation ) );
         }
@@ -59,11 +60,6 @@ namespace Triheroes.Code
         void DashEnd ()
         {
             SelfStop ();
-        }
-
-        protected override void Stop()
-        {
-            Stage.Stop (key_ccc);
         }
     }
 }

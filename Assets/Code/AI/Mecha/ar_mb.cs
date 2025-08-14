@@ -18,7 +18,7 @@ namespace Triheroes.Code
         {
             if (tma.on && !ama.on)
             {
-                Stage.Start(ama);
+                Stage.Start1(ama);
             }
         }
     }

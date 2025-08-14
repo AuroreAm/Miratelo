@@ -39,7 +39,7 @@ namespace Triheroes.Code
             if (Ready && attacker.on == false && !pfdbt.on)
             {
                 if (dodging)
-                    Stage.Start(pfdbt);
+                    Stage.Start1(pfdbt);
                 Reset();
             }
         }
@@ -65,7 +65,7 @@ namespace Triheroes.Code
     public class pc_perfect_dash_bullet_time : action
     {
         [Depend]
-        bullet_time bt; int key_bt;
+        bullet_time bt;
 
         [Depend]
         pc_perfect_dash pfd;
@@ -78,10 +78,14 @@ namespace Triheroes.Code
         bool dodging => ad.on || ab.on;
         bool ReadyForDash;
 
+        public override void Create()
+        {
+            Link (bt);
+        }
+
         protected override void Start()
         {
             bt.Set(.4f);
-            key_bt = Stage.Start(bt);
 
             ReadyForDash = false;
         }
@@ -99,17 +103,15 @@ namespace Triheroes.Code
 
         protected override void Stop()
         {
-            Stage.Stop(key_bt);
-
             if (ReadyForDash)
-                Stage.Start(pfd);
+                Stage.Start1(pfd);
         }
     }
 
     public class pc_perfect_dash : action, IMotorHandler
     {
         [Depend]
-        bullet_time bt; int key_bt;
+        bullet_time bt;
 
         [Depend]
         s_skin ss;
@@ -129,6 +131,11 @@ namespace Triheroes.Code
         public void OnMotorEnd(motor m)
         {
             SelfStop();
+        }
+
+        public override void Create()
+        {
+            Link (bt);
         }
 
         protected override void Start()
@@ -152,13 +159,11 @@ namespace Triheroes.Code
             }
 
             bt.Set(.2f);
-            key_bt = Stage.Start(bt);
         }
 
         protected override void Stop()
         {
-            Stage.Stop(key_bt);
-            Stage.Start(ss7);
+            Stage.Start1(ss7);
         }
     }
 
@@ -174,13 +179,15 @@ namespace Triheroes.Code
         readonly float TimeOut = .2f;
 
         [Depend]
-        bullet_time bt; int key_bt;
+        bullet_time bt;
 
         public void OnMotorEnd(motor m)
         { }
 
         public override void Create()
         {
+            Link (bt);
+
             Combo = new motor[10];
 
             var slashKeys = SS7.SlashKeys;
@@ -195,7 +202,6 @@ namespace Triheroes.Code
         protected override void Start()
         {
             bt.Set(.2f);
-            key_bt = Stage.Start(bt);
 
             ComboPtr = 0;
             ReadyForCombo = false;
@@ -238,11 +244,6 @@ namespace Triheroes.Code
 
                 timer += Time.deltaTime;
             }
-        }
-
-        protected override void Stop()
-        {
-            Stage.Stop(key_bt);
         }
     }
 

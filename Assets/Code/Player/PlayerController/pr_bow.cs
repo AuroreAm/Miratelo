@@ -17,7 +17,7 @@ namespace Triheroes.Code
         protected override void Step()
         {
             if ( !pa.on && Player.Aim.Active && se.weaponUser is s_bow_user )
-                Stage.Start ( pa );
+                Stage.Start1 ( pa );
         }
     }
 
@@ -35,11 +35,15 @@ namespace Triheroes.Code
         pc_lateral_move plm;
         [Depend]
         ac_aim ca;
-        int key_lm;
 
         public void OnMotorEnd(motor m)
         {
             SelfStop ();
+        }
+
+        public override void Create()
+        {
+            Link (plm);
         }
 
         protected override void Start()
@@ -48,8 +52,6 @@ namespace Triheroes.Code
 
             if (!ca.on)
             SelfStop ();
-            
-            key_lm = Stage.Start (plm);
         }
 
         protected override void Step()
@@ -66,8 +68,6 @@ namespace Triheroes.Code
 
         protected override void Stop()
         {
-            Stage.Stop ( key_lm );
-
             if (sm.secondState == ca)
             sm.EndSecondState (this);
         }
