@@ -10,8 +10,5 @@ namespace Triheroes.Code
         protected override int HandIndex => 0;
         protected override Quaternion DefaultRotation => Const.BowDefaultRotation;
         protected override int AniLayer => ss.bow;
-
-        // rotation of aim
-        public Vector3 rotY;
     }
 }

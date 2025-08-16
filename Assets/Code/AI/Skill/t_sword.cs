@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class t_SS2 : thought.final
+    public class t_SS1 : thought.final
     {
         public int ComboId;
 
         [Category ("actor")]
-        public class slash_SS2 : package.o <t_SS2>
+        public class slash_SS1 : package.o <t_SS1>
         {
             [Export]
             public int ComboId;

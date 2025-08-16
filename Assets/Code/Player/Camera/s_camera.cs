@@ -91,19 +91,19 @@ namespace Triheroes.Code
 
         // Screen ray
         Ray ScreenRay;
-        public Vector3 PointScreenCenter(Transform Exclude)
+        public Vector3 PointScreenCenter(GameObject Exclude)
         {
             ScreenRay.origin = Coord.position;
             ScreenRay.direction = Coord.forward;
 
-            int d = Exclude.gameObject.layer;
-            Exclude.gameObject.layer = 0;
+            int d = Exclude.layer;
+            Exclude.layer = 0;
             RaycastHit hit;
 
             bool HasHitSomething = Physics.Raycast(ScreenRay, out hit,
             256, Vecteur.SolidCharacter);
 
-            Exclude.gameObject.layer = d;
+            Exclude.layer = d;
 
             if (HasHitSomething)
                 return hit.point;
@@ -132,7 +132,7 @@ namespace Triheroes.Code
             public void Set(tps_shot In, tps_shot Out)
             {
                 if (In == null || Out == null)
-                throw new NullReferenceException ("tps_transition: null tps_shot");
+                    throw new NullReferenceException("tps_transition: null tps_shot");
                 IN = In;
                 OUT = Out;
             }
@@ -146,7 +146,7 @@ namespace Triheroes.Code
                 inDistance = IN.distance;
                 inOffset = IN.offset;
 
-                key_cs = Stage.Start ( OUT );
+                key_cs = Stage.Start(OUT);
                 t = 0;
             }
 
@@ -155,7 +155,7 @@ namespace Triheroes.Code
             {
                 t = Mathf.Lerp(t, 1, .1f);
 
-                internalRotY = new Vector3( Mathf.LerpAngle(inRotY.x, td.rotY.x, t), Mathf.LerpAngle(inRotY.y, td.rotY.y, t), 0);
+                internalRotY = new Vector3(Mathf.LerpAngle(inRotY.x, td.rotY.x, t), Mathf.LerpAngle(inRotY.y, td.rotY.y, t), 0);
                 offset = Vector3.Lerp(inOffset, OUT.offset, t);
                 height = Mathf.Lerp(inHeight, OUT.height, t);
                 distance = Mathf.Lerp(inDistance, OUT.distance, t);
@@ -164,7 +164,7 @@ namespace Triheroes.Code
 
                 if (t >= .95f)
                 {
-                    Stage.Stop ( key_cs );
+                    Stage.Stop(key_cs);
                     o.SetCameraShot(OUT);
                 }
             }
@@ -175,15 +175,15 @@ namespace Triheroes.Code
                 OUT = null;
             }
 
-            protected void RayCameraPosition (  )
+            protected void RayCameraPosition()
             {
                 float RayDistance = distance;
                 Vector3 TargetPos = td.Subject.position + offset + height * Vector3.up;
 
-                if ( Physics.SphereCast ( td.Subject.position, radius, Vecteur.LDir(internalRotY,Vector3.back), out RaycastHit hit, distance, Vecteur.Solid ) )
+                if (Physics.SphereCast(td.Subject.position, radius, Vecteur.LDir(internalRotY, Vector3.back), out RaycastHit hit, distance, Vecteur.Solid))
                     RayDistance = hit.distance - 0.05f;
 
-                CamPos = TargetPos + Vecteur.LDir(internalRotY,Vector3.back) * RayDistance;
+                CamPos = TargetPos + Vecteur.LDir(internalRotY, Vector3.back) * RayDistance;
                 CamRot = Quaternion.Euler(internalRotY);
             }
         }

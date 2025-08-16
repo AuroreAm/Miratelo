@@ -5,6 +5,4 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [PixiBase]
-    public abstract class s_skin_procedural : pixi {}
 }

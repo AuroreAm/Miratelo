@@ -11,12 +11,12 @@ namespace Triheroes.Code
         [Depend]
         d_actor da;
         [Depend]
-        ac_ground_movement_lateral cgml;
+        d_ground dg;
 
         protected override void Step()
         {
             if (da.target != null)
-            cgml.rotDir = da.target.ss.Coord.position - da.ss.Coord.position;
+            dg.rotY.y = Vecteur.RotDirectionY ( da.dd.position,da.target.dd.position );
         }
     }
 

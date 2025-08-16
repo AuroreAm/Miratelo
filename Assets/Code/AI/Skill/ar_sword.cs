@@ -8,56 +8,21 @@ namespace Triheroes.Code
 {
     public class ar_sword : reflexion
     {
-        
         [Depend]
-        t_SS2 t_SS2;
+        t_SS1 t_SS1;
 
         [Depend]
-        ac_ss2 ac_SS2;
+        d_skill ds;
 
         protected override void Step()
         {
-            if (t_SS2.on && !ac_SS2.on)
-            Stage.Start ( ac_SS2 );
-        }
-    }
-
-    public class ac_ss2 : action, IMotorHandler
-    {
-        [Depend]
-        s_motor sm;
-        motor [] Combo;
-
-        [Depend]
-        t_SS2 t_SS2;
-
-        public void OnMotorEnd(motor m)
-        {
-            t_SS2.Finish ();
-            SelfStop ();
-        }
-
-        public override void Create()
-        {
-            Combo = new motor[3];
-
-            for (int i = 0; i < 3; i++)
+            if (t_SS1.on && ds.SkillValid <SS1> ())
             {
-                var motor_slash = new ac_slash ( SS2.SlashKeys [i] );
-                b.IntegratePix (motor_slash);
-                Combo[i] = motor_slash;
+                if (ds.GetSkill <SS1> ().Spam (t_SS1.ComboId))
+                t_SS1.Finish ();
             }
         }
-
-        protected override void Start()
-        {
-            var Success = sm.SetState ( Combo [ t_SS2.ComboId ], this );
-
-            if (!Success)
-            SelfStop ();
-        }
     }
-
 
     [Category ("actor")]
     public class slash_condition : condition

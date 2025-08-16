@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using Pixify;
 using Pixify.Spirit;
 using UnityEngine;
@@ -8,20 +10,23 @@ namespace Triheroes.Code
 {
     public class ac_aim : motor
     {
+        // target aim rotation
+        float rotY;
+        // current rotation x really aimed by the graphic
+        float rotX;
+
+        // target rotation
+        float TX, TY;
+        float AngularDelta => 720 * Time.deltaTime;
+
         [Depend]
         s_bow_user sbu;
         [Depend]
         s_skin ss;
-
         [Depend]
-        sp_bow sb;
+        d_ground dg;
 
         public override int Priority => Pri.SubAction;
-
-        public override void Create()
-        {
-            Link (sb);
-        }
 
         protected override void Start()
         {
@@ -31,34 +36,31 @@ namespace Triheroes.Code
         void BeginAim ()
         {
             ss.HoldState ( ss.upper, AnimationKey.begin_aim, .1f );
-
-            sb.FollowTargetRotation = true;
             Aim (ss.rotY);
         }
 
-        public void Aim ( Vector3 Rotation )
+        public void Aim(Vector3 Rotation)
         {
-            sbu.rotY = Rotation;
-            sb.TargetRotation = Rotation;
+            rotY = Rotation.y;
+            rotX = Rotation.x;
         }
 
-        public void StartShoot ()
+        protected override void Step()
         {
-            if (on)
-            {
-                ss.PlayState ( ss.upper, AnimationKey.start_shoot, 0.1f, null, null, Shoot );
-            }
+            TY = Mathf.DeltaAngle ( sbu.Weapon.rotY.y, ss.actualRotY.y ) + rotY;
+            dg.rotY.y = Mathf.MoveTowardsAngle (dg.rotY.y,TY, AngularDelta );
+            ss.Ani.SetFloat ( Hash.x, Mathf.DeltaAngle ( 0, rotX ) );
         }
 
+        /*
         void Shoot ()
         {
-            a_trajectile.Fire ( new term (sbu.Weapon.ArrowName), sbu.Weapon.BowString.position, Quaternion.Euler (sbu.rotY), sbu.Weapon.Speed );
-        }
+            a_trajectile.Fire ( new term (sbu.Weapon.ArrowName), sbu.Weapon.BowString.position, Quaternion.Euler (rotY), sbu.Weapon.Speed );
+        }*/
 
         protected override void Stop()
         {
-            sb.FollowTargetRotation = false;
-            ss.ControlledStop ( ss.upper );
+            ss.ControlledStop(ss.upper);
         }
     }
 }

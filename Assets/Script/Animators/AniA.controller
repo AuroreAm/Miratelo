@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!206 &-8915013919771693843
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Blend Tree
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: -1943999330278636680, guid: d61024fb4891b4a44b73756702c072fd, type: 3}
+    m_Threshold: -90
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: rik
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -7711959559102324587, guid: d61024fb4891b4a44b73756702c072fd, type: 3}
+    m_Threshold: -45
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: rik
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -5425638389798196324, guid: d61024fb4891b4a44b73756702c072fd, type: 3}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: rik
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -2131699878855239151, guid: d61024fb4891b4a44b73756702c072fd, type: 3}
+    m_Threshold: 45
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: rik
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -7465591297872240016, guid: d61024fb4891b4a44b73756702c072fd, type: 3}
+    m_Threshold: 60
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: rik
+    m_Mirror: 0
+  m_BlendParameter: x
+  m_BlendParameterY: rik
+  m_MinThreshold: -90
+  m_MaxThreshold: 60
+  m_UseAutomaticThresholds: 0
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
 --- !u!1102 &-8130834407330215515
 AnimatorState:
   serializedVersion: 6
@@ -627,7 +682,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -4542793695794230229, guid: d61024fb4891b4a44b73756702c072fd, type: 3}
+  m_Motion: {fileID: -8915013919771693843}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -863,6 +918,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: spd
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: x
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0

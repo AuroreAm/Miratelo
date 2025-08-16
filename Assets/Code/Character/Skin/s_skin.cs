@@ -21,14 +21,19 @@ namespace Triheroes.Code
         Player[] Players;
 
         /// <summary>
-        /// rotation of the character
+        /// rotation of the character, modify this to change to rotation ofthe charater graphic
         /// </summary>
         public Vector3 rotY;
+        
+        /// <summary>
+        /// Actual rotY of this graphic now
+        /// </summary>
+        public Vector3 actualRotY { private set; get; }
 
         /// <summary>
-        /// layer index of the character's Animation Controller
+        /// hardocode layer index of any type of character
         /// </summary>
-        public int sword, bow, knee, r_arm, upper;
+        public int sword, bow, knee, r_arm, upper, spiney;
 
         /// <summary>
         /// is the character moving from SkinDir
@@ -68,6 +73,7 @@ namespace Triheroes.Code
             knee = Ani.GetLayerIndex("knee");
             r_arm = Ani.GetLayerIndex("r_arm");
             upper = Ani.GetLayerIndex("upper");
+            spiney = Ani.GetLayerIndex("spiney");
         }
 
         void CreatePlayersPerLayer()
@@ -90,6 +96,7 @@ namespace Triheroes.Code
             // place the skin gameobject in the character's coordinate
             Ani.transform.position = Coord.position + new Vector3(0, offPosY, 0);
             Ani.transform.rotation = Quaternion.Euler(0, rotY.y + offRotY, 0);
+            actualRotY = rotY;
         }
 
         void UpdatePlayers()

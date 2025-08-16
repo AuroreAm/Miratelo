@@ -14,9 +14,8 @@ public class scr_enemy_test : cortex
         AddReflexion < ar_way_to_target > (); 
         AddReflexion < ar_way_arround_target > (); 
         AddReflexion < ar_equip_equip_from_inv_0 > ();
+
         AddReflexion < ar_sword > ();
-        AddReflexion < r_hooked_up_ccc > ();
-        AddReflexion < ar_mb > ();
     }
 }
 

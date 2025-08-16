@@ -33,8 +33,6 @@ namespace Triheroes.Code
 
                 typeof ( s_ground_data_ccc ),
 
-                typeof ( s_skin_procedural ),
-
                 typeof ( action ),
                 typeof ( spirit ),
                 typeof ( reflexion ),

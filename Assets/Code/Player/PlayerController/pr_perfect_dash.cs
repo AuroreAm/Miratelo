@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    /*
     public class pr_perfect_dash : reflexion, IElementListener<incomming_slash>
     {
         bool Ready;
@@ -246,5 +247,5 @@ namespace Triheroes.Code
             }
         }
     }
-
+*/
 }

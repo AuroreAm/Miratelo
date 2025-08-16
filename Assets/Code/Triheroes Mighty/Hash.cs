@@ -13,6 +13,9 @@ namespace Triheroes.Code
         public static readonly int rik = Animator.StringToHash("rik");
         public static readonly int dx = Animator.StringToHash("dx");
         public static readonly int dz = Animator.StringToHash("dz");
+        public static readonly int x = Animator.StringToHash("x");
+        public static readonly int y = Animator.StringToHash("y");
+        public static readonly int z = Animator.StringToHash("z");
     }
 
     public static class Const

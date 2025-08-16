@@ -21,19 +21,17 @@ namespace Triheroes.Code
         [Depend]
         s_skin ss;
         [Depend]
+        d_ground dg;
+        [Depend]
         d_ground_data dgd;
         [Depend]
         s_footstep sf;
 
-        public term state;
+        public term state { private set; get; }
         /// <summary>
         /// composite walk direction for the character
         /// </summary>
         public Vector3 walkDir;
-        /// <summary>
-        /// direction the character is commanded to face
-        /// </summary>
-        public Vector3 rotDir;
         /// <summary>
         /// walk factor of the movement, used to interpolate between idle and walk, the character's speed is multiplied by this factor
         /// </summary>
@@ -55,7 +53,6 @@ namespace Triheroes.Code
             {
                 sprintCooldown = 0;
                 walkDir = Vector3.zero;
-                rotDir = Vecteur.LDir ( ss.rotY, Vector3.forward );
                 ToIdle ();
             }
             // don't reset anything if this is aquired/freed on the same frame
@@ -151,18 +148,17 @@ namespace Triheroes.Code
 
         void Rotation ()
         {
-            float RotYTarget = 0;
-            if (rotDir.magnitude > 0)
-                RotYTarget =  Vecteur.RotDirectionY ( Vector3.zero, rotDir);
+            if (walkDir.magnitude > 0)
+                dg.rotY.y =  Vecteur.RotDirectionY ( Vector3.zero, walkDir);
 
             // brake turn animation if rotation difference is too high // and is sprinting
-            if (state == StateKey.sprint && Mathf.Abs(Mathf.DeltaAngle(ss.rotY.y, RotYTarget)) > 120)
+            if (state == StateKey.sprint && Mathf.Abs(Mathf.DeltaAngle(ss.rotY.y, dg.rotY.y)) > 120)
                 RotationBrake();
 
-            if (state == StateKey.brake && Mathf.Abs(Mathf.DeltaAngle(ss.rotY.y, RotYTarget)) > 120)
+            if (state == StateKey.brake && Mathf.Abs(Mathf.DeltaAngle(ss.rotY.y, dg.rotY.y)) > 120)
                 RotationBrake();
 
-            ss.rotY = new Vector3(0, Mathf.MoveTowardsAngle(ss.rotY.y, RotYTarget, Time.deltaTime * 720), 0);
+            ss.rotY = new Vector3(0, Mathf.MoveTowardsAngle(ss.rotY.y, dg.rotY.y, Time.deltaTime * 720), 0);
         }
 
         void RotationBrake()
@@ -192,11 +188,8 @@ namespace Triheroes.Code
                 walkDir += DirPerSecond;
                 walkFactor = WalkFactor;
 
-                if (walkDir.magnitude > 0.01f)
-                rotDir = walkDir.normalized;
-
                 if (state!=StateKey.brake_rotation && state != StateKey.idle)
-                sccc.dir += Time.deltaTime * walkFactor * ground_movement.SlopeProjection (DirPerSecond, dgd.groundNormal);
+                sccc.dir += Time.deltaTime * walkFactor * d_ground.SlopeProjection (DirPerSecond, dgd.groundNormal);
             }
         }
         #endregion

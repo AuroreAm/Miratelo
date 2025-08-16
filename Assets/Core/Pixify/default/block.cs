@@ -58,7 +58,7 @@ namespace Pixify
                 return mains [PixType];
             else
             {
-                var c = Activator.CreateInstance (PixType) as pix;
+                var c = (pix) Activator.CreateInstance (PixType);
                 IntegratePix ( c );
                 return c;
             }

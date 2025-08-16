@@ -23,10 +23,11 @@ namespace Triheroes.Code
         s_skin ss;
         [Depend]
         d_ground_data dgd;
+        [Depend]
+        d_ground dg;
 
-        public term state;
+        term state;
         public Vector3 lateralDir;
-        public Vector3 rotDir;
 
         bool firstFrame;
 
@@ -41,7 +42,6 @@ namespace Triheroes.Code
             if (firstFrame == true)
             {
                 lateralDir = Vector3.zero;
-                rotDir = Vecteur.LDir ( ss.rotY, Vector3.forward );
                 ToIdle ();
                 firstFrame = false;
             }
@@ -82,11 +82,7 @@ namespace Triheroes.Code
 
         void Rotation ()
         {
-            float RotYTarget = 0;
-            if (rotDir.magnitude > 0)
-                RotYTarget =  Vecteur.RotDirectionY ( Vector3.zero, rotDir);
-
-            ss.rotY = new Vector3(0, Mathf.MoveTowardsAngle(ss.rotY.y, RotYTarget, Time.deltaTime * 720), 0);
+            ss.rotY = new Vector3(0, Mathf.MoveTowardsAngle(ss.rotY.y, dg.rotY.y, Time.deltaTime * 720), 0);
         }
 
         void ToLateral ()
@@ -115,7 +111,7 @@ namespace Triheroes.Code
         {
             if (on)
             {
-                sccc.dir += Time.deltaTime * ground_movement.SlopeProjection (DirPerSecond, dgd.groundNormal);
+                sccc.dir += Time.deltaTime * d_ground.SlopeProjection (DirPerSecond, dgd.groundNormal);
                 lateralDir += DirPerSecond;
             }
         }

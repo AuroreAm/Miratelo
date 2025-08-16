@@ -6,37 +6,9 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [Category("sword skill")]
-    public abstract class sword_skill : skill_data
-    {
-        [Depend]
-        s_equip se;
 
-        public override bool SkillCondition()
-        {
-            return se.weaponUser is s_sword_user ;
-        }
-    }
 
-    public class SS2 : sword_skill
-    {
-        public static readonly term[] SlashKeys = { AnimationKey.slash_0, AnimationKey.slash_1, AnimationKey.slash_2 };
-
-        public motor[] Combo;
-
-        public override void Create()
-        {
-            Combo = new motor[3];
-
-            for (int i = 0; i < 3; i++)
-            {
-                var motor_slash = new ac_slash ( SlashKeys[i] );
-                b.IntegratePix (motor_slash);
-                Combo[i] = motor_slash;
-            }
-        }
-    }
-
+    /*
     public class SS3_parry : sword_skill
     {
         public static readonly term[] SlashKeys = { AnimationKey.parry_0, AnimationKey.parry_1 };
@@ -59,5 +31,5 @@ namespace Triheroes.Code
 
     public class SS4_knocker : sword_skill
     {
-    }
+    }*/
 }

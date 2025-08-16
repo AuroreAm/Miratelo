@@ -7,7 +7,7 @@ namespace Triheroes.Code
 {
     public class SkillWriter : Writer
     {
-        public PixPaper <skill_data> [] skills;
+        public PixPaper <skill_box> [] skills;
 
         public override void RequiredPix(in List<Type> a)
         {
@@ -22,7 +22,6 @@ namespace Triheroes.Code
 
         public override void OnWriteBlock()
         {
-            throw new NotImplementedException();
         }
     }
 }

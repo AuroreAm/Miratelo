@@ -16,8 +16,6 @@ namespace Triheroes.Code
         [Depend]
         d_dimension dd;
         [Depend]
-        character c;
-        [Depend]
         ar_move_way_point amwp;
 
         [Depend]

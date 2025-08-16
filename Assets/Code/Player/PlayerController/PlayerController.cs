@@ -24,17 +24,9 @@ namespace Triheroes.Code
             AddReflexion <pr_target> ();
             AddReflexion <pr_interact_near_weapon> ();
 
-            // dash skill
-            if ( ds.SkillValid <DS0_dash> () )
-            AddReflexion <pr_dash> (); 
-
-            if ( ds.SkillValid <SS2> ())
-            {
-                AddReflexion <pr_sword> ();
-                AddReflexion <pr_sword_target> ();
-                AddReflexion <pr_perfect_dash> ();
-            }
-
+            AddReflexion <pr_dash> ();
+            AddReflexion <pr_sword> ();
+            AddReflexion <pr_sword_target> ();
             AddReflexion <pr_aim> ();
         }
     }

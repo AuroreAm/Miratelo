@@ -11,9 +11,11 @@ namespace Triheroes.Code
 
 
         public float Speed;
-        
+
         // TODO: change this to hash
         public string ArrowName;
         public Transform BowString;
+
+        public Vector3 rotY => Vecteur.RotDirection(BowString.position, transform.position);
     }
 }
