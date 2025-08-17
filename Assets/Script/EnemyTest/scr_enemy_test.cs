@@ -8,7 +8,7 @@ using UnityEngine;
 [Category ("ai")]
 public class scr_enemy_test : cortex
 {
-    public override void Think()
+    public override void Setup()
     {
         AddReflexion < ar_move_way_point > ();
         AddReflexion < ar_way_to_target > (); 
@@ -20,7 +20,7 @@ public class scr_enemy_test : cortex
 }
 
 [Category ("script")]
-public class scr_enemy_test_while_target_aprroach_rapidly_reaction : reflexion_flow
+public class scr_enemy_test_while_target_aprroach_rapidly_reaction : reaction_flow
 {
     [Depend]
     d_actor da;

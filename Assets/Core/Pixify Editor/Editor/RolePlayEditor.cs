@@ -33,7 +33,7 @@ namespace Pixify.Editor
             Add <PointerPaper> ();
 
             if (GUILayout.Button ("Reflexion"))
-            Add <ReflexionPaper> ();
+            Add <ReactionPaper> ();
 
             if (GUILayout.Button ("Condition"))
             Add <ConditionPaper> ();
@@ -96,7 +96,7 @@ namespace Pixify.Editor
             
             if ( obj == null ) return;
 
-            if ( obj.GetComponent <RolePlay> () || obj.GetComponent <FlowPaper> () || obj.GetComponent <PointerPaper> () || obj.GetComponent <ReflexionPaper> () || obj.GetComponent <ConditionPaper> () )
+            if ( obj.GetComponent <RolePlay> () || obj.GetComponent <FlowPaper> () || obj.GetComponent <PointerPaper> () || obj.GetComponent <ReactionPaper> () || obj.GetComponent <ConditionPaper> () )
             {
                 Rect r = new Rect(new Vector2(selectionRect.x + selectionRect.width - 32, selectionRect.y), new Vector2(38, selectionRect.height));
 

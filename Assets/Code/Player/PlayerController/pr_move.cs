@@ -18,7 +18,7 @@ namespace Triheroes.Code
         public void OnMotorEnd(motor m)
         {}
 
-        protected override void Step()
+        protected override void Reflex()
         {
             if (sm.state == null)
                 sm.SetState (agc,this);

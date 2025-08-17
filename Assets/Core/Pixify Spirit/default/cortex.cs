@@ -9,7 +9,7 @@ namespace Pixify.Spirit
         [Depend]
         s_mind sm;
 
-        public abstract void Think ( );
+        public abstract void Setup ();
 
         protected void AddReflexion <T> () where T : reflexion, new ()
         {

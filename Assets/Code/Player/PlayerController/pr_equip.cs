@@ -32,7 +32,7 @@ namespace Triheroes.Code
             this.m.SetSecondState ( adw, this );
         }
 
-        protected override void Step()
+        protected override void Reflex()
         {
             if (Player.Action2.OnActive)
             {
@@ -85,7 +85,7 @@ namespace Triheroes.Code
         [Depend]
         s_inv_0 si;
 
-        protected override void Step()
+        protected override void Reflex()
         {
             if (play.o.currentInteractable is pi_weapon pw)
             {

@@ -35,7 +35,7 @@ namespace Triheroes.Code
         {
         }
 
-        protected override void Step()
+        protected override void Reflex()
         {
             if (dgd.onGround && Player.Jump.OnActive && sm.state != aj)
             {

@@ -6,40 +6,16 @@ using Pixify.Spirit;
 
 namespace Triheroes.Code
 {
-    public class pr_sword : reflexion
+    public class pr_sword : skill_reflexion <SS2>
     {
-        [Depend]
-        d_skill ds;
-
-        protected override void Step()
+        protected override void SkillReflex ( SS2 Skill )
         {
-            SS2_skill ();
-        }
-
-        void SS2_skill ()
-        {
-            if ( ds.SkillValid <SS2> () && Player.Action2.OnActive  )
-            ds.GetSkill <SS2> ().Spam ();
+            if ( Player.Action2.OnActive )
+           Skill.Spam ();
         }
     }
 
     public class pr_sword_target : reflexion
-    {
-        [Depend]
-        d_actor da;
-        [Depend]
-        s_equip se;
-        [Depend]
-        pc_sword_target pst;
-
-        protected override void Step()
-        {
-            if ( !pst.on && da.target && se.weaponUser is s_sword_user )
-            Stage.Start (pst);
-        }
-    }
-
-    public class pc_sword_target : action
     {
         [Depend]
         d_actor da;
@@ -52,7 +28,7 @@ namespace Triheroes.Code
         pc_lateral_move plm;
         [Depend]
         pm_camera_target_target pmctt;
-
+        
         public override void Create()
         {
             Link (alt);
@@ -60,11 +36,17 @@ namespace Triheroes.Code
             Link (pmctt);
         }
 
+        protected override void Reflex()
+        {
+            if ( da.target && se.weaponUser is s_sword_user )
+            Stage.Start (this);
+        }
+
+        
         protected override void Step()
         {
             if (!( da.target && se.weaponUser is s_sword_user ))
             SelfStop ();
         }
     }
-
 }

@@ -12,7 +12,7 @@ namespace Triheroes.Code
         [Depend]
         d_skill ds;
 
-        public override void Think()
+        public override void Setup()
         {
             // basic movement
             AddReflexion <pr_move> ();

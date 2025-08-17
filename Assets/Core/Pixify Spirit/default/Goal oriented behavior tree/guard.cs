@@ -6,25 +6,25 @@ namespace Pixify.Spirit
 {
     public class guard : thought.chain
     {
-        reflexion [] Reflexions;
+        reaction [] Reactions;
         int [] ReflexionKeys;
         chain main;
 
         protected override void OnAquire()
         {
-            for (int i = 0; i < Reflexions.Length; i++)
+            for (int i = 0; i < Reactions.Length; i++)
             {
-                ReflexionKeys [i] = Stage.Start ( Reflexions [i] );
+                ReflexionKeys [i] = Stage.Start ( Reactions [i] );
             }
 
             main.Aquire (this);
         }
 
-        public guard ( reflexion [] _reflexions, chain thought )
+        public guard ( reaction [] _reflexions, chain thought )
         {
             main = thought;
-            Reflexions = _reflexions;
-            ReflexionKeys = new int [Reflexions.Length];
+            Reactions = _reflexions;
+            ReflexionKeys = new int [Reactions.Length];
         }
 
         protected override bool OnGuestSelfFree(thought guest)

@@ -12,7 +12,7 @@ namespace Triheroes.Code
         d_actor da;
         public float Distance = 20;
 
-        protected override void Step()
+        protected override void Reflex()
         {
             if ( Player.Focus.OnActive && !da.target )
             {

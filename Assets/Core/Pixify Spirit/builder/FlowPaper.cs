@@ -6,7 +6,7 @@ namespace Pixify.Spirit
 {
     public sealed class FlowPaper : ThoughtAuthor <flow>
     {
-        List <reflexion_flow> subscribers = new List <reflexion_flow> ();
+        List <reaction_flow> subscribers = new List <reaction_flow> ();
 
         protected override flow Get(block b)
         {
@@ -22,13 +22,13 @@ namespace Pixify.Spirit
             b.IntegratePix ( t );
 
             foreach ( var s in subscribers )
-            typeof (reflexion_flow).GetProperty ( "anchor", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public ).SetValue ( s, t );
+            typeof (reaction_flow).GetProperty ( "anchor", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public ).SetValue ( s, t );
             subscribers = null;
 
             return t;
         }
 
-        public void Subscribe ( reflexion_flow r )
+        public void Subscribe ( reaction_flow r )
         {
             subscribers.Add ( r );
         }

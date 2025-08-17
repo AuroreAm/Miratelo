@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class pr_dash : reflexion
+    public class pr_dash : skill_reflexion <DS0_dash>
     {
         [Depend]
         d_skill ds;
@@ -20,9 +20,9 @@ namespace Triheroes.Code
         public void OnMotorEnd(motor m)
         { }
 
-        protected override void Step()
+        protected override void SkillReflex ( DS0_dash skill )
         {
-            if ( Player.Dash.OnActive && ds.SkillValid <DS0_dash> () )
+            if ( Player.Dash.OnActive )
             {
                 direction direction = direction.forward;
 
@@ -42,7 +42,7 @@ namespace Triheroes.Code
                     else if (InputAxis.z < 0)
                         direction = direction.back;
                 }
-                ds.GetSkill <DS0_dash> ().Spam (direction);
+                skill.Spam (direction);
             }
             // UpdateDirectionIfTarget();
         }

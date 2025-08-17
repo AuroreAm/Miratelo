@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace Pixify.Spirit
 {
-    public class s_mind : pix
+    public class s_mind : reaction
     {
         List <reflexion> Reflexions = new List<reflexion> ();
-        List <int> ReflexionKeys = new List<int> ();
 
         Dictionary < term, thought.chain > ConceptThoughts = new Dictionary<term, thought.chain> ();
         public mind master {private set; get;} = new mind ();
@@ -17,30 +16,29 @@ namespace Pixify.Spirit
         {
             cortex = newCortex;
             b.IntegratePix (newCortex);
-            TriggerThinking ();
+            cortex.Setup ();
         }
 
-        public void TriggerThinking ()
+        public override void Create()
         {
-            ClearReflexion ();
-            cortex.Think ();
+            Stage.Start (this);
+        }
+
+        protected override void Step()
+        {
+            foreach (var r in Reflexions)
+                r.iReflex ();
         }
 
         public void AddReflexion ( reflexion r )
         {
-            if (Reflexions.Contains (r))
-                return;
-            ReflexionKeys.Add ( Stage.Start ( r ) );
+            if (!Reflexions.Contains (r))
             Reflexions.Add (r);
         }
 
         public void ClearReflexion ()
         {
-            foreach ( var i in ReflexionKeys )
-            Stage.Stop ( i );
-
             Reflexions.Clear ();
-            ReflexionKeys.Clear ();
         }
 
         public void AddConcepts ( params ( term, thought.chain ) [] values )

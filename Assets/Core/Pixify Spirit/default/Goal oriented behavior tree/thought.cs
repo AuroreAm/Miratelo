@@ -103,7 +103,7 @@ namespace Pixify.Spirit
         }
     }
 
-    public abstract class reflexion_flow : reflexion
+    public abstract class reaction_flow : reaction
     {
         /// <summary>
         /// invalid on Create
@@ -111,7 +111,7 @@ namespace Pixify.Spirit
         protected flow anchor { private set; get; }
     }
 
-    public abstract class reflexion_guard : reflexion
+    public abstract class reaction_guard : reaction
     {
         /// <summary>
         /// invalid on Create
