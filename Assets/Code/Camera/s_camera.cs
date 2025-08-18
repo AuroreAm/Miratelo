@@ -114,7 +114,8 @@ namespace Triheroes.Code
         // built in shots
         public class tps_transition : camera_shot
         {
-            Vector3 inRotY;
+            float inRotY;
+            float inRotX;
             float inHeight;
             float inDistance;
             Vector3 inOffset;
@@ -138,10 +139,13 @@ namespace Triheroes.Code
             }
 
             int key_cs;
-            Vector3 internalRotY;
+            float _RotY;
+            float _RotX;
+
             protected override void Start()
             {
                 inRotY = td.rotY;
+                inRotX = td.rotX;
                 inHeight = IN.height;
                 inDistance = IN.distance;
                 inOffset = IN.offset;
@@ -155,7 +159,8 @@ namespace Triheroes.Code
             {
                 t = Mathf.Lerp(t, 1, .1f);
 
-                internalRotY = new Vector3(Mathf.LerpAngle(inRotY.x, td.rotY.x, t), Mathf.LerpAngle(inRotY.y, td.rotY.y, t), 0);
+                _RotX = Mathf.LerpAngle(inRotX, td.rotX, t);
+                _RotY = Mathf.LerpAngle(inRotY, td.rotY, t);
                 offset = Vector3.Lerp(inOffset, OUT.offset, t);
                 height = Mathf.Lerp(inHeight, OUT.height, t);
                 distance = Mathf.Lerp(inDistance, OUT.distance, t);
@@ -180,11 +185,11 @@ namespace Triheroes.Code
                 float RayDistance = distance;
                 Vector3 TargetPos = td.Subject.position + offset + height * Vector3.up;
 
-                if (Physics.SphereCast(td.Subject.position, radius, Vecteur.LDir(internalRotY, Vector3.back), out RaycastHit hit, distance, Vecteur.Solid))
+                if (Physics.SphereCast(td.Subject.position, radius, Vecteur.LDir(new Vector3(_RotX, _RotY,0), Vector3.back), out RaycastHit hit, distance, Vecteur.Solid))
                     RayDistance = hit.distance - 0.05f;
 
-                CamPos = TargetPos + Vecteur.LDir(internalRotY, Vector3.back) * RayDistance;
-                CamRot = Quaternion.Euler(internalRotY);
+                CamPos = TargetPos + Vecteur.LDir(new Vector3(_RotX, _RotY,0), Vector3.back) * RayDistance;
+                CamRot = Quaternion.Euler(new Vector3(_RotX, _RotY,0));
             }
         }
     }

@@ -12,8 +12,6 @@ namespace Triheroes.Code
         [Depend]
         d_actor da;
         [Depend]
-        s_mind sm;
-        [Depend]
         d_dimension dd;
         [Depend]
         ar_move_way_point amwp;

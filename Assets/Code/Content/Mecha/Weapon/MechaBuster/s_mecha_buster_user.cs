@@ -9,6 +9,9 @@ namespace Triheroes.Code
     {
 
         Transform BusterOrigin, BusterEnd;
+        
+        public Vector3 BusterOriginPosition => BusterOrigin.position;
+
         public float rotY => Vecteur.RotDirectionY(BusterOrigin.position, BusterEnd.position);
 
         public class package : PreBlock.Package <d_mecha_buster>

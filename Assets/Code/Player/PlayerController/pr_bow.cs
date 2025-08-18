@@ -30,8 +30,7 @@ namespace Triheroes.Code
 
         protected override void Step ()
         {
-            Vector3 RotDirection = s_camera.o.td.rotY;
-            aa.Aim ( RotDirection );
+            aa.Aim ( s_camera.o.td.rotX, s_camera.o.td.rotY );
 
             if (!aa.on)
             {

@@ -18,7 +18,7 @@ namespace Triheroes.Code
 
         override public void AfterSpawn(Vector3 position, Quaternion rotation, block b)
         {
-            b.GetPix <s_skin> ().rotY = rotation.eulerAngles;
+            b.GetPix <s_skin> ().rotY = rotation.eulerAngles.y;
         }
 
         public override void OnWriteBlock()

@@ -30,7 +30,7 @@ namespace Triheroes.Code
                 {
                     Vector3 InputAxis;
                     InputAxis = Player.MoveAxis3.normalized;
-                    InputAxis = Vecteur.LDir(Mathf.DeltaAngle(ss.rotY.y, s_camera.o.td.rotY.y) * Vector3.up, InputAxis);
+                    InputAxis = Vecteur.LDir(Mathf.DeltaAngle(ss.rotY, s_camera.o.td.rotY) * Vector3.up, InputAxis);
 
                     if (Mathf.Abs(InputAxis.x) > Mathf.Abs(InputAxis.z))
                     {

@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    [Category ("mecha skills")]
     public class MBS0 : skill_motor.Second
     {
 

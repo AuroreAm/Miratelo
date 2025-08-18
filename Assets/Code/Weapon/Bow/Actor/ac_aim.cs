@@ -31,19 +31,19 @@ namespace Triheroes.Code
         void BeginAim ()
         {
             ss.HoldState ( ss.upper, AnimationKey.begin_aim, .1f );
-            Aim (ss.rotY);
+            Aim (0,ss.rotY);
         }
 
-        public void Aim(Vector3 Rotation)
+        public void Aim(float x, float y)
         {
-            rotY = Rotation.y;
-            rotX = Rotation.x;
+            rotY = y;
+            rotX = x;
         }
 
         protected override void Step()
         {
-            float TY = Mathf.DeltaAngle ( sbu.Weapon.rotY.y, ss.actualRotY.y ) + rotY;
-            dg.rotY.y = Mathf.MoveTowardsAngle (dg.rotY.y,TY, AngularDelta );
+            float TY = Mathf.DeltaAngle ( sbu.Weapon.rotY.y, ss.actualRotY ) + rotY;
+            dg.rotY = Mathf.MoveTowardsAngle (dg.rotY,TY, AngularDelta );
             ss.Ani.SetFloat ( Hash.x, Mathf.DeltaAngle ( 0, rotX ) );
         }
         

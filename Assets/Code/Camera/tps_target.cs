@@ -7,7 +7,8 @@ namespace Triheroes.Code
 {
     public class tps_target : tps_shot
     {
-        Vector3 rotYOffset;
+        float rotYOffset;
+        float rotXOffset;
 
         public d_dimension target;
 
@@ -16,23 +17,24 @@ namespace Triheroes.Code
         protected override void Start()
         {
             height = td.Subject.h;
-            rotYOffset = Vecteur.RotDirection ( spos, tpos );
-            rotYOffset.x = Mathf.DeltaAngle(0, rotYOffset.x) + 14;
+            rotYOffset = Vecteur.RotDirectionY ( spos, tpos );
+            rotXOffset = Mathf.DeltaAngle(0, rotXOffset) + 14;
             yPrevious = Vecteur.RotDirectionY ( spos, tpos );
-            td.rotY = new Vector3 ( rotYOffset.x, yPrevious, 0 );
+            td.rotY = rotYOffset;
+            td.rotX = rotXOffset;
         }
 
         float yPrevious;
         protected override void Step()
         {
             // rotate offset according to mouse
-            rotYOffset.y += Player.DeltaMouse.x * 3;
-            rotYOffset.x -= Player.DeltaMouse.y * 3;
-            rotYOffset.x = Mathf.Clamp(rotYOffset.x, -65, 65);
+            rotYOffset += Player.DeltaMouse.x * 3;
+            rotXOffset -= Player.DeltaMouse.y * 3;
+            rotXOffset = Mathf.Clamp(rotXOffset, -65, 65);
 
             float AngleDiff = Mathf.DeltaAngle(yPrevious, Vecteur.RotDirectionY(spos, tpos));
             if ( Mathf.Abs ( Mathf.DeltaAngle(0, AngleDiff) ) < 360*Time.unscaledDeltaTime )
-                rotYOffset.y += AngleDiff;
+                rotYOffset += AngleDiff;
             yPrevious = Vecteur.RotDirectionY(spos, tpos);
 
             td.rotY = rotYOffset;
@@ -45,7 +47,7 @@ namespace Triheroes.Code
         void CalculateOffest()
         {
             float TargetDistance = Vector3.Distance(spos, tpos);
-            float distRatio = Mathf.Abs(Mathf.DeltaAngle(Vecteur.RotDirection(spos, tpos).y, td.rotY.y)) / 180;
+            float distRatio = Mathf.Abs(Mathf.DeltaAngle(Vecteur.RotDirection(spos, tpos).y, td.rotY)) / 180;
 
             distance = Mathf.Lerp ( distance, 4 + (TargetDistance * distRatio), .1f );
             offset = Vector3.Lerp ( offset, Vecteur.LDir(Vecteur.RotDirectionQuaternion(spos, tpos), Vector3.forward * (TargetDistance * distRatio / 2)), .1f );

@@ -75,7 +75,7 @@ namespace Triheroes.Code
 
         public bool Spam ()
         {
-            if ( !SkillActive )
+            if ( !Active )
             return StartMotor ( Combo.Combo[ComboPtr] );
             else if (!ReadyForCombo)
             {

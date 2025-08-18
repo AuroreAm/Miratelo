@@ -12,13 +12,16 @@ namespace Triheroes.Code
         public override int Priority => Pri.Action;
 
         static term DashAnimation (direction direction) => (direction == direction.forward)? AnimationKey.dash_forward : (direction == direction.right)? AnimationKey.dash_right: (direction == direction.left)? AnimationKey.dash_left:AnimationKey.dash_back;
-        public static Vector3 Direction ( direction direction ) => (direction == direction.forward)? Vector3.forward : (direction == direction.back)? Vector3.back:(direction == direction.right)? Vector3.right:Vector3.left;
+        public static Vector3 DirectionDir ( direction direction ) => (direction == direction.forward)? Vector3.forward : (direction == direction.back)? Vector3.back:(direction == direction.right)? Vector3.right:Vector3.left;
 
         [Depend]
         s_capsule_character_controller sccc;
         [Depend]
         s_skin ss;
+        [Depend]
+        d_ground dg;
 
+        public Vector3 directionDir;
         direction DashDirection;
         delta_curve movement;
         term dashAnimation;
@@ -29,6 +32,7 @@ namespace Triheroes.Code
         {
             DashDirection = direction;
             dashAnimation = DashAnimation(DashDirection);
+            directionDir = DirectionDir(DashDirection);
             TransitionDuration = 0.05f;
         }
 
@@ -54,7 +58,8 @@ namespace Triheroes.Code
 
         protected override void Step()
         {
-            sccc.dir += Vecteur.LDir(ss.rotY,Direction(DashDirection)) * movement.TickDelta ();
+            sccc.dir += Vecteur.LDir(ss.rotY,directionDir) * movement.TickDelta ();
+            dg.PerformSkillRotation ();
         }
 
         void DashEnd ()

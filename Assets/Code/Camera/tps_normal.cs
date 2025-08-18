@@ -8,7 +8,10 @@ namespace Triheroes.Code
 {
     public class tps_data : pix
     {
-        public Vector3 rotY;
+        public float rotY;
+        public float rotX;
+        public Vector3 rot => new Vector3(rotX, rotY, 0);
+
         public d_dimension Subject { get; private set; }
         public d_actor SubjectActor { get; private set; }
 
@@ -34,11 +37,11 @@ namespace Triheroes.Code
             float RayDistance = distance;
             Vector3 TargetPos = td.Subject.position + offset + height * Vector3.up;
 
-            if ( Physics.SphereCast ( td.Subject.position, radius, Vecteur.LDir(td.rotY,Vector3.back), out RaycastHit hit, distance, Vecteur.Solid ) )
+            if ( Physics.SphereCast ( td.Subject.position, radius, Vecteur.LDir(td.rot,Vector3.back), out RaycastHit hit, distance, Vecteur.Solid ) )
                 RayDistance = hit.distance - 0.05f;
 
-            CamPos = TargetPos + Vecteur.LDir(td.rotY,Vector3.back) * RayDistance;
-            CamRot = Quaternion.Euler(td.rotY);
+            CamPos = TargetPos + Vecteur.LDir(td.rot,Vector3.back) * RayDistance;
+            CamRot = Quaternion.Euler(td.rot);
         }
     }
 
@@ -56,9 +59,9 @@ namespace Triheroes.Code
         {
             // rotate using the mouse
             // TODO: add sensitivity tweak, add inverted mouse
-            td.rotY.y += Player.DeltaMouse.x;
-            td.rotY.x -= Player.DeltaMouse.y;
-            td.rotY.x = Mathf.Clamp(td.rotY.x, -65, 65);
+            td.rotY += Player.DeltaMouse.x;
+            td.rotY -= Player.DeltaMouse.y;
+            td.rotX = Mathf.Clamp(td.rotX, -65, 65);
 
             RayCameraPosition ();
         }

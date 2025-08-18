@@ -30,7 +30,7 @@ namespace Triheroes.Code
         void BeginAim ()
         {
             ss.HoldState ( ss.upper, AnimationKey.begin_aim, .1f );
-            Aim (ss.rotY.y);
+            Aim (ss.rotY);
         }
 
         public void Aim(float Y)
@@ -40,8 +40,8 @@ namespace Triheroes.Code
 
         protected override void Step()
         {
-            float TY = Mathf.DeltaAngle ( dmb.rotY, ss.actualRotY.y ) + rotY;
-            dg.rotY.y = Mathf.MoveTowardsAngle (dg.rotY.y,TY, AngularDelta );
+            float TY = Mathf.DeltaAngle ( dmb.rotY, ss.actualRotY ) + rotY;
+            dg.rotY = Mathf.MoveTowardsAngle (dg.rotY,TY, AngularDelta );
         }
         
         protected override void Stop()

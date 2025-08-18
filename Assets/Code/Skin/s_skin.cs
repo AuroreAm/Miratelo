@@ -21,14 +21,14 @@ namespace Triheroes.Code
         Player[] Players;
 
         /// <summary>
-        /// rotation of the character, modify this to change to rotation ofthe charater graphic
+        /// rotation y of the character, modify this to change to rotation of the charater graphic
         /// </summary>
-        public Vector3 rotY;
+        public float rotY;
         
         /// <summary>
         /// Actual rotY of this graphic now
         /// </summary>
-        public Vector3 actualRotY { private set; get; }
+        public float actualRotY { private set; get; }
 
         /// <summary>
         /// hardocode layer index of any type of character
@@ -94,7 +94,7 @@ namespace Triheroes.Code
             UpdatePlayers ();
             // place the skin gameobject in the character's coordinate
             Ani.transform.position = Coord.position + new Vector3(0, offPosY, 0);
-            Ani.transform.rotation = Quaternion.Euler(0, rotY.y + offRotY, 0);
+            Ani.transform.rotation = Quaternion.Euler(0, rotY + offRotY, 0);
             actualRotY = rotY;
         }
 

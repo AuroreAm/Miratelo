@@ -27,7 +27,7 @@ namespace Triheroes.Code
             float runFactor = Player.Dash.Active ? WalkFactor.sprint : ( InputAxis.magnitude > 0.7f ? WalkFactor.run : WalkFactor.walk );
             InputAxis.Normalize ();
 
-            InputAxis = Vecteur.LDir ( s_camera.o.td.rotY.OnlyY (), InputAxis ) * speed;
+            InputAxis = Vecteur.LDir ( s_camera.o.td.rotY, InputAxis ) * speed;
 
             if (sm.state == agc)
             agc.Walk (InputAxis, runFactor );

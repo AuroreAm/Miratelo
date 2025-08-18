@@ -11,16 +11,19 @@ namespace Triheroes.Code
         [Depend]
         t_SS1 t_SS1;
 
-        [Depend]
-        d_skill ds;
-
         protected override void SkillReflex(SS1 skill)
         {
             if (t_SS1.on)
             {
-                skill.Spam ( t_SS1.ComboId );
-                t_SS1.Finish ();
+                if (skill.Spam ( t_SS1.ComboId ))
+                Stage.Start (this);
             }
+        }
+
+        protected override void Step()
+        {
+            if (!skill.Active)
+            t_SS1.Finish ();
         }
     }
 

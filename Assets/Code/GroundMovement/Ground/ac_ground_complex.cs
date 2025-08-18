@@ -149,16 +149,16 @@ namespace Triheroes.Code
         void Rotation ()
         {
             if (walkDir.magnitude > 0)
-                dg.rotY.y =  Vecteur.RotDirectionY ( Vector3.zero, walkDir);
+                dg.rotY =  Vecteur.RotDirectionY ( Vector3.zero, walkDir);
 
             // brake turn animation if rotation difference is too high // and is sprinting
-            if (state == StateKey.sprint && Mathf.Abs(Mathf.DeltaAngle(ss.rotY.y, dg.rotY.y)) > 120)
+            if (state == StateKey.sprint && Mathf.Abs(Mathf.DeltaAngle(ss.rotY, dg.rotY)) > 120)
                 RotationBrake();
 
-            if (state == StateKey.brake && Mathf.Abs(Mathf.DeltaAngle(ss.rotY.y, dg.rotY.y)) > 120)
+            if (state == StateKey.brake && Mathf.Abs(Mathf.DeltaAngle(ss.rotY, dg.rotY)) > 120)
                 RotationBrake();
 
-            ss.rotY = new Vector3(0, Mathf.MoveTowardsAngle(ss.rotY.y, dg.rotY.y, Time.deltaTime * 720), 0);
+            dg.PerformSkillRotation ();
         }
 
         void RotationBrake()

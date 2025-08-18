@@ -63,7 +63,7 @@ namespace Triheroes.Code
         public d_actor GetNearestFacedFoe ( float distance )
         {
             List<d_actor> foe = ActorList.GetFoes(faction);
-            foe.Sort( new SortDistanceA (ss.rotY.y, ss.Coord.position, distance) );
+            foe.Sort( new SortDistanceA (ss.rotY, ss.Coord.position, distance) );
 
             if (foe.Count > 0 && Vector3.Distance(ss.Coord.position, foe[0].ss.Coord.position) < distance)
                 return foe[0];

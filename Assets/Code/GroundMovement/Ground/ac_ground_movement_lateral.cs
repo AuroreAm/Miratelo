@@ -72,7 +72,7 @@ namespace Triheroes.Code
             // lateral => idle // lateral animation
             else if ( state == StateKey.run_lateral )
             {
-                Vector3 relativeDir = Vecteur.LDir( new Vector3(0, 360 - ss.rotY.y, 0), lateralDir ).normalized;
+                Vector3 relativeDir = Vecteur.LDir( 360 - ss.rotY, lateralDir ).normalized;
                 SetAnimationDirectionFloat(relativeDir.x, relativeDir.z);
 
                 if (lateralDir.sqrMagnitude < 0.01f)
@@ -82,7 +82,7 @@ namespace Triheroes.Code
 
         void Rotation ()
         {
-            ss.rotY = new Vector3(0, Mathf.MoveTowardsAngle(ss.rotY.y, dg.rotY.y, Time.deltaTime * 720), 0);
+            dg.PerformSkillRotation ();
         }
 
         void ToLateral ()

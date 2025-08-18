@@ -26,7 +26,7 @@ namespace Triheroes.Code
 
             Vector3 InputAxis;
             InputAxis = Player.MoveAxis3;
-            InputAxis = Vecteur.LDir ( s_camera.o.td.rotY.OnlyY (),InputAxis) * 6f;
+            InputAxis = Vecteur.LDir ( s_camera.o.td.rotY, InputAxis) * 6f;
 
             agml.WalkLateral ( InputAxis );
         }

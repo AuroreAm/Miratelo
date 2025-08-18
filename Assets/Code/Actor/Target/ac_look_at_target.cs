@@ -16,7 +16,7 @@ namespace Triheroes.Code
         protected override void Step()
         {
             if (da.target != null)
-            dg.rotY.y = Vecteur.RotDirectionY ( da.dd.position,da.target.dd.position );
+            dg.rotY = Vecteur.RotDirectionY ( da.dd.position,da.target.dd.position );
         }
     }
 
@@ -31,10 +31,10 @@ namespace Triheroes.Code
 
         protected override void Step()
         {
-            var rotDir = Vecteur.RotDirection (da.dd.position,da.target.dd.position);
-            ss.rotY = new Vector3 (0, Mathf.MoveTowardsAngle(ss.rotY.y, rotDir.y, Time.deltaTime * MaxDeltaAngle), 0);
+            var rotYDir = Vecteur.RotDirectionY (da.dd.position,da.target.dd.position);
+            ss.rotY = Mathf.MoveTowardsAngle(ss.rotY, rotYDir, Time.deltaTime * MaxDeltaAngle);
             
-            if (rotDir.y == ss.rotY.y)
+            if (rotYDir == ss.rotY)
             SelfStop ();
         }
     }

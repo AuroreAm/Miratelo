@@ -47,6 +47,9 @@ namespace Triheroes.Code
 
 		/// <summary> get a vector rotated by quaternion rotation </summary>
 		public static Vector3 LDir(Vector3 rotation, Vector3 Direction) => LDir(Quaternion.Euler(rotation), Direction);
+		
+		/// <summary> get a vector rotated by quaternion rotation </summary>
+		public static Vector3 LDir(float rotation, Vector3 Direction) => LDir(Quaternion.Euler(new Vector3(0, rotation, 0)), Direction);
 
 		/// <summary> get y angle when seeing from position to another position </summary>	
 		public static float RotDirectionY(Vector3 from, Vector3 to) => Quaternion.LookRotation(to - from).eulerAngles.y;

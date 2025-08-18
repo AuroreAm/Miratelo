@@ -17,7 +17,7 @@ namespace Triheroes.Code
         skill_motor ()
         {}
 
-        public bool SkillActive => (main != null && main.on);
+        public bool Active => (main != null && main.on);
 
         public abstract class First : skill_motor
         {
