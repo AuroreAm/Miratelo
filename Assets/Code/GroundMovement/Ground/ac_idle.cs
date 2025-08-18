@@ -5,22 +5,24 @@ using Pixify.Spirit;
 
 namespace Triheroes.Code
 {
-    /*
-    // will set as idle if the character has nothing to do
-    public class r_idle : reflexionx, IMotorHandler
+    public class r_idle : reflexion, IMotorHandler
     {
         [Depend]
         s_motor sm;
+
         [Depend]
         ac_idle ai;
 
         public void OnMotorEnd(motor m)
-        {}
+        {
+            SelfStop ();
+        }
 
-        protected override void Step()
+        protected override void Reflex()
         {
             if (sm.state == null)
-                sm.SetState (ai, this);
+                if (sm.SetState (ai, this))
+                    Stage.Start (this);
         }
     }
 
@@ -33,6 +35,8 @@ namespace Triheroes.Code
         [Depend]
         s_gravity_ccc sgc;
         [Depend]
+        d_ground dg;
+        [Depend]
         s_skin ss;
 
         public override void Create()
@@ -43,7 +47,34 @@ namespace Triheroes.Code
 
         protected override void Start()
         {
+            dg.use (this);
             ss.PlayState (0, AnimationKey.idle,0.1f);
         }
-    }*/
+
+        protected override void Step()
+        {
+            dg.PerformRotation ();
+        }
+    }
+
+    public class ac_look : action
+    {
+        public float y;
+        
+        [Depend]
+        d_ground dg;
+        [Depend]
+        s_skin ss;
+
+        protected override void Start()
+        {
+            dg.rotY = y;
+        }
+
+        protected override void Step()
+        {
+            if ( ss.rotY == dg.rotY || !dg.active )
+            SelfStop ();
+        }
+    }
 }

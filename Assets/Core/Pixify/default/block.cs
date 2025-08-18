@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Pixify
 {
+
+    // TODO mains might include action that are added in script, have to make sure these are added after all depedences are added
+
     // alliance of component shard
     public class block
     {

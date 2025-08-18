@@ -17,8 +17,8 @@ namespace Triheroes.Code
         protected override void Start()
         {
             height = td.Subject.h;
-            rotYOffset = Vecteur.RotDirectionY ( spos, tpos );
-            rotXOffset = Mathf.DeltaAngle(0, rotXOffset) + 14;
+            rotYOffset = Vecteur.RotDirectionY ( spos, tpos ) + 14;
+            rotXOffset = Mathf.DeltaAngle(0, rotXOffset);
             yPrevious = Vecteur.RotDirectionY ( spos, tpos );
             td.rotY = rotYOffset;
             td.rotX = rotXOffset;
@@ -28,8 +28,8 @@ namespace Triheroes.Code
         protected override void Step()
         {
             // rotate offset according to mouse
-            rotYOffset += Player.DeltaMouse.x * 3;
-            rotXOffset -= Player.DeltaMouse.y * 3;
+            rotYOffset += Player.DeltaMouse.x ;
+            rotXOffset -= Player.DeltaMouse.y;
             rotXOffset = Mathf.Clamp(rotXOffset, -65, 65);
 
             float AngleDiff = Mathf.DeltaAngle(yPrevious, Vecteur.RotDirectionY(spos, tpos));
@@ -38,6 +38,7 @@ namespace Triheroes.Code
             yPrevious = Vecteur.RotDirectionY(spos, tpos);
 
             td.rotY = rotYOffset;
+            td.rotX = rotXOffset;
 
             CalculateOffest();
             RayCameraPosition();

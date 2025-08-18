@@ -52,6 +52,7 @@ namespace Triheroes.Code
 
         protected override void Start()
         {
+            dg.use (this);
             ss.PlayState (0, dashAnimation, TransitionDuration, DashEnd);
             movement.Start ( 5, ss.DurationOfState ( dashAnimation ) );
         }
@@ -59,7 +60,7 @@ namespace Triheroes.Code
         protected override void Step()
         {
             sccc.dir += Vecteur.LDir(ss.rotY,directionDir) * movement.TickDelta ();
-            dg.PerformSkillRotation ();
+            dg.PerformRotation ();
         }
 
         void DashEnd ()

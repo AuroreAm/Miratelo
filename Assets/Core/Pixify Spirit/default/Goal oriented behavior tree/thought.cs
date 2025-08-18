@@ -95,6 +95,9 @@ namespace Pixify.Spirit
         {
             public void Finish ()
             {
+                if ( !on )
+                throw new InvalidOperationException("this thought is already finished");
+                
                 on = false;
                 var _host = host;
                 host = null;

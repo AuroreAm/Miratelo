@@ -64,6 +64,8 @@ namespace Triheroes.Code
         public static readonly term parry_1 = new term("parry_1");
         public static readonly term parry_2 = new term("parry_2");
 
+        public static readonly term SS4 = new term("SS4");
+
         public static readonly term SS7_0 = new term("SS7_0");
         public static readonly term SS7_1 = new term("SS7_1");
         public static readonly term SS7_2 = new term("SS7_2");
@@ -94,10 +96,10 @@ namespace Triheroes.Code
     {
         public static readonly int def = 0;
         public static readonly int def2nd = 1;
-        public static readonly int Action = 2;
-        public static readonly int Action2nd = 3;
-        public static readonly int ForcedAction = 4;
-        public static readonly int ForcedAction2nd = 5;
+        public static readonly int def3rd = 2;
+        public static readonly int Action = 3;
+        public static readonly int Action2nd = 4;
+        public static readonly int ForcedAction = 5;
         public static readonly int Recovery = 6;
 
         public static readonly int SubAction = 2;

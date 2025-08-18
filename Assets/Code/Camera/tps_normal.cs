@@ -8,8 +8,8 @@ namespace Triheroes.Code
 {
     public class tps_data : pix
     {
-        public float rotY;
         public float rotX;
+        public float rotY;
         public Vector3 rot => new Vector3(rotX, rotY, 0);
 
         public d_dimension Subject { get; private set; }
@@ -60,7 +60,7 @@ namespace Triheroes.Code
             // rotate using the mouse
             // TODO: add sensitivity tweak, add inverted mouse
             td.rotY += Player.DeltaMouse.x;
-            td.rotY -= Player.DeltaMouse.y;
+            td.rotX -= Player.DeltaMouse.y;
             td.rotX = Mathf.Clamp(td.rotX, -65, 65);
 
             RayCameraPosition ();

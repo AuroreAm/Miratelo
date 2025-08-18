@@ -1,4 +1,3 @@
-using System.Runtime.Serialization;
 using System;
 using UnityEditor;
 using Pixify.Spirit;
@@ -35,7 +34,7 @@ namespace Pixify.Editor
             var a = new GameObject ().AddComponent <ActionPaper> ();
 
             a.paper.StrNodeType = t.AssemblyQualifiedName;
-            a.paper.StrNodeData = JsonUtility.ToJson (FormatterServices.GetUninitializedObject ( t ));
+            a.paper.StrNodeData = JsonUtility.ToJson ( Activator.CreateInstance ( t ));
             a.name = t.Name;
 
             a.transform.SetParent ( target.transform );

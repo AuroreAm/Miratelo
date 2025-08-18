@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace Pixify.Spirit
 {
-
     public sealed class sequence : decorator
     {
         int ptr;
@@ -49,6 +44,46 @@ namespace Pixify.Spirit
             }
 
             o[ptr].Tick ( this );
+        }
+    }
+
+    public sealed class parallel : decorator
+    {
+        public bool LinkWithFirst = false;
+
+        protected override void Start()
+        {
+            foreach (pixi p in o)
+                p.Tick ( this );
+        }
+
+        protected override void Step()
+        {
+            foreach (pixi p in o)
+                if (p.on)
+                    p.Tick ( this );
+        }
+
+        public override void OnPixiEnd(pixi p)
+        {
+            if ( p == o [0] && LinkWithFirst )
+            {
+                SelfStop ();
+                return;
+            }
+
+            foreach (var n in o)
+                if (n.on)
+                    return;
+
+            SelfStop ();
+        }
+
+        protected override void Stop()
+        {
+            foreach (var p in o)
+                if (p.on)
+                    p.ForceStop (this);
         }
     }
 

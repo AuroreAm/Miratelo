@@ -34,7 +34,6 @@ namespace Triheroes.Code
             if ( !da.target || !tmat.on || !skill.Active )
             {
                 SelfStop ();
-                skill.Stop ();
                 return;
             }
 
@@ -45,6 +44,11 @@ namespace Triheroes.Code
                 SelfStop ();
                 tmat.Finish ();
             }
+        }
+
+        protected override void Stop()
+        {
+            skill.Stop ();
         }
 
         bool AimingEnoughAtTarget ()

@@ -37,7 +37,6 @@ namespace Triheroes.Code
 
         void Slash ()
         {
-            a_slash_attack.Fire ( new term ( ssu.Weapon.SlashName ), ssu.Weapon, ss.EventPointsOfState ( SlashKey ) [1] - ss.EventPointsOfState ( SlashKey ) [0] );
         }
 
         void SendSlashSignal ()

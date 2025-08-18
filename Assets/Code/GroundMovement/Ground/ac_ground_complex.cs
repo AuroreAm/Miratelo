@@ -11,7 +11,7 @@ namespace Triheroes.Code
     // can tweak between idle - walk - run - sprint - brake - brake rotation
     public class ac_ground_complex : motor
     {
-        public override int Priority => Pri.def;
+        public override int Priority => Pri.def2nd;
         public override bool AcceptSecondState => true;
 
         [Depend]
@@ -49,6 +49,8 @@ namespace Triheroes.Code
 
         protected override void Start()
         {
+            dg.use (this);
+
             if ( CurrentFrame != Time.frameCount )
             {
                 sprintCooldown = 0;
@@ -158,7 +160,7 @@ namespace Triheroes.Code
             if (state == StateKey.brake && Mathf.Abs(Mathf.DeltaAngle(ss.rotY, dg.rotY)) > 120)
                 RotationBrake();
 
-            dg.PerformSkillRotation ();
+            dg.PerformRotation ();
         }
 
         void RotationBrake()

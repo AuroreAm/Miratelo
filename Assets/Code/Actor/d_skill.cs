@@ -33,7 +33,7 @@ namespace Triheroes.Code
 
     public abstract class skill_box : pix
     {
-        public abstract bool SkillValid {get;}
+        public virtual bool SkillValid => true;
     }
 
 }

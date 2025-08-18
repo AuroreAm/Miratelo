@@ -10,6 +10,8 @@ public class scr_enemy_test : cortex
 {
     public override void Setup()
     {
+        AddReflexion <r_idle> ();
+
         AddReflexion < ar_move_way_point > ();
         AddReflexion < ar_way_to_target > (); 
         AddReflexion < ar_way_arround_target > (); 
@@ -18,6 +20,8 @@ public class scr_enemy_test : cortex
         AddReflexion < ar_sword > ();
         AddReflexion < ar_mb_aim_target > ();
         AddReflexion < ar_dash_around_target > ();
+        AddReflexion < ar_ms_SS4 > ();
+        AddReflexion < r_look_target > ();
     }
 }
 

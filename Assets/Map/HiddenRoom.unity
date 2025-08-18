@@ -496,6 +496,53 @@ MonoBehaviour:
     StrNodeType: Triheroes.Code.g_bios_use_play, Triheroes.Code, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     StrNodeData: '{"term":{"value":0,"name":""}}'
+--- !u!1 &623297727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 623297728}
+  - component: {fileID: 623297729}
+  m_Layer: 0
+  m_Name: look_at_target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &623297728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623297727}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8440903563139704206}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &623297729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623297727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f7d6eaecce59f7418f0aeb39f9c442b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paper:
+    StrNodeType: Triheroes.Code.t_look_at_target+look_at_target, Triheroes.Code,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    StrNodeData: '{"term":{"value":0,"name":""},"MaxDeltaAngle":160.0}'
 --- !u!1 &939945831
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,6 +910,53 @@ MonoBehaviour:
     StrNodeType: Triheroes.Code.gf_show_map_title, Triheroes.Code, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     StrNodeData: '{"term":{"value":0,"name":""}}'
+--- !u!1 &1797416262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1797416263}
+  - component: {fileID: 1797416264}
+  m_Layer: 0
+  m_Name: ms_slash_SS4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1797416263
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797416262}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8440903563139704206}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1797416264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797416262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f7d6eaecce59f7418f0aeb39f9c442b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paper:
+    StrNodeType: Triheroes.Code.t_ms_SS4+ms_slash_SS4, Triheroes.Code, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    StrNodeData: '{"term":{"value":0,"name":""}}'
 --- !u!1 &1853700216
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,7 +1091,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2005523292}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1309,6 +1403,8 @@ Transform:
   - {fileID: 1615912828}
   - {fileID: 268269454}
   - {fileID: 450796325}
+  - {fileID: 623297728}
+  - {fileID: 1797416263}
   m_Father: {fileID: 8440903562974727755}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1363,6 +1459,9 @@ MonoBehaviour:
       PublicKeyToken=null
     StrNodeData: '{"term":{"value":0,"name":""}}'
   - StrNodeType: Triheroes.Code.DS0_dash, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    StrNodeData: '{"term":{"value":0,"name":""}}'
+  - StrNodeType: Triheroes.Code.MSS4, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     StrNodeData: '{"term":{"value":0,"name":""}}'
 --- !u!114 &8440903563365952242

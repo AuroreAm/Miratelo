@@ -2,7 +2,6 @@ using System.Reflection;
 using System;
 using UnityEditor;
 using UnityEngine;
-using System.Runtime.Serialization;
 
 
 namespace Pixify.Editor
@@ -29,7 +28,7 @@ namespace Pixify.Editor
 
             if ( !string.IsNullOrEmpty(NodeTypeName) && Type.GetType ( NodeTypeName ) != null )
             {
-                paper = (pix) FormatterServices.GetUninitializedObject ( Type.GetType (NodeTypeName) );
+                paper = (pix) Activator.CreateInstance ( Type.GetType (NodeTypeName) );
                 JsonUtility.FromJsonOverwrite ( Target.FindPropertyRelative ("StrNodeData").stringValue, paper );
             }
         }
@@ -57,7 +56,7 @@ namespace Pixify.Editor
 
             void SetPix (Type t)
             {
-                paper = (pix) FormatterServices.GetUninitializedObject ( t );
+                paper = (pix) Activator.CreateInstance ( t );
             }
         }
 

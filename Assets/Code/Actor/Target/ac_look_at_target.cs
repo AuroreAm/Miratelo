@@ -26,15 +26,17 @@ namespace Triheroes.Code
         d_actor da;
         [Depend]
         s_skin ss;
+        [Depend]
+        d_ground dg;
 
         public float MaxDeltaAngle = 160;
 
         protected override void Step()
         {
             var rotYDir = Vecteur.RotDirectionY (da.dd.position,da.target.dd.position);
-            ss.rotY = Mathf.MoveTowardsAngle(ss.rotY, rotYDir, Time.deltaTime * MaxDeltaAngle);
+            dg.rotY = Mathf.MoveTowardsAngle(ss.rotY, rotYDir, Time.deltaTime * MaxDeltaAngle);
             
-            if (rotYDir == ss.rotY)
+            if (rotYDir == ss.rotY || !dg.active)
             SelfStop ();
         }
     }

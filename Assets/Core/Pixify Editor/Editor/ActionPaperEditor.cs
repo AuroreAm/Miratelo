@@ -1,4 +1,3 @@
-using System.Runtime.Serialization;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -21,7 +20,7 @@ namespace Pixify.Editor
 
             if ( !string.IsNullOrEmpty(Target.paper.StrNodeType) && Type.GetType ( Target.paper.StrNodeType ) != null )
             {
-                paper = (action) FormatterServices.GetUninitializedObject ( Type.GetType ( Target.paper.StrNodeType ) );
+                paper = (action) Activator.CreateInstance( Type.GetType ( Target.paper.StrNodeType ) );
                 JsonUtility.FromJsonOverwrite ( Target.paper.StrNodeData, paper );
                 Target.gameObject.name = paper.GetType ().Name;
             }
@@ -56,7 +55,7 @@ namespace Pixify.Editor
 
             void SetPix (Type t)
             {
-                paper = (action) FormatterServices.GetUninitializedObject ( t );
+                paper = (action) Activator.CreateInstance ( t );
                 Target.gameObject.name = t.Name;
                 
                 Target.paper.StrNodeType = paper.GetType ().AssemblyQualifiedName;

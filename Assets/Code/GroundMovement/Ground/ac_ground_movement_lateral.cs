@@ -11,7 +11,7 @@ namespace Triheroes.Code
     // manages animations
     public class ac_ground_movement_lateral : motor
     {
-        public override int Priority => Pri.def2nd;
+        public override int Priority => Pri.def3rd;
         public override bool AcceptSecondState => true;
 
         [Depend]
@@ -39,6 +39,7 @@ namespace Triheroes.Code
 
         protected override void Start()
         {
+            dg.use (this);
             if (firstFrame == true)
             {
                 lateralDir = Vector3.zero;
@@ -82,7 +83,7 @@ namespace Triheroes.Code
 
         void Rotation ()
         {
-            dg.PerformSkillRotation ();
+            dg.PerformRotation ();
         }
 
         void ToLateral ()
