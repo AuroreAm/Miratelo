@@ -203,7 +203,7 @@ namespace Triheroes.Code
             
             if (  Element.Contains ( hit.collider.id () ) && Element.ElementActorIsNotAlly ( hit.collider.id (), sword.Owner.faction ) )
             {
-                Debug.Log (hit.collider.gameObject.name);
+                Element.SendMessage ( hit.collider.id (), new Slash ( 2 ) );
                 Hitted.Add ( hit.collider.id () );
             }
         }

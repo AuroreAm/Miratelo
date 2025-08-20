@@ -25,6 +25,9 @@ namespace Pixify
             typeof (pix).GetProperty (b, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public ).SetValue ( p, this );
             p.Create ();
             }
+
+            foreach ( var p in bricks )
+                _NewMember ( p );
         }
 
         const string b = "b";
@@ -99,7 +102,7 @@ namespace Pixify
         }
 
         // ------- block callbacks ----------
-        event Action <pix> _NewMember;
+        event Action <pix> _NewMember = delegate { };
         public event Action <pix> OnNewMember
         {
             add { _NewMember += value; }

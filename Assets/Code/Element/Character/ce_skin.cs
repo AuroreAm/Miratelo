@@ -5,8 +5,9 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [Category ("object")]
-    public class e_metal : element
+    // Skin Element type: element of carbon based characters,
+    [Category("character")]
+    public sealed class ce_skin : element
     {
     }
 }

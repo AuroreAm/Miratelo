@@ -6,12 +6,17 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     // core health point of a character
-    public class d_HP : pix
+    public class d_HP : pix, IElementListener <Damage>
     {
+        public override void Create()
+        {
+            base.Create();
+        }
+
         public float HP
         {
             get { return _HP; }
-            set { _HP = Mathf.Clamp(value, 0, MaxHP); }
+            private set { _HP = Mathf.Clamp(value, 0, MaxHP); }
         }
 
         public void Set (float Max)
@@ -20,7 +25,23 @@ namespace Triheroes.Code
             HP = MaxHP;
         }
 
+        public void OnMessage(Damage context)
+        {
+            HP -= context.raw;
+            Debug.Log (HP);
+        }
+
         public float MaxHP { private set; get; }
         float _HP;
+    }
+
+    public struct Damage
+    {
+        public float raw;
+
+        public Damage (float raw)
+        {
+            this.raw = raw;
+        }
     }
 }

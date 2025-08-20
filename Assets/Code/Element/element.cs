@@ -63,6 +63,7 @@ namespace Triheroes.Code
         {
             element = e;
             e.Link(this);
+            b.IntegratePix (e);
         }
         
     }

@@ -15,7 +15,6 @@ namespace Triheroes.Code
         [SerializeField]
         PixPaper <element> WeaponElement;
 
-        public element element;
         public d_actor Owner { get; protected set; }
         
 
@@ -23,8 +22,6 @@ namespace Triheroes.Code
         {
             gameObject.layer = Vecteur.TRIGGER;
             new pi_weapon (this, gameObject.GetInstanceID ());
-
-            element = WeaponElement.Write ();
         }
 
         public void Aquire (d_actor Owner)
