@@ -9,6 +9,7 @@ namespace Triheroes.Code
     public sealed class Element : PixIndex<s_element>
     {
         public static Element o;
+        
 
         public Element ()
         {
@@ -28,10 +29,7 @@ namespace Triheroes.Code
         }
     }
 
-
-    public interface IELBFC
-    {}
-    public interface IElementListener <T> : IELBFC where T : struct
+    public interface IElementListener <T> : element.IELBFC where T : struct
     {
         public void OnMessage ( T context );
     }
@@ -42,16 +40,17 @@ namespace Triheroes.Code
         public d_actor da;
         public element element { private set; get;}
 
-        List <IELBFC> elementListeners = new List<IELBFC> ();
+        List <element.IELBFC> elementListeners = new List<element.IELBFC> ();
 
-        public void LinkMessage ( IELBFC listener )
+        public override void Create1()
         {
-            elementListeners.Add (listener);
+            b.OnNewMember += OnNewMember;
         }
 
-        public void UnlinkMessage (IELBFC listener)
+        void OnNewMember ( pix NewMember )
         {
-            elementListeners.Remove (listener);
+            if ( NewMember is element.IELBFC listener )
+            elementListeners.Add (listener);
         }
 
         public void SendMessage <T> ( T context ) where T:struct
@@ -65,6 +64,7 @@ namespace Triheroes.Code
             element = e;
             e.Link(this);
         }
+        
     }
 
     public interface IElementContainer 
@@ -74,6 +74,8 @@ namespace Triheroes.Code
 
     public abstract class element : pix
     {
+        public interface IELBFC {}
+
         protected IElementContainer host;
 
         public void Link ( IElementContainer container )

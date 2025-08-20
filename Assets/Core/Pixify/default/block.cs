@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Pixify
 {
-
     // TODO mains might include action that are added in script, have to make sure these are added after all depedences are added
 
     // alliance of component shard
@@ -53,6 +52,7 @@ namespace Pixify
             typeof (pix).GetProperty (b, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public ).SetValue ( brick, this );
             
             brick.Create ();
+            _NewMember ( brick );
         }
 
         pix RequirePix ( Type PixType )
@@ -97,15 +97,13 @@ namespace Pixify
             else
                 return null;
         }
-        
-        #if UNITY_EDITOR
 
-        public Action OnDrawGizmos;
-        public void OnDrawGizmosSelected(  )
+        // ------- block callbacks ----------
+        event Action <pix> _NewMember;
+        public event Action <pix> OnNewMember
         {
-            OnDrawGizmos?.Invoke ();
+            add { _NewMember += value; }
+            remove { _NewMember -= value; }
         }
-
-        #endif
     }
 }
