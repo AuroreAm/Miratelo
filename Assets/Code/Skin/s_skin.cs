@@ -10,6 +10,7 @@ namespace Triheroes.Code
     {
         [Depend]
         character c;
+        public Vector3 position => Coord.position;
         public Transform Coord {private set; get;}
         public Animator Ani {private set; get;}
         AniExt AniExt;
@@ -31,7 +32,7 @@ namespace Triheroes.Code
         public float actualRotY { private set; get; }
 
         /// <summary>
-        /// hardocode layer index of any type of character
+        /// hardcode layer index of any type of character
         /// </summary>
         public int sword, bow, knee, r_arm, upper;
 

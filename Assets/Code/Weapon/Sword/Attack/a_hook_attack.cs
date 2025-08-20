@@ -22,7 +22,7 @@ namespace Triheroes.Code
             _hookCurve = hookCurve;
             _hookDir = hookDir;
             _duration = duration;
-            a_slash_attack.Fire ( name, sword, duration );
+            // a_slash_attack.Fire ( name, sword, duration );
         }
 
         protected override void Start()
@@ -34,7 +34,7 @@ namespace Triheroes.Code
 
         protected override void Create1()
         {
-            asa.Link (Hit);
+            // asa.Link (Hit);
         }
 
         void Hit (int hitted)

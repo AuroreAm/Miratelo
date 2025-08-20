@@ -11,11 +11,6 @@ namespace Triheroes.Code
     [Category("character")]
     public sealed class ce_skin : element
     {
-        public override void Clash(element from, Slash force)
-        {
-            float damage = force.raw * force.sharpness;
-            host.SendMessage ( new Damage (damage) );
-        }
     }
 
     public struct Damage

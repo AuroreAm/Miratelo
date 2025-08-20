@@ -13,11 +13,9 @@ namespace Triheroes.Code
         public sealed override term DefaultReturnAnimation { get; } = AnimationKey.return_sword;
 
         public float Length = 10;
-        public float Sharpness = 10;
         // TODO: change this to hash
         public String SlashName;
         public String HookSlashName;
-
         
     #if UNITY_EDITOR
     void OnDrawGizmosSelected()

@@ -57,9 +57,9 @@ namespace Triheroes.Code
         
         public static readonly term backflip = new term("backflip");
 
-        public static readonly term slash_0 = new term("slash_0");
-        public static readonly term slash_1 = new term("slash_1");
-        public static readonly term slash_2 = new term("slash_2");
+        public static readonly term SS1_0 = new term("SS1_0");
+        public static readonly term SS1_1 = new term("SS1_1");
+        public static readonly term SS1_2 = new term("SS1_2");
         public static readonly term parry_0 = new term("parry_0");
         public static readonly term parry_1 = new term("parry_1");
         public static readonly term parry_2 = new term("parry_2");

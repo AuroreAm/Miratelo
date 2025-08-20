@@ -16,6 +16,8 @@ namespace Triheroes.Code
         s_sword_user ssu;
         [Depend]
         s_skin ss;
+        [Depend]
+        d_slash_skin_meta dssm;
 
         term SlashKey;
 
@@ -37,6 +39,7 @@ namespace Triheroes.Code
 
         void Slash ()
         {
+            a_slash_attack.Fire ( new term ( ssu.Weapon.SlashName ), ss, ssu.Weapon, dssm.Paths[SlashKey], ss.DurationOfState (SlashKey) - ss.EventPointsOfState (SlashKey) [0] );
         }
 
         void SendSlashSignal ()

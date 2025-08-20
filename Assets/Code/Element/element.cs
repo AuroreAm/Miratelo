@@ -26,17 +26,6 @@ namespace Triheroes.Code
         {
             o.ptr[to].SendMessage (context);
         }
-
-        public static void Clash ( element from, int to, Slash force )
-        {
-            o.ptr[to].element.Clash ( from, force );
-        }
-
-        public static void Clash ( element from, int to, Perce force )
-        {
-            o.ptr[to].element.Clash ( from, force );
-        }
-
     }
 
 
@@ -85,13 +74,6 @@ namespace Triheroes.Code
 
     public abstract class element : pix
     {
-        // clash from another element
-        public virtual void Clash ( element from, Slash force )
-        {}
-
-        public virtual void Clash ( element from, Perce force )
-        {}
-
         protected IElementContainer host;
 
         public void Link ( IElementContainer container )

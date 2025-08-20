@@ -88,7 +88,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: slash_0
+  m_Name: SS1_0
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -446,7 +446,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: slash_2
+  m_Name: SS1_2
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -1684,7 +1684,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: slash_1
+  m_Name: SS1_1
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

@@ -8,108 +8,203 @@ namespace Triheroes.Code
 {
     public class a_slash_attack : virtus.pixi
     {
-        public Sword sword { private set; get; }
+        Mesh trail;
+        Material TrailMaterial;
+        int FrameNumber;
+
+        s_skin performer;
+        SlashPath path;
+        Sword sword;
+
+        float duration;
 
         Vector3 position;
-        Quaternion rotation;
-        Vector3 previousPosition;
-        Quaternion previousRotation;
-        float length;
-        float timeLeft;
-        Action<int> onHit;
+        float time;
 
+        protected override void Create1()
+        {
+            trail = new Mesh ();
+        }
+
+        public class package : PreBlock.Package <a_slash_attack>
+        {
+            public package ( Material material, int frameNumber )
+            {
+                o.TrailMaterial = material;
+                o.FrameNumber = frameNumber;
+            }
+        }
+
+        static s_skin _performer;
+        static SlashPath _path;
         static Sword _sword;
         static float _duration;
-        public static void Fire ( int name, Sword sword, float duration )
+        public static void Fire ( int name, s_skin performer, Sword sword, SlashPath path, float duration )
         {
+            _performer = performer;
+            _path = path;
             _sword = sword;
             _duration = duration;
-            VirtualPoolMaster.RentVirtus(name);
+            VirtualPoolMaster.RentVirtus (name);
         }
 
         protected override void Start()
         {
+            performer = _performer;
+            path = _path;
             sword = _sword;
-            position = sword.transform.position;
-            rotation = sword.transform.rotation;
-            previousPosition = position;
-            previousRotation = rotation;
-            length = sword.Length;
-            timeLeft = _duration;
+
+            duration = _duration;
+
+            position = performer.position;
+            time = 0;
+            rayPtr = 0;
             Hitted.Clear ();
+
+            CreateTrail ();
         }
 
-        protected override void Create1()
-        {
-            rays = new Line [5];
-            hit = new RaycastHit[5];
-        }
-
-        Line [] rays;
         protected override void Step()
         {
-            Shift ();
-            LineCalculation ();
-            Raycast ();
-
-            timeLeft -= Time.deltaTime;
-                if (timeLeft <= 0)
-                    v.Return_();
-        }
-
-        void Shift ()
-        {
-            previousPosition = position;
-            previousRotation = rotation;
-            position = sword.transform.position;
-            rotation = sword.transform.rotation;
-        }
-
-        void LineCalculation ()
-        {
-            for (int j = 0; j < 5; j++)
+            int pathCap = Mathf.Clamp(Mathf.RoundToInt(time / SlashPath.Delta), 0, path.Orig.Length);
+            time += Time.deltaTime;
+            
+            while (pathPtr < pathCap)
             {
-                rays[j] = new Line(previousPosition + previousRotation * Vector3.forward * length * (j / 4f), position + rotation * Vector3.forward * length * (j / 4f));
+                RemeshTrail();
+                pathPtr ++;
             }
-        }
 
-        RaycastHit[] hit;
-        float hitNumber;
-        List <int> Hitted = new List<int>();
-        void Raycast ()
-        {
-            for (int i = 0; i < 5; i++)
+            TrailUV ();
+
+            if ( rayPtr != pathPtr && pathPtr < PathCount )
             {
-                hitNumber = Physics.SphereCastNonAlloc( rays[i].Ray, .25f, hit, rays[i].Distance,Vecteur.SolidCharacter );
-
-                if (hitNumber > 0)
-                {
-                    for (int j = 0; j < hitNumber; j++)
-                    {
-                        if ( !Hitted.Contains (hit[j].collider.id()) && Element.ElementActorIsNotAlly ( hit[j].collider.id (), sword.Owner.faction ) )
-                        {
-                            Element.Clash ( sword.element, hit[j].collider.id (), new Slash (1,hit[j].point, rays[i].Ray.direction, sword.Sharpness) );
-                            onHit?.Invoke ( hit[j].collider.id () );
-                            Hitted.Add ( hit[j].collider.id () );
-                        }
-                    }
-                }
+                Raycast ();
+                rayPtr = pathPtr;
             }
+
+            Graphics.DrawMesh(trail, position, Quaternion.identity, TrailMaterial, 0);
+
+            if (time > duration)
+                v.Return_ ();
         }
 
-        public void Link ( Action <int> _OnHit )
+        Vector3[] vertices;
+        int[] triangles;
+        int pathPtr;
+        int PathCount;
+        Vector2[] uvs;
+
+        void CreateTrail ()
         {
-            onHit = _OnHit;
+            PathCount = path.Orig.Length;
+            vertices = new Vector3[PathCount * 2];
+            triangles = new int[ (PathCount - 1) * 6];
+            uvs = new Vector2[PathCount * 2];
+
+            pathPtr = 0;
+            RemeshTrail ();
         }
         
-        public struct Line
+        void RemeshTrail()
         {
-            public Ray Ray;
-            public float Distance;
-            public Line(Vector3 start, Vector3 end)
+            trail.Clear();
+
+            // Update vertices of current path
+            vertices[pathPtr * 2] = Vecteur.LDir ( performer.rotY, path.Orig[pathPtr] ) + ( performer.position - position );
+            vertices[pathPtr * 2 + 1] = Vecteur.LDir ( performer.rotY, path.Dir[pathPtr] * sword.Length ) + vertices[pathPtr * 2];
+
+            // Set future path to current path to discard them
+            for (int i = pathPtr + 1; i < PathCount; i++)
             {
-                Ray = new Ray(start, end - start);
-                Distance = Vector3.Distance(start, end);
+                vertices[i * 2] = vertices[pathPtr * 2];
+                vertices[i * 2 + 1] = vertices[pathPtr * 2 + 1];
+            }
+
+            
+
+            // Update triangles
+            int quadCount = PathCount - 1;
+            int t = 0;
+
+            for (int i = 0; i < quadCount; i++)
+            {
+                int i0 = i * 2;
+                int i1 = i0 + 1;
+                int i2 = (i + 1) * 2;
+                int i3 = i2 + 1;
+
+                // first triangle
+                triangles[t++] = i0;
+                triangles[t++] = i2;
+                triangles[t++] = i1;
+
+                // second triangle
+                triangles[t++] = i1;
+                triangles[t++] = i2;
+                triangles[t++] = i3;
+            }
+
+            // asign to mesh
+            trail.vertices = vertices;
+            trail.triangles = triangles;
+
+            trail.RecalculateBounds();
+            trail.RecalculateNormals();
+        }
+
+        void TrailUV ()
+        {
+            float normalizedTime = time / duration;
+            int frameIndex = Mathf.FloorToInt ( normalizedTime * (FrameNumber - 1) );
+
+            float frameWidth = 1f / FrameNumber;
+            float frameOffset = frameIndex * frameWidth;
+
+            for (int i = 0; i < PathCount; i++)
+            {
+                float v = ( (float) i ) / (PathCount - 1);
+
+                uvs[i * 2] = new Vector2( frameOffset + v * frameWidth, 0 );
+                uvs[i * 2 + 1] = new Vector2( frameOffset + v * frameWidth, 1 );
+            }
+
+            trail.uv = uvs;
+        }
+
+        RaycastHit hit;
+        int rayPtr;
+        void Raycast ()
+        {
+            // raycast Z pattern using the paths
+            Vector3 A = vertices[rayPtr * 2] + position;
+            Vector3 B = vertices[rayPtr * 2 + 1] + position;
+            Vector3 D = vertices[pathPtr * 2 + 1] + position;
+            Vector3 ABHalf = ( A + B ) / 2;
+            Vector3 CDHalf = ( vertices[pathPtr * 2] + position + D ) / 2;
+
+            if ( Physics.Linecast ( A , B, out hit, Vecteur.SolidCharacter ) )
+                Hit ();
+            
+            if ( Physics.Linecast ( B, D, out hit, Vecteur.SolidCharacter ) )
+                Hit ();
+            
+            if ( Physics.Linecast ( ABHalf, D, out hit, Vecteur.SolidCharacter ) )
+                Hit ();
+
+            if ( Physics.Linecast ( A, CDHalf, out hit, Vecteur.SolidCharacter ) )
+                Hit ();
+        }
+
+        List <int> Hitted = new List<int> ();
+        void Hit ()
+        {
+            if ( Hitted.Contains ( hit.collider.id () ) ) return;
+            
+            if (  Element.Contains ( hit.collider.id () ) && Element.ElementActorIsNotAlly ( hit.collider.id (), sword.Owner.faction ) )
+            {
+                Debug.Log (hit.collider.gameObject.name);
+                Hitted.Add ( hit.collider.id () );
             }
         }
     }

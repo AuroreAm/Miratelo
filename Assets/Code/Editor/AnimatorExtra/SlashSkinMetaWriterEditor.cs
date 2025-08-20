@@ -1,0 +1,160 @@
+using System.Collections;
+using System.Collections.Generic;
+using Pixify;
+using Triheroes.Code;
+using UnityEditor;
+using UnityEngine;
+using UnityEditor.Animations;
+
+namespace Triheroes.Editor
+{
+    [CustomEditor(typeof(SlashSkinMetaWriter))]
+    public class SlashSkinMetaWriterEditor : UnityEditor.Editor
+    {
+        readonly term[] EditableClip = new term[] {
+            AnimationKey.SS1_0,AnimationKey.SS1_1,AnimationKey.SS1_2
+         };
+
+        SlashSkinMetaWriter Target;
+        Animator Ani;
+        Transform TargetHand;
+        Transform HandEnd;
+
+        void OnEnable()
+        {
+            Target = (SlashSkinMetaWriter) target;
+            Ani = Target.GetComponent<Animator> ();
+        }
+
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI ();
+            HandSelectionGUI ();
+
+            if ( !TargetHand || !Ani )
+                return;
+
+            ClipSelectionGUI ();
+        }
+
+        void HandSelectionGUI ()
+        {
+            GUILayout.Label ( "Select Hand", PixStyle.o.Title3 );
+            TargetHand = EditorGUILayout.ObjectField ( "Target Hand", TargetHand, typeof(Transform), true ) as Transform;
+
+            GUILayout.BeginHorizontal ();
+            GUILayout.Label ("Or");
+            if (GUILayout.Button ("Left Hand"))
+                TargetHand = Ani.GetComponent <SkinModel> ().Hand [0];
+            if (GUILayout.Button ("Right Hand"))
+                TargetHand = Ani.GetComponent <SkinModel> ().Hand [1];
+            GUILayout.EndHorizontal ();
+        }
+
+        void ClipSelectionGUI ()
+        {
+            GUILayout.Label ( "Sample a Clip", PixStyle.o.Title3 );
+            foreach (var k in EditableClip)
+                if ( GUILayout.Button (k.name) )
+                {
+                    var c = FindClipInAnimator ( k );
+                    if (c != null)
+                        SampleClip ( c, k );
+                }
+        }
+
+        void SampleClip ( AnimationClip c, term term )
+        {
+            AnimationEvent[] EventSegment;
+            if (!CheckIfValidClipAndGetSegment ( c, out EventSegment ))
+                return;
+
+            Vector3 PositionCache = Target.transform.position;
+            Quaternion RotationCache = Target.transform.rotation;
+            Target.transform.position = Vector3.zero;
+            Target.transform.rotation = Quaternion.identity;
+            SetHand ();
+            AnimationMode.StartAnimationMode ();
+
+            // collect sample times
+            float startTime = EventSegment[0].time;
+            float endTime   = EventSegment[1].time;
+
+            List<float> sampleTimes = new List<float>();
+            for (float t = startTime; t < endTime; t += SlashPath.Delta)
+                sampleTimes.Add(t);
+            sampleTimes.Add(endTime);
+
+            // sample
+            SlashPath path = new SlashPath ();
+            path.key = term;
+            path.Orig = new Vector3 [sampleTimes.Count];
+            path.Dir = new Vector3 [sampleTimes.Count];
+
+            for (int i = 0; i < sampleTimes.Count; i++)
+            {
+                AnimationMode.SampleAnimationClip ( Target.gameObject, c, sampleTimes[i] );
+                path.Orig[i] = TargetHand.position;
+                path.Dir[i] = HandEnd.position - TargetHand.position;
+            }
+
+            // add sample
+            Target.Paths.AddOrChange ( term, path );
+            EditorUtility.SetDirty ( Target );
+
+            AnimationMode.EndSampling();
+            AnimationMode.StopAnimationMode();
+            Target.transform.position = PositionCache;
+            Target.transform.rotation = RotationCache;
+            ResetHand ();
+            SceneView.RepaintAll();
+
+            Debug.Log ( "Done Sampling" );
+        }
+
+        bool CheckIfValidClipAndGetSegment ( AnimationClip c, out AnimationEvent[] events )
+        {
+            events = null;
+            var Evs = c.events;
+            List<AnimationEvent> Result = new List<AnimationEvent> ();
+            foreach ( var e in Evs )
+            {
+                if ( e.functionName == "F")
+                {
+                    Result.Add ( e );
+                }
+            }
+            if (Result.Count == 2)
+            {
+                events = Result.ToArray ();
+                return true;
+            }
+            return false;
+        }
+
+        void SetHand ()
+        {
+            HandEnd = new GameObject ("HandEnd").transform;
+            HandEnd.parent = TargetHand;
+            HandEnd.localPosition = Vector3.zero;
+            HandEnd.localRotation = Const.SwordDefaultRotation;
+            HandEnd.position += HandEnd.TransformDirection ( Vector3.forward );
+        }
+
+        void ResetHand()
+        {
+            DestroyImmediate ( HandEnd.gameObject );
+        }
+
+        AnimationClip FindClipInAnimator ( term k )
+        {
+            AnimatorControllerLayer[] layers = ((AnimatorController)Ani.runtimeAnimatorController).layers;
+            List<ChildAnimatorState> States = new List<ChildAnimatorState>();
+
+            foreach (var l in layers)
+                States.AddRange(l.stateMachine.states);
+
+            return States.Find(x => x.state.motion is AnimationClip && string.Equals(x.state.name, k.name)).state.motion as AnimationClip;
+        }
+    }
+}

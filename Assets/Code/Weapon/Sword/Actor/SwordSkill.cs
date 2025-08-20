@@ -8,7 +8,7 @@ namespace Triheroes.Code
 {
     public class SS1_Combo : pix
     {
-        static readonly term[] SlashKeys = { AnimationKey.slash_0, AnimationKey.slash_1, AnimationKey.slash_2 };
+        static readonly term[] SlashKeys = { AnimationKey.SS1_0, AnimationKey.SS1_1, AnimationKey.SS1_2 };
 
         public motor[] Combo;
 
