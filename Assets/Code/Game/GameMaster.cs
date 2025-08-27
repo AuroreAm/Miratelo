@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Pixify;
-using System;
-using Codice.Client.Common;
-using System.IO;
 
 namespace Triheroes.Code
 {
@@ -25,6 +20,7 @@ namespace Triheroes.Code
             new GameData ( game );
         }
         
+        // TODO Refactor this as sometimes loading the resources is forgotten
         void ResourcesLoad ()
         {
             SubResources <VirtusAuthor>.LoadAll ( "Virtus" );

@@ -5,6 +5,7 @@ using Triheroes.Code;
 using UnityEditor;
 using UnityEngine;
 using UnityEditor.Animations;
+using System;
 
 namespace Triheroes.Editor
 {
@@ -12,13 +13,15 @@ namespace Triheroes.Editor
     public class SlashSkinMetaWriterEditor : UnityEditor.Editor
     {
         readonly term[] EditableClip = new term[] {
-            AnimationKey.SS1_0,AnimationKey.SS1_1,AnimationKey.SS1_2
+            AnimationKey.SS1_0,AnimationKey.SS1_1,AnimationKey.SS1_2,
+            AnimationKey.SS4
          };
 
         SlashSkinMetaWriter Target;
         Animator Ani;
         Transform TargetHand;
         Transform HandEnd;
+        Transform CustomDirection;
 
         void OnEnable()
         {
@@ -28,7 +31,15 @@ namespace Triheroes.Editor
 
         public override void OnInspectorGUI()
         {
+            if ( String.IsNullOrEmpty (Target.gameObject.scene.name) )
+            {
+                GUILayout.Label ( "Must Be In Scene" );
+                return;
+            }
+
             base.OnInspectorGUI ();
+
+
             HandSelectionGUI ();
 
             if ( !TargetHand || !Ani )
@@ -49,6 +60,8 @@ namespace Triheroes.Editor
             if (GUILayout.Button ("Right Hand"))
                 TargetHand = Ani.GetComponent <SkinModel> ().Hand [1];
             GUILayout.EndHorizontal ();
+
+            CustomDirection = EditorGUILayout.ObjectField ( "Custom Direction", CustomDirection, typeof(Transform), true ) as Transform;
         }
 
         void ClipSelectionGUI ()
@@ -137,7 +150,12 @@ namespace Triheroes.Editor
             HandEnd = new GameObject ("HandEnd").transform;
             HandEnd.parent = TargetHand;
             HandEnd.localPosition = Vector3.zero;
+
+            if (!CustomDirection)
             HandEnd.localRotation = Const.SwordDefaultRotation;
+            else
+            HandEnd.rotation = Quaternion.LookRotation ( CustomDirection.position - TargetHand.position );
+
             HandEnd.position += HandEnd.TransformDirection ( Vector3.forward );
         }
 

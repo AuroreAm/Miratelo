@@ -35,13 +35,11 @@ namespace Triheroes.Code
             }
         }
 
-        static s_skin _performer;
         static SlashPath _path;
         static Sword _sword;
         static float _duration;
-        public static void Fire ( int name, s_skin performer, Sword sword, SlashPath path, float duration )
+        public static void Fire ( int name, Sword sword, SlashPath path, float duration )
         {
-            _performer = performer;
             _path = path;
             _sword = sword;
             _duration = duration;
@@ -50,9 +48,9 @@ namespace Triheroes.Code
 
         protected override void Start()
         {
-            performer = _performer;
             path = _path;
             sword = _sword;
+            performer = sword.Owner.ss;
 
             duration = _duration;
 

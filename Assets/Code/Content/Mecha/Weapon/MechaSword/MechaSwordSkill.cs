@@ -11,6 +11,13 @@ namespace Triheroes.Code
 
         [Depend]
         s_skin ss;
+
+        [Depend]
+        s_mecha_sword sms;
+        
+        [Depend]
+        d_slash_skin_meta dssm;
+
         [Depend]
         s_capsule_character_controller sccc;
 
@@ -35,13 +42,13 @@ namespace Triheroes.Code
         delta_curve dash;
         void Dash ()
         {
-            dash.Start ( 5, ss.EventPointsOfState (AnimationKey.SS4) [1] - ss.EventPointsOfState (AnimationKey.SS4) [0] );
+            dash.Start ( 5, ss.DurationOfState (AnimationKey.SS4) - ss.EventPointsOfState (AnimationKey.SS4) [0] );
             state = 1;
         }
 
         void Slash ()
         {
-
+            a_slash_attack.Fire ( new term ( sms.MechaSword.SlashName ), sms.MechaSword, dssm.Paths [AnimationKey.SS4], ss.DurationOfState (AnimationKey.SS4) - ss.EventPointsOfState (AnimationKey.SS4) [1] );
         }
         
         void EndSlash ()

@@ -12,9 +12,6 @@ namespace Triheroes.Code
         public abstract term DefaultDrawAnimation { get; }
         public abstract term DefaultReturnAnimation { get; }
 
-        [SerializeField]
-        PixPaper <element> WeaponElement;
-
         public d_actor Owner { get; protected set; }
         
 

@@ -9,9 +9,6 @@ namespace Triheroes.Code
     [Category("player controller")]
     public class player_cortex : cortex
     {
-        [Depend]
-        d_skill ds;
-
         public override void Setup()
         {
             // basic movement
