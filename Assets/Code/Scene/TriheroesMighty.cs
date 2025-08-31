@@ -25,6 +25,8 @@ namespace Triheroes.Code
             a.A <Interactable> ();
         }
 
+        // TODO: Pixi from spirit need default order
+
         protected override Type[] PixiExecutionOrder()
         {
             return new Type []

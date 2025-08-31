@@ -60,9 +60,9 @@ namespace Triheroes.Code
         public static readonly term SS1_0 = new term("SS1_0");
         public static readonly term SS1_1 = new term("SS1_1");
         public static readonly term SS1_2 = new term("SS1_2");
-        public static readonly term parry_0 = new term("parry_0");
-        public static readonly term parry_1 = new term("parry_1");
-        public static readonly term parry_2 = new term("parry_2");
+
+        public static readonly term SS8_0 = new term("SS8_0");
+        public static readonly term SS8_1 = new term("SS8_1");
 
         public static readonly term SS4 = new term("SS4");
 

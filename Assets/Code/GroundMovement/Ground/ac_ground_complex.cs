@@ -31,7 +31,7 @@ namespace Triheroes.Code
         /// <summary>
         /// composite walk direction for the character
         /// </summary>
-        public Vector3 walkDir;
+        Vector3 walkDir;
         /// <summary>
         /// walk factor of the movement, used to interpolate between idle and walk, the character's speed is multiplied by this factor
         /// </summary>

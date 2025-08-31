@@ -14,6 +14,9 @@ namespace Triheroes.Code
         public s_skin ss;
         [Depend]
         public d_dimension dd;
+        [Depend]
+        public s_element se;
+
         public block block => b;
 
         // TODO faction reregister to ActorFaction

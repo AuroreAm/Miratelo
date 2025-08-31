@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Pixify;
 using Pixify.Spirit;
 using UnityEngine;
@@ -39,7 +37,7 @@ namespace Triheroes.Code
 
         void Slash ()
         {
-            a_slash_attack.Fire ( new term ( ssu.Weapon.SlashName ), ss, ssu.Weapon, dssm.Paths[SlashKey], ss.DurationOfState (SlashKey) - ss.EventPointsOfState (SlashKey) [0] );
+            a_slash_attack.Fire ( new term ( ssu.Weapon.SlashName ), ssu.Weapon, dssm.Paths[SlashKey], ss.DurationOfState (SlashKey) - ss.EventPointsOfState (SlashKey) [0] );
         }
 
         void SendSlashSignal ()
@@ -49,8 +47,8 @@ namespace Triheroes.Code
 
             foreach (Collider col in NearbyColliders)
             {
-                if ( Element.Contains (col.id ()) )
-                Element.SendMessage ( col.id(), new incomming_slash ( da.term, SlashKey, true ) );
+                if ( Element.Contains (col.id ()) && Element.ElementActorIsNotAlly ( col.id (), da.faction )  )
+                Element.SendMessage ( col.id(), new incomming_slash ( da.term, SlashKey, ss.DurationOfState (SlashKey) - ss.EventPointsOfState (SlashKey) [1]) ) ;
             }
         }
 
@@ -62,15 +60,15 @@ namespace Triheroes.Code
 
     public struct incomming_slash
     {
-        public term sender;
-        public term slash;
-        public bool MostLikelyHit;
+        public term Sender;
+        public term Slash;
+        public float Duration;
 
-        public incomming_slash ( term sender, term slash, bool MostLikelyHit )
+        public incomming_slash ( term sender, term slash, float Duration )
         {
-            this.sender = sender;
-            this.slash = slash;
-            this.MostLikelyHit = MostLikelyHit;
+            this.Sender = sender;
+            this.Slash = slash;
+            this.Duration = Duration;
         }
     }
 }

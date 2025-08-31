@@ -53,7 +53,7 @@ namespace Triheroes.Code
         {
             float spd = speed * Time.deltaTime;
 
-            if (Physics.Raycast(position, Vecteur.Forward(rotation), out RaycastHit Hit, spd, Vecteur.SolidCharacterAttack))
+            if (Physics.Raycast( position, Vecteur.Forward(rotation), out RaycastHit Hit, spd, Vecteur.SolidCharacterAttack) )
             {
                 position += Vecteur.Forward(rotation) * Hit.distance;
                 // attack

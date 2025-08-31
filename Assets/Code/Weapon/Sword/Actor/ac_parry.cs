@@ -17,11 +17,11 @@ namespace Triheroes.Code
         [Depend]
         s_skin ss;
 
-        term SlashKey = AnimationKey.parry_0;
+        term SlashKey = AnimationKey.SS8_0;
 
-        public void OverrideAnimation ( term Key )
+        public ac_parry (term SlashAnimation)
         {
-            SlashKey = Key;
+            SlashKey = SlashAnimation;
         }
 
         protected override void Start ()
@@ -36,12 +36,17 @@ namespace Triheroes.Code
 
         void ActiveParry ()
         {
-
+            ssu.Weapon.OpenParry ();
         }
 
         void DisableParry ()
         {
+            ssu.Weapon.CloseParry ();
+        }
 
+        protected override void Stop()
+        {
+            ssu.Weapon.CloseParry ();
         }
 
         void EndSlash ()
@@ -49,4 +54,8 @@ namespace Triheroes.Code
             SelfStop ();
         }
     }
+
+    public struct parried
+    {}
+
 }

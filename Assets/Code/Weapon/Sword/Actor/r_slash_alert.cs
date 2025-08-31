@@ -1,30 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Pixify.Spirit;
 using Pixify;
+using System.Collections.Generic;
 
 namespace Triheroes.Code
 {
-    /*
     public class r_slash_alert : reflexion, IElementListener<incomming_slash>
     {
-        [Depend]
-        s_element se;
+        List <incomming_slash> IncommingSlashes = new List<incomming_slash> ();
 
-        protected override void Start()
+        public bool Alert => IncommingSlashes.Count > 0;
+        public incomming_slash IncommingSlash;
+
+        public void OnMessage ( incomming_slash context )
         {
-            se.LinkMessage (this);   
+            IncommingSlashes.Add ( context );
         }
 
-        protected override void Stop()
+        protected override void Reflex()
         {
-            se.UnlinkMessage (this);
-        }
+            IncommingSlash.Duration = Mathf.Infinity;
 
-        public void OnMessage(incomming_slash context)
-        {
-            Debug.Log ( context.sender.name + "is planning a slash" );
+            for (int i = IncommingSlashes.Count - 1; i >= 0; i--)
+            {
+                if ( IncommingSlashes [i].Duration <= 0 )
+                {
+                    IncommingSlashes.RemoveAt (i);
+                    continue;
+                }
+
+                IncommingSlashes [i] = new incomming_slash ( IncommingSlashes [i].Sender, IncommingSlashes [i].Slash, IncommingSlashes[i].Duration - Time.deltaTime );
+
+                if ( IncommingSlashes [i].Duration < IncommingSlash.Duration )
+                IncommingSlash = IncommingSlashes [i];
+            }
         }
-    }*/
+    }
 }

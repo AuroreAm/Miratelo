@@ -35,13 +35,11 @@ namespace Triheroes.Code
             }
         }
 
-        static s_skin _performer;
         static SlashPath _path;
         static Sword _sword;
         static float _duration;
-        public static void Fire ( int name, s_skin performer, Sword sword, SlashPath path, float duration )
+        public static void Fire ( int name, Sword sword, SlashPath path, float duration )
         {
-            _performer = performer;
             _path = path;
             _sword = sword;
             _duration = duration;
@@ -50,9 +48,9 @@ namespace Triheroes.Code
 
         protected override void Start()
         {
-            performer = _performer;
             path = _path;
             sword = _sword;
+            performer = sword.Owner.ss;
 
             duration = _duration;
 
@@ -183,23 +181,22 @@ namespace Triheroes.Code
             Vector3 ABHalf = ( A + B ) / 2;
             Vector3 CDHalf = ( vertices[pathPtr * 2] + position + D ) / 2;
 
-            if ( Physics.Linecast ( A , B, out hit, Vecteur.SolidCharacter ) )
-                Hit ();
-            
-            if ( Physics.Linecast ( B, D, out hit, Vecteur.SolidCharacter ) )
-                Hit ();
-            
-            if ( Physics.Linecast ( ABHalf, D, out hit, Vecteur.SolidCharacter ) )
-                Hit ();
-
-            if ( Physics.Linecast ( A, CDHalf, out hit, Vecteur.SolidCharacter ) )
+            if ( Physics.Linecast ( A , B, out hit, Vecteur.SolidCharacterAttack ) || Physics.Linecast ( B, D, out hit, Vecteur.SolidCharacterAttack ) || Physics.Linecast ( ABHalf, D, out hit, Vecteur.SolidCharacterAttack  ) || Physics.Linecast ( A, CDHalf, out hit, Vecteur.SolidCharacterAttack ) )
                 Hit ();
         }
 
         List <int> Hitted = new List<int> ();
+
         void Hit ()
         {
             if ( Hitted.Contains ( hit.collider.id () ) ) return;
+
+            if ( hit.collider.gameObject.layer == Vecteur.ATTACK )
+            {
+                sword.Owner.se.SendMessage ( new parried () );
+                v.Return_ ();
+                return;
+            }
             
             if (  Element.Contains ( hit.collider.id () ) && Element.ElementActorIsNotAlly ( hit.collider.id (), sword.Owner.faction ) )
             {

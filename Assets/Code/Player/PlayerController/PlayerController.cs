@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Pixify;
 using Pixify.Spirit;
+using UnityEditor.SceneManagement;
 
 namespace Triheroes.Code
 {
@@ -9,9 +10,6 @@ namespace Triheroes.Code
     [Category("player controller")]
     public class player_cortex : cortex
     {
-        [Depend]
-        d_skill ds;
-
         public override void Setup()
         {
             // basic movement
@@ -25,9 +23,12 @@ namespace Triheroes.Code
             AddReflexion <pr_interact_near_weapon> ();
 
             AddReflexion <pr_dash> ();
-            AddReflexion <pr_sword> ();
+            AddReflexion <pr_SS2> ();
+            AddReflexion <pr_parry> ();
             AddReflexion <pr_sword_target> ();
             AddReflexion <pr_aim> ();
+
+            AddReflexion <r_slash_alert> ();
         }
     }
 }

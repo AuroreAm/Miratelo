@@ -85,4 +85,39 @@ namespace Triheroes.Code
             return false;
         }
     }
+
+    [ Category ( "sword skill" ) ]
+    public class SS8_parry : skill_motor.First
+    {
+        [Depend]
+        s_equip _equip;
+
+        public override bool SkillValid => _equip.weaponUser is s_sword_user;
+
+        Dictionary < term, motor > _parryKeys;
+
+        public override void Create()
+        {
+            _parryKeys = new Dictionary<term, motor> ();
+
+            var parry0 = new ac_parry ( AnimationKey.SS8_0 );
+            var parry1 = new ac_parry ( AnimationKey.SS8_1 );
+            b.IntegratePix ( parry0 );
+            b.IntegratePix ( parry1 );
+
+            _parryKeys.Add ( AnimationKey.SS1_0, parry1 );
+            _parryKeys.Add ( AnimationKey.SS1_1, parry0 );
+            _parryKeys.Add ( AnimationKey.SS1_2, parry1 );
+
+            _parryKeys.Add ( AnimationKey.SS4, parry1 );
+        }
+
+        public bool Spam ( term incomming_slash_animation )
+        {
+            if ( _parryKeys.ContainsKey ( incomming_slash_animation ) )
+            return StartMotor ( _parryKeys [incomming_slash_animation] );
+            else
+            return StartMotor (_parryKeys [AnimationKey.SS1_0]);
+        }
+    }
 }

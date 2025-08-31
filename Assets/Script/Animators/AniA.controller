@@ -62,7 +62,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: parry_1
+  m_Name: SS8_0
   m_Speed: 2
   m_CycleOffset: 0
   m_Transitions: []
@@ -318,10 +318,10 @@ AnimatorStateMachine:
     m_Position: {x: 840, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1250663575744394541}
-    m_Position: {x: 840, y: 180, z: 0}
+    m_Position: {x: 840, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8130834407330215515}
-    m_Position: {x: 840, y: 230, z: 0}
+    m_Position: {x: 840, y: 180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2120202745206364075}
     m_Position: {x: 400, y: -70, z: 0}
@@ -721,7 +721,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: parry_0
+  m_Name: SS8_1
   m_Speed: 2
   m_CycleOffset: 0
   m_Transitions: []

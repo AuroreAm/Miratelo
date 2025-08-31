@@ -16,6 +16,16 @@ namespace Triheroes.Code
         // TODO: change this to hash
         public String SlashName;
         public String HookSlashName;
+
+        public void OpenParry ()
+        {
+            gameObject.layer = Vecteur.ATTACK;
+        }
+
+        public void CloseParry ()
+        {
+            gameObject.layer = 0;
+        }
         
     #if UNITY_EDITOR
     void OnDrawGizmosSelected()

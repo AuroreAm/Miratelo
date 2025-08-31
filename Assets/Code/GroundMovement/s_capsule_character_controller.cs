@@ -25,7 +25,7 @@ namespace Triheroes.Code
         public Vector3 dir;
 
         public Transform Coord;
-        public CharacterController CCA;
+        public CharacterController CCA {get; private set;}
 
         public override void Create()
         {

@@ -13,7 +13,7 @@ namespace Triheroes.Code
         [SerializeField]
         public List<SlashPath> SerializedPaths;
 
-        public Dictionary <term, SlashPath> Paths;
+        public Dictionary <term, SlashPath> Paths = new Dictionary<term, SlashPath> ();
 
         public override void OnWriteBlock()
         {}
