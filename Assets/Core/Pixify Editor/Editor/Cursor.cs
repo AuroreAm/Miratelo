@@ -6,7 +6,7 @@ using UnityEditor.IMGUI.Controls;
 using System.Linq;
 using System.Reflection;
 
-namespace Pixify.Editor
+namespace Lyra.Editor
 {
 
     public class Cursor<T> : Cursor where T:pix

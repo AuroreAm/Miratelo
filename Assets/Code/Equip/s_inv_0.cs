@@ -1,6 +1,6 @@
 using System;
-using Pixify.Spirit;
-using Pixify;
+using Lyra.Spirit;
+using Lyra;
 using UnityEngine;
 
 namespace Triheroes.Code

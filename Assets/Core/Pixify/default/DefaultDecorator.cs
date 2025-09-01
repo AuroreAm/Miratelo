@@ -1,4 +1,4 @@
-namespace Pixify.Spirit
+namespace Lyra.Spirit
 {
     public sealed class sequence : decorator
     {

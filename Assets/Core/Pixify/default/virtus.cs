@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pixify
+namespace Lyra
 {
 
     public class VirtualPoolMaster : pix
@@ -64,7 +64,7 @@ namespace Pixify
             Stage.Stop ( keys [i] );
         }
 
-        public abstract class pixi : Pixify.pixi.managed
+        public abstract class pixi : Lyra.pixi.managed
         {
             [Depend]
             protected virtus v;

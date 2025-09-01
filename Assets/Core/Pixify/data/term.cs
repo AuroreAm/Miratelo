@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pixify
+namespace Lyra
 {
     [System.Serializable]
     public struct term

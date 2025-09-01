@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pixify;
+using Lyra;
 
-namespace Pixify.Spirit
+namespace Lyra.Spirit
 {
     public abstract class condition : pix
     {

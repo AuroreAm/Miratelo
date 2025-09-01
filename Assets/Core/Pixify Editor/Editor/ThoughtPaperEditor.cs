@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEditor;
-using Pixify.Spirit;
+using Lyra.Spirit;
 using System;
 
-namespace Pixify.Editor
+namespace Lyra.Editor
 {
     [CustomEditor (typeof(ThoughtPaper),true)]
     public class ThoughtPaperEditor : UnityEditor.Editor

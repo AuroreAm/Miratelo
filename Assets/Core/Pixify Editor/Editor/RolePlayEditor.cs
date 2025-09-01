@@ -1,9 +1,9 @@
 using System;
-using Pixify.Spirit;
+using Lyra.Spirit;
 using UnityEditor;
 using UnityEngine;
 
-namespace Pixify.Editor
+namespace Lyra.Editor
 {
 
     public class ThoughtPaperCursor : EditorWindow

@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
-using Pixify;
-using Pixify.Spirit;
+using Lyra;
+using Lyra.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
@@ -38,6 +34,11 @@ namespace Triheroes.Code
         {
             rotY = y;
             rotX = x;
+        }
+
+        public void Shot ()
+        {
+            a_trajectile.Fire ( new term (sbu.Weapon.ArrowName), sbu.Weapon.BowString.position, Quaternion.Euler ( new Vector3 (rotX, rotY) ), sbu.Weapon.Speed );
         }
 
         protected override void Step()

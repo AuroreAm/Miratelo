@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Pixify;
-using Pixify.Spirit;
+using Lyra;
+using Lyra.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
@@ -31,6 +31,9 @@ namespace Triheroes.Code
         protected override void Step ()
         {
             aa.Aim ( s_camera.o.td.rotX, s_camera.o.td.rotY );
+
+            if ( Player.Action2.OnActive )
+            aa.Shot ();
 
             if (!aa.on)
             {

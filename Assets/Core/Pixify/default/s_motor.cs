@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Pixify;
+using Lyra;
 using UnityEngine;
 
-namespace Pixify.Spirit
+namespace Lyra.Spirit
 {
     // motor layer of behavior
     // asign only state that directly manipulate motion of a character: animation and movement

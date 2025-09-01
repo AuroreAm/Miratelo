@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Pixify;
-using Pixify.Spirit;
+using Lyra;
+using Lyra.Spirit;
 using Triheroes.Code;
 using UnityEngine;
 

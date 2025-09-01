@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Pixify;
+using Lyra;
 
 namespace Triheroes.Code
 {

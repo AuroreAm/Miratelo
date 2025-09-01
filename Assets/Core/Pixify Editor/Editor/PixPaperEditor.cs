@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace Pixify.Editor
+namespace Lyra.Editor
 {
     public class PixPaperEditor : EditorWindow
     {

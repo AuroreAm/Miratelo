@@ -2,7 +2,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pixify.Spirit
+namespace Lyra.Spirit
 {
     public class ReactionPaper : ThoughtAuthor <guard>
     {

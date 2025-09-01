@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pixify;
+using Lyra;
 
 namespace Triheroes.Code
 {
@@ -56,7 +56,19 @@ namespace Triheroes.Code
             if (Physics.Raycast( position, Vecteur.Forward(rotation), out RaycastHit Hit, spd, Vecteur.SolidCharacterAttack) )
             {
                 position += Vecteur.Forward(rotation) * Hit.distance;
-                // attack
+                
+                if ( Hit.collider.gameObject.layer == Vecteur.Attack )
+                {
+                    v.Return_ ();
+                    return;
+                }
+
+                if ( Element.Contains ( Hit.collider.id() ) )
+                {
+                    Element.SendMessage ( Hit.collider.id (), new Slash ( 2 ) );
+                    v.Return_ ();
+                    return;
+                }
             }
             else
                 position += Vecteur.Forward(rotation) * spd;

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pixify
+namespace Lyra
 {
     public class CharacterAuthor : MonoBehaviour, IBlockAuthor
     {

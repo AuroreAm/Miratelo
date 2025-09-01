@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace Pixify.Editor
+namespace Lyra.Editor
 {
     [PixEditorOf (typeof (pix))]
     public class PixEditor

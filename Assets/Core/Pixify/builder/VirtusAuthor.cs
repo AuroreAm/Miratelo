@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pixify
+namespace Lyra
 {
     public abstract class VirtusAuthor : ScriptableObject, IBlockAuthor, IVirtusAuthor
     {

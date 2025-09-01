@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using Pixify;
+using Lyra;
 using UnityEngine;
 
-namespace Pixify.Spirit
+namespace Lyra.Spirit
 {
     public abstract class motor : pixi.self_managed
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Pixify.Spirit
+namespace Lyra.Spirit
 {
     public class Script : ActionPaper
     {

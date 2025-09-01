@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pixify.Spirit
+namespace Lyra.Spirit
 {
     public class s_mind : reaction
     {

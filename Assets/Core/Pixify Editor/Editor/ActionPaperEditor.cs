@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using Pixify.Spirit;
+using Lyra.Spirit;
 using System;
 
-namespace Pixify.Editor
+namespace Lyra.Editor
 {
     [CustomEditor (typeof(ActionPaper),true)]
     public class ActionPaperEditor : UnityEditor.Editor

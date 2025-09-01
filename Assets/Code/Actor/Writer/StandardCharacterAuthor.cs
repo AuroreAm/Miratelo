@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Pixify;
-using Pixify.Spirit;
+using Lyra;
+using Lyra.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code

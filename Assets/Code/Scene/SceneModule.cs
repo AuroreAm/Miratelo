@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Pixify.Spirit;
-using Pixify;
+using Lyra.Spirit;
+using Lyra;
 
 namespace Triheroes.Code
 {

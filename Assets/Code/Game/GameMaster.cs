@@ -1,5 +1,5 @@
 using UnityEngine;
-using Pixify;
+using Lyra;
 
 namespace Triheroes.Code
 {

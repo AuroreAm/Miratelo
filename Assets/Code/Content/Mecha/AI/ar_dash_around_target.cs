@@ -1,5 +1,5 @@
-using Pixify;
-using Pixify.Spirit;
+using Lyra;
+using Lyra.Spirit;
 
 namespace Triheroes.Code
 {

@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using Pixify;
+using Lyra;
 using UnityEngine;
 using System.IO;
-using Pixify.Spirit;
+using Lyra.Spirit;
 
 namespace Triheroes.Code
 {

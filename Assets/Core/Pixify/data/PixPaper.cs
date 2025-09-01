@@ -2,7 +2,7 @@ using System.Reflection;
 using System;
 using UnityEngine;
 
-namespace Pixify
+namespace Lyra
 {
     [Serializable]
     public struct PixPaper <T> where T:pix

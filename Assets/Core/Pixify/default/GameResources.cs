@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Pixify
+namespace Lyra
 {
     public static class SubResources <T> where T : Object
     {
