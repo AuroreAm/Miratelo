@@ -1,22 +1,17 @@
 using System;
-using System.Collections.Generic;
 using Lyra;
-using Lyra.Spirit;
 using UnityEngine;
 
 namespace Triheroes.Code
 {
-    /// <summary>
-    /// return a weapon in ms.r_arm
-    /// </summary>
     public class ac_return_weapon : motor
     {
-        public override int Priority => Pri.SubAction;
+        public override int Priority => Rank.SubAction;
 
-        [Depend]
-        s_skin ss;
-        [Depend]
-        s_equip se;
+        [Link]
+        s_skin skin;
+        [Link]
+        s_equip equip;
         
         WeaponPlace to;
 
@@ -24,13 +19,21 @@ namespace Triheroes.Code
 
         public bool prepared => to != null;
 
-        protected override void Start()
+        protected override void OnStart()
         {
-            if (se.weaponUser == null)
+            if (equip.WeaponUser == null)
             Debug.LogError("the character have no weapon to return");
             if (to == null)
             throw new InvalidOperationException ("No place to return, must set the place before doing this action");
-            ss.PlayState ( ss.r_arm, ReturnAnimation, 0.1f, null, null, done );
+
+            
+            SkinAnimation play = new SkinAnimation ( ReturnAnimation, this )
+            {
+                LayerIndex = skin.r_arm,
+                Ev0 = Stop
+            };
+
+            skin.PlayState ( play );
         }
 
         public void SetPlaceToReturn ( WeaponPlace toPlace )
@@ -38,27 +41,34 @@ namespace Triheroes.Code
             if (on) return;
 
             to = toPlace;
-            ReturnAnimation = se.weaponUser.WeaponBase.DefaultReturnAnimation;
+            ReturnAnimation = GetCorrespondingDefaultReturnAnimation ( equip.WeaponUser.WeaponBase );
         }
 
-        override protected void Stop()
+        
+        static readonly term return_sword = new term ( "return_sword" );
+        static readonly term return_bow = new term ( "return_bow" );
+        static term GetCorrespondingDefaultReturnAnimation ( d_weapon_standard weapon )
         {
-            Weapon w = se.weaponUser.WeaponBase;
-            se.RemoveWeaponUser ();
+            if ( weapon is d_sword )
+            return return_sword;
+            if ( weapon is d_bow )
+            return return_bow;
+
+            return new term ();
+        }
+
+        override protected void OnStop ()
+        {
+            d_weapon_standard w = equip.WeaponUser.WeaponBase;
+            equip.RemoveWeaponUser ();
 
             to.Put(w);
             to = null;
         }
 
-        override protected void Abort()
+        override protected void OnAbort ()
         {
             to = null;
-        }
-
-        void done ()
-        {
-            if (on)
-            SelfStop ();
         }
     }
 }

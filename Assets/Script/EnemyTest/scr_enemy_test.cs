@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using Lyra;
 using Lyra.Spirit;
@@ -51,4 +51,4 @@ public class scr_enemy_test_while_target_aprroach_rapidly_reaction : reaction_fl
 
         DistanceToTarget = Vector3.Distance ( da.dd.position, da.target.dd.position );
     }
-}
+}*/

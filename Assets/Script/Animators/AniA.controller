@@ -348,16 +348,16 @@ AnimatorStateMachine:
     m_Position: {x: 400, y: 380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5631760025206777715}
-    m_Position: {x: 1060, y: 280, z: 0}
+    m_Position: {x: 1060, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6054592145376174525}
-    m_Position: {x: 840, y: 360, z: 0}
+    m_Position: {x: 840, y: 330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2571817782018396109}
-    m_Position: {x: 840, y: 410, z: 0}
+    m_Position: {x: 840, y: 380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6101253621658515634}
-    m_Position: {x: 840, y: 460, z: 0}
+    m_Position: {x: 840, y: 440, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -1294,7 +1294,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: sprint_brake
+  m_Name: brake
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

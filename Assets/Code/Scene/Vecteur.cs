@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Lyra;
@@ -8,7 +7,8 @@ namespace Triheroes.Code
     /// <summary>
     /// Vectors mathematics and constants
     /// </summary>
-	public class Vecteur : pix
+    [InitializeWithSceneMaster]
+	public class Vecteur : dat
 	{
 		public static Vecteur o;
 
@@ -26,10 +26,11 @@ namespace Triheroes.Code
 		public static readonly int ATTACK = 11;
 		public static readonly int SOLID = 9;
 		public static readonly int TRIGGER = 12;
+
 		public static readonly float Drag = 1;
 
 		// initialisation
-		public override void Create()
+		protected override void OnStructured()
 		{
 			o = this;
 
@@ -82,38 +83,5 @@ namespace Triheroes.Code
 	public static class ColliderExtensions
 	{
 		public static int id(this Collider c) => c.gameObject.GetInstanceID();
-	}
-
-	
-	// character sorting by average angle and distance
-	public class SortDistanceA : IComparer<d_actor>
-	{
-		float Y;
-		Vector3 SelfPos;
-		float Distance;
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="Y"> euleur y of character's direction </param>
-		/// <param name="Self"> the character's transform  </param>
-		public SortDistanceA(float Y, Vector3 Self, float Distance)
-		{
-			this.Y = Y;
-			this.SelfPos = Self;
-			this.Distance = Distance;
-		}
-
-		// compare by average distance and average angle
-		public int Compare(d_actor x, d_actor y)
-		{
-			float AngleDistanceRatio = Mathf.Abs(Mathf.DeltaAngle(Y, Vecteur.RotDirectionY(SelfPos, x.dd.position))) / 180;
-			float DistanceRatio = Vector3.Distance(SelfPos, x.dd.position) / Distance;
-			float xAverage = (AngleDistanceRatio + DistanceRatio) / 2;
-			AngleDistanceRatio = Mathf.Abs(Mathf.DeltaAngle(Y, Vecteur.RotDirectionY(SelfPos, y.dd.position))) / 180;
-			DistanceRatio = Vector3.Distance(SelfPos, y.dd.position) / Distance;
-			float yAverage = (AngleDistanceRatio + DistanceRatio) / 2;
-			return (int)Mathf.Sign(xAverage - yAverage);
-		}
 	}
 }

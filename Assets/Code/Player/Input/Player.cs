@@ -1,13 +1,14 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Lyra;
+using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class Player : pix
+    [InitializeWithSceneMaster]
+    public class Player : dat
     {
-        public override void Create()
+        protected override void OnStructured()
         {
             VMove = new InputAction ("Vertical", true);
             HMove= new InputAction ("Horizontal", true);
@@ -59,10 +60,10 @@ namespace Triheroes.Code
         {
             _IsAxis = IsInputManagerAccessNameAxis;
             _InputManagerAccessName = InputManagerAccessName;
-            Stage.Start (this);
+            SceneMaster.Processor.Start (this);
         }
 
-        protected override void Step()
+        protected override void OnStep()
         {
             _OnDown = false;
             _OnUp = false;

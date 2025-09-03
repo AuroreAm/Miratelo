@@ -1,70 +1,71 @@
-using System;
+using UnityEngine;
 using System.Collections.Generic;
 using Lyra;
-using UnityEngine;
+using System;
+using System.Runtime.Serialization;
 
 namespace Triheroes.Code
 {
-    // animation, mesh, textures manager of the character
-    public class s_skin : pixi
+    [SysBase (SysOrder.s_skin)]
+    [NeedPackage]
+    public class s_skin : sys
     {
-        [Depend]
+        [Link]
         character c;
-        public Vector3 position => Coord.position;
-        public Transform Coord {private set; get;}
-        public Animator Ani {private set; get;}
+
+        public Transform Coord { private set; get; }
+        public Animator Ani { private set; get; }
         AniExt AniExt;
 
-        float offRotY;
-        public float offPosY;
+        float _offsetRotY;
+        public float OffsetPosY;
+
+        public class package : Package <s_skin>
+        {
+            public package ( GameObject skinGameObject, Vector2 offsetPosRotY )
+            {
+                o.Ani = skinGameObject.GetComponent<Animator> ();
+                o.AniExt = AniExt.Get (o.Ani.runtimeAnimatorController);
+                o.OffsetPosY = offsetPosRotY.x;
+                o._offsetRotY = offsetPosRotY.y;
+            }
+        }
 
         // animation player per layer
-        Player[] Players;
+        Player[] _players;
 
         /// <summary>
         /// rotation y of the character, modify this to change to rotation of the charater graphic
         /// </summary>
-        public float rotY;
-        
-        /// <summary>
-        /// Actual rotY of this graphic now
-        /// </summary>
-        public float actualRotY { private set; get; }
+        public float RotY;
 
         /// <summary>
-        /// hardcode layer index of any type of character
+        /// Actual rotY of the mesh renderer now
+        /// </summary>
+        public float ActualRotY { private set; get; }
+
+        /// <summary>
+        /// hardcode layer index for any type of character
         /// </summary>
         public int sword, bow, knee, r_arm, upper;
 
         /// <summary>
-        /// is the character moving from SkinDir
+        /// is the character following the skin
         /// </summary>
-        public bool allowMoving;
+        public bool RootOfCharacterTransform;
         public Vector3 SkinDir;
-        public float GetSpdCurves () => Ani.GetFloat(Hash.spd);
+        public float GetSpdCurves() => Ani.GetFloat ( Hash.spd );
 
-        public class package : PreBlock.Package <s_skin>
+        protected override void OnStructured()
         {
-            public package ( GameObject skinGameObject, Vector2 offsets )
-            {
-                o.Ani = skinGameObject.GetComponent<Animator> ();
-                o.AniExt = AniExt.Get (o.Ani.runtimeAnimatorController);
-                o.offRotY = offsets.x;
-                o.offPosY = offsets.y;
-            }
-        }
+            Coord = c.Coord;
 
-        public override void Create()
-        {
-            Coord = c.gameObject.transform;
-            
-            CacheLayerIndex ();
-            CreatePlayersPerLayer ();
-            // disable default unity fire events
+            CacheLayerIndex();
+            CreatePlayersPerLayer();
+
             Ani.fireEvents = false;
-
             // self start
-            Stage.Start (this);
+            SceneMaster.Processor.Start(this);
         }
 
         void CacheLayerIndex()
@@ -78,35 +79,37 @@ namespace Triheroes.Code
 
         void CreatePlayersPerLayer()
         {
-            List<Player> sPlayersInitializer = new List<Player>();
+            List<Player> players = new List<Player>();
 
             for (int i = 0; i < Ani.layerCount; i++)
             {
                 if (AniExt.RealLayer[i] == true)
-                    sPlayersInitializer.Add(new StatePlayer(i, Ani));
+                    players.Add(new StatePlayer(i, Ani));
                 else
-                    sPlayersInitializer.Add(new SyncPlayer(i, Ani));
+                    players.Add(new SyncPlayer(i, Ani));
             }
-            Players = sPlayersInitializer.ToArray();
+            _players = players.ToArray();
         }
 
-        protected override void Step()
+        protected override void OnStep()
         {
-            UpdatePlayers ();
+            UpdatePlayers();
+
             // place the skin gameobject in the character's coordinate
-            Ani.transform.position = Coord.position + new Vector3(0, offPosY, 0);
-            Ani.transform.rotation = Quaternion.Euler(0, rotY + offRotY, 0);
-            actualRotY = rotY;
+            Ani.transform.position = Coord.position + new Vector3(0, OffsetPosY, 0);
+            Ani.transform.rotation = Quaternion.Euler(0, RotY + _offsetRotY, 0);
+
+            ActualRotY = RotY;
         }
 
         void UpdatePlayers()
         {
-            foreach (Player p in Players)
-                p.update();
+            foreach (Player p in _players)
+                p.Update();
         }
 
         #region Animation commands
-        public float[] EventPointsOfState (term Key)
+        public float[] EventPointsOfState(term Key)
         {
             if (AniExt.States.TryGetValue(Key, out AniExt.State State))
                 return State.EvPoint;
@@ -115,7 +118,7 @@ namespace Triheroes.Code
             return null;
         }
 
-        public float DurationOfState ( term Key )
+        public float DurationOfState(term Key)
         {
             if (AniExt.States.TryGetValue(Key, out AniExt.State State))
                 return State.Duration;
@@ -124,41 +127,47 @@ namespace Triheroes.Code
             return 0;
         }
 
-        public void PlayState(int layerIndex, term Key, float FadeDuration = 0.1f, Action EndAction = null, Action AbortAction = null, Action Ev0 = null, Action Ev1 = null, Action Ev2 = null, Action Ev3 = null)
+        public void PlayState( SkinAnimation skinAnimation )
         {
-            if (AniExt.States.TryGetValue(Key, out AniExt.State State))
-                ((StatePlayer)Players[layerIndex]).play(State.Key, State.Duration, FadeDuration, State.EvPoint, false, EndAction, AbortAction, Ev0, Ev1, Ev2, Ev3);
+            if ( skinAnimation.Host == null )
+            throw new InvalidDataContractException ( "FATAL ERROR in playing Animation, Skin Animation must have a host" );
+
+            if (AniExt.States.TryGetValue( skinAnimation.Key, out AniExt.State State))
+                ((StatePlayer)_players[skinAnimation.LayerIndex]).Play  (skinAnimation, State.Duration, State.EvPoint, false );
             else
                 Debug.LogError("no state corresponding key in Animator controller");
         }
 
-        public void HoldState(int layerIndex, term Key, float FadeDuration = 0.1f, Action EndAction = null, Action AbortAction = null, Action Ev0 = null, Action Ev1 = null, Action Ev2 = null, Action Ev3 = null)
+        public void HoldState( SkinAnimation skinAnimation )
         {
-            if (AniExt.States.TryGetValue(Key, out AniExt.State State))
-                ((StatePlayer)Players[layerIndex]).play(State.Key, State.Duration, FadeDuration, State.EvPoint, true, EndAction, AbortAction, Ev0, Ev1, Ev2, Ev3);
+            if ( skinAnimation.Host == null )
+            throw new InvalidDataContractException ( "FATAL ERROR in playing Animation, Skin Animation must have a host" );
+
+            if (AniExt.States.TryGetValue(skinAnimation.Key, out AniExt.State State))
+                ((StatePlayer)_players[skinAnimation.LayerIndex]).Play( skinAnimation, State.Duration, State.EvPoint, true );
             else
                 Debug.LogError("no state corresponding key in Animator controller");
         }
 
         public void ActivateSyncLayer(int layerIndex)
         {
-            ((SyncPlayer)Players[layerIndex]).ActivateSyncLayer();
+            ((SyncPlayer)_players[layerIndex]).ActivateSyncLayer();
         }
 
         public void DisableSyncLayer(int layerIndex)
         {
-            ((SyncPlayer)Players[layerIndex]).DisableSyncLayer();
+            ((SyncPlayer)_players[layerIndex]).DisableSyncLayer();
         }
 
         public void ControlledStop(int layerIndex)
         {
-            ((StatePlayer)Players[layerIndex]).stop();
+            ((StatePlayer)_players[layerIndex]).Stop();
         }
 
         public bool CurrentStateEqualTo(int layerIndex, term key)
         {
             if (AniExt.States.TryGetValue(key, out AniExt.State AnimationState))
-                return AnimationState.Key == ((StatePlayer)Players[layerIndex]).animationId;
+                return AnimationState.Key == ((StatePlayer)_players[layerIndex]).AnimationId;
             else
                 Debug.LogError("no state corresponding key in Animator controller");
             return false;
@@ -167,7 +176,7 @@ namespace Triheroes.Code
         public bool IsTransitioningFrom(int layerIndex, term key)
         {
             if (AniExt.States.TryGetValue(key, out AniExt.State AnimationState))
-                return ((StatePlayer)Players[layerIndex]).IsTransitioningFrom(AnimationState.Key);
+                return ((StatePlayer)_players[layerIndex]).IsTransitioningFrom(AnimationState.Key);
             else
                 Debug.LogError("no state corresponding key in Animator controller");
             return false;
@@ -180,21 +189,23 @@ namespace Triheroes.Code
         {
             protected Animator Ani;
             protected int LayerIndex;
-            public abstract void update();
-            protected float playTime;
+            public abstract void Update();
+            protected float PlayTime;
         }
 
         sealed class StatePlayer : Player
         {
-            public int animationId = -1;
-            int previousAnimationId = -1;
-            bool playing;
-            float duration;
-            float[] evPoint;
-            int evId = 0;
-            float fadeDuration;
-            bool hold;
-            Action E, A, E0, E1, E2, E3;
+            public int AnimationId => _animationId;
+            int _animationId = -1;
+            int _previousAnimationId = -1;
+            bool _playing;
+            float _duration;
+            float[] _evPoint;
+            int _evId = 0;
+            float _fadeDuration;
+            bool _hold;
+
+            SkinAnimation _events;
 
             public StatePlayer(int layerIndex, Animator Ani)
             {
@@ -203,78 +214,85 @@ namespace Triheroes.Code
             }
 
             // NOTE: don't ever call play state inside the Abort event, because it will be called infinitely
-            public void play(int Animation, float Duration, float TransitionDuration, float[] EventPoint, bool Hold, Action EndAction, Action AbortAction, Action Ev0, Action Ev1, Action Ev2, Action Ev3)
+            public void Play( SkinAnimation skinAnimation, float duration, float[] eventPoints, bool hold )
             {
-                if (animationId != Animation || playing == false)
+                if (_animationId != skinAnimation.Key || _playing == false)
                 {
-                    if (playing == false && LayerIndex != 0)
-                        Ani.Play(Animation, LayerIndex, 0);
+                    if (_playing == false && LayerIndex != 0)
+                        Ani.Play( skinAnimation.Key , LayerIndex, 0);
                     else
-                        Ani.CrossFadeInFixedTime(Animation, TransitionDuration, LayerIndex, 0f, 0);
+                        Ani.CrossFadeInFixedTime( skinAnimation.Key, skinAnimation.Fade, LayerIndex, 0f, 0 );
 
-                    if (playing) A?.Invoke();
+                    if (_playing)
+                            _events.InvokeAbort ();
 
-                    E = null; A = null; E0 = null; E1 = null; E2 = null; E3 = null;
+                    _previousAnimationId = _animationId; _animationId = skinAnimation.Key;
+                    _playing = true; PlayTime = 0; _evId = 0;
+                    _evPoint = eventPoints;
+                    _duration = duration;
+                    _fadeDuration = skinAnimation.Fade;
+                    _hold = hold;
 
-                    previousAnimationId = animationId; animationId = Animation;
-                    playing = true; playTime = 0; evId = 0;
-                    evPoint = EventPoint;
-                    duration = Duration;
-                    fadeDuration = TransitionDuration;
-                    hold = Hold;
-
-                    E += EndAction; A += AbortAction; E0 += Ev0; E1 += Ev1; E2 += Ev2; E3 += Ev3;
+                    _events = skinAnimation;
                 }
             }
 
-            public void stop()
+            public void Stop()
             {
-                if (hold)
+                if (_hold)
                 {
-                    playTime = duration - 0.1f; hold = false;
+                    PlayTime = _duration - 0.1f;
+                    _hold = false;
                 }
                 else
-                    playing = false;
+                    _playing = false;
             }
 
             public bool IsTransitioningFrom(int Animation)
             {
-                return playing && playTime <= fadeDuration && Animation == previousAnimationId;
+                return _playing && PlayTime <= _fadeDuration && Animation == _previousAnimationId;
             }
 
-            public override void update()
+            public override void Update()
             {
-                if (playing)
+                if (_playing)
                 {
-                    playTime += Time.deltaTime;
+                    PlayTime += Time.deltaTime;
 
                     // make sure the correct animation fire the events
-                    int currentFiringAnimation = animationId;
-                    if (evId < evPoint.Length)
-                        while (playTime > evPoint[evId])
+                    int currentFiringAnimation = _animationId;
+                    if (_evId < _evPoint.Length)
+                        while (PlayTime > _evPoint[_evId])
                         {
                             // fire in the hole
-                            switch (evId)
+                            switch (_evId)
                             {
-                                case 0: E0?.Invoke(); break;
-                                case 1: E1?.Invoke(); break;
-                                case 2: E2?.Invoke(); break;
-                                case 3: E3?.Invoke(); break;
-                                case 4: Debug.LogError("For performance, max allowed fire event is 3"); break;
+                                case 0:
+                                    _events.InvokeEv0 ();
+                                    break;
+
+                                case 1:
+                                    _events.InvokeEv1 ();
+                                    break;
+
+                                case 2:
+                                    _events.InvokeEv2 ();
+                                    break;
                             }
-                            if (currentFiringAnimation != animationId)
+                            if (currentFiringAnimation != _animationId)
                                 return;
-                            evId++;
-                            if (evId >= evPoint.Length)
+                            _evId++;
+                            if (_evId >= _evPoint.Length)
                                 break;
                         }
-                        
+
                     // stop if done
-                    if (playTime >= duration)
+                    if (PlayTime >= _duration)
                     {
-                        if (!hold)
-                            playing = false;
-                        E?.Invoke();
+                        if (!_hold)
+                            _playing = false;
+ 
+                            _events.InvokeEnd ();
                     }
                 }
 
@@ -284,9 +302,9 @@ namespace Triheroes.Code
 
             void LayerFading()
             {
-                if (playing && playTime < duration - 0.1f)
+                if (_playing && PlayTime < _duration - 0.1f)
                     Ani.SetLayerWeight(LayerIndex, Mathf.MoveTowards(Ani.GetLayerWeight(LayerIndex), 1, Time.deltaTime * 10));
-                else if (!playing || (!hold && playTime >= duration - 0.1f))
+                else if (!_playing || (!_hold && PlayTime >= _duration - 0.1f))
                     Ani.SetLayerWeight(LayerIndex, Mathf.MoveTowards(Ani.GetLayerWeight(LayerIndex), 0, Time.deltaTime * 10));
             }
         }
@@ -294,8 +312,8 @@ namespace Triheroes.Code
         sealed class SyncPlayer : Player
         {
 
-            private enum _state { off, turningON, turningOFF }
-            _state State;
+            private enum StateEnum { off, turningON, turningOFF }
+            StateEnum _state;
 
             public SyncPlayer(int layerIndex, Animator Ani)
             {
@@ -305,43 +323,100 @@ namespace Triheroes.Code
 
             public void ActivateSyncLayer()
             {
-                State = _state.turningON;
-                playTime = 0;
+                _state = StateEnum.turningON;
+                PlayTime = 0;
             }
 
             public void DisableSyncLayer()
             {
-                State = _state.turningOFF;
-                playTime = 0;
+                _state = StateEnum.turningOFF;
+                PlayTime = 0;
             }
 
-            public override void update()
+            public override void Update()
             {
-                switch (State)
+                switch (_state)
                 {
-                    case _state.turningON:
-                        if (playTime / 0.1f >= 1)
+                    case StateEnum.turningON:
+                        if (PlayTime / 0.1f >= 1)
                         {
-                            State = _state.off;
+                            _state = StateEnum.off;
                             Ani.SetLayerWeight(LayerIndex, 1);
                             break;
                         }
-                        Ani.SetLayerWeight(LayerIndex, playTime / 0.1f);
-                        playTime += Time.deltaTime;
+                        Ani.SetLayerWeight(LayerIndex, PlayTime / 0.1f);
+                        PlayTime += Time.deltaTime;
                         return;
-                    case _state.turningOFF:
-                        if (playTime / 0.1f >= 1)
+                    case StateEnum.turningOFF:
+                        if (PlayTime / 0.1f >= 1)
                         {
-                            State = _state.off;
+                            _state = StateEnum.off;
                             Ani.SetLayerWeight(LayerIndex, 0);
                             break;
                         }
-                        Ani.SetLayerWeight(LayerIndex, 1 - (playTime / 0.1f));
-                        playTime += Time.deltaTime;
+                        Ani.SetLayerWeight(LayerIndex, 1 - (PlayTime / 0.1f));
+                        PlayTime += Time.deltaTime;
                         return;
                 }
             }
+            #endregion
         }
-        #endregion
+    }
+
+    
+    public struct SkinAnimation
+    {
+        public term Key;
+        public int LayerIndex;
+        public sys Host { get; private set; }
+        public float Fade;
+        public Action End;
+        public Action Abort;
+        public Action Ev0;
+        public Action Ev1;
+        public Action Ev2;
+
+        public SkinAnimation ( term animationKey, sys host )
+        {
+            Key = animationKey;
+            Host = host;
+            LayerIndex = 0;
+            Fade = .1f;
+            End = null;
+            Abort = null;
+            Ev0 = null;
+            Ev1 = null;
+            Ev2 = null;
+        }
+        
+        public void InvokeEnd ()
+        {
+            if ( Host.on )
+            End ?.Invoke ();
+        }
+
+        public void InvokeAbort ()
+        {
+            if ( Host.on )
+            Abort ?.Invoke ();
+        }
+
+        public void InvokeEv0 ()
+        {
+            if ( Host.on )
+            Ev0 ?.Invoke ();
+        }
+
+        public void InvokeEv1 ()
+        {
+            if ( Host.on )
+            Ev1 ?.Invoke ();
+        }
+
+        public void InvokeEv2 ()
+        {
+            if ( Host.on )
+            Ev2 ?.Invoke ();
+        }
     }
 }

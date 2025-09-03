@@ -1,40 +1,43 @@
 using System;
 using System.Collections.Generic;
-using Lyra;
-using Lyra.Spirit;
 using UnityEngine;
+using Lyra;
 
 namespace Triheroes.Code
 {
-    /// <summary>
-    /// draw a weapon in ms.r_arm
-    /// </summary>
     public class ac_draw_weapon : motor
     {
-        public override int Priority => Pri.SubAction;
+        public override int Priority => Rank.SubAction;
 
-        [Depend]
-        s_sword_user ssu;
-        [Depend]
-        s_bow_user sbu;
+        [Link]
+        s_sword_user swordUser;
+        [Link]
+        s_bow_user bowUser;
 
-        [Depend]
-        s_equip se;
+        [Link]
+        s_equip equip;
 
-        [Depend]
-        s_skin ss;
+        [Link]
+        s_skin skin;
+
         WeaponPlace from;
         term DrawAnimation;
 
         public bool prepared => from != null;
 
-        protected override void Start()
+        protected override void OnStart()
         {
-            if (se.weaponUser != null)
+            if (equip.WeaponUser != null)
             Debug.LogError("the character have already equiped a weapon");
             if ( from == null )
             throw new InvalidOperationException ("No place to take weapon, must set the place before doing this action");
-            ss.PlayState ( ss.r_arm, DrawAnimation, 0.1f, null, null, done );
+
+            SkinAnimation play = new SkinAnimation ( DrawAnimation, this )
+            {
+                LayerIndex = skin.r_arm,
+                Ev0 = Stop
+            };
+            skin.PlayState ( play );
         }
 
         public void SetPlaceToDrawFrom ( WeaponPlace Place )
@@ -42,36 +45,42 @@ namespace Triheroes.Code
             if (on) return;
 
             from = Place;
-            DrawAnimation = Place.Get().DefaultDrawAnimation;
+            DrawAnimation =  GetCorrespondingDefaultDrawAnimation ( Place.Get() );
         }
 
-        protected override void Stop()
+        protected override void OnStop ()
         {
-            var mwu = GetCorrespondingWeaponUser ( from.Get().Type );
+            var mwu = GetCorrespondingWeaponUser ( from.Get() );
             mwu.SetWeaponBase ( from.Free() );
-            se.SetWeaponUser ( mwu );
+            equip.SetWeaponUser ( mwu );
 
             from = null;
         }
 
-        protected override void Abort()
+        protected override void OnAbort()
         {
             from = null;
         }
 
-        void done ()
+        static readonly term take_sword = new term ( "take_sword" );
+        static readonly term take_bow = new term ( "take_bow" );
+        static term GetCorrespondingDefaultDrawAnimation ( d_weapon_standard weapon )
         {
-            if (on)
-            SelfStop ();
+            if ( weapon is d_sword )
+            return take_sword;
+            if ( weapon is d_bow )
+            return take_bow;
+
+            return new term ();
         }
 
-        s_weapon_user GetCorrespondingWeaponUser ( WeaponType Wt )
+        s_weapon_user GetCorrespondingWeaponUser ( d_weapon_standard weapon )
         {
-            switch (Wt)
-            {
-                case WeaponType.Sword: return ssu;
-                case WeaponType.Bow: return sbu;
-            }
+            if ( weapon is d_sword )
+            return swordUser;
+            if ( weapon is d_bow )
+            return bowUser;
+
             return null;
         }
     }

@@ -1,22 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using Lyra;
 using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class s_ground_data_ccc : pixi
+    [SysBase (SysOrder.s_ground_data_ccc)]
+    public class s_ground_data_ccc : sys.ext
     {
-        [Depend]
-        s_capsule_character_controller sccc;
+        [Link]
+        s_capsule_character_controller capsule;
 
-        [Depend]
+        [Link]
         d_ground_data dgd;
 
-        protected override void Step()
+        protected override void OnStep()
         {
             dgd.onGroundAbs = false;
-            dgd.onGround = Physics.SphereCast(sccc.Coord.position + new Vector3(0, sccc.CCA.radius + 0.1f, 0), sccc.CCA.radius, Vector3.down, out RaycastHit hit, 0.5f, Vecteur.SolidCharacter);
+            dgd.onGround = Physics.SphereCast (
+                capsule.Coord.position + new Vector3(0, capsule.UnityCharacterController.radius + 0.1f, 0),
+                capsule.UnityCharacterController.radius, Vector3.down,
+                out RaycastHit hit,
+                0.5f,
+                Vecteur.SolidCharacter );
 
             if (dgd.onGround)
             {

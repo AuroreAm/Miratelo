@@ -10,7 +10,8 @@ namespace Triheroes.Code
     /// </summary>
     public class s_footstep : controller
     {
-        [Depend]
+        // INPROGRESS
+        /*[Depend]
         e_foot ef;
 
         // TODO: not use the overall character position, but the foot position
@@ -61,6 +62,6 @@ namespace Triheroes.Code
 
             if ( GroundElement.Contains ( ground ) )
             GroundElement.Clash ( ef, ground );
-        }
+        }*/
     }
 }

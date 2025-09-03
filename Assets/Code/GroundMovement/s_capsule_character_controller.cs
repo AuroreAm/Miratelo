@@ -6,118 +6,127 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     // character controller movement using Unity's CharacterController
-    public class s_capsule_character_controller : pixi
+    [ SysBase ( SysOrder.s_capsule_character_controller ) ]
+    [NeedPackage]
+    public class s_capsule_character_controller : sys.ext
     {
-        [Depend]
+        [Link]
         character c;
-        [Depend]
-        d_dimension dd;
-        [Depend]
-        s_skin ss;
-        [Depend]
-        s_ground_data_ccc sgdc;
+        [Link]
+        s_ground_data_ccc groundDataSys;
+        [Link]
+        d_dimension_meta dimensionMeta;
+        [Link]
+        s_skin skin;
 
-        int CurrentFrame;
+        int _currentFrame;
 
         /// <summary>
         /// direction the character is commanded to move in
         /// </summary>
-        public Vector3 dir;
-
+        public Vector3 Dir;
         public Transform Coord;
-        public CharacterController CCA {get; private set;}
+        public CharacterController UnityCharacterController {get; private set;}
 
-        public override void Create()
+        public float Mass {private set; get;}
+        float _initialHeight, _initialRadius;
+
+        public class package : Package < s_capsule_character_controller >
         {
-            Link (sgdc);
-
-            Coord = dd.Coord;
-            CCA = c.gameObject.AddComponent<CharacterController>();
-            UpdateCCADimension ();
+            public package ( float h, float r, float m )
+            {
+                o._initialHeight = h;
+                o._initialRadius = r;
+                o.Mass = m;
+            }
         }
 
-        void UpdateCCADimension()
+        protected override void OnStructured ()
         {
-            CCA.height = dd.h;
-            CCA.radius = dd.r;
-            CCA.center = new Vector3 (0, dd.h / 2, 0);
+            Coord = c.Coord;
+            UnityCharacterController = c.GameObject.AddComponent<CharacterController>();
+            UnityCharacterController.height = _initialHeight;
+            UnityCharacterController.radius = _initialRadius;
+            UnityCharacterController.center = new Vector3 (0, _initialHeight / 2, 0);
+            UpdateMetaDimension ();
         }
 
-        protected override void Start()
+        void UpdateMetaDimension()
         {
+            dimensionMeta.Height = UnityCharacterController.height;
+            dimensionMeta.Radius = UnityCharacterController.radius;
+        }
+
+        protected override void OnStart()
+        {
+            this.Link ( groundDataSys );
 
             // don't reset anything if this is started/stopped on the same frame or next frame
-            if (Time.frameCount == CurrentFrame || Time.frameCount == CurrentFrame + 1)
+            if (Time.frameCount == _currentFrame || Time.frameCount == _currentFrame + 1)
                 return;
 
-            dir = Vector3.zero;
+            Dir = Vector3.zero;
         }
 
-        protected override void Stop()
+        protected override void OnStop()
         {
-            CurrentFrame = Time.frameCount;
+            _currentFrame = Time.frameCount;
         }
 
-        protected override void Step()
+        protected override void OnStep()
         {
-            // update dimension every frame
-            // TODO: check for performance, this is mainly used for crouching, maybe use event instead
-            UpdateCCADimension ();
+            // update meta dimension every frame
+            // TODO: check for performance
+            UpdateMetaDimension ();
             MoveCharacterController ();
         }
 
         void MoveCharacterController()
         {
-            if (ss.allowMoving)
-            dir += ss.GetSpdCurves() * ss.SkinDir * Time.deltaTime;
-
+            if (skin.RootOfCharacterTransform)
+            Dir += skin.GetSpdCurves() * skin.SkinDir * Time.deltaTime;
 
             Physics.IgnoreLayerCollision(Coord.gameObject.layer, Vecteur.ATTACK, true);
-            CCA.Move(dir);
+            UnityCharacterController.Move(Dir);
             Physics.IgnoreLayerCollision(Coord.gameObject.layer, Vecteur.ATTACK, false);
 
-            dir = Vector3.zero;
+            Dir = Vector3.zero;
         }
     }
 
-    public class s_gravity_ccc : pixi
+    [ SysBase ( SysOrder.s_gravity_ccc ) ]
+    public class s_gravity_ccc : sys.ext
     {
-        [Depend]
-        d_ground_data dgd;
+        [Link]
+        d_ground_data groundData;
 
-        [Depend]
-        s_capsule_character_controller sccc;
+        [Link]
+        s_capsule_character_controller capsule;
 
-        [Depend]
-        d_dimension dd;
+        public float Gravity => gravity;
 
-        public override void Create()
-        {
-            mass = dd.m;
-        }
+        float mass => capsule.Mass;
+        float gravity;
 
-        public float mass;
-        public float gravity;
-
-        protected override void Step()
+        protected override void OnStep()
         {
             // add gravity force // limit falling velocity when it reach terminal velocity
             if (gravity > -1000)
-            gravity += Physics.gravity.y * Time.deltaTime/*a*/ * mass;
+            gravity += Physics.gravity.y * Time.deltaTime * mass;
 
-            if (dgd.onGroundAbs && gravity < 0 && Vector3.Angle (Vector3.up, dgd.groundNormal) <= 45)
+            if ( groundData.onGroundAbs && gravity < 0 && Vector3.Angle (Vector3.up, groundData.groundNormal ) <= 45)
             gravity = -0.2f;
 
             Vector3 GravityForce = new Vector3( 0, gravity * Time.deltaTime, 0 );
 
             // TODO: fix character can't fall when there's another character on the ground
-            if ( Vector3.Angle (Vector3.up, dgd.groundNormal) > 45 )
+            if ( Vector3.Angle (Vector3.up, groundData.groundNormal) > 45 )
             {
-                GravityForce = new Vector3 ( dgd.groundNormal.x,- dgd.groundNormal.y, dgd.groundNormal.z ) * GravityForce.magnitude;
-                dgd.groundNormal = Vector3.up;
+                GravityForce = new Vector3 ( groundData.groundNormal.x,- groundData.groundNormal.y, groundData.groundNormal.z ) * GravityForce.magnitude;
+                groundData.groundNormal = Vector3.up;
             }
 
-            sccc.dir += GravityForce;
+            capsule.Dir += GravityForce;
         }
     }
 }
