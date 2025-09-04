@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace Lyra.Editor
 {
-    public class CursorGUI<T> : CursorGUI where T : dat
+    public class CursorGUI<T> : CursorGUI where T : shard
     {
         public CursorGUI(Action<Type> Ev) : base(typeof (T), Ev)
         {}
@@ -73,7 +73,7 @@ namespace Lyra.Editor
             foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
                 TypeList.AddRange(a.GetTypes().Where(type => type.IsSubclassOf(Filter)));
 
-            var Types = TypeList.GroupBy( x=> x.GetCustomAttributes (typeof (PathAttribute), true).OfType<PathAttribute>().FirstOrDefault()?.Name).ToDictionary ( x => x.Key, x => x.ToArray() );
+            var Types = TypeList.GroupBy( x=> x.GetCustomAttributes (typeof (verseAttribute), true).OfType<verseAttribute>().FirstOrDefault()?.Name).ToDictionary ( x => x.Key, x => x.ToArray() );
             Types.Remove (string.Empty);
 
             return Types;

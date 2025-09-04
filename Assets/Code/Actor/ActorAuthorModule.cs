@@ -7,7 +7,7 @@ namespace Triheroes.Code
 {
     public abstract class ActorAuthorModule : AuthorModule
     {
-        public virtual void OnStructureReady ( dat.structure structure )
+        public virtual void OnStructureReady ( shard.constelation structure )
         {
         }
     }

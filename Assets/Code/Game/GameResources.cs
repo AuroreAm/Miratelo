@@ -20,6 +20,6 @@ namespace Triheroes.Code
 
     public static class TriheroesRes
     {
-        public static readonly SubResources <CurveRes> Curve = new SubResources<CurveRes> ( "Path" );
+        public static readonly book <CurveRes> Curve = new book<CurveRes> ( "Path" );
     }
 }

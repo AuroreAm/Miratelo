@@ -5,20 +5,20 @@ using Lyra;
 
 namespace Triheroes.Code
 {
-    [NeedPackage]
-    public class d_actor : dat
+    [inked]
+    public class d_actor : shard
     {
-        [Link]
+        [harmony]
         character c; 
 
         public string Name { private set; get; }
 
-        protected override void OnStructured()
+        protected override void harmony()
         {
-            c.GameObject.layer = Vecteur.CHARACTER;
+            c.form.layer = Vecteur.CHARACTER;
         }
 
-        public class package : Package <d_actor>
+        public class package : ink <d_actor>
         {
             public package ( string name )
             {
@@ -29,7 +29,7 @@ namespace Triheroes.Code
         public static implicit operator bool(d_actor exists)
         {
             if (exists != null)
-            return exists.c.GameObject;
+            return exists.c.form;
             else
             return false;
         }

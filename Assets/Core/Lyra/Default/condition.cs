@@ -5,11 +5,12 @@ using Lyra;
 
 namespace Lyra.Spirit
 {
-    public abstract class condition : dat
+    /*
+    public abstract class condition : shard
     {
         public abstract bool Check ();
 
         readonly term zero = new term ("zero");
         public virtual term solution => zero;
-    }
+    }*/
 }

@@ -5,25 +5,25 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class d_ground : dat
+    public class d_ground : shard
     {
         /// <summary>
         /// target rotation by ground movements
         /// </summary>
         public float RotY;
 
-        [Link]
+        [harmony]
         s_skin skin;
 
         public static Vector3 SlopeProjection ( Vector3 Dir,Vector3 GroundNormal ) => Vector3.ProjectOnPlane (Dir, GroundNormal).normalized * Dir.magnitude;
 
-        protected override void OnStructured()
+        protected override void harmony()
         {
             RotY = skin.RotY;
         }
 
-        sys user;
-        public void Use ( sys _user )
+        aria user;
+        public void Use ( aria _user )
         {
             user = _user;
         }

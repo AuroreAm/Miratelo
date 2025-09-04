@@ -4,27 +4,27 @@ using UnityEngine;
 
 namespace Lyra
 {
-    [Path ("decorator")]
-    public abstract class decorator : action, ISysProcessor
+    [verse ("decorator")]
+    public abstract class decorator : act, ICore
     {
-        protected action [] o;
-        public abstract void OnSysEnd(sys s);
+        protected Lyra.act [] o;
+        public abstract void inhalt(aria s);
 
-        public void SetChild ( action [] child )
+        public void leaf (Lyra.act [] leaves )
         {
             if ( on )
-            throw new InvalidOperationException ( "can't set child of active decorator" );
+            throw new InvalidOperationException ( "can't set leaf of active decorator" );
 
-            if ( Structure != null )
-            throw new InvalidOperationException ( "can't set child of already structured decorator" );
+            if ( sky != null )
+            throw new InvalidOperationException ( "can't set leaf of already structured decorator" );
 
-            o = child;
+            o = leaves;
         }
 
-        protected sealed override void OnStructured()
+        protected sealed override void harmony()
         {
             for (int i = 0; i < o.Length; i++)
-             Structure.Add ( o[i] ) ;
+             sky.add ( o[i] ) ;
         }
     }
 }

@@ -6,17 +6,17 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     // character controller movement using Unity's CharacterController
-    [ SysBase ( SysOrder.s_capsule_character_controller ) ]
-    [NeedPackage]
-    public class s_capsule_character_controller : sys.ext
+    [ note ( SysOrder.s_capsule_character_controller ) ]
+    [inkedAttribute]
+    public class s_capsule_character_controller : aria.flow
     {
-        [Link]
+        [harmony]
         character c;
-        [Link]
+        [harmony]
         s_ground_data_ccc groundDataSys;
-        [Link]
+        [harmony]
         d_dimension_meta dimensionMeta;
-        [Link]
+        [harmony]
         s_skin skin;
 
         int _currentFrame;
@@ -31,7 +31,7 @@ namespace Triheroes.Code
         public float Mass {private set; get;}
         float _initialHeight, _initialRadius;
 
-        public class package : Package < s_capsule_character_controller >
+        public class package : ink < s_capsule_character_controller >
         {
             public package ( float h, float r, float m )
             {
@@ -41,10 +41,10 @@ namespace Triheroes.Code
             }
         }
 
-        protected override void OnStructured ()
+        protected override void harmony ()
         {
-            Coord = c.Coord;
-            UnityCharacterController = c.GameObject.AddComponent<CharacterController>();
+            Coord = c.coord;
+            UnityCharacterController = c.form.AddComponent<CharacterController>();
             UnityCharacterController.height = _initialHeight;
             UnityCharacterController.radius = _initialRadius;
             UnityCharacterController.center = new Vector3 (0, _initialHeight / 2, 0);
@@ -57,9 +57,9 @@ namespace Triheroes.Code
             dimensionMeta.Radius = UnityCharacterController.radius;
         }
 
-        protected override void OnStart()
+        protected override void awaken()
         {
-            this.Link ( groundDataSys );
+            this.link ( groundDataSys );
 
             // don't reset anything if this is started/stopped on the same frame or next frame
             if (Time.frameCount == _currentFrame || Time.frameCount == _currentFrame + 1)
@@ -68,12 +68,12 @@ namespace Triheroes.Code
             Dir = Vector3.zero;
         }
 
-        protected override void OnStop()
+        protected override void asleep()
         {
             _currentFrame = Time.frameCount;
         }
 
-        protected override void OnStep()
+        protected override void alive()
         {
             // update meta dimension every frame
             // TODO: check for performance
@@ -94,13 +94,13 @@ namespace Triheroes.Code
         }
     }
 
-    [ SysBase ( SysOrder.s_gravity_ccc ) ]
-    public class s_gravity_ccc : sys.ext
+    [ note ( SysOrder.s_gravity_ccc ) ]
+    public class s_gravity_ccc : aria.flow
     {
-        [Link]
+        [harmony]
         d_ground_data groundData;
 
-        [Link]
+        [harmony]
         s_capsule_character_controller capsule;
 
         public float Gravity => gravity;
@@ -108,7 +108,7 @@ namespace Triheroes.Code
         float mass => capsule.Mass;
         float gravity;
 
-        protected override void OnStep()
+        protected override void alive()
         {
             // add gravity force // limit falling velocity when it reach terminal velocity
             if (gravity > -1000)

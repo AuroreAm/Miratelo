@@ -5,20 +5,20 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class ActorAuthor : MonoBehaviour, IStructureAuthor
+    public class ActorAuthor : MonoBehaviour, IAuthor
     {
         public SkinAuthor Skin;
         public string Name;
-        public ActionPaper Behavior;
+        public ActPaper Behavior;
  
         Vector3 _spamPosition;
         float _spamRotY;
 
-        public dat.structure Spawn ( Vector3 position, Quaternion rotation )
+        public shard.constelation Spawn ( Vector3 position, Quaternion rotation )
         {
             _spamPosition = position;
             _spamRotY =  rotation.eulerAngles.y;
-            var s = new dat.structure.Creator (this).CreateStructure ();
+            var s = new shard.constelation.write (this).constelation ();
 
             var modules = GetComponents<ActorAuthorModule>();
             foreach (var a in modules)
@@ -26,7 +26,7 @@ namespace Triheroes.Code
             return s;
         }
 
-        public void OnStructure()
+        public void writings()
         {
             GameObject go = new GameObject ( Name );
             go.transform.position = _spamPosition;
@@ -35,7 +35,7 @@ namespace Triheroes.Code
             new d_actor.package ( Name );
 
             Instantiate ( Skin ).OnStructure ();
-            dat.Q <s_skin> ().RotY = _spamRotY;
+            new ink <s_skin> ().o.RotY = _spamRotY;
 
             new s_behavior.package ( Behavior );
 

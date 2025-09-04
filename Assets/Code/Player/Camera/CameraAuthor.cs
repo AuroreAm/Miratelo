@@ -10,7 +10,7 @@ namespace Triheroes.Code
     {
         public Camera Camera;
 
-        public override void OnStructure()
+        public override void writings()
         {
             new s_camera.package ( Camera, transform );
         }

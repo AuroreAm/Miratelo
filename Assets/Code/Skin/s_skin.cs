@@ -6,11 +6,11 @@ using System.Runtime.Serialization;
 
 namespace Triheroes.Code
 {
-    [SysBase (SysOrder.s_skin)]
-    [NeedPackage]
-    public class s_skin : sys
+    [note (SysOrder.s_skin)]
+    [inkedAttribute]
+    public class s_skin : aria
     {
-        [Link]
+        [harmony]
         character c;
 
         public Transform Coord { private set; get; }
@@ -20,7 +20,7 @@ namespace Triheroes.Code
         float _offsetRotY;
         public float OffsetPosY;
 
-        public class package : Package <s_skin>
+        public class package : ink <s_skin>
         {
             public package ( GameObject skinGameObject, Vector2 offsetPosRotY )
             {
@@ -56,16 +56,16 @@ namespace Triheroes.Code
         public Vector3 SkinDir;
         public float GetSpdCurves() => Ani.GetFloat ( Hash.spd );
 
-        protected override void OnStructured()
+        protected override void harmony()
         {
-            Coord = c.Coord;
+            Coord = c.coord;
 
             CacheLayerIndex();
             CreatePlayersPerLayer();
 
             Ani.fireEvents = false;
             // self start
-            SceneMaster.Processor.Start(this);
+            phoenix.core.start(this);
         }
 
         void CacheLayerIndex()
@@ -91,7 +91,7 @@ namespace Triheroes.Code
             _players = players.ToArray();
         }
 
-        protected override void OnStep()
+        protected override void alive()
         {
             UpdatePlayers();
 
@@ -368,7 +368,7 @@ namespace Triheroes.Code
     {
         public term Key;
         public int LayerIndex;
-        public sys Host { get; private set; }
+        public aria Host { get; private set; }
         public float Fade;
         public Action End;
         public Action Abort;
@@ -376,7 +376,7 @@ namespace Triheroes.Code
         public Action Ev1;
         public Action Ev2;
 
-        public SkinAnimation ( term animationKey, sys host )
+        public SkinAnimation ( term animationKey, aria host )
         {
             Key = animationKey;
             Host = host;

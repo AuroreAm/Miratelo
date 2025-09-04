@@ -7,12 +7,12 @@ namespace Triheroes.Code
 {
     public class ac_jump : motor
     {
-        public override int Priority => Rank.Action;
-        public override bool AcceptSecondState => true;
+        public override int priority => Rank.Action;
+        public override bool accept2nd => true;
 
-        [Link]
+        [harmony]
         s_capsule_character_controller capsule;
-        [Link]
+        [harmony]
         s_skin skin;
 
         delta_curve cu;
@@ -23,7 +23,7 @@ namespace Triheroes.Code
         public static readonly term jump = new term ( "jump" );
         public term JumpKey = jump;
 
-        protected override void OnStructured ()
+        protected override void harmony ()
         {
             cu = new delta_curve( TriheroesRes.Curve.Q ( jump ).Curve );
         }
@@ -34,9 +34,9 @@ namespace Triheroes.Code
             this.minimumJumpHeight = minimumJumpHeight;
         }
 
-        protected override void OnStart()
+        protected override void awaken()
         {
-            this.Link(capsule);
+            this.link(capsule);
 
             cu.Start(jumpHeight, .5f);
             skin.PlayState( new SkinAnimation ( JumpKey, this ) );
@@ -55,18 +55,18 @@ namespace Triheroes.Code
             done = true;
         }
 
-        protected override void OnStep()
+        protected override void alive()
         {
             capsule.Dir += new Vector3(0, cu.TickDelta (), 0);
 
             if ( done )
             {
-                Stop ();
+                sleep ();
                 return;
             }
 
             if (cu.Done)
-                Stop();
+                sleep();
         }
     }
 }

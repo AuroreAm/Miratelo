@@ -5,12 +5,12 @@ using UnityEngine;
 namespace Lyra
 {
     [Serializable]
-    public struct DatPaper <T> where T:dat
+    public struct ShardPaper <T> where T:shard
     {
         public TypePaper Type;
         public string Data;
 
-        public T Extract ()
+        public T radiate ()
         {
             if ( !Type.IsValid () )
                 throw new InvalidOperationException ( "type paper has invalid content" );

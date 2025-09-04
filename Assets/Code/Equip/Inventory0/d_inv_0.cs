@@ -41,10 +41,10 @@ namespace Triheroes.Code
         }
     }
 
-    [NeedPackage]
+    [inkedAttribute]
     public class d_inv_0 : d_inventory
     {
-        [Link]
+        [harmony]
         d_actor da;
 
         public WeaponPlace[] SwordPlaces { private set; get; }
@@ -69,7 +69,7 @@ namespace Triheroes.Code
             return null;
         }
 
-        public class package : Package <d_inv_0>
+        public class package : ink <d_inv_0>
         {
             public package (Transform[] swordplaces, Transform[] bowplaces)
             {

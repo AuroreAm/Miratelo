@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace Lyra
 {
-    public interface IStructureAuthor
+    public interface IAuthor
     {
         /// <summary>
         /// set state of the dat before it is structured
         /// use PreStructure.Package to configure states
         /// PreBlock.Package can only be instancied within this method
         /// </summary>
-        public void OnStructure ();
+        public void writings ();
     }
 }

@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [InitializeWithSceneMaster]
-    public class Player : dat
+    [lead]
+    public class Player : shard
     {
-        protected override void OnStructured()
+        protected override void harmony()
         {
             VMove = new InputAction ("Vertical", true);
             HMove= new InputAction ("Horizontal", true);
@@ -60,10 +60,10 @@ namespace Triheroes.Code
         {
             _IsAxis = IsInputManagerAccessNameAxis;
             _InputManagerAccessName = InputManagerAccessName;
-            SceneMaster.Processor.Start (this);
+            phoenix.core.start (this);
         }
 
-        protected override void OnStep()
+        protected override void alive()
         {
             _OnDown = false;
             _OnUp = false;

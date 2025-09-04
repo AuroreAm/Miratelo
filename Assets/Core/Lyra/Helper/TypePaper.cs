@@ -15,7 +15,7 @@ namespace Lyra
             Content = content;
         }
 
-        public Type ExtractType ()
+        public Type radiate ()
         {
             if ( !string.IsNullOrEmpty ( Content ) )
             {

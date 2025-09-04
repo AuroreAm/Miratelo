@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     // ground data used by movement modules like m_capsule_character_controller
-    public class d_ground_data : dat
+    public class d_ground_data : shard
     {
         /// <summary>
         /// character is on the ground physically

@@ -6,7 +6,7 @@ namespace Lyra.Editor
 {
     public class ActionCursor : EditorWindow
     {
-        CursorGUI < action > _cursor;
+        CursorGUI < act > _cursor;
         GameObject _target;
 
         public static void Show ( GameObject target )
@@ -17,15 +17,15 @@ namespace Lyra.Editor
         void OnGUI ()
         {
             if (_cursor == null)
-            _cursor = new CursorGUI < action > ( AddPackage );
+            _cursor = new CursorGUI < act > ( AddPackage );
 
             _cursor.GUI ();
         }
 
         void AddPackage (  Type t )
         {
-            ActionPaper a;
-            a = new GameObject ().AddComponent < ActionPaper > ();
+            ActPaper a;
+            a = new GameObject ().AddComponent < ActPaper > ();
 
             a.Paper.Type.Content = t.AssemblyQualifiedName;
             a.Paper.Data = JsonUtility.ToJson ( Activator.CreateInstance ( t ));

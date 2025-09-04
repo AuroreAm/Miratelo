@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class d_dimension_meta : dat
+    public class d_dimension_meta : shard
     {
-        [Link]
+        [harmony]
         public character Character;
 
         public float Height;
         public float Radius;
 
-        public Vector3 Position => Character.Position;
+        public Vector3 Position => Character.anchor;
     }
 }

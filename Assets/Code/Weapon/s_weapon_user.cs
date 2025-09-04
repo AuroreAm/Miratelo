@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public abstract class s_weapon_user : controller
+    public abstract class s_weapon_user : will
     {
         public abstract d_weapon_standard WeaponBase {get;}
         public abstract void SetWeaponBase ( d_weapon_standard weapon );
@@ -11,7 +11,7 @@ namespace Triheroes.Code
 
     public abstract class s_weapon_user <T> : s_weapon_user where T : d_weapon_standard
     {
-        [Link]
+        [harmony]
         protected s_skin Skin;
 
         public T Weapon { get; protected set; }
@@ -25,14 +25,14 @@ namespace Triheroes.Code
 
     public abstract class s_weapon_user_standard <T> : s_weapon_user <T> where T : d_weapon_standard
     {
-        [Link]
+        [harmony]
         protected d_hand Hands;
 
         protected abstract int HandIndex { get; }
         protected abstract int AniLayer { get; }
         protected abstract Quaternion DefaultRotation { get; }
 
-        protected sealed override void OnStart ()
+        protected sealed override void awaken ()
         {
             if ( Weapon != null )
             {
@@ -47,7 +47,7 @@ namespace Triheroes.Code
                 Debug.LogError("Weapon user activated but no weapon attached to it");
         }
 
-        protected sealed override void OnStop()
+        protected sealed override void asleep()
         {
             if ( Weapon != null )
             {

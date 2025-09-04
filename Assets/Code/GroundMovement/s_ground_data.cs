@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [SysBase (SysOrder.s_ground_data_ccc)]
-    public class s_ground_data_ccc : sys.ext
+    [note (SysOrder.s_ground_data_ccc)]
+    public class s_ground_data_ccc : aria.flow
     {
-        [Link]
+        [harmony]
         s_capsule_character_controller capsule;
 
-        [Link]
+        [harmony]
         d_ground_data dgd;
 
-        protected override void OnStep()
+        protected override void alive()
         {
             dgd.onGroundAbs = false;
             dgd.onGround = Physics.SphereCast (

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class delta_curve : dat
+    public class delta_curve : shard
     {
         public AnimationCurve Curve { get; private set; }
 

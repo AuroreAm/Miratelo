@@ -8,20 +8,20 @@ namespace Triheroes.Code
     // can tweak between idle - walk - run - sprint - brake - brake rotation
     public class ac_ground_complex : motor
     {
-        public override int Priority => Rank.Def2nd;
-        public override bool AcceptSecondState => true;
+        public override int priority => Rank.Def2nd;
+        public override bool accept2nd => true;
 
-        [Link]
+        [harmony]
         s_capsule_character_controller capsule;
-        [Link]
+        [harmony]
         s_gravity_ccc gravitySys;
-        [Link]
+        [harmony]
         s_skin skin;
-        [Link]
+        [harmony]
         d_ground ground;
-        [Link]
+        [harmony]
         d_ground_data groundData;
-        [Link]
+        [harmony]
         s_footstep footstep;
 
         public term state { private set; get; }
@@ -39,11 +39,11 @@ namespace Triheroes.Code
         float sprintCooldown;
         int currentFrame;
 
-        protected override void OnStart()
+        protected override void awaken()
         {
-            this.Link (capsule);
-            this.Link (gravitySys);
-            this.Link (footstep);
+            this.link (capsule);
+            this.link (gravitySys);
+            this.link (footstep);
             
             ground.Use (this);
 
@@ -63,7 +63,7 @@ namespace Triheroes.Code
             }
         }
 
-        protected override void OnStep()
+        protected override void alive()
         {
             Animation ();
             Rotation ();
@@ -73,7 +73,7 @@ namespace Triheroes.Code
 
         void ResetDir () => walkDir = Vector3.zero;
 
-        protected override void OnStop()
+        protected override void asleep()
         {
             skin.RootOfCharacterTransform = false;
             currentFrame = Time.frameCount;

@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class d_inventory : dat
+    public class d_inventory : shard
     {
 
-        [Link]
+        [harmony]
         s_equip equip;
 
-        protected override void OnStructured()
+        protected override void harmony()
         {
             equip.SetInventory ( this );
         }

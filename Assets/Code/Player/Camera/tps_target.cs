@@ -14,7 +14,7 @@ namespace Triheroes.Code
 
         Vector3 Spos => TpsData.Subject.Position;
         Vector3 Tpos => Target.Position;
-        protected override void OnStart()
+        protected override void awaken()
         {
             Height = TpsData.Subject.Height;
             _rotYOffset = Vecteur.RotDirectionY ( Spos, Tpos ) + 14;
@@ -25,7 +25,7 @@ namespace Triheroes.Code
         }
 
         float _yPrevious;
-        protected override void OnStep()
+        protected override void alive()
         {
             // rotate offset according to mouse
             _rotYOffset += Player.DeltaMouse.x ;

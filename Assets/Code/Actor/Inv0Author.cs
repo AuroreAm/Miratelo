@@ -12,10 +12,10 @@ namespace Triheroes.Code
         public override void OnStructure()
         {}
 
-        public override void OnStructureReady(dat.structure structure)
+        public override void OnStructureReady(shard.constelation structure)
         {
             for (int i = 0; i < AttachedWeapon.Count; i++)
-            structure.Get <s_equip> ().Inventory.RegisterWeapon( AttachedWeapon[i].Get () );
+            structure.get <s_equip> ().Inventory.RegisterWeapon( AttachedWeapon[i].Get () );
         }
     }
 }
