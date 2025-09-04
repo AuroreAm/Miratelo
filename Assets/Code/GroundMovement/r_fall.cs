@@ -5,72 +5,72 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [verse("ground reaction")]
-    public class r_fall : act, ILucid
+    [Path("ground reaction")]
+    public class r_fall : action, IMotorHandler
     {
-        [harmony]
+        [Link]
         d_ground_data ground_data;
 
-        [harmony]
+        [Link]
         s_gravity_ccc gravitySys;
 
-        [harmony]
+        [Link]
         ac_fall fall;
 
-        [harmony]
-        kinesis motor;
+        [Link]
+        s_motor motor;
 
-        public void inhalt(motor m)
+        public void OnMotorEnd(motor m)
         { }
 
-        protected override void alive()
+        protected override void OnStep()
         {
             if (!ground_data.onGround && gravitySys.Gravity < 0)
-                motor.perform(fall, this);
+                motor.SetState(fall, this);
         }
 
     }
 
 
-    [verse("ground reaction")]
-    public class r_fall_with_hard : act, ILucid
+    [Path("ground reaction")]
+    public class r_fall_with_hard : action, IMotorHandler
     {
-        [harmony]
+        [Link]
         d_ground_data groundData;
 
-        [harmony]
+        [Link]
         s_gravity_ccc gravitySys;
 
-        [harmony]
+        [Link]
         ac_fall fall;
 
-        [harmony]
+        [Link]
         ac_fall_hard fallHard;
 
-        [harmony]
-        kinesis motor;
+        [Link]
+        s_motor motor;
 
         float time;
 
-        protected override void alive()
+        protected override void OnStep()
         {
-            if ( !groundData.onGround && gravitySys.Gravity < 0 && !(motor.state is ac_fall) )
+            if ( !groundData.onGround && gravitySys.Gravity < 0 && !(motor.State is ac_fall) )
             {
-                if (motor.perform(fall, this))
+                if (motor.SetState(fall, this))
                     time = 0;
             }
-            else if (motor.state == fall)
+            else if (motor.State == fall)
             {
                 time += Time.deltaTime;
                 if (time > 0.5f)
                 {
-                    motor.perform(fallHard, this);
+                    motor.SetState(fallHard, this);
                     time = 0;
                 }
             }
         }
 
-        public void inhalt(motor m)
+        public void OnMotorEnd(motor m)
         { }
     }
 

@@ -6,50 +6,50 @@ using UnityEngine;
 
 namespace Lyra.Editor
 {
-    [ShardEditorOf (typeof (shard))]
-    public class ShardEditor
+    [DatEditorOf (typeof (dat))]
+    public class DatEditor
     {
-        protected shard Target;
+        protected dat Target;
 
         public virtual void Create () {}
-        public virtual void GUI () => ShardGUI ( Target );
+        public virtual void GUI () => DatGUI ( Target );
 
-        public static ShardEditor CreateEditor ( shard target )
+        public static DatEditor CreateEditor ( dat target )
         {
             var A = AppDomain.CurrentDomain.GetAssemblies();
-            List<Type> allshardEditor = new List<Type>();
+            List<Type> allDatEditor = new List<Type>();
 
             foreach (var y in A)
             foreach (Type x in y.GetTypes())
             {
-                if (x.IsSubclassOf(typeof(ShardEditor)))
-                    allshardEditor.Add(x);
+                if (x.IsSubclassOf(typeof(DatEditor)))
+                    allDatEditor.Add(x);
             }
             
-            Type Current = typeof(ShardEditor);
-            foreach (Type t in allshardEditor)
+            Type Current = typeof(DatEditor);
+            foreach (Type t in allDatEditor)
             {
-                Type SupportedNode = t.GetCustomAttribute<ShardEditorOfAttribute>().PixType;
+                Type SupportedNode = t.GetCustomAttribute<DatEditorOfAttribute>().PixType;
 
-                if ((target.GetType().IsSubclassOf(SupportedNode) || target.GetType() == SupportedNode) && SupportedNode.IsSubclassOf(Current.GetCustomAttribute<ShardEditorOfAttribute>().PixType))
+                if ((target.GetType().IsSubclassOf(SupportedNode) || target.GetType() == SupportedNode) && SupportedNode.IsSubclassOf(Current.GetCustomAttribute<DatEditorOfAttribute>().PixType))
                     Current = t;
             }
 
-            ShardEditor dE = (ShardEditor) Activator.CreateInstance(Current);
+            DatEditor dE = (DatEditor) Activator.CreateInstance(Current);
             dE.Target = target;
             dE.Create();
 
             return dE;
         }
 
-        public static void ShardGUI (shard node)
+        public static void DatGUI (dat node)
         {
             EditorGUI.BeginChangeCheck();
 
             // Y is the class that is being inspected
             foreach (FieldInfo fi in node.GetType().GetFields())
             {
-                if (fi.IsPublic && fi.GetCustomAttribute<lyricAttribute>() != null)
+                if (fi.IsPublic && fi.GetCustomAttribute<ExportAttribute>() != null)
                     LyraGUILayout.FieldGUI(fi, node);
             }
 
@@ -59,10 +59,10 @@ namespace Lyra.Editor
     }
 
     [AttributeUsage(AttributeTargets.Class)]
-    public class ShardEditorOfAttribute : Attribute
+    public class DatEditorOfAttribute : Attribute
     {
         public Type PixType;
-        public ShardEditorOfAttribute(Type Class)
+        public DatEditorOfAttribute(Type Class)
         { PixType = Class; }
     }
 

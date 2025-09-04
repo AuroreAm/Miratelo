@@ -6,41 +6,41 @@ namespace Lyra
     public struct term
     {
         [SerializeField]
-        private int value;
+        private int _value;
 
         #if UNITY_EDITOR
-        public string name;
+        public string Name;
         #endif
 
-        public term(string name)
+        public term(string Name)
         {
-            value = Animator.StringToHash(name);
+            _value = Animator.StringToHash(Name);
 
             #if UNITY_EDITOR
-            this.name = name;
+            this.Name = Name;
             #endif
         }
 
         public static implicit operator int(term key)
         {
-            return key.value;
+            return key._value;
         }
 
         public override string ToString()
         {
-            return value.ToString();
+            return _value.ToString();
         }
 
         public override readonly bool Equals(object obj)
         {
             if (obj is term)
-                return this.value == ((term)obj).value;
+                return this._value == ((term)obj)._value;
             return false;
         }
 
         public override int GetHashCode()
         {
-            return value.GetHashCode();
+            return _value.GetHashCode();
         }
     }
 }

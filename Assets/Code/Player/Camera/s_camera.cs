@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [note (SysOrder.s_camera)]
-    [inkedAttribute]
-    public class s_camera : aria
+    [SysBase (SysOrder.s_camera)]
+    [NeedPackage]
+    public class s_camera : sys
     {
         public static s_camera o { private set; get; }
         public Transform Coord {private set; get;}
@@ -14,7 +14,7 @@ namespace Triheroes.Code
 
         camera_shot _shot;
 
-        public class package : ink <s_camera>
+        public class package : Package <s_camera>
         {
             public package ( Camera camera, Transform coord )
             {
@@ -23,14 +23,14 @@ namespace Triheroes.Code
             }
         }
 
-        protected override void harmony()
+        protected override void OnStructured()
         {
             o = this;
-            phoenix.core.start (this);
+            SceneMaster.Processor.Start (this);
             SetCameraShot(dummy);
         }
 
-        protected override void alive()
+        protected override void OnStep()
         {
             Coord.position = _shot.CamPos;
             Coord.rotation = _shot.CamRot;
@@ -40,25 +40,25 @@ namespace Triheroes.Code
         void SetCameraShot ( camera_shot shot )
         {
             if ( _shot != null )
-                this.unlink ( _shot );
+                this.Unlink ( _shot );
 
             _shot = shot;
-            this.link ( _shot );
+            this.Link ( _shot );
         }
 
         // public methods
         // camera control
-        [harmony]
+        [Link]
         public tps_data td;
-        [harmony]
+        [Link]
         camera_dummy dummy;
-        [harmony]
+        [Link]
         tps_normal tps;
-        [harmony]
+        [Link]
         tps_transition ttr;
-        [harmony]
+        [Link]
         tps_target tt;
-        [harmony]
+        [Link]
         cs_subject cs;
 
         public void TpsACharacter ( d_dimension_meta MainCharacter )
@@ -130,7 +130,7 @@ namespace Triheroes.Code
             public float height { get; protected set; }
             public float distance { get; protected set; }
 
-            [harmony]
+            [Link]
             tps_data td;
 
             public void Set(tps_shot In, tps_shot Out)
@@ -144,7 +144,7 @@ namespace Triheroes.Code
             float _RotY;
             float _RotX;
 
-            protected override void awaken()
+            protected override void OnStart()
             {
                 inRotY = td.RotY;
                 inRotX = td.RotX;
@@ -152,12 +152,12 @@ namespace Triheroes.Code
                 inDistance = IN.Distance;
                 inOffset = IN.Offset;
 
-                this.link ( OUT );
+                this.Link ( OUT );
                 t = 0;
             }
 
             float t;
-            protected override void alive()
+            protected override void OnStep()
             {
                 t = Mathf.Lerp(t, 1, .1f);
 
@@ -173,7 +173,7 @@ namespace Triheroes.Code
                     o.SetCameraShot ( OUT );
             }
 
-            protected override void asleep()
+            protected override void OnStop()
             {
                 IN = null;
                 OUT = null;
@@ -193,8 +193,8 @@ namespace Triheroes.Code
         }
     }
 
-    [note (SysOrder.camera_shot)]
-    public abstract class camera_shot : aria.flow
+    [SysBase (SysOrder.camera_shot)]
+    public abstract class camera_shot : sys.ext
     {
         public Vector3 CamPos;
         public Quaternion CamRot;
@@ -203,7 +203,7 @@ namespace Triheroes.Code
 
     public class camera_dummy : camera_shot
     {
-        protected override void alive()
+        protected override void OnStep()
         {
             CamPos = Vector3.zero;
             CamRot = Quaternion.identity;

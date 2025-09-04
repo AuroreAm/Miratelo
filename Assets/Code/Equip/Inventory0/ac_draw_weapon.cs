@@ -7,17 +7,17 @@ namespace Triheroes.Code
 {
     public class ac_draw_weapon : motor
     {
-        public override int priority => Rank.SubAction;
+        public override int Priority => Rank.SubAction;
 
-        [harmony]
+        [Link]
         s_sword_user swordUser;
-        [harmony]
+        [Link]
         s_bow_user bowUser;
 
-        [harmony]
+        [Link]
         s_equip equip;
 
-        [harmony]
+        [Link]
         s_skin skin;
 
         WeaponPlace from;
@@ -25,7 +25,7 @@ namespace Triheroes.Code
 
         public bool prepared => from != null;
 
-        protected override void awaken()
+        protected override void OnStart()
         {
             if (equip.WeaponUser != null)
             Debug.LogError("the character have already equiped a weapon");
@@ -35,7 +35,7 @@ namespace Triheroes.Code
             SkinAnimation play = new SkinAnimation ( DrawAnimation, this )
             {
                 LayerIndex = skin.r_arm,
-                Ev0 = sleep
+                Ev0 = Stop
             };
             skin.PlayState ( play );
         }
@@ -48,7 +48,7 @@ namespace Triheroes.Code
             DrawAnimation =  GetCorrespondingDefaultDrawAnimation ( Place.Get() );
         }
 
-        protected override void asleep ()
+        protected override void OnStop ()
         {
             var mwu = GetCorrespondingWeaponUser ( from.Get() );
             mwu.SetWeaponBase ( from.Free() );
@@ -57,7 +57,7 @@ namespace Triheroes.Code
             from = null;
         }
 
-        protected override void afaint()
+        protected override void OnAbort()
         {
             from = null;
         }

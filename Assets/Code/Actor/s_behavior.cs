@@ -3,31 +3,31 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [inkedAttribute]
-    public class s_behavior : will
+    [NeedPackage]
+    public class s_behavior : controller
     {
-        Lyra.act _script;
+        action _script;
         bool FirstFrame = true;
 
-        public class package : ink <s_behavior>
+        public class package : Package <s_behavior>
         {
-            public package ( ActPaper script )
+            public package ( ActionPaper script )
             {
                 o._script = script.GetAction ();
             }
         }
 
-        protected override void harmony()
+        protected override void OnStructured()
         {
-            sky.add ( _script );
-            phoenix.core.start (this);
+            Structure.Add ( _script );
+            SceneMaster.Processor.Start (this);
         }
 
-        protected override void alive()
+        protected override void OnStep()
         {
             if (FirstFrame)
             {
-                phoenix.core.start ( _script );
+                SceneMaster.Processor.Start ( _script );
                 FirstFrame = false;
             }
         }

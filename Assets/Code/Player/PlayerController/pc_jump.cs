@@ -3,47 +3,47 @@ using Lyra;
 namespace Triheroes.Code
 {
 
-    [ verse ("player controller") ]
-    public class pc_jump : act, ILucid
+    [ Path ("player controller") ]
+    public class pc_jump : action, IMotorHandler
     {
-        [harmony]
+        [Link]
         d_ground_data groundData;
 
-        [harmony]
+        [Link]
         s_skin_foot_ik footIK;
         
-        [harmony]
+        [Link]
         ac_jump acJump;
 
-        [harmony]
+        [Link]
         ac_fall acFall;
 
-        [harmony]
+        [Link]
         ac_ground_complex acGroundMove;
 
-        [harmony]
-        kinesis motor;
+        [Link]
+        s_motor motor;
 
-        protected override void harmony()
+        protected override void OnStructured()
         {
             acJump.Set (4,3);
         }
 
-        public void inhalt(motor m)
+        public void OnMotorEnd(motor m)
         {}
 
-        protected override void alive ()
+        protected override void OnStep ()
         {
-            if (groundData.onGround && Player.Jump.OnActive && motor.state != acJump)
+            if (groundData.onGround && Player.Jump.OnActive && motor.State != acJump)
             {
                 acJump.JumpKey = (acGroundMove.state == ac_ground_complex.idle)? ac_jump.jump : ( (footIK.DominantFoot == s_skin_foot_ik.FootId.left) ? jump_left_foot : jump_right_foot );
 
                 acFall.LandKey = (acGroundMove.state == ac_ground_complex.idle)? ac_fall.fall_end : ( (footIK.DominantFoot == s_skin_foot_ik.FootId.left) ? fall_end_left_foot : fall_end_right_foot );
                 
-                motor.perform (acJump,this);
+                motor.SetState (acJump,this);
             }
 
-            if (motor.state == acJump && Player.Jump.OnRelease)
+            if (motor.State == acJump && Player.Jump.OnRelease)
                 acJump.StopJump ();
         }
 

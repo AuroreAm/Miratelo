@@ -5,18 +5,18 @@ using System.Collections.Generic;
 
 namespace Lyra.Editor
 {
-    [CustomEditor (typeof(ActPaper),true)]
+    [CustomEditor (typeof(ActionPaper),true)]
     public class ActionPaperEditor : UnityEditor.Editor
     {
-        ActPaper _target;
-        ShardPaperEditor _editor;
+        ActionPaper _target;
+        DatPaperEditor _editor;
 
         const string PaperField = "Paper";
 
         void OnEnable ()
         {
-            _target = target as ActPaper;
-            _editor = ScriptableObject.CreateInstance <ShardPaperEditor> ();
+            _target = target as ActionPaper;
+            _editor = ScriptableObject.CreateInstance <DatPaperEditor> ();
 
             var paper = serializedObject.FindProperty ( PaperField );
             _editor.Load ( paper , _target.GetType ().GetField ( PaperField, BindingFlags.Instance | BindingFlags.Public ) );
@@ -48,7 +48,7 @@ namespace Lyra.Editor
 
             if ( obj == null ) return;
 
-            if ( obj.GetComponent <ActPaper> () && obj.GetComponent <ActPaper> ().Paper.Type.IsValid () && obj.GetComponent <ActPaper> ().Paper.Type.radiate ().IsSubclassOf (typeof(decorator)) )
+            if ( obj.GetComponent <ActionPaper> () && obj.GetComponent <ActionPaper> ().Paper.Type.IsValid () && obj.GetComponent <ActionPaper> ().Paper.Type.ExtractType ().IsSubclassOf (typeof(decorator)) )
             {
                 Rect r = new Rect(new Vector2(selectionRect.x + selectionRect.width - 32, selectionRect.y), new Vector2(38, selectionRect.height));
 

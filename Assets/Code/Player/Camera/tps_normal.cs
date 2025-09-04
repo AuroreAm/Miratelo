@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class tps_data : shard
+    public class tps_data : dat
     {
         public float RotX;
         public float RotY;
@@ -22,7 +22,7 @@ namespace Triheroes.Code
 
     public abstract class tps_shot : camera_shot
     {
-        [harmony]
+        [Link]
         protected tps_data TpsData;
 
         protected const float radius = .5f;
@@ -45,13 +45,13 @@ namespace Triheroes.Code
 
     public class tps_normal : tps_shot
     {
-        protected override void awaken()
+        protected override void OnStart()
         {
             Height = TpsData.Subject.Height + .25f;
             Distance = 4;
         }
 
-        protected override void alive()
+        protected override void OnStep()
         {
             // rotate using the mouse
             // TODO: add sensitivity tweak, add inverted mouse

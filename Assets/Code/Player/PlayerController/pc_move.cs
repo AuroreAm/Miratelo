@@ -3,30 +3,30 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [ verse ("player controller") ]
-    public class set_as_camera_subject : act
+    [ Path ("player controller") ]
+    public class set_as_camera_subject : action
     {
-        protected override void awaken()
+        protected override void OnStart()
         {
-            s_camera.o.TpsACharacter ( sky.get <d_dimension_meta> () );
-            sleep ();
+            s_camera.o.TpsACharacter ( Structure.Get <d_dimension_meta> () );
+            Stop ();
         }
     }
 
-    [ verse ("player controller") ]
-    public class pc_move : act, ILucid
+    [ Path ("player controller") ]
+    public class pc_move : action, IMotorHandler
     {
-        [harmony]
+        [Link]
         ac_ground_complex groundMove;
-        [harmony]
-        kinesis motor;
+        [Link]
+        s_motor motor;
 
         float speed = 7;
 
-        protected override void alive()
+        protected override void OnStep()
         {
-            if (motor.state == null)
-                motor.perform ( groundMove, this );
+            if (motor.State == null)
+                motor.SetState ( groundMove, this );
 
             Vector3 InputAxis = Player.MoveAxis3;
             float runFactor = Player.Dash.Active ? WalkFactor.sprint : ( InputAxis.magnitude > 0.7f ? WalkFactor.run : WalkFactor.walk );
@@ -34,16 +34,16 @@ namespace Triheroes.Code
 
             InputAxis = Vecteur.LDir ( s_camera.o.td.RotY, InputAxis ) * speed;
 
-            if (motor.state == groundMove)
+            if (motor.State == groundMove)
             groundMove.Walk (InputAxis, runFactor );
 
-            else if (motor.state is ac_fall fall)
+            else if (motor.State is ac_fall fall)
             fall.AirMove (InputAxis );
 
-            else if (motor.state is ac_jump jump)
+            else if (motor.State is ac_jump jump)
             jump.AirMove (InputAxis );
         }
 
-        public void inhalt(motor m) {}
+        public void OnMotorEnd(motor m) {}
     }
 }

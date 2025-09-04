@@ -1,18 +1,18 @@
 namespace Lyra
 {
-    public abstract class motor : aria.act
+    public abstract class motor : sys.self
     {
-        public abstract int priority {get;}
-        public virtual bool accept2nd {get;} = false;
+        public abstract int Priority {get;}
+        public virtual bool AcceptSecondState {get;} = false;
     }
 
-    public interface ILucid
+    public interface IMotorHandler
     {
         /// <summary>
-        /// called when the kinesis is stopped, only called when the handler is on
+        /// called when the motor is stopped, only called when the handler is on
         /// </summary>
         /// <param name="m"></param>
-        public void inhalt(motor m);
+        public void OnMotorEnd(motor m);
         public bool on { get; }
     }
 }

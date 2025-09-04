@@ -6,11 +6,11 @@ namespace Triheroes.Code
 {
     public class ac_return_weapon : motor
     {
-        public override int priority => Rank.SubAction;
+        public override int Priority => Rank.SubAction;
 
-        [harmony]
+        [Link]
         s_skin skin;
-        [harmony]
+        [Link]
         s_equip equip;
         
         WeaponPlace to;
@@ -19,7 +19,7 @@ namespace Triheroes.Code
 
         public bool prepared => to != null;
 
-        protected override void awaken()
+        protected override void OnStart()
         {
             if (equip.WeaponUser == null)
             Debug.LogError("the character have no weapon to return");
@@ -30,7 +30,7 @@ namespace Triheroes.Code
             SkinAnimation play = new SkinAnimation ( ReturnAnimation, this )
             {
                 LayerIndex = skin.r_arm,
-                Ev0 = sleep
+                Ev0 = Stop
             };
 
             skin.PlayState ( play );
@@ -57,7 +57,7 @@ namespace Triheroes.Code
             return new term ();
         }
 
-        override protected void asleep ()
+        override protected void OnStop ()
         {
             d_weapon_standard w = equip.WeaponUser.WeaponBase;
             equip.RemoveWeaponUser ();
@@ -66,7 +66,7 @@ namespace Triheroes.Code
             to = null;
         }
 
-        override protected void afaint ()
+        override protected void OnAbort ()
         {
             to = null;
         }

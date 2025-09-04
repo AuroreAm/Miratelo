@@ -5,36 +5,36 @@ namespace Triheroes.Code
 {
     public class ac_fall : motor
     {
-        public override int priority => Rank.Action;
-        public override bool accept2nd => true;
+        public override int Priority => Rank.Action;
+        public override bool AcceptSecondState => true;
 
-        [harmony]
+        [Link]
         s_capsule_character_controller capsule;
-        [harmony]
+        [Link]
         protected s_gravity_ccc gravitySys;
 
-        [harmony]
+        [Link]
         protected d_ground_data groundData;
-        [harmony]
+        [Link]
         public s_skin skin;
-        [harmony]
+        [Link]
         s_footstep footstep;
 
         public static readonly term fall_end = new term ("fall_end");
         static readonly term fall = new term ("fall");
         public term LandKey = fall_end;
 
-        protected override void awaken()
+        protected override void OnStart()
         {
-            this.link (capsule);
-            this.link (gravitySys);
+            this.Link (capsule);
+            this.Link (gravitySys);
 
             var Anim = new SkinAnimation ( fall, this );
             skin.PlayState ( Anim );
         }
 
         
-        protected override void alive()
+        protected override void OnStep()
         {
             if (groundData.onGround && gravitySys.Gravity < 0 && Vector3.Angle(Vector3.up, groundData.groundNormal) <= 45)
             {
@@ -43,7 +43,7 @@ namespace Triheroes.Code
                     LayerIndex = skin.knee,
                     Ev0 = LandSFX
                 });
-                sleep();
+                Stop();
             }
         }
 
@@ -61,13 +61,13 @@ namespace Triheroes.Code
 
     public class ac_fall_hard : ac_fall
     {
-        public override int priority => Rank.Action2nd;
-        public override bool accept2nd => false;
+        public override int Priority => Rank.Action2nd;
+        public override bool AcceptSecondState => false;
 
         bool OnGround;
         static readonly term fall_end_hard = new term ("fall_end_hard");
 
-        protected override void alive()
+        protected override void OnStep()
         {
             if ( !OnGround && groundData.onGround && gravitySys.Gravity < 0 && Vector3.Angle(Vector3.up, groundData.groundNormal) <= 45 )
             {
@@ -84,12 +84,12 @@ namespace Triheroes.Code
 
         void HardFallEnd()
         {
-            sleep ();
+            Stop ();
         }
 
-        protected override void asleep()
+        protected override void OnStop()
         {
-            base.asleep ();
+            base.OnStop ();
             OnGround = false;
         }
 

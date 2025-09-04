@@ -6,11 +6,11 @@ using Lyra;
 namespace Triheroes.Code
 {
     // IK foot manager for humanoids
-    public class s_skin_foot_ik : shard
+    public class s_skin_foot_ik : dat
     {
-        [harmony]
+        [Link]
         d_ground_data groundData;
-        [harmony]
+        [Link]
         s_skin skin;
 
         SkinIk skinIK;
@@ -21,7 +21,7 @@ namespace Triheroes.Code
         public enum FootId { left, right }
         public FootId DominantFoot { private set; get; }
 
-        protected override void harmony ()
+        protected override void OnStructured ()
         {
             skinIK = skin.Ani.gameObject.AddComponent<SkinIk>();
             skinIK.OnIk += FootIk;

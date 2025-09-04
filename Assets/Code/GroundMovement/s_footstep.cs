@@ -8,7 +8,7 @@ namespace Triheroes.Code
     /// <summary>
     /// aquire for autoplay
     /// </summary>
-    public class s_footstep : will
+    public class s_footstep : controller
     {
         // INPROGRESS
         /*[Depend]

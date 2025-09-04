@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [inkedAttribute]
+    [NeedPackage]
     public class d_sword : d_weapon_standard
     {
         float length;
         term slash;
 
-        public class package : ink <d_sword>
+        public class package : Package <d_sword>
         {
             public package ( float length, string slashName )
             {

@@ -1,33 +1,33 @@
 namespace Lyra
 {
-    public sealed class chain : decorator
+    public sealed class sequence : decorator
     {
         int ptr;
 
-        [lyric]
-        public bool repeat = true ;
-        [lyric]
-        public bool reset = true ;
+        [Export]
+        public bool Repeat = true ;
+        [Export]
+        public bool Reset = true ;
 
-        protected sealed override void awaken ()
+        protected sealed override void OnStart ()
         {
-            if (reset)
+            if (Reset)
             ptr = 0;
-            o[ptr].sing ( this );
+            o[ptr].Tick ( this );
         }
 
-        protected sealed override void alive ()
+        protected sealed override void OnStep ()
         {
-            o [ptr].sing (this);
+            o [ptr].Tick (this);
         }
 
-        protected override void afaint()
+        protected override void OnAbort()
         {
             if (o[ptr].on)
-            o[ptr].halt (this);
+            o[ptr].ForceStop (this);
         }
 
-        public override void inhalt(aria p)
+        public override void OnSysEnd(sys p)
         {
             if (!on)
             return;
@@ -36,40 +36,40 @@ namespace Lyra
             if (ptr >= o.Length)
             {
                 ptr = 0;
-                if (!repeat)
+                if (!Repeat)
                 {
-                    sleep();
+                    Stop();
                     return;
                 }
             }
 
-            o[ptr].sing ( this );
+            o[ptr].Tick ( this );
         }
     }
 
-    public sealed class chorus : decorator
+    public sealed class parallel : decorator
     {
-        [lyric]
+        [Export]
         public bool LinkWithFirst = false;
 
-        protected override void awaken()
+        protected override void OnStart()
         {
-            foreach (aria p in o)
-                p.sing ( this );
+            foreach (sys p in o)
+                p.Tick ( this );
         }
 
-        protected override void alive()
+        protected override void OnStep()
         {
-            foreach (aria p in o)
+            foreach (sys p in o)
                 if (p.on)
-                    p.sing ( this );
+                    p.Tick ( this );
         }
 
-        public override void inhalt(aria p)
+        public override void OnSysEnd(sys p)
         {
             if ( p == o [0] && LinkWithFirst )
             {
-                sleep ();
+                Stop ();
                 return;
             }
 
@@ -77,14 +77,14 @@ namespace Lyra
                 if (n.on)
                     return;
 
-            sleep ();
+            Stop ();
         }
 
-        protected override void asleep()
+        protected override void OnStop()
         {
             foreach (var p in o)
                 if (p.on)
-                    p.halt (this);
+                    p.ForceStop (this);
         }
     }
 

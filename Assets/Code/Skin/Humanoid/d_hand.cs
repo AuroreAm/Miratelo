@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [inkedAttribute]
-    public class d_hand : shard
+    [NeedPackage]
+    public class d_hand : dat
     {
         public Transform[] Hands { private set; get; }
 
-        public class package : ink<d_hand>
+        public class package : Package<d_hand>
         {
             public package(Transform[] hands)
             {

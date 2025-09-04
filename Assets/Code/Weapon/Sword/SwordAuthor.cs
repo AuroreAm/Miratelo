@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class SwordAuthor : MonoBehaviour, IAuthor
+    public class SwordAuthor : MonoBehaviour, IStructureAuthor
     {
         public float Length;
         public string SlashName;
 
-        public void writings()
+        public void OnStructure()
         {
             var go = Instantiate ( gameObject );
             go.name = gameObject.name;
@@ -21,7 +21,7 @@ namespace Triheroes.Code
 
         public d_sword Get ()
         {
-            return new shard.constelation.write ( this ).constelation ().get <d_sword> ();
+            return new dat.structure.Creator ( this ).CreateStructure ().Get <d_sword> ();
         }
 
         void Start ()

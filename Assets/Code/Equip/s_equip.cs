@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class s_equip : will
+    public class s_equip : controller
     {
         public s_weapon_user WeaponUser { private set; get; }
         public d_inventory Inventory { private set; get; }
 
-        protected override void harmony()
+        protected override void OnStructured()
         {
-            phoenix.core.start (this);
+            SceneMaster.Processor.Start (this);
         }
 
         public void SetWeaponUser ( s_weapon_user swu )
@@ -19,7 +19,7 @@ namespace Triheroes.Code
             Debug.LogError ("there's still weapon user active but changed it, a bug will occur since the previous weapon user was not free");
 
             WeaponUser = swu;
-            this.link ( swu );
+            this.Link ( swu );
         }
 
         public void RemoveWeaponUser ()
@@ -27,7 +27,7 @@ namespace Triheroes.Code
             if (WeaponUser == null)
             Debug.LogError ("Trying to remove unexisting weapon user");
 
-            this.unlink ( WeaponUser );
+            this.Unlink ( WeaponUser );
             WeaponUser = null;
         }
 

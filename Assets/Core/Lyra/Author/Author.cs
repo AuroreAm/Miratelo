@@ -4,15 +4,15 @@ using UnityEngine;
 
 namespace Lyra
 {
-    public abstract class Author : MonoBehaviour, IAuthor
+    public abstract class Author : MonoBehaviour, IStructureAuthor
     {
         public void Start ()
         {
-            new shard.constelation.write (this).constelation ();
+            new dat.structure.Creator (this).CreateStructure ();
             Destroy ( this );
         }
 
-        public abstract void writings ();
+        public abstract void OnStructure ();
     }
 
     public abstract class AuthorModule : MonoBehaviour

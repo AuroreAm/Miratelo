@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Lyra.Spirit
 {
-    public class Overture : MonoBehaviour
+    public class ActStart : MonoBehaviour
     {
-        public ActPaper Script;
+        public ActionPaper Script;
         void Awake ()
         {
-            act script = Script.GetAction ();
-            phoenix.galaxy.add ( script );
+            action script = Script.GetAction ();
+            SceneMaster.Master.Add ( script );
             Act.Start ( script );
             Destroy (gameObject);
         }

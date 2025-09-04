@@ -7,7 +7,7 @@ namespace Triheroes.Code
     public class cs_subject : camera_shot
     {
         cs_subject_data _data;
-        protected override void alive()
+        protected override void OnStep()
         {
             CamPos = _data.GetPos;
             CamRot = _data.GetRot;

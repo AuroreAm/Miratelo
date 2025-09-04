@@ -2,20 +2,20 @@ using UnityEngine;
 
 namespace Lyra
 {
-    [inked]
-    public class character : shard
+    [NeedPackage]
+    public class character : dat
     {
-        public GameObject form { private set; get; }
-        public Transform coord { private set; get; }
+        public GameObject GameObject { private set; get; }
+        public Transform Coord { private set; get; }
         
-        public Vector3 anchor => coord.position;
+        public Vector3 Position => Coord.position;
 
-        public class package : ink <character>
+        public class package : Package <character>
         {
             public package ( GameObject go )
             {
-                o.form = go;
-                o.coord = go.transform;
+                o.GameObject = go;
+                o.Coord = go.transform;
             }
         }
     }

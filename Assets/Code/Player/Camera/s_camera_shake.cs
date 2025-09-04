@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class s_camera_shake : shard
+    public class s_camera_shake : dat
     {
         static s_camera_shake o;
         Animator Ani;
 
-        protected override void harmony()
+        protected override void OnStructured()
         {
             o = this;
             Ani = s_camera.Cam.GetComponent <Animator> ();

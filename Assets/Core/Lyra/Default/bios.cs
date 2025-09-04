@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Lyra
 {
-    [note(-1000)]
-    public class bios : aria
+    [SysBase(-1000)]
+    public class bios : sys
     {}
 }

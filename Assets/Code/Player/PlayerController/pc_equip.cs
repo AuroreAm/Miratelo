@@ -5,30 +5,30 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [verse ("player controller")]
-    public class pc_equip : act, ILucid
+    [Path ("player controller")]
+    public class pc_equip : action, IMotorHandler
     {
-        [harmony]
-        kinesis motor;
+        [Link]
+        s_motor motor;
 
-        [harmony]
+        [Link]
         s_equip equip;
-        [harmony]
+        [Link]
         d_inv_0 inventory;
 
-        [harmony]
+        [Link]
         ac_draw_weapon drawWeapon;
 
-        [harmony]
+        [Link]
         ac_return_weapon returnWeapon;
 
-        public void inhalt(motor m)
+        public void OnMotorEnd(motor m)
         {
             if (m == returnWeapon && drawWeapon.prepared)
-                motor.perform2nd(drawWeapon, this);
+                motor.SetSecondState(drawWeapon, this);
         }
 
-        protected override void alive()
+        protected override void OnStep()
         {
             if (Player.Action2.OnActive)
             {
@@ -36,7 +36,7 @@ namespace Triheroes.Code
                 if (freeSword != -1 && equip.WeaponUser == null)
                 {
                     drawWeapon.SetPlaceToDrawFrom(inventory.SwordPlaces[freeSword]);
-                    motor.perform2nd(drawWeapon, this);
+                    motor.SetSecondState(drawWeapon, this);
                 }
             }
 
@@ -48,20 +48,20 @@ namespace Triheroes.Code
                     returnWeapon.SetPlaceToReturn(inventory.GetFreePlaceFor(equip.WeaponUser.WeaponBase));
                     drawWeapon.SetPlaceToDrawFrom(inventory.SwordPlaces[freeSword]);
 
-                    motor.perform2nd(returnWeapon, this);
+                    motor.SetSecondState(returnWeapon, this);
                 }
             }
 
             if (Player.Aim.OnActive && inventory.BowPlaces[0].Occupied && equip.WeaponUser == null)
             {
                 drawWeapon.SetPlaceToDrawFrom(inventory.BowPlaces[0]);
-                motor.perform2nd(drawWeapon, this);
+                motor.SetSecondState(drawWeapon, this);
             }
 
             if (Player.Action1.OnActive && equip.WeaponUser != null)
             {
                 returnWeapon.SetPlaceToReturn(inventory.GetFreePlaceFor(equip.WeaponUser.WeaponBase));
-                motor.perform2nd(returnWeapon, this);
+                motor.SetSecondState(returnWeapon, this);
             }
         }
 

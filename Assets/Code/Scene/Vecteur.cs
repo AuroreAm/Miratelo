@@ -7,8 +7,8 @@ namespace Triheroes.Code
     /// <summary>
     /// Vectors mathematics and constants
     /// </summary>
-    [lead]
-	public class Vecteur : shard
+    [InitializeWithSceneMaster]
+	public class Vecteur : dat
 	{
 		public static Vecteur o;
 
@@ -30,7 +30,7 @@ namespace Triheroes.Code
 		public static readonly float Drag = 1;
 
 		// initialisation
-		protected override void harmony()
+		protected override void OnStructured()
 		{
 			o = this;
 

@@ -5,23 +5,23 @@ using System;
 
 namespace Lyra.Editor
 {
-    public class ShardPaperEditor : EditorWindow
+    public class DatPaperEditor : EditorWindow
     {
         SerializedProperty _target;
         SerializedProperty _typeContent;
         SerializedProperty _data;
         FieldInfo _targetMeta;
 
-        shard _paper;
-        ShardEditor dE;
+        dat _paper;
+        DatEditor dE;
         CursorGUI _cursor;
 
-        bool isWindow;
+        bool IsWindow;
 
         public static void Show ( SerializedProperty target, FieldInfo targetFi )
         {
-            GetWindow <ShardPaperEditor> ().Load (target,targetFi);
-            GetWindow <ShardPaperEditor> ().isWindow = true;
+            GetWindow <DatPaperEditor> ().Load (target,targetFi);
+            GetWindow <DatPaperEditor> ().IsWindow = true;
         }
 
         public void Load ( SerializedProperty target, FieldInfo targetFi )
@@ -36,7 +36,7 @@ namespace Lyra.Editor
 
             if ( t.IsValid () )
             {
-                _paper = (shard) Activator.CreateInstance ( t.radiate() );
+                _paper = (dat) Activator.CreateInstance ( t.ExtractType() );
                 JsonUtility.FromJsonOverwrite ( _data.stringValue, _paper );
             }
         }
@@ -44,7 +44,7 @@ namespace Lyra.Editor
         public void OnGUI ()
         {
             DatSelectionGUI ();
-            ShardEditorGUI ();
+            DatEditorGUI ();
         }
 
         void DatSelectionGUI ()
@@ -54,35 +54,35 @@ namespace Lyra.Editor
             if (_cursor == null)
             {
                 if (_targetMeta.FieldType.IsArray)
-                _cursor = new CursorGUI ( _targetMeta.FieldType.GetElementType ().GetGenericArguments ()[0], SetShard );
+                _cursor = new CursorGUI ( _targetMeta.FieldType.GetElementType ().GetGenericArguments ()[0], SetDat );
                 else
-                _cursor = new CursorGUI ( _targetMeta.FieldType.GetGenericArguments ()[0], SetShard );
+                _cursor = new CursorGUI ( _targetMeta.FieldType.GetGenericArguments ()[0], SetDat );
             }
 
             _cursor.GUI ();
 
-            void SetShard (Type t)
+            void SetDat (Type t)
             {
-                _paper = (shard) Activator.CreateInstance ( t );
+                _paper = (dat) Activator.CreateInstance ( t );
             }
         }
 
-        void ShardEditorGUI ()
+        void DatEditorGUI ()
         {
             if (_paper == null) return;
 
             if (dE == null)
-            dE = ShardEditor.CreateEditor ( _paper );
+            dE = DatEditor.CreateEditor ( _paper );
 
             dE.GUI ();
 
-            if ( isWindow && GUILayout.Button ("Save"))
+            if ( IsWindow && GUILayout.Button ("Save"))
             {
                 Save ();
                 Close ();
             }
 
-            if (!isWindow)
+            if (!IsWindow)
             {
                 Save ();
             }
@@ -94,7 +94,7 @@ namespace Lyra.Editor
                 _target.serializedObject.ApplyModifiedProperties ();
                 _cursor = null;
                 _paper = null;
-                if (isWindow)
+                if (IsWindow)
                 Close ();
             }
 
@@ -108,7 +108,7 @@ namespace Lyra.Editor
     }
 
     
-    [CustomPropertyDrawer( typeof (ShardPaper<>) )]
+    [CustomPropertyDrawer( typeof (DatPaper<>) )]
     public class DatPaperDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
@@ -128,7 +128,7 @@ namespace Lyra.Editor
             position.y += EditorGUIUtility.singleLineHeight;
 
             if ( GUI.Button (position,"Edit") )
-            ShardPaperEditor.Show ( property, fieldInfo );
+            DatPaperEditor.Show ( property, fieldInfo );
 
             EditorGUI.EndProperty ();
         }
