@@ -1,7 +1,7 @@
 namespace Lyra
 {
-    [SysBase (0)]
-    public class controller : sys.ext
+    [star (0)]
+    public class controller : star.main
     {
     }
 }

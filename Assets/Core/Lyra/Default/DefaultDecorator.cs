@@ -4,30 +4,30 @@ namespace Lyra
     {
         int ptr;
 
-        [Export]
-        public bool Repeat = true ;
-        [Export]
-        public bool Reset = true ;
+        [export]
+        public bool repeat = true ;
+        [export]
+        public bool reset = true ;
 
-        protected sealed override void OnStart ()
+        protected sealed override void _start ()
         {
-            if (Reset)
+            if (reset)
             ptr = 0;
-            o[ptr].Tick ( this );
+            o[ptr].tick ( this );
         }
 
-        protected sealed override void OnStep ()
+        protected sealed override void _step ()
         {
-            o [ptr].Tick (this);
+            o [ptr].tick (this);
         }
 
-        protected override void OnAbort()
+        protected override void _abort()
         {
             if (o[ptr].on)
-            o[ptr].ForceStop (this);
+            o[ptr].stop (this);
         }
 
-        public override void OnSysEnd(sys p)
+        public override void _star_stop(star p)
         {
             if (!on)
             return;
@@ -36,40 +36,40 @@ namespace Lyra
             if (ptr >= o.Length)
             {
                 ptr = 0;
-                if (!Repeat)
+                if (!repeat)
                 {
-                    Stop();
+                    stop();
                     return;
                 }
             }
 
-            o[ptr].Tick ( this );
+            o[ptr].tick ( this );
         }
     }
 
     public sealed class parallel : decorator
     {
-        [Export]
-        public bool LinkWithFirst = false;
+        [export]
+        public bool link_with_first = false;
 
-        protected override void OnStart()
+        protected override void _start()
         {
-            foreach (sys p in o)
-                p.Tick ( this );
+            foreach (star p in o)
+                p.tick ( this );
         }
 
-        protected override void OnStep()
+        protected override void _step()
         {
-            foreach (sys p in o)
+            foreach (star p in o)
                 if (p.on)
-                    p.Tick ( this );
+                    p.tick ( this );
         }
 
-        public override void OnSysEnd(sys p)
+        public override void _star_stop(star p)
         {
-            if ( p == o [0] && LinkWithFirst )
+            if ( p == o [0] && link_with_first )
             {
-                Stop ();
+                stop ();
                 return;
             }
 
@@ -77,14 +77,14 @@ namespace Lyra
                 if (n.on)
                     return;
 
-            Stop ();
+            stop ();
         }
 
-        protected override void OnStop()
+        protected override void _stop()
         {
             foreach (var p in o)
                 if (p.on)
-                    p.ForceStop (this);
+                    p.stop (this);
         }
     }
 

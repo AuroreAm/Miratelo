@@ -9,13 +9,13 @@ namespace Triheroes.Code
     {
         public List <SwordAuthor> AttachedWeapon;
 
-        public override void OnStructure()
+        public override void _creation()
         {}
 
-        public override void OnStructureReady(dat.structure structure)
+        public override void _creation (system system)
         {
             for (int i = 0; i < AttachedWeapon.Count; i++)
-            structure.Get <s_equip> ().Inventory.RegisterWeapon( AttachedWeapon[i].Get () );
+            system.get <equip> ().inventory.register_weapon( AttachedWeapon[i].Get () );
         }
     }
 }

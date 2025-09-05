@@ -1,87 +1,77 @@
-using System.Collections;
-using System.Collections.Generic;
 using Lyra;
 using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [InitializeWithSceneMaster]
-    public class Player : dat
+    [superstar]
+    public class player : moon
     {
-        protected override void OnStructured()
+        protected override void _ready()
         {
-            VMove = new InputAction ("Vertical", true);
-            HMove= new InputAction ("Horizontal", true);
-            MouseX= new InputAction ("Mouse X", true);
-            MouseY= new InputAction ("Mouse Y", true);
-            Jump= new InputAction ("Action0");
-            Action1= new InputAction ("Action1");
-            Action2= new InputAction ("Action2");
-            Action3= new InputAction ("Action3");
-            Focus= new InputAction ("L2",true);
-            Dash= new InputAction ("R2",true);
-            Alt= new InputAction ("L1");
-            Aim= new InputAction ("R1");
-            HatDown= new InputAction ("DPadDown",true);
+            v = new input ("Vertical", true);
+            h= new input ("Horizontal", true);
+            mousex= new input ("Mouse X", true);
+            mousey= new input ("Mouse Y", true);
+            jump= new input ("Action0");
+            action1= new input ("Action1");
+            action2= new input ("Action2");
+            action3= new input ("Action3");
+            focus= new input ("L2",true);
+            dash= new input ("R2",true);
+            alt= new input ("L1");
+            aim= new input ("R1");
+            down= new input ("DPadDown",true);
         }
 
-        public static Vector3 MoveAxis3 => new Vector3(HMove.Raw,0, VMove.Raw);
-        public static Vector2 DeltaMouse => new Vector2(MouseX.Raw, MouseY.Raw);
+        public static Vector3 move => new Vector3(h.Raw,0, v.Raw);
+        public static Vector2 delta_mouse => new Vector2(mousex.Raw, mousey.Raw);
 
-        public static InputAction VMove, HMove, MouseX, MouseY, Jump, Action1, Action2, Action3, Focus, Dash, Alt, Aim, HatDown;
+        public static input v, h, mousex, mousey, jump, action1, action2, action3, focus, dash, alt, aim, down;
     }
 
-    public sealed class InputAction : bios
+    public sealed class input : bios
     {
+        public static implicit operator bool ( input a ) => a.active;
+        /// <summary> is the corresponding button held down </summary>
+        bool active;
+        /// <summary> is the corresponding button pressed down this frame </summary>
+        public bool down => _down;
+        /// <summary> is the corresponding button released this frame </summary>
+        public bool up => _up;
+        /// <summary> raw value of the corresponding button </summary>
+        public float Raw => _is_axis ? Input.GetAxis ( _axis_name ) : Input.GetButton ( _axis_name )? 1f : 0f;
 
-        /// <summary>
-        /// is the corresponding button held down
-        /// </summary>
-        public bool Active { get; private set; }
-        /// <summary>
-        /// is the corresponding button pressed down this frame
-        /// </summary>
-        public bool OnActive => _OnDown;
-        /// <summary>
-        /// is the corresponding button released this frame
-        /// </summary>
-        public bool OnRelease => _OnUp;
-        /// <summary>
-        /// raw value of the corresponding button
-        /// </summary>
-        public float Raw => _IsAxis ? Input.GetAxis ( _InputManagerAccessName ) : Input.GetButton ( _InputManagerAccessName )? 1f : 0f;
+        bool _up;
+        bool _down;
+        bool _is_axis;
+        string _axis_name;
 
-        bool _OnUp;
-        bool _OnDown;
-        bool _IsAxis;
-        string _InputManagerAccessName;
-
-        public InputAction ( string InputManagerAccessName, bool IsInputManagerAccessNameAxis = false )
+        public input ( string input_manager_name, bool is_input_manager_axis = false )
         {
-            _IsAxis = IsInputManagerAccessNameAxis;
-            _InputManagerAccessName = InputManagerAccessName;
-            SceneMaster.Processor.Start (this);
+            _is_axis = is_input_manager_axis;
+            _axis_name = input_manager_name;
+            phoenix.core.start (this);
         }
 
-        protected override void OnStep()
+        protected override void _step()
         {
-            _OnDown = false;
-            _OnUp = false;
+            _down = false;
+            _up = false;
 
-            if (Active == false)
+            if (active == false)
             {
-                if ( (_IsAxis && Mathf.Abs (Raw)>0.1f) || (!_IsAxis && Input.GetButton ( _InputManagerAccessName )) )
+                if ( (_is_axis && Mathf.Abs (Raw)>0.1f) || (!_is_axis && Input.GetButton ( _axis_name )) )
                 {
-                    _OnDown = true;
-                    Active = true;
+                    _down = true;
+                    active = true;
                 }
             }
             else
             {
-                if ( (_IsAxis && Mathf.Abs (Raw)<0.1f) || (!_IsAxis && !Input.GetButton ( _InputManagerAccessName )) )
+                if ( (_is_axis && Mathf.Abs (Raw)<0.1f) || (!_is_axis && !Input.GetButton ( _axis_name )) )
                 {
-                    _OnUp = true;
-                    Active = false;
+                    _up = true;
+                    active = false;
                 }
             }
         }

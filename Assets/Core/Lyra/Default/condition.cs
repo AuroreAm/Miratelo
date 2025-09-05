@@ -5,9 +5,9 @@ using Lyra;
 
 namespace Lyra.Spirit
 {
-    public abstract class condition : dat
+    public abstract class condition : moon
     {
-        public abstract bool Check ();
+        public abstract bool _check ();
 
         readonly term zero = new term ("zero");
         public virtual term solution => zero;

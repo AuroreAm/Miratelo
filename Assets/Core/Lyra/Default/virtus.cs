@@ -4,135 +4,126 @@ using UnityEngine;
 
 namespace Lyra
 {
-    [InitializeWithSceneMaster]
-    public class VirtualPoolMaster : dat
+    [superstar]
+    public class orion : moon
     {
-        static VirtualPoolMaster o;
+        static orion o;
 
-        Dictionary <int, virtus.VirtusPool > _pools;
+        Dictionary <int, virtus.pool > _pools;
 
-        protected override void OnStructured()
+        protected override void _ready()
         {
             o = this;
-            _pools = new Dictionary<int, virtus.VirtusPool> ();
+            _pools = new Dictionary<int, virtus.pool> ();
 
-            VirtusAuthor [] authors = GameResources.Virtus.GetAll ();
+            VirtusCreator [] authors = game_resources.virtus.get_all ();
 
             for (int i = 0; i < authors.Length; i++)
             {
-                var pool = new virtus.VirtusPool ( authors [i] );
+                var pool = new virtus.pool ( authors [i] );
                 _pools.Add (  new term (authors[i].name), pool );
             }
         }
 
-        public static void AddPool ( IVirtusAuthor author, string name )
+        public static void AddPool ( virtus_creator author, string name )
         {
-            o._pools.Add ( new term (name), new virtus.VirtusPool (author) );
+            o._pools.Add ( new term (name), new virtus.pool (author) );
         }
 
         public static void RentVirtus ( int name )
         {
-            o._pools [name].RentVirtus ();
+            o._pools [name].rent_virtus ();
         }
     }
 
 
     public sealed class virtus : action
     {
-        VirtusPool _poolOrigin;
-        List <Lyra.sys.ext> _virtusMembers = new List<Lyra.sys.ext>();
+        pool origin;
+        List <main> satellites = new List<main>();
 
-        void Register (Lyra.sys.ext p )
+        void register (main p )
         {
-            _virtusMembers.Add (p);
+            satellites.Add (p);
         }
 
-        void OnRent ()
+        void _active ()
         {
-            SceneMaster.Processor.Start (this);
-            for (int i = 0; i < _virtusMembers.Count; i++)
-            this.Link ( _virtusMembers [i] );
+            phoenix.core.start (this);
+            for (int i = 0; i < satellites.Count; i++)
+            this.link ( satellites [i] );
         }
 
-        void OnReturn ()
+        void _return ()
         {
-            Stop ();
+            stop ();
         }
 
-        public abstract class sys : Lyra.sys.ext
+        public abstract class star : main
         {
-            [Link]
-            protected virtus Virtus;
+            [link]
+            protected virtus virtus;
 
-            protected override void OnStructured()
+            protected override void _ready()
             {
-                Virtus.Register ( this );
-                Create ();
+                virtus.register ( this );
+                __ready ();
             }
 
-            protected virtual void Create () {}
+            protected virtual void __ready () {}
         }
 
-        public void Return_ ()
+        public void return_ ()
         {
-            _poolOrigin.ReturnVirtus (this);
+            origin.return_virtus (this);
         }
 
-        public class VirtusPool
+        public class pool
         {
-            Queue<virtus> _queue;
-            List<virtus> PendingVirtus = new List<virtus>();
+            Queue<virtus> queue;
+            List<virtus> pending = new List<virtus>();
 
-            IVirtusAuthor author;
+            virtus_creator author;
 
-            public VirtusPool(IVirtusAuthor author)
+            public pool(virtus_creator _author)
             {
-                this.author = author;
-                _queue = new Queue<virtus>();
+                author = _author;
+                queue = new Queue<virtus>();
             }
 
-            public void RentVirtus()
+            public void rent_virtus ()
             {
-                CheckCapacity();
+                prepare_capacity ();
 
-                virtus u = _queue.Dequeue();
-                u.OnRent();
+                virtus u = queue.Dequeue();
+                u._active();
             }
 
-            void CheckCapacity()
+            void prepare_capacity ()
             {
-                if (_queue.Count == 0)
+                if (queue.Count == 0)
                 {
-                    var v = author.Instance ();
-                    v._poolOrigin = this;
-                    _queue.Enqueue(v);
+                    var v = author.instance ();
+                    v.origin = this;
+                    queue.Enqueue(v);
                 }
             }
 
-            int _currentFrame;
-            public void ReturnVirtus(virtus v)
+            int frame;
+            public void return_virtus (virtus v)
             {
-                v.OnReturn();
-                PendingVirtus.Add(v);
-                _currentFrame = Time.frameCount;
+                v._return();
+                pending.Add(v);
+                frame = Time.frameCount;
 
                 // to make sure the virtus is not used again in the same frame, they are moved to the pending list first then reused on a later frame
-                if ( Time.frameCount != _currentFrame && PendingVirtus.Count > 0 )
+                if ( Time.frameCount != frame && pending.Count > 0 )
                 {
-                    foreach (var p in PendingVirtus)
-                        _queue.Enqueue(p);
-                    PendingVirtus.Clear();
-                }
-            }
+                    foreach (var p in pending)
+                        queue.Enqueue(p);
+                    pending.Clear();
+                }}
         }
-    }
-
-    [Serializable]
-    public struct PieceSkin
-    {
-        public Vector3 RotY;
-        public Mesh Mesh;
-        public Material Material;
     }
 
 }

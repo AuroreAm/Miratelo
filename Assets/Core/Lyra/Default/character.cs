@@ -2,20 +2,20 @@ using UnityEngine;
 
 namespace Lyra
 {
-    [NeedPackage]
-    public class character : dat
+    [inkedPackage]
+    public class character : moon
     {
-        public GameObject GameObject { private set; get; }
-        public Transform Coord { private set; get; }
+        public GameObject gameobject { private set; get; }
+        public Transform coord { private set; get; }
         
-        public Vector3 Position => Coord.position;
+        public Vector3 position => coord.position;
 
-        public class package : Package <character>
+        public class ink : ink <character>
         {
-            public package ( GameObject go )
+            public ink ( GameObject go )
             {
-                o.GameObject = go;
-                o.Coord = go.transform;
+                o.gameobject = go;
+                o.coord = go.transform;
             }
         }
     }

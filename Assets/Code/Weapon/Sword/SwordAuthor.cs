@@ -5,23 +5,23 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class SwordAuthor : MonoBehaviour, IStructureAuthor
+    public class SwordAuthor : MonoBehaviour, creator
     {
         public float Length;
         public string SlashName;
 
-        public void OnStructure()
+        public void _creation()
         {
             var go = Instantiate ( gameObject );
             go.name = gameObject.name;
 
-            new character.package ( go );
-            new d_sword.package ( Length, SlashName );
+            new character.ink ( go );
+            new sword.ink ( Length, SlashName );
         }
 
-        public d_sword Get ()
+        public sword Get ()
         {
-            return new dat.structure.Creator ( this ).CreateStructure ().Get <d_sword> ();
+            return new system.creator ( this ).create_system ().get <sword> ();
         }
 
         void Start ()

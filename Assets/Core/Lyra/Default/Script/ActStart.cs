@@ -9,9 +9,9 @@ namespace Lyra.Spirit
         public ActionPaper Script;
         void Awake ()
         {
-            action script = Script.GetAction ();
-            SceneMaster.Master.Add ( script );
-            Act.Start ( script );
+            action script = Script.write ();
+            phoenix.star.add ( script );
+            action.start ( script );
             Destroy (gameObject);
         }
     }

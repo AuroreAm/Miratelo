@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public abstract class ActorAuthorModule : AuthorModule
+    public abstract class ActorAuthorModule : CreatorModule
     {
-        public virtual void OnStructureReady ( dat.structure structure )
+        public virtual void _creation ( system system )
         {
         }
     }

@@ -5,6 +5,6 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public abstract class SkinAuthorModule : AuthorModule
+    public abstract class SkinAuthorModule : CreatorModule
     {}
 }

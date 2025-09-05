@@ -27,8 +27,8 @@ namespace Lyra.Editor
             ActionPaper a;
             a = new GameObject ().AddComponent < ActionPaper > ();
 
-            a.Paper.Type.Content = t.AssemblyQualifiedName;
-            a.Paper.Data = JsonUtility.ToJson ( Activator.CreateInstance ( t ));
+            a.Paper.type.content = t.AssemblyQualifiedName;
+            a.Paper.data = JsonUtility.ToJson ( Activator.CreateInstance ( t ));
 
             if ( _target )
             a.transform.SetParent ( _target.transform );

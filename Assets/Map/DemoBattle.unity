@@ -167,10 +167,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Paper:
-    Type:
-      Content: Triheroes.Code.pc_move, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
+    type:
+      content: Triheroes.Code.player_move, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-    Data: '{}'
+    data: '{}'
 --- !u!1 &95936825
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,9 +408,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Paper:
-    Type:
-      Content: Lyra.parallel, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    Data: '{"LinkWithFirst":false}'
+    type:
+      content: Lyra.parallel, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    data: '{"link_with_first":false}'
 --- !u!1001 &257928867
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -539,10 +539,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Paper:
-    Type:
-      Content: Triheroes.Code.r_fall_with_hard, Triheroes.Code, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    Data: '{}'
+    type:
+      content: Triheroes.Code.react_fall_hard, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+    data: '{}'
 --- !u!1 &457582110
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,10 +630,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Paper:
-    Type:
-      Content: Triheroes.Code.pc_jump, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
+    type:
+      content: Triheroes.Code.player_jump, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-    Data: '{}'
+    data: '{}'
 --- !u!1 &810701598
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,10 +678,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Paper:
-    Type:
-      Content: Triheroes.Code.pc_equip, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
+    type:
+      content: Triheroes.Code.player_equip, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-    Data: '{}'
+    data: '{}'
 --- !u!1 &847433168
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,10 +726,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Paper:
-    Type:
-      Content: Triheroes.Code.set_as_camera_subject, Triheroes.Code, Version=0.0.0.0,
+    type:
+      content: Triheroes.Code.set_as_camera_subject, Triheroes.Code, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-    Data: '{}'
+    data: '{}'
 --- !u!1 &888057173
 GameObject:
   m_ObjectHideFlags: 0
@@ -898,9 +898,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Paper:
-    Type:
-      Content: Lyra.sequence, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    Data: '{"Repeat":true,"Reset":true}'
+    type:
+      content: Lyra.sequence, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    data: '{"repeat":true,"reset":true}'
 --- !u!4 &1094026587
 Transform:
   m_ObjectHideFlags: 0
@@ -1048,6 +1048,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Paper:
-    Type:
-      Content: Lyra.parallel, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    Data: '{"LinkWithFirst":false}'
+    type:
+      content: Lyra.parallel, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    data: '{"link_with_first":false}'

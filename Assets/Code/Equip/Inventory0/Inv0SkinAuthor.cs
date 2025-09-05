@@ -9,9 +9,9 @@ namespace Triheroes.Code
         public Transform [] SwordPlaces;
         public Transform [] BowPlaces;
 
-        public override void OnStructure()
+        public override void _creation()
         {
-            new d_inv_0.package ( SwordPlaces, BowPlaces );
+            new inv0.ink ( SwordPlaces, BowPlaces );
         }
     }
 }

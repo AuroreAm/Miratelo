@@ -2,21 +2,30 @@ using UnityEngine;
 
 namespace Lyra
 {
-    [SysBase(-1)]
-    public class action : sys.self
+    [star(-1)]
+    public class action : star.neutron
     {
+        public static void start (action Script)
+        {
+            if (Script != null)
+            {
+                phoenix.core.start ( Script );
+            }
+            else
+            Debug.LogWarning ("script is null");
+        }
     }
 
-    [Path("debug")]
+    [path("debug")]
     public class log : action
     {
-        [Export]
-        public string Text;
+        [export]
+        public string text;
 
-        protected override void OnStep()
+        protected override void _step()
         {
-            Debug.Log (Text);
-            Stop ();
+            Debug.Log (text);
+            stop ();
         }
     }
 }

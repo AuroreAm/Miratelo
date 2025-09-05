@@ -9,14 +9,14 @@ namespace Lyra.Editor
     public class ActionPaperEditor : UnityEditor.Editor
     {
         ActionPaper _target;
-        DatPaperEditor _editor;
+        MoonPaperEditor _editor;
 
         const string PaperField = "Paper";
 
         void OnEnable ()
         {
             _target = target as ActionPaper;
-            _editor = ScriptableObject.CreateInstance <DatPaperEditor> ();
+            _editor = ScriptableObject.CreateInstance <MoonPaperEditor> ();
 
             var paper = serializedObject.FindProperty ( PaperField );
             _editor.Load ( paper , _target.GetType ().GetField ( PaperField, BindingFlags.Instance | BindingFlags.Public ) );
@@ -48,7 +48,7 @@ namespace Lyra.Editor
 
             if ( obj == null ) return;
 
-            if ( obj.GetComponent <ActionPaper> () && obj.GetComponent <ActionPaper> ().Paper.Type.IsValid () && obj.GetComponent <ActionPaper> ().Paper.Type.ExtractType ().IsSubclassOf (typeof(decorator)) )
+            if ( obj.GetComponent <ActionPaper> () && obj.GetComponent <ActionPaper> ().Paper.type.valid () && obj.GetComponent <ActionPaper> ().Paper.type.write ().IsSubclassOf (typeof(decorator)) )
             {
                 Rect r = new Rect(new Vector2(selectionRect.x + selectionRect.width - 32, selectionRect.y), new Vector2(38, selectionRect.height));
 

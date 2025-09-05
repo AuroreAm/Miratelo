@@ -3,36 +3,36 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class delta_curve : dat
+    public class delta_curve : moon
     {
-        public AnimationCurve Curve { get; private set; }
+        public AnimationCurve curve { get; private set; }
 
         public bool on { get; private set; }
-        public float CurrentValue { get; private set; }
+        public float current { get; private set; }
 
         float t;
 
-        float TargetX;
+        float target;
         float duration;
 
-        public void Start ( float endValue, float duration )
+        public void start ( float target_value, float duration )
         {
             on = true;
 
-            TargetX = endValue;
+            target = target_value;
             this.duration = duration;
 
-            CurrentValue = 0;
+            current = 0;
             t = 0;
         }
 
-        public bool Done => t == duration;
+        public bool done => t == duration;
 
-        public float TickDelta ()
+        public float tick_delta ()
         {
             if (!on) return 0;
 
-            float a = CurrentValue;
+            float a = current;
             t += Time.deltaTime;
 
             if ( t>=duration )
@@ -41,14 +41,14 @@ namespace Triheroes.Code
                 on = false;
             }
 
-            CurrentValue = Curve.Evaluate ( t/duration ) * TargetX;
+            current = curve.Evaluate ( t/duration ) * target;
 
-            return CurrentValue - a;
+            return current - a;
         }
 
         public delta_curve ( AnimationCurve curve )
         {
-            this.Curve = curve;
+            this.curve = curve;
         }
     }
 }

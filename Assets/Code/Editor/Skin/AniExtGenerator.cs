@@ -91,24 +91,24 @@ namespace Triheroes.Editor
         {
             AnimatorControllerLayer[] layers = from.layers;
             List<bool> realLayer = new List<bool>();
-            target.States = new Dictionary<term, AniExt.State>();
+            target.states = new Dictionary<term, AniExt.state>();
 
             for (int i = 0; i < layers.Length; i++)
             {
                 if (layers[i].syncedLayerIndex == -1)
                 {
-                    WriteMetadataPerLayer(layers[i].stateMachine, ref target.States);
+                    WriteMetadataPerLayer(layers[i].stateMachine, ref target.states);
                     realLayer.Add(true);
                 }
                 else
                     realLayer.Add(false);
             }
 
-            target.RealLayer = realLayer.ToArray();
+            target.states_type = realLayer.ToArray();
             EditorUtility.SetDirty(target);
 
 
-            void WriteMetadataPerLayer(AnimatorStateMachine stateMachine, ref Dictionary<term, AniExt.State> metaStates)
+            void WriteMetadataPerLayer(AnimatorStateMachine stateMachine, ref Dictionary<term, AniExt.state> metaStates)
             {
                 var states = stateMachine.states;
                 foreach (var s in states)
@@ -126,20 +126,20 @@ namespace Triheroes.Editor
                         }
 
                         metaStates.Add(new term(s.state.name),
-                        new AniExt.State()
+                        new AniExt.state()
                         {
-                            Key = new term(s.state.name),
-                            Duration = c.isLooping ? Mathf.Infinity : c.length / s.state.speed,
-                            EvPoint = ef
+                            key = new term(s.state.name),
+                            duration = c.isLooping ? Mathf.Infinity : c.length / s.state.speed,
+                            evs = ef
                         }
                         );
                     }
                     else
                         metaStates.Add(new term(s.state.name),
-                        new AniExt.State()
+                        new AniExt.state()
                         {
-                            Key = new term(s.state.name),
-                            Duration = Mathf.Infinity
+                            key = new term(s.state.name),
+                            duration = Mathf.Infinity
                         }
                         );
                 }

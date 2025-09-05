@@ -24,7 +24,7 @@ namespace Lyra.Editor
 
         void OnEnable ()
         {
-            _cursor = new CursorGUI ( typeof (dat) , OnSelect );
+            _cursor = new CursorGUI ( typeof (moon) , OnSelect );
         }
 
         void OnGUI ()

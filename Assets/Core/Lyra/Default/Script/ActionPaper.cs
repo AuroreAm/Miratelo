@@ -4,18 +4,18 @@ namespace Lyra
 {
     public sealed class ActionPaper : MonoBehaviour
     {
-        public DatPaper <action> Paper;
+        public moon_paper <action> Paper;
 
-        public action GetAction () 
+        public action write () 
         {
-            var a = Paper.Extract ();
+            var a = Paper.write ();
 
             if ( a is decorator d)
             {
                 action [] Childs = new action [ transform.childCount ];
                 for (int i = 0; i < Childs.Length; i++)
-                    Childs [i] = transform.GetChild (i).GetComponent <ActionPaper> ().GetAction ();
-                d.SetChild (Childs);
+                    Childs [i] = transform.GetChild (i).GetComponent <ActionPaper> ().write ();
+                d.set (Childs);
             }
 
             return a;

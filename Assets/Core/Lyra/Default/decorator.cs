@@ -4,27 +4,27 @@ using UnityEngine;
 
 namespace Lyra
 {
-    [Path ("decorator")]
-    public abstract class decorator : action, ISysProcessor
+    [path ("decorator")]
+    public abstract class decorator : action, core_kind
     {
         protected action [] o;
-        public abstract void OnSysEnd(sys s);
+        public abstract void _star_stop(star s);
 
-        public void SetChild ( action [] child )
+        public void set ( action [] child )
         {
             if ( on )
-            throw new InvalidOperationException ( "can't set child of active decorator" );
+            throw new InvalidOperationException ( "can't set active decorator" );
 
-            if ( Structure != null )
-            throw new InvalidOperationException ( "can't set child of already structured decorator" );
+            if ( system != null )
+            throw new InvalidOperationException ( "can't set already running decorator" );
 
             o = child;
         }
 
-        protected sealed override void OnStructured()
+        protected sealed override void _ready()
         {
             for (int i = 0; i < o.Length; i++)
-             Structure.Add ( o[i] ) ;
+             system.add ( o[i] ) ;
         }
     }
 }

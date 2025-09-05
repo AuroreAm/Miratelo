@@ -5,49 +5,48 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class ActorAuthor : MonoBehaviour, IStructureAuthor
+    public class ActorAuthor : MonoBehaviour, creator
     {
         public SkinAuthor Skin;
         public string Name;
         public ActionPaper Behavior;
  
-        Vector3 _spamPosition;
-        float _spamRotY;
+        Vector3 _spam_position;
+        float _spam_roty;
 
-        public dat.structure Spawn ( Vector3 position, Quaternion rotation )
+        public system spawn ( Vector3 position, Quaternion rotation )
         {
-            _spamPosition = position;
-            _spamRotY =  rotation.eulerAngles.y;
-            var s = new dat.structure.Creator (this).CreateStructure ();
+            _spam_position = position;
+            _spam_roty =  rotation.eulerAngles.y;
+            var s = new system.creator (this).create_system ();
 
             var modules = GetComponents<ActorAuthorModule>();
             foreach (var a in modules)
-            a.OnStructureReady (s);
+            a._creation (s);
             return s;
         }
 
-        public void OnStructure()
+        public void _creation()
         {
             GameObject go = new GameObject ( Name );
-            go.transform.position = _spamPosition;
-            new character.package ( go );
+            go.transform.position = _spam_position;
+            new character.ink ( go );
 
-            new d_actor.package ( Name );
+            new actor.ink ( Name );
 
-            Instantiate ( Skin ).OnStructure ();
-            dat.Q <s_skin> ().RotY = _spamRotY;
+            Instantiate ( Skin )._creation ();
+            new ink <skin> ().o.roty = _spam_roty;
 
-            new s_behavior.package ( Behavior );
+            new behavior.ink ( Behavior );
 
             var modules = GetComponents<ActorAuthorModule>();
             foreach (var a in modules)
-            a.OnStructure ();
+            a._creation ();
         }
 
         void Start ()
         {
-            Spawn ( transform.position, transform.rotation );
-
+            spawn ( transform.position, transform.rotation );
             Destroy ( gameObject );
         }
     }

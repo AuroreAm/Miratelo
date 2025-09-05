@@ -9,41 +9,41 @@ namespace Triheroes.Code
     {
         // SERIALIZED FIELDS
         [SerializeField]
-        List<State> SerializedStates;
+        List<state> SerializedStates;
         public RuntimeAnimatorController Model;
 
         // RUNTIME FIELDS
-        public Dictionary<term, State> States;
+        public Dictionary<term, state> states;
 
         /// <summary>
         /// true if layer in the index layer is not a sync layer
         /// </summary>
-        public bool[] RealLayer;
+        public bool[] states_type;
 
-        public static AniExt Get(RuntimeAnimatorController model) => Resources.Load<AniExt>("AnimatorMetadata/" + model.name);
+        public static AniExt get (RuntimeAnimatorController model) => Resources.Load<AniExt>("AnimatorMetadata/" + model.name);
 
         [Serializable]
-        public struct State
+        public struct state
         {
-            public term Key;
-            public float Duration;
-            public float[] EvPoint;
+            public term key;
+            public float duration;
+            public float[] evs;
         }
 
         public void OnBeforeSerialize()
         {
-            SerializedStates = new List<State>();
-            if (States != null)
-                SerializedStates.AddRange(States.Values);
+            SerializedStates = new List<state>();
+            if (states != null)
+                SerializedStates.AddRange(states.Values);
         }
 
         public void OnAfterDeserialize()
         {
-            States = new Dictionary<term, State>();
+            states = new Dictionary<term, state>();
             if (SerializedStates != null)
                 foreach (var v in SerializedStates)
                 {
-                    States.Add(v.Key, v);
+                    states.Add(v.key, v);
                 }
         }
     }

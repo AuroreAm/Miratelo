@@ -6,13 +6,13 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class CameraAuthor : Author
+    public class CameraAuthor : Creator
     {
         public Camera Camera;
 
-        public override void OnStructure()
+        public override void _creation()
         {
-            new s_camera.package ( Camera, transform );
+            new camera.ink ( Camera, transform );
         }
     }
 }

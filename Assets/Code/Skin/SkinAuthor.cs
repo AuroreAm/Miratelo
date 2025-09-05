@@ -5,18 +5,18 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class SkinAuthor : AuthorModule
+    public class SkinAuthor : CreatorModule
     {
-        public float offsetRotationY;
-        public float offsetPositionY;
+        public float OffsetRotationY;
+        public float OffsetPositionY;
 
-        public override void OnStructure ()
+        public override void _creation ()
         {
-            new s_skin.package ( gameObject, new Vector2 (offsetRotationY, offsetPositionY ) );
+            new skin.ink ( gameObject, new Vector2 (OffsetRotationY, OffsetPositionY ) );
 
             var modules = GetComponents<SkinAuthorModule>();
             foreach (var a in modules)
-            a.OnStructure ();
+            a._creation ();
         }
     }
 }

@@ -8,9 +8,9 @@ namespace Triheroes.Code
     /// </summary>
     public class SkinIk : MonoBehaviour
     {
-        public Animator Ani;
-        public bool IKon;
-        bool _ikOn;
+        public Animator ani;
+        public bool on;
+        bool _on;
 
         public Vector3 ikr;
         public Vector3 ikl;
@@ -18,44 +18,44 @@ namespace Triheroes.Code
         public float ikrx;
         public float iklx;
 
-        public Action OnIk;
+        public Action _ik;
 
-        public Action LateIk;
+        public Action _late_ik;
 
         void Awake()
         {
-           Ani = GetComponent<Animator>();
+           ani = GetComponent<Animator>();
         }
 
         void LateUpdate()
         {
-            LateIk?.Invoke();
+            _late_ik?.Invoke();
         }
 
         void OnAnimatorIK()
         {
-            OnIk?.Invoke();
+            _ik?.Invoke();
 
-            if (_ikOn)
+            if (_on)
             {
-                Ani.SetIKPosition(AvatarIKGoal.LeftFoot, ikl);
-                Ani.SetIKPosition(AvatarIKGoal.RightFoot, ikr);
-                Ani.SetIKPositionWeight(AvatarIKGoal.LeftFoot, iklx);
-                Ani.SetIKPositionWeight(AvatarIKGoal.RightFoot, ikrx);
+                ani.SetIKPosition(AvatarIKGoal.LeftFoot, ikl);
+                ani.SetIKPosition(AvatarIKGoal.RightFoot, ikr);
+                ani.SetIKPositionWeight(AvatarIKGoal.LeftFoot, iklx);
+                ani.SetIKPositionWeight(AvatarIKGoal.RightFoot, ikrx);
 
-                if (IKon == false)
+                if (on == false)
                 {
-                    _ikOn = false;
+                    _on = false;
                     iklx = 0;
                     ikrx = 0;
-                    Ani.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 0);
-                    Ani.SetIKPositionWeight(AvatarIKGoal.RightFoot, 0);
+                    ani.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 0);
+                    ani.SetIKPositionWeight(AvatarIKGoal.RightFoot, 0);
                 }
             }
             else
             {
-                if (IKon)
-                    _ikOn = true;
+                if (on)
+                    _on = true;
             }
         }
     }
