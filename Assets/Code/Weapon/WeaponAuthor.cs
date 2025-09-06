@@ -9,10 +9,7 @@ namespace Triheroes.Code
     {
         public void _creation()
         {
-            var go = Instantiate ( gameObject );
-            go.name = gameObject.name;
-
-            new character.ink ( go );
+            new character.ink ( gameObject );
             weapon = __creation ();
         }
 
@@ -21,8 +18,9 @@ namespace Triheroes.Code
         weapon weapon;
         public weapon get ()
         {
-            new system.creator (this).create_system ();
-            return weapon;
+            var a = Instantiate (this) ;
+            new system.creator ( a ).create_system ();
+            return a.weapon;
         }
 
         public void Start ()
