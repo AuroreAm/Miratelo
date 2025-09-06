@@ -8,6 +8,7 @@ namespace Triheroes.Code
     {
         public const int capsule_ground_detection = -70;
 
+        public const int arrow = 49;
         public const int slash = 50;
 
         public const int capsule_gravity = 70;

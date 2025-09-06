@@ -51,7 +51,7 @@ namespace Triheroes.Code
                 swap ();
             }
 
-            if ( player.action2 )
+            if ( player.action2.down )
             aim.shot ();
         }
 

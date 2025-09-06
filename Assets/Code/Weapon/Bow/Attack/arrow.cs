@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    [star (order.arrow)]
     public class arrow : virtus.star
     {
         public float speed { private set; get; }
