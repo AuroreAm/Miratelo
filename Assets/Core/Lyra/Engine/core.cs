@@ -11,6 +11,7 @@ namespace Lyra
         int [] type_segment;
         List<Type> type_order;
         Dictionary < Type, Type > type_index = new Dictionary < Type, Type > ();
+        List <star> stack = new List<star> ();
 
         public core ( Type [] _type_order )
         {
@@ -32,19 +33,6 @@ namespace Lyra
                     type_index.Add ( a, type_order [i] );
                 }
             }
-        }
-
-        List <star> stack = new List<star> ();
-        
-        Dictionary < star, List <star.main> >  link_web = new Dictionary <star, List<star.main>> ();
-
-        Queue < List < star.main > > star_link_pool = new Queue<List<star.main>> ();
-        List < star.main > rent_star_link () => star_link_pool.Count > 0 ? star_link_pool.Dequeue () : new List<star.main> ();
-
-        void return_star_link ( List <star.main> star_link )
-        {
-            star_link.Clear ();
-            star_link_pool.Enqueue (star_link);
         }
 
         public void start ( star s )
@@ -69,39 +57,7 @@ namespace Lyra
             for (int i = type_order.IndexOf ( target ) + 1; i < type_segment.Length; i++)
             type_segment [i] ++;
 
-            link_web.Add ( s, rent_star_link () );
-
             s.tick (this);
-        }
-
-        /// <summary>
-        /// tell the core that this star is started but not executed by this core
-        /// this is used for link
-        /// </summary>
-        public void fake_start ( star s )
-        {
-            link_web.Add ( s, rent_star_link () );
-        }
-
-        public void fake_stop ( star s )
-        {
-            foreach ( star link in link_web [s] )
-                link.stop (this);
-
-            return_star_link ( link_web [s] );
-            link_web.Remove (s);
-        }
-
-        public void link ( star host, star.main linked )
-        {
-            link_web [host].Add ( linked );
-            start (linked);
-        }
-
-        public void unlink ( star host, star.main linked )
-        {
-            link_web [host].Remove (linked);
-            linked.stop ( this );
         }
 
         public void _star_stop(star s)
@@ -114,12 +70,6 @@ namespace Lyra
 
             int AddressOf = stack.IndexOf ( s );
             stack.RemoveAt (AddressOf);
-
-            foreach ( star link in link_web [s] )
-                link.stop (this);
-
-            return_star_link ( link_web [s] );
-            link_web.Remove (s);
             
             for (int i = 0; i < type_segment.Length; i++)
             {
@@ -153,22 +103,6 @@ namespace Lyra
         public starAttribute ( int _order )
         {
             order = _order;
-        }
-    }
-
-    public static class starExtensions
-    {
-        /// <summary>
-        /// start another sys and link with this, the linked sys stop when the host is stopped
-        /// </summary>
-        public static void link ( this star s, star.main link )
-        {
-            phoenix.core.link ( s, link );
-        }
-
-        public static void unlink ( this star s, star.main link )
-        {
-            phoenix.core.unlink ( s, link );
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Lyra
 {
@@ -6,6 +7,8 @@ namespace Lyra
     {
         public bool on { private set; get; }
         private core_kind core;
+
+        private List <star.main> web = new List<star.main> ();
 
         protected virtual void _start ()
         {}
@@ -19,6 +22,25 @@ namespace Lyra
         protected virtual void _abort ()
         {
             _stop ();
+        }
+
+        protected void link ( star.main linked )
+        {
+            web.Add ( linked );
+            phoenix.core.start ( linked );
+        }
+
+        protected void unlink ( star.main linked )
+        {
+            web.Remove ( linked );
+            linked.stop ();
+        }
+
+        void clear_web ()
+        {
+            foreach ( star link in web )
+            link.stop ();
+            web.Clear ();
         }
 
         private void tick ()
@@ -49,6 +71,7 @@ namespace Lyra
 
                 enter_my_system_field ();
                 _abort ();
+                clear_web ();
                 exit_my_system_field ();
                 
                 notify_core_on_stopping ();
@@ -65,6 +88,7 @@ namespace Lyra
 
                 enter_my_system_field ();
                 _stop ();
+                clear_web ();
                 exit_my_system_field ();
 
                 notify_core_on_stopping ();

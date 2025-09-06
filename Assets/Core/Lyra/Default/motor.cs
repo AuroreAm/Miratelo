@@ -52,7 +52,6 @@ namespace Lyra
             if (!accept2nd && act2nd != null)
                 act2nd.stop(this);
 
-            phoenix.core.fake_start(act);
             act.tick(this);
             return true;
         }
@@ -78,7 +77,6 @@ namespace Lyra
             act2nd = _act2nd;
             priority2nd = _act2nd.priority;
 
-            phoenix.core.fake_start(act2nd);
             act2nd.tick(this);
             return true;
         }
@@ -125,8 +123,6 @@ namespace Lyra
 
         public void _star_stop (star s)
         {
-            phoenix.core.fake_stop(s);
-
             if (s == act)
                 end();
 
