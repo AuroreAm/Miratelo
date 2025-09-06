@@ -7,7 +7,7 @@ namespace Triheroes.Code
 {
     // character controller movement using Unity's CharacterController
     [ star ( order.capsule ) ]
-    [inkedPackage]
+    [inked]
     public class capsule : star.main
     {
         [link]

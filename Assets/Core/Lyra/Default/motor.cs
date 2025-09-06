@@ -10,7 +10,7 @@ namespace Lyra
 
     // motor layer of behavior
     // asign only state that directly manipulate motion of a character: animation and movement
-    public class motor : controller, core_kind
+    public sealed class motor : controller, core_kind
     {
         acting acting;
 

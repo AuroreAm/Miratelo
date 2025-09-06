@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Lyra
 {
-    [inkedPackage]
+    [inked]
     public class character : moon
     {
         public GameObject gameobject { private set; get; }

@@ -3,9 +3,6 @@ using UnityEngine;
 
 namespace Triheroes.Code.CapsuleAct
 {
-    // new ground movement complex
-    // instead of the old using core, this one works with the new neuron system
-    // can tweak between idle - walk - run - sprint - brake - brake rotation
     public class move : act
     {
         public override int priority => level.def2;

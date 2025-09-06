@@ -6,11 +6,13 @@ using System;
 namespace Triheroes.Code
 {
     [star(order.skin)]
-    [inkedPackage]
+    [inked]
     public class skin : star
     {
         [link]
         character c;
+
+        public Vector3 position => coord.position;
 
         public Transform coord { private set; get; }
         public Animator ani { private set; get; }

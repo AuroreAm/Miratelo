@@ -36,7 +36,7 @@ namespace Triheroes.Code
         {
             if ( weapon != null )
             {
-                Transform [] hands = this.hands;
+                var hands = ( Transform [] ) this.hands;
                 weapon.coord.SetParent( hands [hand] );
                 weapon.coord.localPosition = Vector3.zero;
                 weapon.coord.localRotation = default_rotation;

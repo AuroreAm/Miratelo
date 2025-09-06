@@ -9,6 +9,7 @@ namespace Triheroes.Code
     {
         public SkinAuthor Skin;
         public string Name;
+        public int Faction;
         public ActionPaper Behavior;
  
         Vector3 _spam_position;
@@ -33,6 +34,7 @@ namespace Triheroes.Code
             new character.ink ( go );
 
             new actor.ink ( Name );
+            new warrior.ink (Faction);
 
             Instantiate ( Skin )._creation ();
             new ink <skin> ().o.roty = _spam_roty;

@@ -5,28 +5,14 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class SwordAuthor : MonoBehaviour, creator
+    public class SwordAuthor : WeaponAuthor
     {
         public float Length;
         public string SlashName;
 
-        public void _creation()
+        protected override weapon __creation()
         {
-            var go = Instantiate ( gameObject );
-            go.name = gameObject.name;
-
-            new character.ink ( go );
-            new sword.ink ( Length, SlashName );
-        }
-
-        public sword Get ()
-        {
-            return new system.creator ( this ).create_system ().get <sword> ();
-        }
-
-        void Start ()
-        {
-            Destroy ( this );
+            return new sword.ink ( Length, SlashName ).o;
         }
 
         #if UNITY_EDITOR

@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [inkedPackage]
+    [inked]
     public class hands : moon
     {
         Transform[] hand_transforms;
 
-        public static implicit operator Transform[] (hands o)
+        public static explicit operator Transform[] (hands o)
         {
             return o.hand_transforms;
         }

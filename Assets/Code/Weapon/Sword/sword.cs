@@ -4,11 +4,15 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [inkedPackage]
+    [inked]
     public class sword : weapon
     {
-        float length;
-        term slash;
+        [link]
+        character c;
+        public Vector3 position => c.position;
+
+        public float length { get; private set; }
+        public term slash { get; private set; }
 
         public class ink : ink < sword >
         {

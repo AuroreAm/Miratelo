@@ -25,12 +25,12 @@ namespace Lyra
             }
         }
 
-        public static void AddPool ( virtus_creator author, string name )
+        public static void add ( virtus_creator author, string name )
         {
             o._pools.Add ( new term (name), new virtus.pool (author) );
         }
 
-        public static void RentVirtus ( int name )
+        public static void rent ( int name )
         {
             o._pools [name].rent_virtus ();
         }

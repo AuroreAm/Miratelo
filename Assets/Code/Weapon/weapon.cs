@@ -9,13 +9,14 @@ namespace Triheroes.Code
     {
         [link]
         character c;
-        public actor owner { get; protected set; }
+        public warrior owner { get; protected set; }
         public Transform coord => c.gameobject.transform;
 
-        public void aquire (actor Owner)
+        public void aquire (warrior _owner)
         {
-            if (owner) Debug.LogError ("Weapon already owned");
-            owner = Owner;
+            if ( owner ) Debug.LogError ("Weapon already owned");
+
+            owner = _owner;
             c.gameobject.layer = 0;
         }
     }

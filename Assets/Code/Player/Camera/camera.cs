@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     [star (order.camera)]
-    [inkedPackage]
+    [inked]
     public class camera : star
     {
         public static camera o { private set; get; }
@@ -13,7 +13,7 @@ namespace Triheroes.Code
         Camera unity_camera;
         CameraShot.shot shot;
 
-        public static implicit operator Camera ( camera o ) => o.unity_camera;
+        public static explicit operator Camera ( camera o ) => o.unity_camera;
 
         public class ink : ink <camera>
         {

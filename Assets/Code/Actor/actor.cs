@@ -5,15 +5,21 @@ using Lyra;
 
 namespace Triheroes.Code
 {
-    [inkedPackage]
+    [inked]
     public class actor : moon
     {
         [link]
         character c; 
 
+        [link]
+        public skin skin;
+
+        public Vector3 position => c.position;
+
+        public term term;
         public string name { private set; get; }
 
-        protected override void _ready()
+        protected sealed override void _ready()
         {
             c.gameobject.layer = vecteur.CHARACTER;
         }
@@ -23,6 +29,7 @@ namespace Triheroes.Code
             public ink ( string name )
             {
                 o.name = name;
+                o.term = new term ( name );
             }
         }
 

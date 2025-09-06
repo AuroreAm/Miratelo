@@ -17,18 +17,18 @@ namespace Lyra
         {
             id = ++static_counter;
 
-            if ( system_domain != null )
-                system_domain.add(this);
+            if ( system_domain.Count > 0 && system_domain.Peek() != null )
+                system_domain.Peek().add(this);
         }
 
-        static system system_domain;
+        internal static Stack <system> system_domain = new Stack<system> ();
 
         protected virtual void _ready ()
         { }
 
         internal void set_orbit ( system structure )
         {
-            if (GetType().GetCustomAttribute<inkedPackage>() != null && !ready)
+            if (GetType().GetCustomAttribute<inked>() != null && !ready)
                 Debug.LogError($"{GetType().Name} was structured without package");
 
             system = structure;
@@ -39,14 +39,12 @@ namespace Lyra
 
         protected void enter_my_system_field ()
         {
-            if  (system_domain == null )
-                system_domain = system;
+            system_domain.Push ( system );
         }
 
         protected void exit_my_system_field ()
         {
-            if (system_domain == system)
-                system_domain = null;
+            system_domain.Pop ();
         }
 
         public abstract class ink <T> where T : moon, new()
@@ -59,7 +57,7 @@ namespace Lyra
                 o = system.creator.querry<T>();
                 o.ready = true;
             }
-            protected T o { private set; get; }
+            public T o { private set; get; }
         }
     }
 
@@ -213,7 +211,9 @@ namespace Lyra
             public system create_system ()
             {
                 o = this;
+                moon.system_domain.Push (null);
                 author._creation();
+                moon.system_domain.Pop ();
                 o = null;
 
                 return new system ( founder );
@@ -241,7 +241,7 @@ namespace Lyra
     { }
 
     [AttributeUsage(AttributeTargets.Class)]
-    public class inkedPackage : Attribute
+    public class inked : Attribute
     { }
 }
 

@@ -82,4 +82,36 @@ namespace Triheroes.Code
 	{
 		public static int id(this Collider c) => c.gameObject.GetInstanceID();
 	}
+
+	// character sorting by average angle and distance
+	public class SortDistanceA : IComparer < warrior >
+	{
+		float y;
+		Vector3 pos;
+		float distance;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="y"> euleur y of character's direction </param>
+		/// <param name="pos"> the character's transform  </param>
+		public SortDistanceA (float y, Vector3 pos, float distance)
+		{
+			this.y = y;
+			this.pos = pos;
+			this.distance = distance;
+		}
+
+		// compare by average distance and average angle
+		public int Compare ( warrior x, warrior y )
+		{
+			float AngleDistanceRatio = Mathf.Abs(Mathf.DeltaAngle(this.y, vecteur.rot_direction_y(pos, x.skin.position))) / 180;
+			float DistanceRatio = Vector3.Distance(pos, x.skin.position) / distance;
+			float xAverage = (AngleDistanceRatio + DistanceRatio) / 2;
+			AngleDistanceRatio = Mathf.Abs(Mathf.DeltaAngle(this.y, vecteur.rot_direction_y(pos, y.skin.position))) / 180;
+			DistanceRatio = Vector3.Distance(pos, y.skin.position) / distance;
+			float yAverage = (AngleDistanceRatio + DistanceRatio) / 2;
+			return (int)Mathf.Sign(xAverage - yAverage);
+		}
+	}
 }

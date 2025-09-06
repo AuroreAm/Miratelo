@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Lyra
 {
     [star(-1)]
-    public class action : star.neutron
+    public abstract class action : star.neutron
     {
         public static void start (action Script)
         {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Lyra
 {
-    public class index <T> : moon where T : public_moon <T>
+    public abstract class index <T> : moon where T : public_moon <T>
     {
         static index <T> o;
         protected Dictionary <int, T> ptr = new Dictionary<int, T> ();

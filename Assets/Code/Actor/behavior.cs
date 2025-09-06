@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [inkedPackage]
+    [inked]
     public class behavior : controller
     {
         action script;

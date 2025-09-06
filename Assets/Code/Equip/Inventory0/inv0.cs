@@ -41,11 +41,11 @@ namespace Triheroes.Code
         }
     }
 
-    [inkedPackage]
+    [inked]
     public class inv0 : inventory
     {
         [link]
-        actor actor;
+        warrior warrior;
 
         public weapon_place[] sword_place { private set; get; }
         public weapon_place get_free_sword_place ()
@@ -88,7 +88,7 @@ namespace Triheroes.Code
             if (!free_place_for_exists (weapon))
                 return;
 
-            weapon.aquire(actor);
+            weapon.aquire ( warrior );
             get_free_place_for(weapon).put(weapon);
         }
 

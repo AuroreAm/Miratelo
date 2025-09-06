@@ -7,7 +7,7 @@ namespace Triheroes.Code
 {
     public class Inv0Author : ActorAuthorModule
     {
-        public List <SwordAuthor> AttachedWeapon;
+        public List <WeaponAuthor> AttachedWeapon;
 
         public override void _creation()
         {}
@@ -15,7 +15,7 @@ namespace Triheroes.Code
         public override void _creation (system system)
         {
             for (int i = 0; i < AttachedWeapon.Count; i++)
-            system.get <equip> ().inventory.register_weapon( AttachedWeapon[i].Get () );
+            system.get <equip> ().inventory.register_weapon ( AttachedWeapon[i].get () );
         }
     }
 }

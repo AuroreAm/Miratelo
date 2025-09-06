@@ -11,7 +11,7 @@ namespace Triheroes.Code
         protected override void _ready()
         {
             o = this;
-            Camera cam = camera.o;
+            Camera cam = (Camera) camera.o;
             ani = cam.GetComponent <Animator> ();
         }
 
