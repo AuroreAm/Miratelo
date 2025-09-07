@@ -110,8 +110,9 @@ namespace Lyra
 
         void notify_core_on_stopping ()
         {
-            core._star_stop (this);
+            var c = core;
             core = null;
+            c._star_stop (this);
         }
 
         public void stop (  core_kind handler )
