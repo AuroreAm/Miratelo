@@ -15,6 +15,11 @@ namespace Lyra
 
         public moon ()
         {
+            #if UNITY_EDITOR
+            if ( ! UnityEditor.EditorApplication.isPlaying )
+            return;
+            #endif
+
             id = ++static_counter;
 
             if ( system_domain.Count > 0 && system_domain.Peek() != null )
