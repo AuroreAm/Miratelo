@@ -16,11 +16,17 @@ namespace Triheroes.Code
         protected abstract weapon __creation ();
 
         weapon weapon;
-        public weapon get ()
+        public weapon create_instance ()
         {
             var a = Instantiate (this) ;
             new system.creator ( a ).create_system ();
             return a.weapon;
+        }
+
+        public weapon get ()
+        {
+            new system.creator ( this ).create_system ();
+            return weapon;
         }
 
         public void Start ()

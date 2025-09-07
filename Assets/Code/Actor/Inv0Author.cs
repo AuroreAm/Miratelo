@@ -15,7 +15,7 @@ namespace Triheroes.Code
         public override void _creation (system system)
         {
             for (int i = 0; i < AttachedWeapon.Count; i++)
-            system.get <equip> ().inventory.register_weapon ( AttachedWeapon[i].get () );
+            system.get <equip> ().inventory.register_weapon ( AttachedWeapon[i].create_instance () );
         }
     }
 }

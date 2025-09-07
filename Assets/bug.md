@@ -2,6 +2,8 @@
 
 Often source of bug
 - recursive call from event
+- static domain
+
 - bad pool reusage
 - argument ambuigity name
 - bad code copy

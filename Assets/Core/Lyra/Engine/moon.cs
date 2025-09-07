@@ -162,7 +162,9 @@ namespace Lyra
 
         public class creator
         {
-            internal static creator o { private set; get; }
+            internal static creator o => stack.Peek ();
+            static Stack < creator > stack = new Stack<creator> ();
+
             Lyra.creator author;
             Dictionary< Type, moon > founder = new Dictionary < Type, moon >();
 
@@ -215,11 +217,11 @@ namespace Lyra
 
             public system create_system ()
             {
-                o = this;
+                stack.Push (this);
                 moon.system_domain.Push (null);
                 author._creation();
                 moon.system_domain.Pop ();
-                o = null;
+                stack.Pop ();
 
                 return new system ( founder );
             }

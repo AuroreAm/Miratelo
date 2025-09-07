@@ -191,7 +191,7 @@ namespace Triheroes.Code.Sword
             
             if (  pallas.contains ( ray_hit.collider.id () ) && pallas.is_enemy ( ray_hit.collider.id (), sword.owner.faction ) )
             {
-                pallas.radiate ( ray_hit.collider.id (), new Code.slash ( 2 ) );
+                pallas.radiate ( ray_hit.collider.id (), new Code.hack ( 2 ) );
                 hitted.Add ( ray_hit.collider.id () );
             }
         }

@@ -6,11 +6,11 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public struct slash
+    public struct hack
     {
         public float raw;
 
-        public slash ( float _raw )
+        public hack ( float _raw )
         {
             raw = _raw;
         }
