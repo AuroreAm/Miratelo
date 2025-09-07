@@ -75,4 +75,17 @@ namespace Triheroes.Code
 
         public static explicit operator actor (warrior a) => a.actor;
     }
+
+    [path ("test")]
+    public class test_get_enemy : action
+    {
+        [link]
+        warrior warrior;
+
+        protected override void _start()
+        {
+            warrior.lock_target ( pallas.get_foes (warrior.faction) [0] );
+            stop ();
+        }
+    }
 }

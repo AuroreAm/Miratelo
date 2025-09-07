@@ -10,7 +10,7 @@ namespace Lyra
     public sealed class phoenix : MonoBehaviour, creator
     {
         public static system star {private set; get;}
-
+        public static phoenix o;
         public static core core;
 
         void Awake ()
@@ -37,6 +37,8 @@ namespace Lyra
 
         void load_phoenix ()
         {
+            o = this;
+
             var A = AppDomain.CurrentDomain.GetAssemblies();
             List <Type> superstar = new List<Type> ();
 
@@ -51,6 +53,7 @@ namespace Lyra
         }
 
         public void _creation() {}
+
     }
 
     public sealed class superstarAttribute : Attribute
