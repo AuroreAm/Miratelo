@@ -19,7 +19,7 @@ namespace Triheroes.Code
 
 namespace Triheroes.Code.Sword.Combat
 {
-    public class slash : act
+    public class slay : act
     {
         public override int priority => level.action;
 
@@ -34,7 +34,7 @@ namespace Triheroes.Code.Sword.Combat
 
         term animation;
 
-        public slash ( term _animation )
+        public slay ( term _animation )
         {
             animation = _animation;
         }

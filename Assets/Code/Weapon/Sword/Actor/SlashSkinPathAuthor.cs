@@ -1,7 +1,7 @@
 using Lyra;
 using System.Collections.Generic;
 using UnityEngine;
-using static Triheroes.Code.Sword.Combat.slash;
+using static Triheroes.Code.Sword.Combat.slay;
 
 namespace Triheroes.Code
 {

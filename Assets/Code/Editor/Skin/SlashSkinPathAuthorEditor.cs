@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEditor.Animations;
 using System;
-using static Triheroes.Code.Sword.Combat.slash;
+using static Triheroes.Code.Sword.Combat.slay;
 
 namespace Triheroes.Editor
 {
@@ -91,7 +91,7 @@ namespace Triheroes.Editor
             float endTime   = EventSegment[1].time;
 
             List<float> sampleTimes = new List<float>();
-            for (float t = startTime; t < endTime; t += Code.Sword.Combat.slash.path.delta)
+            for (float t = startTime; t < endTime; t += Code.Sword.Combat.slay.path.delta)
                 sampleTimes.Add(t);
             sampleTimes.Add(endTime);
 

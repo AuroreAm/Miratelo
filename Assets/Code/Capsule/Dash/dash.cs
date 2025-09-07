@@ -7,7 +7,6 @@ namespace Triheroes.Code.CapsuleAct
 {
     public class dash : act
     {
-
         public override int priority => level.action;
 
         static term dash_animation_of (direction direction) => (direction == direction.forward)? animation.dash_forward : (direction == direction.right)? animation.dash_right : (direction == direction.left)? animation.dash_left : animation.dash_back;

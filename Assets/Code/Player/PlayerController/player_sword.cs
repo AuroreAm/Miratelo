@@ -27,7 +27,7 @@ namespace Triheroes.Code
             combo = new act [3];
 
             for (int i = 0; i < combo.Length; i++)
-            combo [i] = new Sword.Combat.slash ( key [i] );
+            combo [i] = new slay ( key [i] );
         }
 
         protected override void _step()
