@@ -67,6 +67,8 @@ namespace Lyra
 
         public override void _star_stop(star p)
         {
+            if (!on) return;
+
             if ( p == o [0] && link_with_first )
             {
                 stop ();

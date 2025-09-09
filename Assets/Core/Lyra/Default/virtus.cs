@@ -16,12 +16,20 @@ namespace Lyra
             o = this;
             _pools = new Dictionary<int, virtus.pool> ();
 
-            VirtusCreator [] authors = game_resources.virtus.get_all ();
+            VirtusCreator [] creators = game_resources.virtus_so.get_all ();
+
+            for (int i = 0; i < creators.Length; i++)
+            {
+                var pool = new virtus.pool ( creators [i] );
+                _pools.Add (  new term (creators[i].name), pool );
+            }
+            
+            VirtusAuthor [] authors = game_resources.virtus_go.get_all ();
 
             for (int i = 0; i < authors.Length; i++)
             {
                 var pool = new virtus.pool ( authors [i] );
-                _pools.Add (  new term (authors[i].name), pool );
+                _pools.Add (  new term (authors[i].gameObject.name), pool );
             }
         }
 

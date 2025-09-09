@@ -5,14 +5,12 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [CreateAssetMenu(fileName = "Slash", menuName = "RPG/ArrowModel")]
-    public class ArrowAuthor : VirtusCreator
+    [RequireComponent (typeof (ParticleSystem))]
+    public class IllusionAuthor : VirtusAuthor
     {
-        public arrow.skin skin;
-
         protected override void _virtus_creation()
         {
-            new arrow.spectre.ink ( skin );
+            new illusion.ink ( GetComponent <ParticleSystem> () );
         }
     }
 }

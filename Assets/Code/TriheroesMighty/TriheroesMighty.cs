@@ -15,6 +15,7 @@ namespace Triheroes.Code
         public const int capsule = 71;
 
         public const int skin = 80;
+        public const int spectre = 81;
 
         public const int camera_shot = 89;
         public const int camera = 90;

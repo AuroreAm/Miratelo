@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public abstract class SkinAuthorModule : AuthorModule
+    [star (order.spectre)]
+    public abstract class spectre : virtus.star
     {}
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Lyra
 {
-    public abstract class Creator : MonoBehaviour, creator
+    public abstract class Author : MonoBehaviour, creator
     {
         public void Start ()
         {
@@ -15,7 +15,7 @@ namespace Lyra
         public abstract void _creation ();
     }
 
-    public abstract class CreatorModule : MonoBehaviour
+    public abstract class AuthorModule : MonoBehaviour
     {
         public abstract void _creation ();
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public abstract class ActorAuthorModule : CreatorModule
+    public abstract class ActorAuthorModule : AuthorModule
     {
         public virtual void _creation ( system system )
         {

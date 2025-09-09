@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class CameraAuthor : Creator
+    public class CameraAuthor : Author
     {
         public Camera Camera;
 

@@ -13,15 +13,6 @@ namespace Triheroes.Code
         public Vector3 position { private set; get; }
         float timeleft;
         Quaternion rotation;
-        skin piece;
-
-        public class ink : ink < arrow >
-        {
-            public ink (skin skin)
-            {
-                o.piece = skin;
-            }
-        }
 
         protected override void _start ()
         {
@@ -46,7 +37,6 @@ namespace Triheroes.Code
         protected override void _step ()
         {
             cast ();
-            graphic ();
             signal ();
             lifetime ();
         }
@@ -62,11 +52,6 @@ namespace Triheroes.Code
             }
             else
                 position += vecteur.forward (rotation) * spd;
-        }
-
-        void graphic()
-        {
-            Graphics.DrawMesh ( piece.mesh, position, rotation.appied_after (piece.roty), piece.material, 0);
         }
 
         void signal()
@@ -86,6 +71,27 @@ namespace Triheroes.Code
                 virtus.return_();
         }
 
+        [inked]
+        public class spectre : Code.spectre
+        {
+            [link]
+            arrow arrow;
+
+            skin skin;
+
+            public class ink : ink <spectre>
+            {
+                public ink ( skin skin )
+                {
+                    o.skin = skin;
+                }
+            }
+
+            protected override void _step ()
+            {
+                Graphics.DrawMesh ( skin.mesh, arrow.position, arrow.rotation.appied_after (skin.roty), skin.material, 0);
+            }
+        }
         
         [Serializable]
         public struct skin

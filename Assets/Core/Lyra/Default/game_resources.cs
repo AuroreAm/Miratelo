@@ -7,7 +7,8 @@ namespace Lyra
 {
     public static class game_resources
     {
-        public static readonly game_resources < VirtusCreator > virtus = new game_resources<VirtusCreator> ( "Virtus" );
+        public static readonly game_resources < VirtusCreator > virtus_so = new game_resources<VirtusCreator> ( "Virtus" );
+        public static readonly game_resources < VirtusAuthor > virtus_go = new game_resources<VirtusAuthor> ("Spectre");
     }
     
     public sealed class game_resources <T> where T : Object

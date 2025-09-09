@@ -137,6 +137,7 @@ namespace Lyra
 
     public interface core_kind
     {
+        /// <summary> called when a ticked star stops, careful when the ticker is another star, it will always call </summary>
         public void _star_stop ( star s );
     }
 }
