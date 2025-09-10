@@ -12,6 +12,8 @@ namespace Triheroes.Code
         public int Faction;
         public ActionPaper Behavior;
  
+        List <ActorAuthorModule> modules;
+
         Vector3 _spam_position;
         float _spam_roty;
 
@@ -21,14 +23,16 @@ namespace Triheroes.Code
             _spam_roty =  rotation.eulerAngles.y;
             var s = new system.creator (this).create_system ();
 
-            var modules = GetComponents<ActorAuthorModule>();
             foreach (var a in modules)
             a._creation (s);
+
             return s;
         }
 
         public void _creation()
         {
+            modules = new List<ActorAuthorModule> ( GetComponents <ActorAuthorModule> () );
+
             GameObject go = new GameObject ( Name );
             go.transform.position = _spam_position;
             new character.ink ( go );
@@ -36,14 +40,16 @@ namespace Triheroes.Code
             new actor.ink ( Name );
             new warrior.ink (Faction);
 
-            Instantiate ( Skin )._creation ();
-            new ink <skin> ().o.roty = _spam_roty;
+            modules.Add ( Instantiate ( Skin ) );
 
             new behavior.ink ( Behavior );
-
-            var modules = GetComponents<ActorAuthorModule>();
             foreach (var a in modules)
             a._creation ();
+
+            new ink <skin> ().o.roty = _spam_roty;
+            
+            // TODO: photon must be initialized in founder, find a way to do this without forcing
+            new ink <photon> ();
         }
 
         void Start ()

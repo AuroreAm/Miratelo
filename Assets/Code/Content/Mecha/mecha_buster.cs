@@ -56,7 +56,7 @@ namespace Triheroes.Code
             public void shot ()
             {
                 if ( charge <= 0 ) return;
-                charge -= .25f;
+                charge -= .025f;
                 arrow.fire ( mecha_plasma, buster.position, Quaternion.Euler (buster.rot), 30 );
             }
         }

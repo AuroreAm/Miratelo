@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Lyra
 {
-    public abstract class photon : moon
+    public sealed class photon : moon
     {
         List < gem > gems = new List<gem> ();
 

@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Lyra;
 
-namespace Lyra.Spirit
+namespace Lyra
 {
     public abstract class condition : moon
     {
         public abstract bool _check ();
-
-        readonly term zero = new term ("zero");
-        public virtual term solution => zero;
     }
 }

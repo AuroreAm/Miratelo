@@ -13,7 +13,7 @@ namespace Lyra
         public T write ()
         {
             if ( !type.valid () )
-                throw new InvalidOperationException ( "type paper has invalid content" );
+                throw new InvalidOperationException ( $"{type.content} typepaper has invalid content" );
                 
             T p = Activator.CreateInstance ( System.Type.GetType (type.content) ) as T;
             JsonUtility.FromJsonOverwrite ( data, p );

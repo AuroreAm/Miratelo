@@ -24,7 +24,12 @@ namespace Lyra
         protected sealed override void _ready()
         {
             for (int i = 0; i < o.Length; i++)
-             system.add ( o[i] ) ;
+                system.add ( o[i] ) ;
+
+            __ready ();
         }
+
+        protected virtual void __ready ()
+        {}
     }
 }

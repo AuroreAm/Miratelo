@@ -131,6 +131,11 @@ namespace Lyra.Editor
                 fi.SetValue(o, EditorGUILayout.EnumPopup(fi.Name, (Enum)fi.GetValue(o)));
                 return;
             }
+
+            if (fi.FieldType == typeof(term))
+            {
+                fi.SetValue(o, new term ( EditorGUILayout.TextField(fi.Name, ((term)fi.GetValue(o)).name )) );
+            }
         }
     }
 }

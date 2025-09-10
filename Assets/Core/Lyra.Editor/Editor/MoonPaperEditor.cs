@@ -122,7 +122,7 @@ namespace Lyra.Editor
 
             position.height = EditorGUIUtility.singleLineHeight;
 
-            GUI.Label ( position, property.FindPropertyRelative ("type").FindPropertyRelative("Content").stringValue );
+            GUI.Label ( position, property.FindPropertyRelative ("type").FindPropertyRelative("content").stringValue );
             position.y += EditorGUIUtility.singleLineHeight;
             GUI.Label ( position, property.FindPropertyRelative ("data").stringValue );
             position.y += EditorGUIUtility.singleLineHeight;

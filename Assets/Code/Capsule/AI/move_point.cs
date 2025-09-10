@@ -24,7 +24,7 @@ namespace Triheroes.Code.CapsuleAct
         }
         
         /// <summary> last direction the character moved</summary>
-        Vector3 lastdir;
+        public Vector3 lastdir { private set; get; }
 
         protected override void _step()
         {

@@ -18,6 +18,7 @@ namespace Lyra
     public abstract class AuthorModule : MonoBehaviour
     {
         public abstract void _creation ();
+        public virtual void _creation (system system) {}
 
         public void Start ()
         {

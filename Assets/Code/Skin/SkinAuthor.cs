@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class SkinAuthor : AuthorModule
+    public class SkinAuthor : ActorAuthorModule
     {
         public float OffsetRotationY;
         public float OffsetPositionY;
@@ -17,6 +17,13 @@ namespace Triheroes.Code
             var modules = GetComponents<SkinAuthorModule>();
             foreach (var a in modules)
             a._creation ();
+        }
+
+        public override void _creation(system system)
+        {
+            var modules = GetComponents<SkinAuthorModule>();
+            foreach (var a in modules)
+            a._creation (system);
         }
     }
 }

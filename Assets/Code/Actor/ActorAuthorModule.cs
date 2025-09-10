@@ -7,8 +7,5 @@ namespace Triheroes.Code
 {
     public abstract class ActorAuthorModule : AuthorModule
     {
-        public virtual void _creation ( system system )
-        {
-        }
     }
 }
