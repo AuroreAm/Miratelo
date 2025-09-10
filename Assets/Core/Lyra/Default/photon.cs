@@ -22,13 +22,29 @@ namespace Lyra
         public void radiate <T> ( T gleam ) where T : struct
         {
             foreach (var i in gems)
-            (i as pearl<T>) ? ._radiate ( gleam );
+            {
+                (i as ruby<T>) ? ._radiate ( gleam );
+
+                if ( ( i as gold <T> ) != null )
+                {
+                    if ( ( i as gold <T> ).on )
+                    ( i as gold <T> )._radiate (gleam);
+                }
+            }
         }
 
         public interface gem {}
     }
 
-    public interface pearl <T> : photon.gem where T : struct
+    // TODO pearl with on protection
+
+    public interface gold <T> : photon.gem where T : struct
+    {
+        public bool on {get;}
+        public void _radiate ( T gleam );
+    }
+
+    public interface ruby <T> : photon.gem where T : struct
     {
         public void _radiate ( T gleam );
     }

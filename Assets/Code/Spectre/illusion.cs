@@ -20,20 +20,16 @@ namespace Triheroes.Code
             }
         }
 
-        static Dictionary < int, illusion > _active_illusion = new Dictionary<int, illusion> ();
         static Vector3 _position;
-        static int static_counter;
         public static int fire ( int name, Vector3 position )
         {
-            static_counter ++;
             _position = position;
-            orion.rent (name);
-            return static_counter;
+            return orion.rent (name);
         }
 
-        public static void stop ( int illusion_id )
+        public static void stop ( int name, int illusion_id )
         {
-            _active_illusion [illusion_id].stop ();
+            orion.get <illusion> (name, illusion_id).stop ();
         }
 
         protected override void __ready()
@@ -43,9 +39,6 @@ namespace Triheroes.Code
 
         protected override void _start()
         {
-            illusion_id = static_counter;
-            _active_illusion.Add ( static_counter, this );
-
             system.gameObject.transform.position = _position;
             system.gameObject.SetActive (true);
         }

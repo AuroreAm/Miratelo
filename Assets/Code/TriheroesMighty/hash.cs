@@ -45,16 +45,20 @@ namespace Triheroes.Code
         public static readonly term dash_left = new term("dash_left");
         public static readonly term dash_right = new term("dash_right");
 
-        public static readonly term perfect_dash = new term("perfect_dash");
+        public static readonly term stun_begin = new term("stun_begin");
+        public static readonly term stun = new term("stun");
         
         public static readonly term backflip = new term("backflip");
 
         public static readonly term SS1_0 = new term("SS1_0");
         public static readonly term SS1_1 = new term("SS1_1");
         public static readonly term SS1_2 = new term("SS1_2");
-        public static readonly term parry_0 = new term("parry_0");
-        public static readonly term parry_1 = new term("parry_1");
-        public static readonly term parry_2 = new term("parry_2");
+
+        public static readonly term SS8_0 = new term("SS8_0");
+        public static readonly term SS8_1 = new term("SS8_1");
+        public static readonly term SS8_2 = new term("SS8_2");
+
+        public static readonly term SS9 = new term("SS9");
 
         public static readonly term SS4 = new term("SS4");
 
@@ -74,7 +78,8 @@ namespace Triheroes.Code
         public static readonly int def3 = 2;
         public static readonly int action = 3;
         public static readonly int action2 = 4;
-        public static readonly int recovery = 6;
+        public static readonly int reaction = 6;
+        public static readonly int recovery = 7;
 
         public static readonly int sub = 2;
     }

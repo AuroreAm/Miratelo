@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Triheroes.Code.Element
 {
-    public class armored_metal : element, pearl <hack>
+    public class armored_metal : element, ruby <hack>
     {
         [export]
         public float _max_AP;

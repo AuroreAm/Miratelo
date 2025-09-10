@@ -20,4 +20,8 @@ namespace Triheroes.Code
             c.gameobject.layer = 0;
         }
     }
+
+    [star (order.attack)]
+    public abstract class attack : virtus.star
+    {}
 }

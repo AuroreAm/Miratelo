@@ -20,8 +20,8 @@ namespace Triheroes.Code.CapsuleAct
 
         protected override void _ready ()
         {
-            movement = new delta_curve ( triheroes_res.curve.Q (animation.backflip).curve );
-            jump = new delta_curve ( triheroes_res.curve.Q (animation.jump).curve );
+            movement = new delta_curve ( triheroes_res.curve.q (animation.backflip).curve );
+            jump = new delta_curve ( triheroes_res.curve.q (animation.jump).curve );
         }
 
         protected override void _start ()

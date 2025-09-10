@@ -38,15 +38,21 @@ namespace Lyra
             o._pools.Add ( new term (name), new virtus.pool (author) );
         }
 
-        public static void rent ( int name )
+        public static int rent ( int name )
         {
-            o._pools [name].rent_virtus ();
+            return o._pools [name].rent_virtus ();
+        }
+
+        public static T get <T> ( int name, int rent_id ) where T : moon
+        {
+            return o._pools [name].active [ rent_id ].system.get <T> ();
         }
     }
 
 
     public sealed class virtus : action
     {
+        public int rent_id { get; private set; }
         pool origin;
         List <main> satellites = new List<main>();
 
@@ -88,6 +94,9 @@ namespace Lyra
 
         public class pool
         {
+            internal Dictionary <int, virtus> active = new Dictionary<int, virtus> ();
+            int counter;
+
             Queue<virtus> queue;
             List<virtus> pending = new List<virtus>();
 
@@ -99,12 +108,18 @@ namespace Lyra
                 queue = new Queue<virtus>();
             }
 
-            public void rent_virtus ()
+            public int rent_virtus ()
             {
                 prepare_capacity ();
-
                 virtus u = queue.Dequeue();
+
+                counter ++;
+                active.Add ( counter, u );
+                u.rent_id = counter;
+
                 u._active();
+
+                return u.rent_id;
             }
 
             void prepare_capacity ()
@@ -120,6 +135,8 @@ namespace Lyra
             int frame;
             public void return_virtus (virtus v)
             {
+                active.Remove (v.rent_id);
+
                 v._return();
                 pending.Add(v);
                 frame = Time.frameCount;
@@ -130,7 +147,8 @@ namespace Lyra
                     foreach (var p in pending)
                         queue.Enqueue(p);
                     pending.Clear();
-                }}
+                }
+            }
         }
     }
 

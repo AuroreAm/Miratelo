@@ -16,10 +16,17 @@ namespace Triheroes.Code
 
         protected override void _start ()
         {
+            active_arrows.Add (this);
+
             timeleft = 30;
             position = _pos;
             rotation = _rot;
             speed = _spd;
+        }
+
+        protected override void _stop()
+        {
+            active_arrows.Remove (this);
         }
 
         static Vector3 _pos;
@@ -32,6 +39,18 @@ namespace Triheroes.Code
             _rot = rot;
             _spd = spd;
             orion.rent (name);
+        }
+
+        static List <arrow> active_arrows = new List<arrow>();
+        public static void deflect ( Vector3 position, Vector3 normal )
+        {
+            arrow to = null;
+            foreach ( var a in active_arrows )
+            if (a.position == position)
+            to = a;
+
+            if ( to != null )
+            to.rotation = vecteur.rot_direction_quaternion ( Vector3.zero, normal );
         }
 
         protected override void _step ()
@@ -58,8 +77,8 @@ namespace Triheroes.Code
         {
             if ( Physics.Raycast(position, vecteur.forward (rotation), out RaycastHit hit, 2 * speed, vecteur.Character) )
             {
-                if (pallas.contains (hit.collider.id())) 
-                    pallas.radiate (hit.collider.id(), new incomming_trajectile(position, speed));
+                if (pallas.contains ( hit.collider.id()) ) 
+                    pallas.radiate ( hit.collider.id(), new incomming_arrow(position, speed) );
             }
         }
 
@@ -102,12 +121,12 @@ namespace Triheroes.Code
         }
     }
 
-    public struct incomming_trajectile
+    public struct incomming_arrow
     {
         public Vector3 position;
         public float speed;
 
-        public incomming_trajectile(Vector3 position, float speed)
+        public incomming_arrow(Vector3 position, float speed)
         {
             this.position = position;
             this.speed = speed;

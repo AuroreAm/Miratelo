@@ -12,6 +12,9 @@ namespace Triheroes.Code
         actor actor;
 
         [link]
+        public photon photon;
+
+        [link]
         character c;
 
         [link]

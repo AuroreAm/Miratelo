@@ -44,7 +44,7 @@ namespace Triheroes.Code.CapsuleAct
 
         protected override void _ready ()
         {
-            cu = new delta_curve( triheroes_res.curve.Q( new term("jump") ).curve );
+            cu = new delta_curve( triheroes_res.curve.q( new term("jump") ).curve );
         }
 
         protected override void _start ()

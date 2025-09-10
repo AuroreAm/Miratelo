@@ -1,13 +1,15 @@
 using Lyra;
 using System.Collections;
 using System.Collections.Generic;
+using Triheroes.Code.CapsuleAct;
+using Triheroes.Code.Mecha;
 using Triheroes.Code.Sword;
 using Triheroes.Code.Sword.Combat;
 using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class dash_slay : act
+    public class dash_slay : act, gold <parried>, acting
     {
         public override int priority => level.action;
 
@@ -23,6 +25,10 @@ namespace Triheroes.Code
         slay.skin_path path;
         [link]
         capsule capsule;
+        [link]
+        motor motor;
+        [link]
+        react_hook react_Hook;
 
         int state;
 
@@ -30,7 +36,7 @@ namespace Triheroes.Code
 
         protected override void _ready()
         {
-            cu = new delta_curve(triheroes_res.curve.Q(animation.jump).curve);
+            cu = new delta_curve(triheroes_res.curve.q(animation.jump).curve);
         }
 
         protected override void _start()
@@ -75,10 +81,23 @@ namespace Triheroes.Code
             foreach (RaycastHit Hit in ToSendSignal)
             {
                 if (pallas.contains(Hit.collider.id()) && pallas.is_enemy(Hit.collider.id(), warrior.faction))
-                    pallas.radiate(Hit.collider.id(), new incomming_slash(
+                    pallas.radiate(Hit.collider.id(),
+                    new incomming_slash(
                         ((actor)warrior).term,
-                        slash_animation));
+                        slash_animation,
+                        skin.event_points ( slash_animation ) [1] - skin.event_points (slash_animation) [0] )  );
             }
         }
+
+        [link]
+        stun stun;
+
+        public void _radiate( parried gleam )
+        {
+            motor.start_act (stun, this);
+        }
+
+        public void _act_end(act m)
+        {}
     }
 }

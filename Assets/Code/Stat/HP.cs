@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class health_point : moon, pearl<damage>
+    public class health_point : moon, ruby<damage>
     {
         public float HP
         {
@@ -25,7 +25,6 @@ namespace Triheroes.Code
         public void _radiate(damage gleam)
         {
             HP -= gleam.raw;
-            Debug.Log (HP);
         }
     }
 

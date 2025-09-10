@@ -22,7 +22,7 @@ namespace Triheroes.Code.CapsuleAct
 
         protected override void _ready ()
         {
-            cu = new delta_curve ( triheroes_res.curve.Q ( animation.jump ).curve );
+            cu = new delta_curve ( triheroes_res.curve.q ( animation.jump ).curve );
         }
 
         public void set ( float _max, float _min )

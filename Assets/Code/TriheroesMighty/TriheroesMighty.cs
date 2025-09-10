@@ -8,6 +8,7 @@ namespace Triheroes.Code
     {
         public const int capsule_ground_detection = -70;
 
+        public const int attack = 48;
         public const int arrow = 49;
         public const int slash = 50;
 

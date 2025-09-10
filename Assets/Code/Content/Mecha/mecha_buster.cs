@@ -50,7 +50,7 @@ namespace Triheroes.Code
 
             protected override void _stop()
             {
-                illusion.stop ( illusion_id );
+                illusion.stop ( spectre, illusion_id );
             }
 
             public void shot ()

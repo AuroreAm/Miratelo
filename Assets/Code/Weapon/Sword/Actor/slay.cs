@@ -47,7 +47,7 @@ namespace Triheroes.Code.Sword.Combat
 
         void begin_slash ()
         {
-            Sword.slash.fire ( sword_user.weapon.slash, sword_user.weapon, paths.paths [animation], skin.duration (animation) - skin.event_points (animation) [0] );
+            slash.fire ( sword_user.weapon.slash, sword_user.weapon, paths.paths [animation], skin.duration (animation) - skin.event_points (animation) [0] );
         }
 
         void send_slash_signal ()
@@ -58,7 +58,7 @@ namespace Triheroes.Code.Sword.Combat
             foreach (Collider col in nearby)
             {
                 if ( pallas.contains (col.id()) )
-                    pallas.radiate (col.id(), new incomming_slash ( actor.term, animation ) );
+                    pallas.radiate (col.id(), new incomming_slash ( actor.term, animation, skin.event_points (animation) [0] ) );
             }
         }
 
@@ -82,11 +82,13 @@ namespace Triheroes.Code.Sword.Combat
     {
         public term sender;
         public term slash;
+        public float duration;
 
-        public incomming_slash( term sender, term slash )
+        public incomming_slash( term sender, term slash, float duration )
         {
             this.sender = sender;
             this.slash = slash;
+            this.duration = duration;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Lyra;
+using Triheroes.Code.Sword.Combat;
 using UnityEngine;
 using static Triheroes.Code.Sword.Combat.slay;
 
@@ -8,6 +9,9 @@ namespace Triheroes.Code.Sword
     [star (order.slash)]
     public class slash : virtus.star
     {
+        [link]
+        photon photon;
+
         skin performer;
         path path;
         sword sword;
@@ -171,16 +175,7 @@ namespace Triheroes.Code.Sword
             Vector3 ABHalf = ( A + B ) / 2;
             Vector3 CDHalf = ( vertices[path_ptr * 2] + position + D ) / 2;
 
-            if ( Physics.Linecast ( A , B, out ray_hit, vecteur.SolidCharacter ) )
-                hit ();
-            
-            if ( Physics.Linecast ( B, D, out ray_hit, vecteur.SolidCharacter ) )
-                hit ();
-            
-            if ( Physics.Linecast ( ABHalf, D, out ray_hit, vecteur.SolidCharacter ) )
-                hit ();
-
-            if ( Physics.Linecast ( A, CDHalf, out ray_hit, vecteur.SolidCharacter ) )
+            if ( Physics.Linecast ( A , B, out ray_hit, vecteur.SolidCharacterAttack ) || Physics.Linecast ( B, D, out ray_hit, vecteur.SolidCharacterAttack ) || Physics.Linecast ( ABHalf, D, out ray_hit, vecteur.SolidCharacterAttack  ) || Physics.Linecast ( A, CDHalf, out ray_hit, vecteur.SolidCharacterAttack ) )
                 hit ();
         }
 
@@ -188,12 +183,29 @@ namespace Triheroes.Code.Sword
         void hit ()
         {
             if ( hitted.Contains ( ray_hit.collider.id () ) ) return;
+
+            if ( ray_hit.collider.gameObject.layer == vecteur.ATTACK )
+            {
+                sword.owner.photon.radiate ( new parried () );
+                virtus.return_ ();
+                return;
+            }
             
             if (  pallas.contains ( ray_hit.collider.id () ) && pallas.is_enemy ( ray_hit.collider.id (), sword.owner.faction ) )
             {
-                pallas.radiate ( ray_hit.collider.id (), new Code.hack ( 2 ) );
+                pallas.radiate ( ray_hit.collider.id (), new hack ( 2 ) );
                 hitted.Add ( ray_hit.collider.id () );
+                photon.radiate ( new hitted ( ray_hit.collider.id () ) );
             }
+        }
+    }
+
+    public struct hitted
+    {
+        public int hitted_id;
+        public hitted ( int _hitted_id )
+        {
+            hitted_id = _hitted_id;
         }
     }
 }

@@ -24,10 +24,14 @@ namespace Triheroes.Code
 
         protected override void _ready()
         {
-            combo = new act [3];
+            combo = new act [6];
 
-            for (int i = 0; i < combo.Length; i++)
+            for (int i = 0; i < 3; i++)
             combo [i] = new slay ( key [i] );
+
+            combo [3] = new slay_hook_up ( key [0] );
+            combo [4] = new slay_hook_spam ( key [1] );
+            combo [5] = new slay_hook_spam ( key [2] );
         }
 
         protected override void _step()
@@ -67,6 +71,78 @@ namespace Triheroes.Code
         {
             current = act;
             motor.start_act ( act, this );
+        }
+    }
+
+    [path("player controller")]
+    public class player_parry : action, acting
+    {
+        [link]
+        slash_alert slash_alert;
+        [link]
+        arrow_alert arrow_alert;
+        [link]
+        equip equip;
+        [link]
+        motor motor;
+
+        Dictionary < term, act > acts_parry;
+        act act_parry_arrow;
+
+        public void _act_end(act m)
+        {}
+
+        protected override void _start()
+        {
+            link ( slash_alert );
+            link ( arrow_alert );
+        }
+
+        protected override void _ready()
+        {
+            acts_parry = new Dictionary<term, act> ();
+
+            var parry0 = new parry ( animation.SS8_0 );
+            var parry1 = new parry ( animation.SS8_1 );
+
+            acts_parry.Add ( animation.SS1_0, parry1 );
+            acts_parry.Add ( animation.SS1_1, parry0 );
+            acts_parry.Add ( animation.SS1_2, parry1 );
+
+            acts_parry.Add ( animation.SS4, parry1 );
+
+            act_parry_arrow = new parry_arrow ();
+        }
+
+        protected override void _step()
+        {
+            if ( equip.weapon_user is sword_user && player.action3.down )
+            {
+                if (arrow_alert.alert)
+                {
+                    if ( slash_alert.alert && slash_alert.timeleft < arrow_alert.timeleft )
+                    {
+                        parry_sword ();
+                        return;
+                    }
+
+                    parry_arrow ();
+                    return;
+                }
+
+                parry_sword ();
+            }
+        }
+
+        void parry_sword ()
+        {
+            if ( acts_parry.ContainsKey ( slash_alert.incomming_slash.slash ) )
+                motor.start_act ( acts_parry [ slash_alert.incomming_slash.slash ] , this );
+        }
+
+        void parry_arrow ()
+        {
+            motor.start_act ( act_parry_arrow, this );
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Lyra
             return _res.Values.ToArray ();
         }
 
-        public T Q ( int id )
+        public T q ( int id )
         {
             return _res[id];
         }

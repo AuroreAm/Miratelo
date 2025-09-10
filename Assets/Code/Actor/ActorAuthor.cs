@@ -47,9 +47,6 @@ namespace Triheroes.Code
             a._creation ();
 
             new ink <skin> ().o.roty = _spam_roty;
-            
-            // TODO: photon must be initialized in founder, find a way to do this without forcing
-            new ink <photon> ();
         }
 
         void Start ()
