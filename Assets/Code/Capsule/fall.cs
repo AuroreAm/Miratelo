@@ -46,7 +46,7 @@ namespace Triheroes.Code.CapsuleAct
 
         protected void play_footstep ()
         {
-            // footstep.PlayFootstep ();
+            footstep.play ();
         }
         
         /// <param name="dir">per second</param>

@@ -193,19 +193,21 @@ namespace Triheroes.Code.Sword
             
             if (  pallas.contains ( ray_hit.collider.id () ) && pallas.is_enemy ( ray_hit.collider.id (), sword.owner.faction ) )
             {
-                pallas.radiate ( ray_hit.collider.id (), new hack ( 2 ) );
+                pallas.radiate ( ray_hit.collider.id (), new hack ( 2, ray_hit.point ) );
                 hitted.Add ( ray_hit.collider.id () );
-                photon.radiate ( new hitted ( ray_hit.collider.id () ) );
+
+                photon.radiate ( new hacked ( ray_hit.collider.id () ) );
+                sword.owner.photon.radiate ( new hacked ( ray_hit.collider.id () ) );
             }
         }
     }
 
-    public struct hitted
+    public struct hacked
     {
-        public int hitted_id;
-        public hitted ( int _hitted_id )
+        public int hacked_id;
+        public hacked ( int _hacked_id )
         {
-            hitted_id = _hitted_id;
+            hacked_id = _hacked_id;
         }
     }
 }

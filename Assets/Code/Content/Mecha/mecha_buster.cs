@@ -28,19 +28,17 @@ namespace Triheroes.Code
             [link]
             mecha_buster buster;
 
-            readonly term spectre = new term ( "sp_charge" );
+            readonly term spectre = new term ( "snv_charge" );
 
             float charge;
             float charge_speed = .75f;
             public bool charged => charge >= 1;
             public bool can_shot => charge > 0;
 
-            int illusion_id;
 
             protected override void _start()
             {
                 charge = 0;
-                illusion_id = illusion.fire ( spectre, buster.position );
             }
 
             protected override void _step ()
@@ -48,16 +46,11 @@ namespace Triheroes.Code
                 charge += Time.deltaTime * charge_speed;
             }
 
-            protected override void _stop()
-            {
-                illusion.stop ( spectre, illusion_id );
-            }
-
             public void shot ()
             {
                 if ( charge <= 0 ) return;
-                charge -= .025f;
-                arrow.fire ( mecha_plasma, buster.position, Quaternion.Euler (buster.rot), 30 );
+                charge -= .1f;
+                arrow.fire ( mecha_plasma, buster.position, Quaternion.Euler (buster.rot), 20 );
             }
         }
     }

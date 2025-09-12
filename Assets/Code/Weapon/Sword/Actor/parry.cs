@@ -62,23 +62,38 @@ namespace Triheroes.Code.Sword.Combat
         [link]
         arrow_alert alert;
 
-        term parry_animation = animation.SS9;
+        bool can_parry;
+
+        term anim;
+
+        public parry_arrow ( term animation )
+        {
+            anim = animation;
+        }
 
         protected override void _start ()
         {
-            skin.play ( new skin.animation ( parry_animation, this )
+            skin.play ( new skin.animation ( anim, this )
             {
                 end = stop,
+                ev0 = active_parry,
+                fade = .05f
             } );
+        }
+
+        void active_parry ()
+        {
+            can_parry = true;
         }
 
         protected override void _step()
         {
-            if ( !alert.alert ) return;
+            if ( !alert.alert || !can_parry ) return;
 
             if ( Vector3.Distance ( alert.position, sword_user.weapon.position ) < ( sword_user.weapon.length + ( alert.speed * Time.deltaTime ) ) && Mathf.Abs ( Mathf.DeltaAngle ( vecteur.rot_direction_y ( skin.position, alert.position ), skin.roty ) ) < 90 )
             {
                 arrow.deflect ( alert.position, vecteur.ldir ( skin.roty, Vector3.forward ));
+                can_parry = false;
             }
         }
     }

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class dash_slay : act, gold <parried>, acting
+    public class dash_slay : act, gold <parried>
     {
         public override int priority => level.action;
 
@@ -28,7 +28,7 @@ namespace Triheroes.Code
         [link]
         motor motor;
         [link]
-        react_hook react_Hook;
+        react_hook react_hook;
 
         int state;
 
@@ -70,7 +70,8 @@ namespace Triheroes.Code
             send_slash_signal();
 
             var slash_name = ((sword)mecha_sword).slash;
-            slash.fire(slash_name, (sword)mecha_sword, path.paths[slash_animation], skin.duration(slash_animation) - skin.event_points(slash_animation)[1]);
+            knocker.fire(slash_name, (sword)mecha_sword, path.paths[slash_animation], skin.duration(slash_animation) - skin.event_points(slash_animation)[1],  vecteur.ldir (skin.roty, new Vector3 ( 0,1,1 ) * 10 ) * 10, 10);
+            // slash.fire(slash_name, (sword)mecha_sword, path.paths[slash_animation], skin.duration(slash_animation) - skin.event_points(slash_animation)[1] );
         }
 
         void send_slash_signal()
@@ -94,10 +95,7 @@ namespace Triheroes.Code
 
         public void _radiate( parried gleam )
         {
-            motor.start_act (stun, this);
+            motor.start_act (stun);
         }
-
-        public void _act_end(act m)
-        {}
     }
 }

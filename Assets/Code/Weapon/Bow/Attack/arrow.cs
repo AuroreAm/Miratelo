@@ -11,14 +11,14 @@ namespace Triheroes.Code
     {
         public float speed { private set; get; }
         public Vector3 position { private set; get; }
+        public Quaternion rotation { private set; get; }
         float timeleft;
-        Quaternion rotation;
 
         protected override void _start ()
         {
             active_arrows.Add (this);
 
-            timeleft = 30;
+            timeleft = 5;
             position = _pos;
             rotation = _rot;
             speed = _spd;
@@ -64,10 +64,21 @@ namespace Triheroes.Code
         {
             float spd = speed * Time.deltaTime;
 
-            if (Physics.Raycast(position, vecteur.forward (rotation), out RaycastHit Hit, spd, vecteur.SolidCharacterAttack))
+            if (Physics.Raycast(position, vecteur.forward (rotation), out RaycastHit hit, spd, vecteur.SolidCharacterAttack))
             {
-                position += vecteur.forward (rotation) * Hit.distance;
-                // attack
+                position += vecteur.forward (rotation) * hit.distance;
+                
+                if ( hit.collider.gameObject.layer == vecteur.SOLID )
+                {
+                    virtus.return_ ();
+                    return;
+                }
+
+                if ( pallas.contains ( hit.collider.id () ) )
+                {
+                    pallas.radiate ( hit.collider.id (), new perce ( 2, position ) );
+                    virtus.return_ ();
+                }
             }
             else
                 position += vecteur.forward (rotation) * spd;
@@ -108,7 +119,7 @@ namespace Triheroes.Code
 
             protected override void _step ()
             {
-                Graphics.DrawMesh ( skin.mesh, arrow.position, arrow.rotation.appied_after (skin.roty), skin.material, 0);
+                Graphics.DrawMesh ( skin.mesh, arrow.position, arrow.rotation.applied_after (skin.roty), skin.material, 0);
             }
         }
         
@@ -118,6 +129,18 @@ namespace Triheroes.Code
             public Vector3 roty;
             public Mesh mesh;
             public Material material;
+        }
+    }
+
+    public struct perce
+    {
+        public float raw;
+        public Vector3 position;
+
+        public perce ( float _raw, Vector3 _position )
+        {
+            raw = _raw;
+            position = _position;
         }
     }
 

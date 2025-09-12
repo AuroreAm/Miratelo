@@ -9,30 +9,33 @@ namespace Triheroes.Code
     {
         protected override void _start()
         {
-            camera.o.tps_a_character ( system.get <dimension> () );
+            camera.o.start_player_camera ( system.get <dimension> () );
             stop ();
         }
     }
 
     [ path ("player controller") ]
-    public class player_move : action, acting
+    public class player_move : action
     {
         [link]
         move move;
         [link]
         motor motor;
 
+        [link]
+        react_knock react_knock;
+
         float speed = 7;
         protected override void _step()
         {
             if (motor.act == null)
-                motor.start_act ( move, this );
+                motor.start_act ( move );
 
             Vector3 InputAxis = player.move;
             float runFactor = player.dash ? walk_factor.sprint : ( InputAxis.magnitude > 0.7f ? walk_factor.run : walk_factor.walk );
             InputAxis.Normalize ();
 
-            InputAxis = vecteur.ldir ( camera.o.tps.roty, InputAxis ) * speed;
+            InputAxis = vecteur.ldir ( camera.o.tps_roty, InputAxis ) * speed;
 
             if (motor.act == move)
             move.walk (InputAxis, runFactor );
@@ -43,7 +46,5 @@ namespace Triheroes.Code
             else if (motor.act is jump jump)
             jump.move (InputAxis );
         }
-
-        public void _act_end(act m) {}
     }
 }

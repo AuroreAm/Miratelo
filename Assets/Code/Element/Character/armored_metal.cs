@@ -28,6 +28,8 @@ namespace Triheroes.Code.Element
             phoenix.core.start ( restore );
         }
 
+
+        static readonly term impact_metal = new term ("nv_impact_metal");
         public void _radiate(hack gleam)
         {
             if (AP > 0)
@@ -36,6 +38,8 @@ namespace Triheroes.Code.Element
             photon.radiate ( new damage (gleam.raw) );
 
             restore.cooldown = cooldown;
+
+            nova.fire ( impact_metal, gleam.position );
         }
 
         class restorer : controller

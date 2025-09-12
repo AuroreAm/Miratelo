@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code.CapsuleAct
 {
-    public class react_hook : moon, ruby <hook>, acting
+    public class react_hook : moon, ruby <hook>
     {
         [link]
         hooked hooked;
@@ -13,15 +13,10 @@ namespace Triheroes.Code.CapsuleAct
         [link]
         motor motor;
 
-        public bool on { get; }
-
-        public void _act_end(act m)
-        {}
-
         public void _radiate(hook gleam)
         {
             hooked.set ( gleam.curve, gleam.dir, gleam.duration );
-            motor.start_act (hooked, this);
+            motor.start_act (hooked);
         }
     }
 
@@ -65,10 +60,6 @@ namespace Triheroes.Code.CapsuleAct
         {
             time = 0;
         }
-
-
-        public void _act_end(act m)
-        {}
     }
 
 }

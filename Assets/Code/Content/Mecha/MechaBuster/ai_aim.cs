@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Triheroes.Code.Mecha
 {
     [path("mecha ai")]
-    public class ai_aim_target : action, acting
+    public class ai_aim_target : action
     {
         [link]
         motor motor;
@@ -22,16 +22,13 @@ namespace Triheroes.Code.Mecha
         
         dimension target => ( warrior.target ).system.get <dimension> ();
 
-        public void _act_end(act m)
-        {}
-
         protected override void _step()
         {
             if (motor.act == null)
-            motor.start_act ( move, this );
+            motor.start_act ( move );
 
             if (!aim.on)
-                motor.start_act2nd ( aim,this );
+                motor.start_act2nd ( aim );
 
             if ( !warrior.target)
             {

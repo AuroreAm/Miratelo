@@ -15,6 +15,8 @@ namespace Triheroes.Code.CapsuleAct
         [link]
         skin skin;
         [link]
+        skin_dir skin_dir;
+        [link]
         stand stand;
         [link]
         ground ground;
@@ -68,7 +70,6 @@ namespace Triheroes.Code.CapsuleAct
 
         protected override void _stop()
         {
-            skin.root = false;
             frame = Time.frameCount;
         }
 
@@ -89,8 +90,7 @@ namespace Triheroes.Code.CapsuleAct
 
                 if (dir.magnitude < 0.01f)
                 {
-                    // INPROGRESS
-                    // footstep.StopFootStep ();
+                    footstep.stop ();
                     if (state == animation.sprint || sprint_cooldown > 0 )
                     brake ();
                     else
@@ -114,7 +114,7 @@ namespace Triheroes.Code.CapsuleAct
             skin.play ( new skin.animation (Animation, this) { fade = .2f } );
 
             // get interval time from two footstep animation events from the clip
-            // footstep.Play ( skin.EventPointsOfState ( Animation ) [1] - skin.EventPointsOfState ( Animation ) [0] );
+            footstep.play ( skin.event_points ( Animation ) [1] - skin.event_points ( Animation ) [0] );
 
             state =  (factor == walk_factor.walk) ? animation.walk : (factor == walk_factor.run) ? animation.run : animation.sprint;
         }
@@ -123,13 +123,14 @@ namespace Triheroes.Code.CapsuleAct
         {
             skin.play ( new skin.animation ( animation.brake, this ) { end = _brake_end, fade = .05f } );
             state = animation.brake;
-            skin.root = true;
-            skin.dir = skin.ani.transform.forward.normalized;
+            link (skin_dir);
+            skin_dir.dir = skin.ani.transform.forward.normalized;
         }
 
         void _brake_end ()
         {
-            skin.root = false;
+            if (skin_dir.on)
+            unlink ( skin_dir );
             to_idle ();
         }
 
@@ -157,7 +158,8 @@ namespace Triheroes.Code.CapsuleAct
         {
             skin.play ( new skin.animation ( animation.rotation_brake, this ) { end = _rotation_brake_end, fade = .05f } );
             state = animation.rotation_brake;
-            skin.root = false;
+            if (skin_dir.on)
+            unlink (skin_dir);
         }
 
         void _rotation_brake_end ()

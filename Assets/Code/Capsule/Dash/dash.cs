@@ -63,5 +63,5 @@ namespace Triheroes.Code.CapsuleAct
         }
     }
 
-    public enum direction { forward, right, left, back }
+    public enum direction { forward, right , left , back }
 }

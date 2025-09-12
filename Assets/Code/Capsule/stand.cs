@@ -11,6 +11,8 @@ namespace Triheroes.Code
         /// target rotation by ground movements
         /// </summary>
         public float roty;
+        public float anchor { get; private set; }
+        float speed = 920;
 
         [link]
         skin skin;
@@ -31,13 +33,10 @@ namespace Triheroes.Code
 
         public void rotate_skin ()
         {
-            skin.roty = Mathf.MoveTowardsAngle(skin.roty, roty, Time.deltaTime * 720);
-        }
-
-        public void rotate_skin ( float rotY )
-        {
-            roty = rotY;
-            skin.roty = Mathf.MoveTowardsAngle(skin.roty, rotY, Time.deltaTime * 720);
+            skin.roty = Mathf.MoveTowardsAngle(skin.roty, roty, Time.deltaTime * speed);
+            
+            if ( roty == skin.roty )
+            anchor = roty;
         }
     }
 }

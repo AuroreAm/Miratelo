@@ -1,81 +1,71 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Lyra;
+using Triheroes.Code.CapsuleAct;
+using Triheroes.Code.Sword;
 using Triheroes.Code.Sword.Combat;
 using UnityEngine;
 
 namespace Triheroes.Code
 {
     [path("player controller")]
-    public class player_sword : action, acting
+    public class player_sword : action, gold <hacked>
     {
-        public act[] combo;
-        static readonly term[] key = { animation.SS1_0, animation.SS1_1, animation.SS1_2 };
-        
-        int ptr;
-        bool ready_for_next;
-
         [link]
-        motor motor;
-        [link]
-        equip equip;
+        SS1 SS1;
 
-        act current;
-
-        protected override void _ready()
+        public void _radiate(hacked gleam)
         {
-            combo = new act [6];
-
-            for (int i = 0; i < 3; i++)
-            combo [i] = new slay ( key [i] );
-
-            combo [3] = new slay_hook_up ( key [0] );
-            combo [4] = new slay_hook_spam ( key [1] );
-            combo [5] = new slay_hook_spam ( key [2] );
+            camera.o.hit_pause.spam ();
         }
 
         protected override void _step()
         {
-            if ( player.action2.down && equip.weapon_user is sword_user )
-                spam ();
-        }
-
-        public void _act_end(act m)
-        {
-            if ( ready_for_next )
-            ptr ++;
-            else
-            {
-                ptr = 0;
-                return;
-            }
-
-            ready_for_next = false;
-            if (ptr < combo.Length)
-            motor.start_act ( combo [ptr], this );
-            else
-            ptr = 0;
-        }
-
-        bool active => current != null && current.on;
-
-        public void spam ()
-        {
-            if ( !active )
-            start_act ( combo [ptr] );
-            else if ( !ready_for_next )
-            ready_for_next = true;
-        }
-
-        void start_act ( act act )
-        {
-            current = act;
-            motor.start_act ( act, this );
+            if ( player.action2.down )
+            SS1.skill.spam ();
         }
     }
 
     [path("player controller")]
-    public class player_parry : action, acting
+    public class player_sword_target : action2
+    {
+        [link]
+        warrior warrior;
+        [link]
+        equip equip;
+        [link]
+        lock_target lock_target;
+        [link]
+        player_camera_target camera_target;
+
+        protected override void _stepa()
+        {
+            if ( warrior.target && equip.weapon_user is sword_user )
+            swap ();
+        }
+
+        protected override void _startb()
+        {
+            link ( lock_target );
+            link ( camera_target );
+        }
+
+        protected override void _stepb()
+        {
+            if (!( warrior.target && equip.weapon_user is sword_user ))
+            swap ();
+        }
+
+        protected override void _stopb()
+        {
+            unlink ( lock_target );
+            unlink ( camera_target );
+        }
+    }
+
+    [path("player controller")]
+    public class player_parry : action
     {
         [link]
         slash_alert slash_alert;
@@ -86,11 +76,10 @@ namespace Triheroes.Code
         [link]
         motor motor;
 
-        Dictionary < term, act > acts_parry;
-        act act_parry_arrow;
+        [link]
+        SS9 SS9;
 
-        public void _act_end(act m)
-        {}
+        Dictionary < term, act > acts_parry;
 
         protected override void _start()
         {
@@ -110,8 +99,6 @@ namespace Triheroes.Code
             acts_parry.Add ( animation.SS1_2, parry1 );
 
             acts_parry.Add ( animation.SS4, parry1 );
-
-            act_parry_arrow = new parry_arrow ();
         }
 
         protected override void _step()
@@ -137,12 +124,14 @@ namespace Triheroes.Code
         void parry_sword ()
         {
             if ( acts_parry.ContainsKey ( slash_alert.incomming_slash.slash ) )
-                motor.start_act ( acts_parry [ slash_alert.incomming_slash.slash ] , this );
+                motor.start_act ( acts_parry [ slash_alert.incomming_slash.slash ] );
+            else
+            motor.start_act ( acts_parry [animation.SS1_0] );
         }
 
         void parry_arrow ()
         {
-            motor.start_act ( act_parry_arrow, this );
+            SS9.skill.spam ();
         }
     }
 }

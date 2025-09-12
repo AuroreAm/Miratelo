@@ -44,10 +44,6 @@ namespace Triheroes.Code
         /// <summary> hardcode layer index for any type of character </summary>
         public int sword, bow, knee, r_arm, upper;
 
-        /// <summary> is the character following the skin </summary>
-        public bool root;
-        public Vector3 dir;
-        public float spd => ani.GetFloat(hash.spd);
 
         protected override void _ready()
         {

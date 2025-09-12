@@ -9,10 +9,12 @@ namespace Triheroes.Code
     public struct hack
     {
         public float raw;
+        public Vector3 position;
 
-        public hack ( float _raw )
+        public hack ( float _raw, Vector3 _position )
         {
             raw = _raw;
+            position = _position;
         }
     }
 }
@@ -25,6 +27,10 @@ namespace Triheroes.Code.Sword.Combat
 
         [link]
         actor actor;
+        [link]
+        capsule capsule;
+        [link]
+        skin_dir skin_dir;
         [link]
         sword_user sword_user;
         [link]
@@ -41,6 +47,9 @@ namespace Triheroes.Code.Sword.Combat
 
         protected override void _start ()
         {
+            link (capsule);
+            link (skin_dir);
+            skin_dir.dir = skin.ani.transform.forward;
             skin.play ( new skin.animation ( animation, this ) { end = stop, ev0 = begin_slash } );
             send_slash_signal();
         }

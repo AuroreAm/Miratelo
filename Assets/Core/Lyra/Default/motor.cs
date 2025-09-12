@@ -36,7 +36,7 @@ namespace Lyra
                 act2nd.tick(this);
         }
 
-        public bool start_act (act _act, acting handler)
+        public bool start_act (act _act, acting handler = null )
         {
             if (_act.priority <= priority) return false;
 
@@ -56,7 +56,7 @@ namespace Lyra
             return true;
         }
 
-        public void stop_act (acting handler)
+        public void stop_act ( acting handler )
         {
             if (handler == acting)
                 act.stop(this);
@@ -64,7 +64,7 @@ namespace Lyra
                 Debug.LogError(" handler can't stop state ");
         }
 
-        public bool start_act2nd (act _act2nd, acting handler)
+        public bool start_act2nd ( act _act2nd, acting handler = null )
         {
             if (!accept2nd) return false;
             if (_act2nd.priority <= priority2nd) return false;
@@ -85,7 +85,7 @@ namespace Lyra
         /// end the main state at request of the original handler only
         /// </summary>
         /// <param name="handler"></param>
-        public void stop_act2nd (acting handler)
+        public void stop_act2nd ( acting handler )
         {
             if (handler == acting2nd)
                 act2nd.stop(this);
@@ -104,8 +104,8 @@ namespace Lyra
 
             accept2nd = false;
 
-            if (h.on)
-                h._act_end(m);
+            if ( h != null && h.on )
+                h._act_end (m);
         }
 
         void end2nd ()
@@ -117,11 +117,11 @@ namespace Lyra
             acting2nd = null;
             priority2nd = -1;
 
-            if (h.on)
+            if ( h != null && h.on )
                 h._act_end(m);
         }
 
-        public void _star_stop (star s)
+        public void _star_stop ( star s )
         {
             if (s == act)
                 end();
@@ -131,9 +131,11 @@ namespace Lyra
         }
     }
 
+
     public interface acting
     {
-        public void _act_end (act m);
+        public void _act_end ( act a );
         public bool on { get; }
     }
+
 }

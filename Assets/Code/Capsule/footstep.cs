@@ -6,17 +6,16 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     /// <summary>
-    /// aquire for autoplay
+    /// link for autoplay
     /// </summary>
     public class footstep : controller
     {
-        // INPROGRESS
-        /*[Depend]
-        e_foot ef;
+        [link]
+        foot foot;
 
         // TODO: not use the overall character position, but the foot position
-        [Depend]
-        d_dimension dd;
+        [link]
+        actor actor;
 
         bool autoplay;
         // TODO: double interval for accuracy
@@ -24,44 +23,45 @@ namespace Triheroes.Code
         float time;
         int ground;
 
-        protected sealed override void Step()
+        protected sealed override void _step()
         {
             if (autoplay)
             {
                 time += Time.deltaTime;
                 if (time > interval)
                 {
-                    PlayFootstep ();
+                    play ();
                     time = 0;
                 }
             }
         }
 
-        public void Play ( float interval )
+        public void play ( float interval )
         {
             autoplay = true;
             this.interval = interval;
             time = 0;
         }
 
-        protected override void Stop()
+        public void play ()
         {
-            StopFootStep ();
+            // fetch the ground element
+            if ( Physics.Raycast ( actor.position + Vector3.up * .1f, Vector3.down, out RaycastHit hit, .5f, vecteur.Solid ) )
+            ground = hit.collider.id ();
+
+            if ( terra.contains ( ground ) )
+            terra.clash ( foot, ground );
         }
 
-        public void StopFootStep ()
+        protected override void _stop ()
+        {
+            stop ();
+        }
+
+        public void stop ()
         {
             autoplay = false;
         }
 
-        public void PlayFootstep ()
-        {
-            // fetch the ground element
-            if ( Physics.Raycast ( dd.position + Vector3.up * .1f, Vector3.down, out RaycastHit hit, .5f, Vecteur.Solid ) )
-            ground = hit.collider.id ();
-
-            if ( GroundElement.Contains ( ground ) )
-            GroundElement.Clash ( ef, ground );
-        }*/
     }
 }

@@ -9,9 +9,13 @@ namespace Triheroes.Code
     public class ArrowAuthor : VirtusCreator
     {
         public arrow.skin skin;
+        public bool arrow_billboard;
 
         protected override void _virtus_creation()
         {
+            if ( arrow_billboard )
+            new arrow_billboard.ink ( skin );
+            else
             new arrow.spectre.ink ( skin );
         }
     }

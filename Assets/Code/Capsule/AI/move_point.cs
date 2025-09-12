@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code.CapsuleAct
 {
-    public class move_point : controller, acting
+    public class move_point : controller
     {
         [link]
         move move;
@@ -30,7 +30,7 @@ namespace Triheroes.Code.CapsuleAct
         {
 
             if ( points.Count != 0 && !move.on )
-                motor.start_act ( move, this );
+                motor.start_act ( move );
 
             if ( points.Count == 0 || !move.on ) return;
             
@@ -64,8 +64,5 @@ namespace Triheroes.Code.CapsuleAct
         {
             points.Clear ();
         }
-
-        public void _act_end(act m)
-        {}
     }
 }

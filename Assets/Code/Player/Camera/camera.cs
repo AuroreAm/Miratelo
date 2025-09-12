@@ -9,11 +9,12 @@ namespace Triheroes.Code
     public class camera : star
     {
         public static camera o { private set; get; }
-        public Transform coord {private set; get;}
-        Camera unity_camera;
-        CameraShot.shot shot;
+        [link]
+        public hit_pause hit_pause;
 
-        public static explicit operator Camera ( camera o ) => o.unity_camera;
+        Transform coord;
+        public Camera unity_camera {private set; get;}
+        CameraShot.shot shot;
 
         public class ink : ink <camera>
         {
@@ -28,7 +29,7 @@ namespace Triheroes.Code
         {
             o = this;
             phoenix.core.start (this);
-            set_shot(dummy);
+            set_shot (dummy);
         }
 
         protected override void _step()
@@ -50,47 +51,39 @@ namespace Triheroes.Code
         // public methods
         // camera control
         [link]
-        public TPS.data tps;
-        [link]
         CameraShot.dummy dummy;
         [link]
-        TPS.normal normal_shot;
+        player_camera tps;
         [link]
-        tps_transition transition_shot;
+        normal tps_normal;
         [link]
-        TPS.target target_shot;
+        target tps_target;
         [link]
         CameraShot.subject subject_shot;
 
-        public void tps_a_character ( dimension character )
+        public void start_player_camera ( dimension player )
         {
-            tps.SetSubject ( character );
-            set_shot ( normal_shot );
+            tps.player = player;
+            set_shot ( tps );
         }
 
         public void transition_tps ()
         {
-            if (shot is TPS.shot s)
-            {
-                transition_shot.Set(s, normal_shot);
-                set_shot(transition_shot);
-            }
+            tps.transition_to ( tps_normal );
         }
 
         public void transition_target ( dimension target )
         {
-            target_shot.target_subject = target;
-            if (shot is TPS.shot s)
-            {
-                transition_shot.Set(s, target_shot);
-                set_shot(transition_shot);
-            }
+            tps_target.target_subject = target;
+            tps.transition_to ( tps_target );
         }
 
         public void cut_to ( )
         {
             set_shot ( subject_shot );
         }
+
+        public Vector3 tps_roty => tps.rot2;
 
         // Screen ray
         Ray screen_ray;
@@ -113,91 +106,15 @@ namespace Triheroes.Code
             else
                 return coord.position + coord.forward * 256;
         }
-
-
-        // built in shots
-        public sealed class tps_transition : TPS.shot
-        {
-            float in_roty;
-            float in_rotx;
-            float in_h;
-            float in_distance;
-            Vector3 in_offset;
-            TPS.shot @in;
-            TPS.shot @out;
-
-            const float radius = .5f;
-            public Vector3 transtion_offset { get; private set; }
-            public float transition_height { get; private set; }
-            public float transition_distance { get; private set; }
-
-            [link]
-            new TPS.data data;
-
-            public void Set(TPS.shot _in, TPS.shot _out)
-            {
-                if (_in == null || _out == null)
-                    throw new NullReferenceException("tps_transition: null tps_shot");
-                @in = _in;
-                @out = _out;
-            }
-
-            float roty;
-            float rotx;
-
-            protected override void _start()
-            {
-                in_roty = data.roty;
-                in_rotx = data.rotx;
-                in_h = @in.h;
-                in_distance = @in.distance;
-                in_offset = @in.offset;
-
-                this.link ( @out );
-                t = 0;
-            }
-
-            float t;
-            protected override void _step()
-            {
-                t = Mathf.Lerp(t, 1, .1f);
-
-                rotx = Mathf.LerpAngle ( in_rotx, data.rotx, t );
-                roty = Mathf.LerpAngle ( in_roty, data.roty, t );
-                transtion_offset = Vector3.Lerp ( in_offset, @out.offset, t );
-                transition_height = Mathf.Lerp ( in_h, @out.h, t );
-                transition_distance = Mathf.Lerp ( in_distance, @out.distance, t );
-
-                pos_to_tps();
-
-                if (t >= .95f)
-                    o.set_shot ( @out );
-            }
-
-            protected override void _stop()
-            {
-                @in = null;
-                @out = null;
-            }
-
-            new void pos_to_tps()
-            {
-                float ray_distance = transition_distance;
-                Vector3 target_pos = data.subject.position + transtion_offset + transition_height * Vector3.up;
-
-                if ( Physics.SphereCast(data.subject.position, radius, vecteur.ldir( new Vector3(rotx, roty,0), Vector3.back ), out RaycastHit hit, transition_distance, vecteur.Solid) )
-                    ray_distance = hit.distance - 0.05f;
-
-                pos = target_pos + vecteur.ldir ( new Vector3(rotx, roty,0), Vector3.back ) * ray_distance;
-                rot = Quaternion.Euler ( new Vector3(rotx, roty,0) );
-            }
-        }
     }
 
     namespace CameraShot
     {
         [star (order.camera_shot)]
-        public abstract class shot : star.main
+        public abstract class base_shot : star.main
+        {}
+
+        public abstract class shot : base_shot
         {
             public Vector3 pos;
             public Quaternion rot;

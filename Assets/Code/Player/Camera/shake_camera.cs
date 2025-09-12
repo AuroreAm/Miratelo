@@ -11,8 +11,7 @@ namespace Triheroes.Code
         protected override void _ready()
         {
             o = this;
-            Camera cam = (Camera) camera.o;
-            ani = cam.GetComponent <Animator> ();
+            ani = camera.o.unity_camera.GetComponent <Animator> ();
         }
 
         public static void Shake ( Vector3 pos )

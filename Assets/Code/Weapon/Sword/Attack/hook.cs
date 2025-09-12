@@ -7,7 +7,7 @@ using static Triheroes.Code.Sword.Combat.slay;
 
 namespace Triheroes.Code
 {
-    public class hooker : attack, gold <hitted>
+    public class hooker : attack, gold <hacked>
     {
         [link]
         slash slash;
@@ -35,9 +35,9 @@ namespace Triheroes.Code
             duration = _duration;
         }
 
-        public void _radiate(hitted gleam)
+        public void _radiate(hacked gleam)
         {
-            pallas.radiate ( gleam.hitted_id, new hook ( dir, cu, duration ) );
+            pallas.radiate ( gleam.hacked_id, new hook ( dir, cu, duration ) );
         }
     }
 
@@ -55,11 +55,11 @@ namespace Triheroes.Code
         }
     }
 
-    public class hook_spammer : attack, gold<hitted>
+    public class hook_spammer : attack, gold<hacked>
     {
-        public void _radiate(hitted gleam)
+        public void _radiate(hacked gleam)
         {
-            pallas.radiate ( gleam.hitted_id, new hook_spam () );
+            pallas.radiate ( gleam.hacked_id, new hook_spam () );
         }
     }
 

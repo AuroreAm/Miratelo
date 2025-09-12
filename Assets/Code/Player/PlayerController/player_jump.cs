@@ -5,7 +5,7 @@ using static Triheroes.Code.animation;
 namespace Triheroes.Code
 {
     [ path ("player controller") ]
-    public class player_jump : action, acting
+    public class player_jump : action
     {
         [link]
         ground ground;
@@ -25,9 +25,6 @@ namespace Triheroes.Code
             jump.set (4,3);
         }
 
-        public void _act_end(act m)
-        {}
-
         protected override void _step ()
         {
             if (ground && player.jump.down && motor.act != jump)
@@ -36,7 +33,7 @@ namespace Triheroes.Code
 
                 fall.land_animation = (move.state == idle)? fall_end : ( (ik.dominand_foot == foot_ik.foot.left) ? fall_end_left_foot : fall_end_right_foot );
                 
-                motor.start_act (jump,this);
+                motor.start_act (jump);
             }
 
             if (motor.act == jump && player.jump.up)

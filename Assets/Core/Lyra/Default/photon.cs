@@ -32,7 +32,6 @@ namespace Lyra
                 }
             }
         }
-
         public interface gem {}
     }
 

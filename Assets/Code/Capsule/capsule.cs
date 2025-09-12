@@ -16,8 +16,9 @@ namespace Triheroes.Code
         ground_detection _ground_detection;
         [link]
         dimension dimension;
+        
         [link]
-        skin skin;
+        skin_dir skin_dir;
 
         int frame;
 
@@ -78,8 +79,8 @@ namespace Triheroes.Code
 
         void move_character_controller()
         {
-            if (skin.root)
-            dir += skin.spd * skin.dir * Time.deltaTime;
+            if (skin_dir.on)
+            dir += skin_dir.dir * skin_dir.delta;
 
             Physics.IgnoreLayerCollision(coord.gameObject.layer, vecteur.ATTACK, true);
             character_controller.Move(dir);

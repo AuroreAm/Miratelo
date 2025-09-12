@@ -35,6 +35,10 @@ namespace Triheroes.Code
         public static readonly term jump_left_foot = new term("jump_left_foot");
         public static readonly term jump_right_foot = new term("jump_right_foot");
 
+        public static readonly term hit_knocked_a = new term ("hit_knocked_a");
+        public static readonly term hit_knocked_b = new term ("hit_knocked_b");
+        public static readonly term stand_up = new term ("stand_up");
+
         public static readonly term take_sword = new term("take_sword");
         public static readonly term take_bow = new term("take_bow");
         public static readonly term return_bow = new term("return_bow");
@@ -56,15 +60,12 @@ namespace Triheroes.Code
 
         public static readonly term SS8_0 = new term("SS8_0");
         public static readonly term SS8_1 = new term("SS8_1");
-        public static readonly term SS8_2 = new term("SS8_2");
 
-        public static readonly term SS9 = new term("SS9");
+        public static readonly term SS9_0 = new term("SS9_0");
+        public static readonly term SS9_1 = new term("SS9_1");
+        public static readonly term SS9_2 = new term("SS9_2");
 
         public static readonly term SS4 = new term("SS4");
-
-        public static readonly term SS7_0 = new term("SS7_0");
-        public static readonly term SS7_1 = new term("SS7_1");
-        public static readonly term SS7_2 = new term("SS7_2");
         
         public static readonly term begin_aim = new term("begin_aim");
         public static readonly term start_shoot = new term("start_shoot");

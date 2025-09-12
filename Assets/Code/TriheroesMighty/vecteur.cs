@@ -70,7 +70,7 @@ namespace Triheroes.Code
 
 	public static class QuaternionExtensions
 	{
-		public static Quaternion appied_after (this Quaternion Q, Vector3 V) => Q * Quaternion.Euler(V);
+		public static Quaternion applied_after (this Quaternion Q, Vector3 V) => Q * Quaternion.Euler(V);
 	}
 
 	public static class CollisionExtensions

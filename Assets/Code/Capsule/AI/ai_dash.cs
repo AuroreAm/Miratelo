@@ -7,7 +7,7 @@ using Triheroes.Code.CapsuleAct;
 namespace Triheroes.Code
 {
     [path ("AI")]
-    public class ai_dash : action, acting
+    public class ai_dash : action
     {
         [export]
         direction direction;
@@ -16,13 +16,10 @@ namespace Triheroes.Code
         [link]
         dash dash;
 
-        public void _act_end(act m)
-        {}
-
         protected override void _step()
         {
             dash.set ( direction );
-            if ( motor.start_act ( dash, this ) )
+            if ( motor.start_act ( dash ) )
             stop ();
         }
     }

@@ -6,15 +6,12 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     [path ("AI")]
-    public class ai_dash_slash : action, acting
+    public class ai_dash_slash : action
     {
         [link]
         motor motor;
         
         dash_slay attack;
-
-        public void _act_end(act m)
-        {}
 
         protected override void _ready()
         {
@@ -23,7 +20,7 @@ namespace Triheroes.Code
 
         protected override void _step()
         {
-            if ( motor.start_act ( attack, this ) )
+            if ( motor.start_act ( attack ) )
             stop ();
         }
     }

@@ -37,7 +37,7 @@ namespace Triheroes.Code
 
         protected override void _stepb()
         {
-            aim.at ( camera.o.tps.rotx, camera.o.tps.roty );
+            aim.at ( camera.o.tps_roty.x, camera.o.tps_roty.y );
 
             if ( !aim.on )
             {

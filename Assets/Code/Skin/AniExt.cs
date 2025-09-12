@@ -5,6 +5,7 @@ using Lyra;
 
 namespace Triheroes.Code
 {
+    // unity animator is a freaking blackbox, had to store animation data in an external metadata
     public class AniExt : ScriptableObject, ISerializationCallbackReceiver
     {
         // SERIALIZED FIELDS
