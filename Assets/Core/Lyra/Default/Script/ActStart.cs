@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Lyra.Spirit
+namespace Lyra
 {
     public class ActStart : MonoBehaviour
     {
