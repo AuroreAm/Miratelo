@@ -7,8 +7,7 @@ namespace Triheroes.Code.CapsuleAct
 {
     public class lateral : act
     {
-        public override int priority => level.def3;
-        public override bool accept2nd => true;
+        public override priority priority => priority.def3.with2nd();
 
         [link]
         capsule capsule;

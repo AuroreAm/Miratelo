@@ -7,7 +7,7 @@ namespace Triheroes.Code.Mecha
 {
     public class stun : act
     {
-        public override int priority => level.reaction;
+        public override priority priority => priority.reaction;
 
         [link]
         skin skin;

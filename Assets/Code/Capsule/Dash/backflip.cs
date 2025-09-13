@@ -7,7 +7,7 @@ namespace Triheroes.Code.CapsuleAct
 {
     public class backflip : act
     {
-        public override int priority => level.action;
+        public override priority priority => priority.action;
 
         [link]
         capsule capsule;

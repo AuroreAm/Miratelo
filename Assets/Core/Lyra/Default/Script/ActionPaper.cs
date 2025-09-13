@@ -19,5 +19,14 @@ namespace Lyra
             }
             return a;
         }
+
+        #if UNITY_EDITOR
+        public bool IsDecorator ()
+        {
+            return
+            Paper.type.valid () &&
+            Paper.type.write ().IsSubclassOf ( typeof ( decorator ) );
+        }
+        #endif
     }
 }

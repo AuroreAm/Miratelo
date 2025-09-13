@@ -7,7 +7,7 @@ namespace Triheroes.Code
 {
     public class aim : act
     {
-        public override int priority => level.sub;
+        public override priority priority => priority.sub;
 
         // target aim rotation
         float roty, rotx;

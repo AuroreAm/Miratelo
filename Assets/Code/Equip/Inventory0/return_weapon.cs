@@ -6,7 +6,7 @@ namespace Triheroes.Code.Inv0Act
 {
     public class return_weapon : act
     {
-        public override int priority => level.sub;
+        public override priority priority => priority.sub;
 
         [link]
         skin skin;

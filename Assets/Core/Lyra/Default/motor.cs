@@ -5,8 +5,7 @@ namespace Lyra
 {
     public abstract class act : star.neutron
     {
-        public abstract int priority { get; }
-        public virtual bool accept2nd { get; } = false;
+        public abstract priority priority { get; }
     }
 
     // motor layer of behavior
@@ -40,6 +39,12 @@ namespace Lyra
         bool replaced;
         public bool start_act (act _act, acting handler = null )
         {
+            if ( _act.priority.level != 0 )
+            {
+                Debug.LogError ($"{_act} must have level 0");
+                return false;
+            }
+
             if (_act.priority <= priority) return false;
             
             if ( replaced )
@@ -57,7 +62,7 @@ namespace Lyra
 
             act = _act;
             priority = act.priority;
-            accept2nd = act.accept2nd;
+            accept2nd = act.priority.accept2nd;
 
             acting = handler;
 
@@ -75,11 +80,16 @@ namespace Lyra
             if (handler == acting)
                 act.stop(this);
             else
-                Debug.LogError(" handler can't stop state ");
+                Dev.Break(" handler can't stop state ");
         }
 
         public bool start_act2nd ( act _act2nd, acting handler = null )
         {
+            if ( _act2nd.priority.level != 1 )
+            {
+                Debug.LogError ($"{_act2nd} must have level 1");
+                return false;
+            }
             if (!accept2nd) return false;
             if (_act2nd.priority <= priority2nd) return false;
             
@@ -161,6 +171,38 @@ namespace Lyra
     {
         public void _act_end ( act a, bool replaced );
         public bool on { get; }
+    }
+
+    public struct priority
+    {
+        public int value { private set; get; }
+        public int level { private set; get; }
+        public bool accept2nd { private set; get; }
+
+        private priority ( int _value, int _level )
+        {
+            value = _value;
+            level = _level;
+            accept2nd = false;
+        }
+
+        public priority with2nd ()
+        {
+            accept2nd = true;
+            return this;
+        }
+
+        public static implicit operator int ( priority p ) => p.value;
+
+        public static readonly priority def = new priority (0, 0);
+        public static readonly priority def2 = new priority (1, 0);
+        public static readonly priority def3 = new priority (2, 0);
+        public static readonly priority action = new priority (3, 0);
+        public static readonly priority action2 = new priority (4, 0);
+        public static readonly priority reaction = new priority (5, 0);
+        public static readonly priority recovery = new priority (6, 0);
+
+        public static readonly priority sub = new priority (2, 1);
     }
 
 }

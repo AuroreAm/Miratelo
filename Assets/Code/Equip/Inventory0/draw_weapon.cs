@@ -7,7 +7,7 @@ namespace Triheroes.Code.Inv0Act
 {
     public class draw_weapon : act
     {
-        public override int priority => level.sub;
+        public override priority priority => priority.sub;
 
         [link]
         sword_user sword_user;

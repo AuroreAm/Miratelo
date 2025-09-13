@@ -205,7 +205,7 @@ namespace Triheroes.Code
             // NOTE: don't ever call play state inside the Abort event, because it will be called infinitely
             public void play(animation animation, float _duration, float[] _evs, bool _hold)
             {
-                if (id != animation.key || playing == false)
+                if (id != animation.key || playing == false || _hold)
                 {
                     if (playing == false && layer != 0)
                         ani.Play(animation.key, layer, 0);

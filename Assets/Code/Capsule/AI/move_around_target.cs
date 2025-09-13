@@ -25,7 +25,7 @@ namespace Triheroes.Code
         int way_counts;
         float roty_start;
 
-        dimension target => ( warrior.target ).system.get <dimension> ();
+        dimension target => warrior.target.get_dimension ();
 
         protected override void _start()
         {

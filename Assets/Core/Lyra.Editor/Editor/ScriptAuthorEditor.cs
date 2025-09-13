@@ -70,4 +70,32 @@ namespace Lyra.Editor
             GUILayout.EndHorizontal ();
         }
     }
+
+    [InitializeOnLoad]
+    class ScriptHierarchyColors
+    {
+        static ScriptHierarchyColors ()
+        {
+            EditorApplication.hierarchyWindowItemOnGUI += OnHierarchyWindowItemOnGUI;
+        }
+
+        static void OnHierarchyWindowItemOnGUI ( int instanceID, Rect selectionRect )
+        {
+            var go = EditorUtility.InstanceIDToObject ( instanceID ) as GameObject;
+
+            if ( go == null ) return;
+
+            if ( go.GetComponent <IndexPaper> () )
+            EditorGUI.DrawRect ( selectionRect, new Color (.2f,.1f,.2f,.4f) );
+
+            if ( go.GetComponent <ActionPaper> () )
+            EditorGUI.DrawRect ( selectionRect, new Color (.4f,.4f,.6f,.4f) );
+
+            if ( go.GetComponent <ActionPaper> () && go.GetComponent <ActionPaper> ().IsDecorator () )
+            EditorGUI.DrawRect ( selectionRect, new Color (.4f,.4f,.7f,.4f) );
+
+            if ( go.GetComponent <ScriptAuthor> () )
+            EditorGUI.DrawRect ( selectionRect, new Color (.7f,.4f,.4f,.4f) );
+        }
+    }
 }

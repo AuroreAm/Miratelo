@@ -23,7 +23,7 @@ namespace Triheroes.Code.Sword.Combat
 {
     public class slay : act
     {
-        public override int priority => level.action;
+        public override priority priority => priority.action;
 
         [link]
         actor actor;

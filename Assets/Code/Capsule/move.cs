@@ -5,8 +5,7 @@ namespace Triheroes.Code.CapsuleAct
 {
     public class move : act
     {
-        public override int priority => level.def2;
-        public override bool accept2nd => true;
+        public override priority priority => priority.def2.with2nd ();
 
         [link]
         capsule capsule;

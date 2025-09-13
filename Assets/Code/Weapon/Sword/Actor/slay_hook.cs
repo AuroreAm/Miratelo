@@ -8,7 +8,7 @@ namespace Triheroes.Code.Sword.Combat
 {
     public class slay_hook_up : act
     {
-        public override int priority => level.action;
+        public override priority priority => priority.action;
 
         [link]
         actor actor;
@@ -74,7 +74,7 @@ namespace Triheroes.Code.Sword.Combat
     public class slay_hook_spam : act
     {
         
-        public override int priority => level.action;
+        public override priority priority => priority.action;
 
         [link]
         actor actor;

@@ -33,12 +33,16 @@ namespace Lyra.Editor
 
             if ( _target )
             {
-                if ( HierarchyFoldoutUtility.IsExpanded ( _target ) || _target.GetComponent <IndexPaper> () )
-                a.transform.SetParent ( _target.transform );
+                if ( HierarchyFoldoutUtility.IsExpanded ( _target ) || _target.GetComponent <IndexPaper> () || GOIsDecoratorWith0Childs ( _target ) )
+                {
+                    a.transform.SetParent ( _target.transform );
+                    a.transform.SetAsFirstSibling ();
+                }
                 else if ( _target.transform.parent )
                 {
                     a.transform.SetParent ( _target.transform.parent );
-                    a.transform.SetSiblingIndex ( _target.transform.GetSiblingIndex () );
+                    if ( _target.transform.GetSiblingIndex () < _target.transform.parent.childCount - 1 )
+                    a.transform.SetSiblingIndex ( _target.transform.GetSiblingIndex () +  1 );
                 }
             }
 
@@ -49,6 +53,14 @@ namespace Lyra.Editor
 
             Undo.RegisterCreatedObjectUndo (a.gameObject, "Create Action");
             Close ();
+        }
+
+        public static bool GOIsDecoratorWith0Childs ( GameObject go )
+        {
+            return
+            go.GetComponent <ActionPaper> () &&
+            go.GetComponent <ActionPaper> ().IsDecorator () &&
+            go.transform.childCount == 0;
         }
 
         void OnLostFocus ()

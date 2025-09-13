@@ -23,7 +23,7 @@ namespace Triheroes.Code.CapsuleAct
 
     public class knocked_out_fall : act
     {
-        public override int priority => level.reaction;
+        public override priority priority => priority.reaction;
 
         [link]
         capsule capsule;
@@ -105,7 +105,7 @@ namespace Triheroes.Code.CapsuleAct
         [link]
         knocked_stand_up stand_up;
 
-        public override int priority => level.reaction;
+        public override priority priority => priority.reaction;
         bool done;
 
         protected override void _start()
@@ -134,7 +134,7 @@ namespace Triheroes.Code.CapsuleAct
 
     public class knocked_stand_up : act
     {
-        public override int priority => level.action;
+        public override priority priority => priority.action;
         
         [link]
         capsule capsule;

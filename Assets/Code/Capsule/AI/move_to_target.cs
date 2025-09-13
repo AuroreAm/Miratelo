@@ -21,7 +21,7 @@ namespace Triheroes.Code
         move_point point;
         
         Coroutine routine_low_step;
-        dimension target => ( warrior.target ).system.get <dimension> ();
+        dimension target => warrior.target.get_dimension ();
         NavMeshPath path = new NavMeshPath ();
 
         protected override void _start()

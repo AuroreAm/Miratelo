@@ -22,7 +22,7 @@ namespace Triheroes.Code.CapsuleAct
 
     public class hooked : act, gold <hook_spam>
     {
-        public override int priority => level.reaction;
+        public override priority priority => priority.reaction;
 
         [link]
         capsule capsule;

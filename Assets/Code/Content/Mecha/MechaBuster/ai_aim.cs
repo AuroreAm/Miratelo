@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Triheroes.Code.Mecha
 {
     [path("mecha ai")]
-    public class ai_aim_target : action
+    public class ai_aim_target : action, acting
     {
         [link]
         motor motor;
@@ -17,18 +17,16 @@ namespace Triheroes.Code.Mecha
         warrior warrior;
         [link]
         mecha_buster buster;
-        [link]
-        move move;
         
-        dimension target => ( warrior.target ).system.get <dimension> ();
+        dimension target => warrior.target.get_dimension ();
+
+        public void _act_end(act a, bool replaced)
+        {}
 
         protected override void _step()
         {
-            if (motor.act == null)
-            motor.start_act ( move );
-
             if (!aim.on)
-                motor.start_act2nd ( aim );
+                motor.start_act ( aim, this );
 
             if ( !warrior.target)
             {
@@ -38,11 +36,17 @@ namespace Triheroes.Code.Mecha
 
             aim.at ( vecteur.rot_direction_y ( buster.position, target.position ) );
         }
+
+        protected override void _stop()
+        {
+            if (aim.on)
+            motor.stop_act ( this );
+        }
     }
 
     public class aim : act
     {
-        public override int priority => level.sub;
+        public override priority priority => priority.action;
 
         // target aim rotation
         float roty;
@@ -58,6 +62,7 @@ namespace Triheroes.Code.Mecha
         protected override void _start ()
         {
             begin_aim ();
+            stand.use (this);
         }
 
         void begin_aim ()
@@ -74,7 +79,9 @@ namespace Triheroes.Code.Mecha
         protected override void _step ()
         {
             float target_y = Mathf.DeltaAngle ( buster.roty, skin.roty_direct ) + roty;
+
             stand.roty = Mathf.MoveTowardsAngle (stand.roty,target_y, speed );
+            stand.rotate_skin ();
         }
         
         public void shot ()

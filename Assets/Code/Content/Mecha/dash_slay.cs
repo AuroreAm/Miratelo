@@ -11,7 +11,7 @@ namespace Triheroes.Code
 {
     public class dash_slay : act, gold <parried>
     {
-        public override int priority => level.action;
+        public override priority priority => priority.action;
 
         [link]
         warrior warrior;

@@ -7,7 +7,7 @@ namespace Triheroes.Code.Sword.Combat
 {
     public class parry : act
     {
-        public override int priority => level.action;
+        public override priority priority => priority.action;
 
         [link]
         sword_user sword_user;
@@ -52,7 +52,7 @@ namespace Triheroes.Code.Sword.Combat
 
     public class parry_arrow : act
     {
-        public override int priority => level.action;
+        public override priority priority => priority.action;
 
         [link]
         sword_user sword_user;

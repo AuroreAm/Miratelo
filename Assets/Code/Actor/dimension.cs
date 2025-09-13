@@ -13,4 +13,9 @@ namespace Triheroes.Code
 
         public Vector3 position => c.position;
     }
+
+    public static class warriorExtension
+    {
+        public static dimension get_dimension ( this warrior w ) => w.system.get <dimension> ();
+    }
 }

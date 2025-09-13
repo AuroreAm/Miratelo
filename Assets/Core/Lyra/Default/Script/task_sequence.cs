@@ -34,7 +34,7 @@ namespace Lyra
             tick_ptr_action ();
         }
 
-        protected override void _abort()
+        protected override void _stop()
         {
             if ( ptr_action.on )
             ptr_action.stop (this);
@@ -43,7 +43,7 @@ namespace Lyra
         public static void substitute ( term term, bool resume_after = false )
         {
             if ( static_domain.Peek () == null )
-            throw new InvalidOperationException ( "can use advanced decorator outside of its child" );
+            throw new InvalidOperationException ( "can't use task_sequence outside of its child" );
             
             static_domain.Peek ().substitute_internal ( static_domain.Peek ().script [term], resume_after );
         }
@@ -59,6 +59,14 @@ namespace Lyra
             var previous = ptr_action;
             ptr_action = action;
             previous.stop (this);
+        }
+
+        public static void abort ()
+        {
+            if ( static_domain.Peek () == null )
+            throw new InvalidOperationException ( "can't use task_sequence outside of its child" );
+            
+            static_domain.Peek ().stop ();
         }
         
         void tick_ptr_action ()

@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using Lyra;
+using Triheroes.Code.CapsuleAct;
 using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [path ("AI")]
+    [path ("ai")]
     public class look_target : action
     {
         [link]
@@ -20,7 +21,7 @@ namespace Triheroes.Code
         [export]
         public float _angular_speed = 160;
         
-        dimension target => ( warrior.target ).system.get <dimension> ();
+        dimension target => warrior.target.get_dimension ();
 
         protected override void _start()
         {
@@ -36,6 +37,22 @@ namespace Triheroes.Code
             
             if ( rot == skin.roty || !stand.active )
             stop ();
+        }
+    }
+
+    [path ("ai")]
+    public class look_target_normal : look_target
+    {
+        [link]
+        move move;
+
+        [link]
+        motor motor;
+
+        protected override void _start()
+        {
+            base._start();
+            motor.start_act (move);
         }
     }
 }

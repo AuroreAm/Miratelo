@@ -71,20 +71,6 @@ namespace Triheroes.Code
         public static readonly term start_shoot = new term("start_shoot");
     }
 
-    // priorities
-    public static class level
-    {
-        public static readonly int def = 0;
-        public static readonly int def2 = 1;
-        public static readonly int def3 = 2;
-        public static readonly int action = 3;
-        public static readonly int action2 = 4;
-        public static readonly int reaction = 6;
-        public static readonly int recovery = 7;
-
-        public static readonly int sub = 2;
-    }
-
     public static class Const
     {
         public static readonly Quaternion BowDefaultRotation = Quaternion.identity;
