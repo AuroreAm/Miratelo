@@ -22,6 +22,7 @@ namespace Lyra.Editor
             _cursor.GUI ();
         }
 
+        // add actionpaper to the selected target
         void AddPackage (  Type t )
         {
             ActionPaper a;
@@ -31,11 +32,22 @@ namespace Lyra.Editor
             a.Paper.data = JsonUtility.ToJson ( Activator.CreateInstance ( t ));
 
             if ( _target )
-            a.transform.SetParent ( _target.transform );
+            {
+                if ( HierarchyFoldoutUtility.IsExpanded ( _target ) || _target.GetComponent <IndexPaper> () )
+                a.transform.SetParent ( _target.transform );
+                else if ( _target.transform.parent )
+                {
+                    a.transform.SetParent ( _target.transform.parent );
+                    a.transform.SetSiblingIndex ( _target.transform.GetSiblingIndex () );
+                }
+            }
+
             a.gameObject.name = t.Name;
-            
+
             EditorUtility.SetDirty (a);
             Selection.activeGameObject = a.gameObject;
+
+            Undo.RegisterCreatedObjectUndo (a.gameObject, "Create Action");
             Close ();
         }
 

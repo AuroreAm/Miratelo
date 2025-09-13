@@ -1,3 +1,5 @@
+using System;
+
 namespace Lyra
 {
     public sealed class sequence : decorator
@@ -13,7 +15,7 @@ namespace Lyra
         {
             if (reset)
             ptr = 0;
-            o[ptr].tick ( this );
+            o[ptr].tick ( this);
         }
 
         protected sealed override void _step ()

@@ -17,11 +17,7 @@ namespace Lyra
                     Childs [i] = transform.GetChild (i).GetComponent <ActionPaper> ().write ();
                 d.set (Childs);
             }
-
             return a;
         }
-
-        void Start () =>
-            Destroy ( gameObject );
     }
 }

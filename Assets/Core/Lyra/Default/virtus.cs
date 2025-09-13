@@ -63,7 +63,7 @@ namespace Lyra
 
         void _active ()
         {
-            phoenix.core.start (this);
+            phoenix.core.automatic (this);
             for (int i = 0; i < satellites.Count; i++)
             this.link ( satellites [i] );
         }

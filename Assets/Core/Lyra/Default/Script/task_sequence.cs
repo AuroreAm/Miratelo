@@ -7,26 +7,18 @@ namespace Lyra
 {
     public class task_sequence : decorator
     {
-        Dictionary < term, index > indexer = new Dictionary<term, index> ();
-
         action ptr_action;
         int ptr;
 
         bool resume_after;
 
+        [link]
+        script script;
+
         [export]
         public bool repeat = true ;
         [export]
         public bool reset = true ;
-
-        protected override void __ready()
-        {
-            foreach ( action action in o )
-            {
-                if ( action is index index )
-                indexer.Add ( new term ( index.name ), index );
-            }
-        }
 
         protected sealed override void _start ()
         {
@@ -53,10 +45,7 @@ namespace Lyra
             if ( static_domain.Peek () == null )
             throw new InvalidOperationException ( "can use advanced decorator outside of its child" );
             
-            if ( static_domain.Peek ().indexer.TryGetValue ( term, out index index ) )
-            static_domain.Peek ().substitute_internal ( index, resume_after );
-            else
-            Debug.LogWarning ("this index does not exists");
+            static_domain.Peek ().substitute_internal ( static_domain.Peek ().script [term], resume_after );
         }
         static Stack <task_sequence> static_domain = new Stack<task_sequence> () ;
         void substitute_internal ( action action, bool resume_after )
@@ -75,7 +64,7 @@ namespace Lyra
         void tick_ptr_action ()
         {
             static_domain.Push (this);
-            ptr_action.tick (this);
+            ptr_action.tick (this );
             static_domain.Pop ();
         }
 
@@ -108,10 +97,15 @@ namespace Lyra
         }
     }
 
+    [path("")]
     public sealed class index : task_sequence
     {
-        [export]
-        public string name;
+        public term name {private set; get;}
+
+        public index (string _name)
+        {
+            name = new term (_name);
+        }
     }
     
 

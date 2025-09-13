@@ -1,0 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Lyra
+{
+    public sealed class ScriptAuthor : AuthorModule
+    {
+        
+        public sealed override void _creation()
+        {
+            new ink <script> ();
+        }
+
+        public override void _creation(system system)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                if ( TryGetComponent <IndexPaper> ( out var c ) )
+                system.get <script> ().add_index ( c.write () );
+            }
+        }
+    }
+}

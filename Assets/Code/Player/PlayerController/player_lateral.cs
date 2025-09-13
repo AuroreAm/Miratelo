@@ -34,7 +34,7 @@ namespace Triheroes.Code
             motor.stop_act ( this );
         }
 
-        public void _act_end(act m)
+        public void _act_end(act m, bool replaced)
         {}
     }
 }

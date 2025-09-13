@@ -28,7 +28,7 @@ namespace Triheroes.Code
         protected override void _ready()
         {
             o = this;
-            phoenix.core.start (this);
+            phoenix.core.automatic (this);
             set_shot (dummy);
         }
 

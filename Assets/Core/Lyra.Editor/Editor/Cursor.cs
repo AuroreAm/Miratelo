@@ -31,6 +31,7 @@ namespace Lyra.Editor
             _types = GetTypesByPath ( filter );
 
             SearchField = new SearchField ();
+            SearchField.SetFocus ();
         }
 
         public void GUI()

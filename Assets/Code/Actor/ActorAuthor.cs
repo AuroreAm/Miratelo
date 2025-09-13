@@ -5,14 +5,16 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class ActorAuthor : MonoBehaviour, creator
+    public sealed class ActorAuthor : MonoBehaviour, creator
     {
         public SkinAuthor Skin;
         public string Name;
         public int Faction;
-        public ActionPaper Behavior;
+
+        public ScriptAuthor Scripts;
+        public string StartScript;
  
-        List <ActorAuthorModule> modules;
+        List <AuthorModule> modules;
 
         Vector3 _spam_position;
         float _spam_roty;
@@ -31,7 +33,7 @@ namespace Triheroes.Code
 
         public void _creation()
         {
-            modules = new List<ActorAuthorModule> ( GetComponents <ActorAuthorModule> () );
+            modules = new List<AuthorModule> ( GetComponents <ActorAuthorModule> () );
 
             GameObject go = new GameObject ( Name );
             go.transform.position = _spam_position;
@@ -41,8 +43,9 @@ namespace Triheroes.Code
             new warrior.ink (Faction);
 
             modules.Add ( Instantiate ( Skin ) );
+            modules.Add ( Scripts );
 
-            new behavior.ink ( Behavior );
+            new behavior.ink ( new term (StartScript) );
             foreach (var a in modules)
             a._creation ();
 
@@ -52,7 +55,7 @@ namespace Triheroes.Code
         void Start ()
         {
             spawn ( transform.position, transform.rotation );
-            Destroy ( gameObject );
+            Destroy ( this.gameObject );
         }
     }
 }

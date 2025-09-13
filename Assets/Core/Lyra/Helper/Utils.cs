@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using UnityEngine;
 
 namespace Lyra
 {
@@ -42,5 +44,14 @@ namespace Lyra
 			l.Add ( typeof (T) );
 		}
     }
+
+	public static class Dev
+	{
+		public static void Break ( string message )
+		{
+			UnityEngine.Debug.LogError ( message );
+			System.Diagnostics.Debugger.Break ();
+		}
+	}
 
 }

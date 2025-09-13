@@ -20,7 +20,7 @@ namespace Triheroes.Code
         [link]
         aim aim;
 
-        public void _act_end(act m)
+        public void _act_end(act m, bool replaced)
         {}
 
         protected override void _stepa()

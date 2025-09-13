@@ -10,7 +10,7 @@ namespace Lyra
         {
             if (Script != null)
             {
-                phoenix.core.start ( Script );
+                phoenix.core.start_action ( Script );
             }
             else
             Debug.LogWarning ("script is null");

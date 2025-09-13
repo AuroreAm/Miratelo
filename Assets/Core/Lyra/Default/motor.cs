@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Lyra
@@ -24,7 +25,7 @@ namespace Lyra
 
         protected override void _ready()
         {
-            phoenix.core.start (this);
+            phoenix.core.automatic (this);
         }
 
         protected override void _step()
@@ -36,12 +37,23 @@ namespace Lyra
                 act2nd.tick(this);
         }
 
+        bool replaced;
         public bool start_act (act _act, acting handler = null )
         {
             if (_act.priority <= priority) return false;
+            
+            if ( replaced )
+            {
+                Debug.LogError ("should not start act on act ending that was trigerred by higher priority");
+                return false;
+            }
 
+            replaced = true;
+            // TODO, if stopped here, should call handler or not?
             if (act != null)
+            {
                 act.stop(this);
+            }
 
             act = _act;
             priority = act.priority;
@@ -52,7 +64,9 @@ namespace Lyra
             if (!accept2nd && act2nd != null)
                 act2nd.stop(this);
 
+            replaced = false;
             act.tick(this);
+
             return true;
         }
 
@@ -68,6 +82,14 @@ namespace Lyra
         {
             if (!accept2nd) return false;
             if (_act2nd.priority <= priority2nd) return false;
+            
+            if ( replaced )
+            {
+                Debug.LogError ("should not start act on act ending that was trigerred by higher priority");
+                return false;
+            }
+
+            replaced = true;
 
             if (act2nd != null)
                 act2nd.stop(this);
@@ -77,7 +99,10 @@ namespace Lyra
             act2nd = _act2nd;
             priority2nd = _act2nd.priority;
 
-            act2nd.tick(this);
+            replaced = false;
+
+            act2nd.tick(this );
+
             return true;
         }
 
@@ -105,7 +130,7 @@ namespace Lyra
             accept2nd = false;
 
             if ( h != null && h.on )
-                h._act_end (m);
+                h._act_end (m, replaced);
         }
 
         void end2nd ()
@@ -118,7 +143,7 @@ namespace Lyra
             priority2nd = -1;
 
             if ( h != null && h.on )
-                h._act_end(m);
+                h._act_end(m, replaced);
         }
 
         public void _star_stop ( star s )
@@ -134,7 +159,7 @@ namespace Lyra
 
     public interface acting
     {
-        public void _act_end ( act a );
+        public void _act_end ( act a, bool replaced );
         public bool on { get; }
     }
 

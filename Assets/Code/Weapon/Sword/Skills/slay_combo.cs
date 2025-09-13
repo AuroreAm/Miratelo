@@ -28,7 +28,7 @@ namespace Triheroes.Code
             if ( !can_skill () ) return;
 
             if ( !on )
-            phoenix.core.start (this);
+            phoenix.core.automatic (this);
             else
             ready_for_next = true;
         }
@@ -51,8 +51,11 @@ namespace Triheroes.Code
             stop ();
         }
 
-        public void _act_end(act m)
+        public void _act_end(act m, bool replaced)
         {
+            if ( replaced )
+            return;
+
             if ( ready_for_next )
             ptr ++;
             else

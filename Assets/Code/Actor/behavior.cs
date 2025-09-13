@@ -6,28 +6,31 @@ namespace Triheroes.Code
     [inked]
     public class behavior : controller
     {
-        action script;
+        [link]
+        script script;
+
+        term start;
         bool first_frame = true;
 
         public class ink : ink <behavior>
         {
-            public ink ( ActionPaper script )
+            public ink ( term start )
             {
-                o.script = script.write ();
+                o.start = start;
             }
         }
 
         protected override void _ready()
         {
             system.add ( script );
-            phoenix.core.start (this);
+            phoenix.core.automatic (this);
         }
 
         protected override void _step()
         {
             if (first_frame)
             {
-                phoenix.core.start ( script );
+                phoenix.core.start_action ( script [start] );
                 first_frame = false;
             }
         }

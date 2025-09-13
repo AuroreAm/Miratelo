@@ -15,7 +15,7 @@ namespace Triheroes.Code
             if (on)
             t = 0;
             else
-            phoenix.core.start (this);
+            phoenix.core.start_action ( this);
         }
         
         protected override void _start()

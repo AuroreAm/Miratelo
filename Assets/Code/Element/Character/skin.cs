@@ -9,7 +9,6 @@ namespace Triheroes.Code.Element
     {
         public void _radiate ( perce gleam )
         {
-            Debug.Log ("hit");
         }
 
         protected override void _ready()

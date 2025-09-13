@@ -35,17 +35,17 @@ namespace Lyra
             }
         }
 
-        public void start ( star s )
+        void start ( star s )
         {
             if ( stack.Contains (s) )
             {
-                Debug.LogError ( "this star is already started, make sure it's stopped before starting it" );
+                Dev.Break ( $"star {s.GetType().Name} is already executed by phoenix" );
                 return;
             }
 
             if ( ! type_index.ContainsKey ( s.GetType () ) )
             {
-                Debug.LogError ( $"this star cannot be processed, the type {s.GetType().Name} is missing in the core order" );
+                Dev.Break ( $"this star can't be executed by phoenix, the type {s.GetType().Name} doesn't have a base star with excution order" );
                 return;
             }
 
@@ -57,14 +57,30 @@ namespace Lyra
             for (int i = type_order.IndexOf ( target ) + 1; i < type_segment.Length; i++)
             type_segment [i] ++;
 
-            s.tick (this);
+            s.tick ( this );
         }
+
+        public void automatic ( star self )
+        {
+            start (self);
+        }
+
+        public void start_action ( action action )
+        {
+            start ( action );
+        }
+
+        internal void link ( star.main linked )
+        {
+            start ( linked );
+        }
+
 
         public void _star_stop(star s)
         {
             if ( !stack.Contains (s) )
             {
-                Debug.LogError ( "this sys is already stopped" );
+                Debug.LogError ( "this star in not being executed by phoenix, but a" );
                 return;
             }
 
@@ -91,7 +107,7 @@ namespace Lyra
 
             for (int i = 0; i < length; i++)
             if (stack_cache [i].on)
-            stack_cache [i].tick (this);
+            stack_cache [i].tick ( this );
         }
     }
 

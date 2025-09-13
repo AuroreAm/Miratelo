@@ -20,9 +20,9 @@ namespace Triheroes.Code
         [link]
         return_weapon @return;
 
-        public void _act_end (act m)
+        public void _act_end (act m, bool replaced)
         {
-            if (m == @return && draw.prepared)
+            if ( !replaced && m == @return && draw.prepared )
                 motor.start_act2nd(draw, this);
         }
 
