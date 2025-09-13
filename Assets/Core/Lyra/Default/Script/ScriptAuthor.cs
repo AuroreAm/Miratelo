@@ -16,7 +16,7 @@ namespace Lyra
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                if ( TryGetComponent <IndexPaper> ( out var c ) )
+                if ( transform.GetChild (i).TryGetComponent <IndexPaper> ( out var c ) )
                 system.get <script> ().add_index ( c.write () );
             }
         }

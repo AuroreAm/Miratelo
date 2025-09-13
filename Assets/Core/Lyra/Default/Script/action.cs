@@ -17,7 +17,7 @@ namespace Lyra
         }
     }
 
-    [path("debug")]
+    [path("default")]
     public class log : action
     {
         [export]
@@ -27,6 +27,26 @@ namespace Lyra
         {
             Debug.Log (text);
             stop ();
+        }
+    }
+
+    [path("default")]
+    public class wait : action
+    {
+        [export]
+        public float time;
+        float t;
+
+        protected override void _start()
+        {
+            t = time;
+        }
+
+        protected override void _step()
+        {
+            t -= Time.deltaTime;
+            if (t <= 0)
+                stop ();
         }
     }
 }

@@ -56,8 +56,8 @@ namespace Lyra
         {
             public ink()
             {
-                if (system.creator.o == null)
-                    throw new InvalidOperationException("package can only be instantied in OnStructure ()");
+                if (!system.creator.on_creation)
+                    throw new InvalidOperationException("ink can be only instanced inside _creation ()");
 
                 o = system.creator.querry<T>();
                 o.ready = true;
@@ -70,8 +70,8 @@ namespace Lyra
     {
         public ink ()
         {
-            if (system.creator.o == null)
-                throw new InvalidOperationException("Querry can only be called in OnStructure ()");
+            if (!system.creator.on_creation)
+                throw new InvalidOperationException("ink can be only instanced inside _creation ()");
 
             o = system.creator.querry<T>();
         }
@@ -163,6 +163,7 @@ namespace Lyra
         public class creator
         {
             internal static creator o => stack.Peek ();
+            internal static bool on_creation => stack.Count > 0;
             static Stack < creator > stack = new Stack<creator> ();
 
             Lyra.creator author;
