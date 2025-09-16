@@ -6,19 +6,20 @@ namespace Lyra
 {
     public abstract class Author : MonoBehaviour, creator
     {
-        public void Start ()
+        public void Awake ()
         {
             new system.creator (this).create_system ();
             Destroy ( this );
         }
 
-        public abstract void _creation ();
+        public abstract void _create ();
+        public abstract void _created ( system s );
     }
 
     public abstract class AuthorModule : MonoBehaviour
     {
-        public abstract void _creation ();
-        public virtual void _creation (system system) {}
+        public abstract void _create ();
+        public virtual void _created (system s) {}
 
         public void Start ()
         {
@@ -28,7 +29,8 @@ namespace Lyra
 
     public interface creator
     {
-        public void _creation ();
+        public void _create ();
+        public void _created ( system s );
     }
 
 }

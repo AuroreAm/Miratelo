@@ -314,7 +314,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132849392}
   m_LocalRotation: {x: -0, y: -0, z: -0.19078854, w: 0.9816312}
-  m_LocalPosition: {x: -1.131, y: -0.288, z: 0.815}
+  m_LocalPosition: {x: -2.448, y: -0.288, z: 2.245}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 95936829}
@@ -699,7 +699,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1400021379243813227, guid: f28a40413c3413841b49e2189ded239a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.25
+      value: -34.5
       objectReference: {fileID: 0}
     - target: {fileID: 1400021379243813227, guid: f28a40413c3413841b49e2189ded239a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -771,6 +771,51 @@ MonoBehaviour:
   AttachedWeapon:
   - {fileID: 7349327756839561983, guid: 981e6b2a03a173a498db5b6c07c2694f, type: 3}
   - {fileID: 6306574315407851075, guid: b9f05f5539f445e46ab337fd55ca0722, type: 3}
+--- !u!1 &266260855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 266260857}
+  - component: {fileID: 266260856}
+  m_Layer: 0
+  m_Name: SceneStart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &266260856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266260855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a0c382f9101a14f81d11940ed136e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Script: {fileID: 1235020389}
+--- !u!4 &266260857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266260855}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1235020388}
+  m_Father: {fileID: 457582111}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &342545455
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,53 +925,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 342545455}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &405394427
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 405394428}
-  - component: {fileID: 405394429}
-  m_Layer: 0
-  m_Name: wait
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &405394428
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 405394427}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1982620826}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &405394429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 405394427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Paper:
-    type:
-      content: Lyra.wait, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    data: '{"time":0.0}'
 --- !u!1 &426531009
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,7 +1045,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 266260857}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1137,7 +1136,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 520415267}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000029653306}
-  m_LocalPosition: {x: 0, y: 0, z: 20.47}
+  m_LocalPosition: {x: 0, y: 0, z: 38.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1365249740}
@@ -2446,7 +2445,7 @@ MonoBehaviour:
     type:
       content: Triheroes.Code.if_target_distance_less_than, Triheroes.Code, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-    data: '{"distance":5.0}'
+    data: '{"distance":10.0}'
 --- !u!1 &1177025986
 GameObject:
   m_ObjectHideFlags: 0
@@ -2675,6 +2674,54 @@ Transform:
   m_Father: {fileID: 1051891426}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1235020387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1235020388}
+  - component: {fileID: 1235020389}
+  m_Layer: 0
+  m_Name: sequence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1235020388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235020387}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1297609405}
+  m_Father: {fileID: 266260857}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1235020389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235020387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Lyra.sequence, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    data: '{"repeat":false,"reset":true}'
 --- !u!1 &1248424890
 GameObject:
   m_ObjectHideFlags: 0
@@ -2761,7 +2808,7 @@ Transform:
   - {fileID: 958643396}
   - {fileID: 1696176497}
   m_Father: {fileID: 1982620826}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1280840629
 MonoBehaviour:
@@ -2827,6 +2874,54 @@ MonoBehaviour:
       content: Triheroes.Code.ai_dash_slash, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
     data: '{}'
+--- !u!1 &1297609404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1297609405}
+  - component: {fileID: 1297609406}
+  m_Layer: 0
+  m_Name: start_play
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1297609405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297609404}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1235020388}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1297609406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297609404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Triheroes.Code.start_play, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+    data: '{"main_actor":{"value":1690219612,"name":"Faniry"}}'
 --- !u!1 &1304201085
 GameObject:
   m_ObjectHideFlags: 0
@@ -2874,7 +2969,7 @@ MonoBehaviour:
     type:
       content: Triheroes.Code.Mecha.mecha_aim_alternative, Triheroes.Code, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-    data: '{"A":-45.0,"B":45.0,"speed":360.0}'
+    data: '{"A":0.0,"B":0.0,"speed":360.0}'
 --- !u!1 &1326139537
 GameObject:
   m_ObjectHideFlags: 0
@@ -3767,8 +3862,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 405394428}
-  - {fileID: 2137753565}
   - {fileID: 1280840628}
   m_Father: {fileID: 2062926520}
   m_RootOrder: 0
@@ -3916,51 +4009,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Repeat: 0
   Reset: 1
---- !u!1 &2137753564
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2137753565}
-  - component: {fileID: 2137753566}
-  m_Layer: 0
-  m_Name: set_as_camera_subject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2137753565
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137753564}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1982620826}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2137753566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137753564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Paper:
-    type:
-      content: Triheroes.Code.set_as_camera_subject, Triheroes.Code, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    data: '{}'

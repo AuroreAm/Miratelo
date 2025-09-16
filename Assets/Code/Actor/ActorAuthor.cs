@@ -25,16 +25,10 @@ namespace Triheroes.Code
             _spam_roty =  rotation.eulerAngles.y;
 
             var s = new system.creator (this).create_system ();
-
-            foreach (var a in modules)
-            a._creation (s);
-
-            s.get <photon> ().radiate ( new actor_created () );
-
             return s;
         }
 
-        public void _creation()
+        public void _create()
         {
             modules = new List<AuthorModule> ( GetComponents <ActorAuthorModule> () );
 
@@ -50,21 +44,23 @@ namespace Triheroes.Code
 
             new behavior.ink ( new term (StartScript) );
 
-            new ink <photon> ();
-
             foreach (var a in modules)
-            a._creation ();
+            a._create ();
 
             // skin rotation
             new ink <skin> ().o.roty = _spam_roty;
         }
 
-        void Start ()
+        public void _created (system s)
+        {
+            foreach (var a in modules)
+            a._created (s);
+        }
+
+        void Awake ()
         {
             spawn ( transform.position, transform.rotation );
             Destroy ( this.gameObject );
         }
     }
-
-    public struct actor_created {}
 }

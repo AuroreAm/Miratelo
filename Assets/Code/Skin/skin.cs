@@ -54,7 +54,7 @@ namespace Triheroes.Code
 
             ani.fireEvents = false;
             // self start
-            phoenix.core.automatic (this);
+            phoenix.core.execute (this);
         }
 
         void cache_layer_index()

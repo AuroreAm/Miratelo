@@ -8,7 +8,7 @@ namespace Triheroes.Code
     [RequireComponent (typeof (ParticleSystem))]
     public class IllusionAuthor : VirtusAuthor
     {
-        protected override void _virtus_creation()
+        protected override void _virtus_create()
         {
             new illusion.ink ( GetComponent <ParticleSystem> () );
         }

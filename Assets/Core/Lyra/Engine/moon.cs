@@ -33,7 +33,7 @@ namespace Lyra
 
         internal void set_orbit ( system structure )
         {
-            if (GetType().GetCustomAttribute<inked>() != null && !ready)
+            if (GetType().GetCustomAttribute<inkedAttribute>() != null && !ready)
                 Debug.LogError($"{GetType().Name} was structured without package");
 
             system = structure;
@@ -220,11 +220,14 @@ namespace Lyra
             {
                 stack.Push (this);
                 moon.system_domain.Push (null);
-                author._creation();
+                author._create ();
                 moon.system_domain.Pop ();
                 stack.Pop ();
 
-                return new system ( founder );
+                var s = new system ( founder );
+                author._created (s);
+                
+                return s;
             }
 
         }
@@ -249,7 +252,7 @@ namespace Lyra
     { }
 
     [AttributeUsage(AttributeTargets.Class)]
-    public class inked : Attribute
+    public class inkedAttribute : Attribute
     { }
 }
 

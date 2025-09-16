@@ -4,12 +4,14 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     [inked]
-    public class behavior : controller, ruby <actor_created>
+    public class behavior : controller
     {
         [link]
         script script;
 
         term start;
+        int frame;
+        bool started;
 
         public class ink : ink <behavior>
         {
@@ -18,20 +20,21 @@ namespace Triheroes.Code
                 o.start = start;
             }
         }
-        
-        public void _radiate(actor_created gleam)
-        {
-            phoenix.core.automatic (this);
-        }
 
         protected override void _ready()
         {
             system.add ( script );
+            phoenix.core.execute (this);
+            frame = Time.frameCount;
         }
 
-        protected override void _start()
+        protected override void _step ()
         {
-            phoenix.core.start_action ( script [start] );
+            if ( !started && frame != Time.frameCount )
+            {
+                phoenix.core.start_action ( script [start] );
+                started = true;
+            }
         }
     }
 }

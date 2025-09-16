@@ -91,7 +91,7 @@ namespace Triheroes.Code.CapsuleAct
         }
 
         float dx; float dz;
-        public void set_animation_direction_float (float _dx, float _dz, float GravityPerSecond = 3)
+        void set_animation_direction_float (float _dx, float _dz, float GravityPerSecond = 3)
         {
             dx = Mathf.MoveTowards(dx, _dx, GravityPerSecond * Time.deltaTime);
             dz = Mathf.MoveTowards(dz, _dz, GravityPerSecond * Time.deltaTime);

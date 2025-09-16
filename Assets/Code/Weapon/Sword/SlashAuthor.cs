@@ -15,7 +15,7 @@ namespace Triheroes.Code
         public enum type { normal, hooker, hook_spammer, knocker }
         public type Type;
 
-        protected override void _virtus_creation()
+        protected override void _virtus_create()
         {
             new Sword.slash.ink ( TrailMaterial, FrameNumber );
             

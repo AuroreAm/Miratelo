@@ -29,7 +29,7 @@ namespace Triheroes.Code
         
         class sfx_creator : virtus_creator_simple
         {
-            protected override void _virtus_creation()
+            protected override void _virtus_create()
             {
                 new Lyra.ink <sfx> ();
             }

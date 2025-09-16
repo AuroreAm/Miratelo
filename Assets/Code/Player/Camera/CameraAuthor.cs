@@ -10,9 +10,12 @@ namespace Triheroes.Code
     {
         public Camera Camera;
 
-        public override void _creation()
+        public override void _create ()
         {
             new camera.ink ( Camera, transform );
         }
+
+        public override void _created(system s)
+        {}
     }
 }

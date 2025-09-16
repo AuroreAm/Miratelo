@@ -12,7 +12,7 @@ namespace Triheroes.Code
 
         public Dictionary <term, path> Paths = new Dictionary<term, path> ();
 
-        public override void _creation()
+        public override void _create()
         {
             new ink < skin_path >().o.paths = Paths;
         }

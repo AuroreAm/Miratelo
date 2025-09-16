@@ -92,8 +92,7 @@ namespace Triheroes.Code
         {
             if ( direction != direction.back )
             {
-                dash.set ( direction );
-                motor.start_act ( dash );
+                motor.start_act ( dash._ ( direction ) );
             }
             else
                 motor.start_act ( backflip );

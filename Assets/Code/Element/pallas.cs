@@ -17,6 +17,16 @@ namespace Triheroes.Code
             o = this;
         }
 
+        public static bool contains ( term name )
+        {
+            return o.warriors.ContainsKey (name);
+        }
+
+        public static actor get_actor ( term name )
+        {
+            return (actor) o.warriors [name];
+        }
+
         public static void register (warrior warrior, int faction)
         {
             o.factions [faction].Add (warrior);

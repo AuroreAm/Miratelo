@@ -12,17 +12,20 @@ namespace Lyra
             return b.get <virtus> ();
         }
 
-        public void _creation()
+        public void _create ()
         {
             new ink < virtus > ();
-            _virtus_creation ();
+            _virtus_create ();
         }
+
+        protected abstract void _virtus_create ();
 
         public void Start ()
         {
             Destroy (this);
         }
-        
-        protected abstract void _virtus_creation ();
+
+        public void _created(system s)
+        {}
     }
 }

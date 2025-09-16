@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Triheroes.Code.Inv0Act
 {
+    [need_ready]
     public class return_weapon : act
     {
         public override priority priority => priority.sub;
@@ -36,12 +37,14 @@ namespace Triheroes.Code.Inv0Act
             skin.play ( play );
         }
 
-        public void set_place ( weapon_place _place )
+        public void set ( weapon_place _place )
         {
             if (on) return;
 
             to = _place;
             return_animation = get_corresponding_animation ( equip.weapon_user.weapon_base );
+
+            ready_for_tick ();
         }
 
         static term get_corresponding_animation ( weapon weapon )

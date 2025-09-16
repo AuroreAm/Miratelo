@@ -50,7 +50,11 @@ namespace Triheroes.Code
         {
             _is_axis = is_input_manager_axis;
             _axis_name = input_manager_name;
-            phoenix.core.automatic (this);
+        }
+
+        protected override void _ready()
+        {
+            phoenix.core.execute (this);
         }
 
         protected override void _step()

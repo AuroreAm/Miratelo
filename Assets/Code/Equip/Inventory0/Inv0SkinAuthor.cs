@@ -9,7 +9,7 @@ namespace Triheroes.Code
         public Transform [] SwordPlaces;
         public Transform [] BowPlaces;
 
-        public override void _creation()
+        public override void _create ()
         {
             new inv0.ink ( SwordPlaces, BowPlaces );
         }

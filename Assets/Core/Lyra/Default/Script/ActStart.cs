@@ -7,7 +7,7 @@ namespace Lyra
     public class ActStart : MonoBehaviour
     {
         public ActionPaper Script;
-        void Awake ()
+        void Start ()
         {
             action script = Script.write ();
             phoenix.star.add ( script );

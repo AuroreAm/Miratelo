@@ -52,8 +52,8 @@ namespace Lyra
             star = new system.creator ( superstar.ToArray (), this ).create_system ();
         }
 
-        public void _creation() {}
-
+        public void _create() {}
+        public void _created (system s) {}
     }
 
     public sealed class superstarAttribute : Attribute

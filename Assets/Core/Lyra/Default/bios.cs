@@ -5,6 +5,6 @@ using UnityEngine;
 namespace Lyra
 {
     [star(-1000)]
-    public class bios : star
+    public abstract class bios : star.main
     {}
 }

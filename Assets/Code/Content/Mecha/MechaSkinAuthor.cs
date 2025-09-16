@@ -11,7 +11,7 @@ namespace Triheroes.Code
         public Transform BusterOrigin;
         public Transform BusterEnd;
             
-        public override void _creation()
+        public override void _create ()
         {
             new mecha_sword.ink ( MechaSword.get () );
             new mecha_buster.ink ( BusterOrigin, BusterEnd );

@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    [need_ready]
     public class slay_combo : action, acting
     {
         act [] combo;
@@ -28,7 +29,10 @@ namespace Triheroes.Code
             if ( !can_skill () ) return;
 
             if ( !on )
-            phoenix.core.automatic (this);
+            {
+                ready_for_tick ();
+                phoenix.core.start_action (this);
+            }
             else
             ready_for_next = true;
         }

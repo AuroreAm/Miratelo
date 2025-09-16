@@ -60,7 +60,7 @@ namespace Lyra
             s.tick ( this );
         }
 
-        public void automatic ( star self )
+        public void execute ( star self )
         {
             start (self);
         }

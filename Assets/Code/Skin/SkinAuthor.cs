@@ -10,20 +10,20 @@ namespace Triheroes.Code
         public float OffsetRotationY;
         public float OffsetPositionY;
 
-        public override void _creation ()
+        public override void _create ()
         {
             new skin.ink ( gameObject, new Vector2 (OffsetRotationY, OffsetPositionY ) );
 
             var modules = GetComponents<SkinAuthorModule>();
             foreach (var a in modules)
-            a._creation ();
+            a._create ();
         }
 
-        public override void _creation(system system)
+        public override void _created (system system)
         {
             var modules = GetComponents<SkinAuthorModule>();
             foreach (var a in modules)
-            a._creation (system);
+            a._created (system);
         }
     }
 }

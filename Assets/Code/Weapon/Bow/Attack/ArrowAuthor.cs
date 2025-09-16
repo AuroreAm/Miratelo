@@ -11,7 +11,7 @@ namespace Triheroes.Code
         public arrow.skin skin;
         public bool arrow_billboard;
 
-        protected override void _virtus_creation()
+        protected override void _virtus_create()
         {
             if ( arrow_billboard )
             new arrow_billboard.ink ( skin );

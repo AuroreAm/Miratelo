@@ -20,6 +20,7 @@ namespace Triheroes.Code.CapsuleAct
         }
     }
 
+    [need_ready]
     public class hooked : act, gold <hook_spam>
     {
         public override priority priority => priority.reaction;
@@ -39,6 +40,8 @@ namespace Triheroes.Code.CapsuleAct
             dir = _dir;
             cu.start ( _dir.magnitude, _duration );
             time = 0;
+
+            ready_for_tick ();
         }
 
         protected override void _start()

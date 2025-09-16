@@ -7,12 +7,12 @@ namespace Lyra
     public sealed class ScriptAuthor : AuthorModule
     {
         
-        public sealed override void _creation()
+        public sealed override void _create ()
         {
             new ink <script> ();
         }
 
-        public override void _creation(system system)
+        public override void _created (system system)
         {
             for (int i = 0; i < transform.childCount; i++)
             {

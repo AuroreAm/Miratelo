@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    [need_ready]
     public class hit_pause : action
     {
         const float duration = .1f;
@@ -15,7 +16,10 @@ namespace Triheroes.Code
             if (on)
             t = 0;
             else
-            phoenix.core.start_action ( this);
+            {
+                ready_for_tick ();
+                phoenix.core.start_action ( this);
+            }
         }
         
         protected override void _start()

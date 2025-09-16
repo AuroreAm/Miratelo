@@ -24,7 +24,7 @@ namespace Lyra
 
         protected override void _ready()
         {
-            phoenix.core.automatic (this);
+            phoenix.core.execute (this);
         }
 
         protected override void _step()

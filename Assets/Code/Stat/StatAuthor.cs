@@ -9,7 +9,7 @@ namespace Triheroes.Code
     {
         public float MaxHP;
 
-        public override void _creation()
+        public override void _create()
         {
             new ink <health_point> ().o.set ( MaxHP );
         }

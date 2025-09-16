@@ -5,6 +5,7 @@ using Lyra;
 
 namespace Triheroes.Code.Inv0Act
 {
+    [need_ready]
     public class draw_weapon : act
     {
         public override priority priority => priority.sub;
@@ -40,12 +41,14 @@ namespace Triheroes.Code.Inv0Act
             skin.play ( play );
         }
 
-        public void set_place ( weapon_place _place )
+        public void set ( weapon_place _place )
         {
             if (on) return;
 
             from = _place;
             draw_animation =  get_corresponding_animation ( _place.get() );
+
+            ready_for_tick ();
         }
 
         protected override void _stop ()

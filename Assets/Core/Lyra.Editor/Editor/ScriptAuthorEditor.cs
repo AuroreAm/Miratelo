@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Lyra.Editor
 {
-    public class ScriptDock : EditorWindow
+    public class ScriptAuthorEditor : EditorWindow
     {
         [MenuItem ("GameObject/Script")]
         static void CreateActionPaper ()
@@ -36,12 +36,13 @@ namespace Lyra.Editor
         [MenuItem ("Window/Script Dock")]
         public static void ShowWindow ()
         {
-            EditorWindow.GetWindow(typeof(ScriptDock));
+            EditorWindow.GetWindow(typeof(ScriptAuthorEditor));
         }
 
         void OnEnable ()
         {
             minSize = new Vector2 (0, 32);
+            titleContent = new GUIContent ("Script");
         }
 
         void OnGUI ()

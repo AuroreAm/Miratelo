@@ -25,7 +25,7 @@ namespace Triheroes.Code.Element
             register ( system.get <character> ().gameobject.GetInstanceID () );
 
             AP = _max_AP;
-            phoenix.core.automatic ( restore );
+            phoenix.core.execute ( restore );
         }
 
 

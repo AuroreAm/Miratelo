@@ -10,7 +10,7 @@ namespace Triheroes.Code
 
         protected override void _ready()
         {
-            phoenix.core.automatic (this);
+            phoenix.core.execute (this);
         }
 
         public void link_weapon_user ( weapon_user _weapon_user )

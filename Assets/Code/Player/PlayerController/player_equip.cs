@@ -33,7 +33,7 @@ namespace Triheroes.Code
                 var freeSword = get_usable_sword();
                 if (freeSword != -1 && equip.weapon_user == null)
                 {
-                    draw.set_place(inventory.sword_place[freeSword]);
+                    draw.set(inventory.sword_place[freeSword]);
                     motor.start_act2nd(draw, this);
                 }
             }
@@ -43,8 +43,8 @@ namespace Triheroes.Code
                 var freeSword = get_usable_sword ();
                 if (freeSword != -1 && equip.weapon_user != null)
                 {
-                    @return.set_place(inventory.get_free_place_for(equip.weapon_user.weapon_base));
-                    draw.set_place(inventory.sword_place[freeSword]);
+                    @return.set(inventory.get_free_place_for(equip.weapon_user.weapon_base));
+                    draw.set(inventory.sword_place[freeSword]);
 
                     motor.start_act2nd(@return, this);
                 }
@@ -52,13 +52,13 @@ namespace Triheroes.Code
 
             if (player.aim.down && inventory.bow_place[0].occupied && equip.weapon_user == null)
             {
-                draw.set_place(inventory.bow_place[0]);
+                draw.set(inventory.bow_place[0]);
                 motor.start_act2nd(draw, this);
             }
 
             if (player.action1.down && equip.weapon_user != null)
             {
-                @return.set_place(inventory.get_free_place_for(equip.weapon_user.weapon_base));
+                @return.set(inventory.get_free_place_for(equip.weapon_user.weapon_base));
                 motor.start_act2nd(@return, this);
             }
         }

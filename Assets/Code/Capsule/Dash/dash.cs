@@ -27,12 +27,14 @@ namespace Triheroes.Code.CapsuleAct
 
         float fade;
 
-        public void set ( direction direction )
+        public dash _ ( direction direction )
         {
             this.direction = direction;
             dash_animation = dash_animation_of (this.direction);
             dir = dir_of (this.direction);
             fade = 0.05f;
+
+            return this;
         }
 
         public void override_animation ( term animation ) => dash_animation = animation;

@@ -12,7 +12,7 @@ namespace Triheroes.Code
 
         public Transform[] Hand;
 
-        public override void _creation ()
+        public override void _create ()
         {
             new capsule.ink ( Height, Radius, Mass );
 

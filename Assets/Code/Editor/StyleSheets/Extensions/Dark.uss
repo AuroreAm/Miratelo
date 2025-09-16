@@ -1,0 +1,336 @@
+/**************************************************/
+/*                                                */
+/*    blueish grayish color theme for Unity Editor  */
+/*                                                */
+/*                    by Mauri                    */
+/*                                                */
+/**************************************************/
+
+
+
+/*****************************************/
+/*    Editor Top Toolbar & Button Styling  */
+/*****************************************/
+
+/* Used for the top bar (Play, Pause and other buttons) and bottom bar */
+.AppToolbar {
+    background-color: #12071f;
+}
+
+/* Tool Handle Position ... */
+.AppToolbarButtonLeft {
+    background-color: #1a091e;
+    border-color: #e40d4f;
+}
+.AppToolbarButtonLeft:hover {
+    background-color: #2e1f44;
+}
+.AppToolbarButtonLeft:active {
+    background-color: #460003;
+    color: #000000;
+}
+
+/* ... and Rotation */
+.AppToolbarButtonRight {
+    background-color: #1a091e;
+    border-color: #e40d4f;
+}
+.AppToolbarButtonRight:hover {
+    background-color: #2e1f44;
+}
+.AppToolbarButtonRight:active {
+    background-color: #460003;
+    color: #000000;
+}
+
+/* Grid Snapping and Cloud button */
+.AppCommand {
+    background-color: #1a091e;
+    border-color: #e40d4f;
+}
+.AppCommand:hover {
+    background-color: #2e1f44;
+}
+
+/* Hand Tool and Play button */
+.AppCommandLeft {
+    background-color: #1a091e;
+    border-color: #e40d4f;
+}
+.AppCommandLeft:hover {
+    background-color: #2e1f44;
+}
+.AppCommandLeft:active {
+    background-color: #460003;
+}
+/* While in Play mode, the Play button has a different color assigned - here's a fancy red one */
+.AppCommandLeftOn {
+    background-color: #db4848;
+    border-color: #e40d4f;
+}
+.AppCommandLeftOn:hover {
+    background-color: #460003;
+}
+.AppCommandLeftOn:active {
+    background-color: #460003;
+}
+
+/* Move Tool, Rotate Tool, ... and Pause button */
+.AppCommandMid {
+    background-color: #1a091e;
+    border-color: #e40d4f;
+}
+.AppCommandMid:hover {
+    background-color: #2e1f44;
+}
+.AppCommandMid:active {
+    background-color: #460003;
+}
+
+/* Available Custom Editor Tools and Step button (the one next to the Pause button) */
+.AppCommandRight {
+    background-color: #1a091e;
+    border-color: #e40d4f;
+}
+.AppCommandRight:hover {
+    background-color: #2e1f44;
+}
+.AppCommandRight:active {
+    background-color: #460003;
+}
+
+
+/********************************************************/
+/*  Misc Elements Styling (Dropdowns, Buttons, etc...)  */
+/********************************************************/
+
+/* Top Account, Layers & Layout buttons */
+.DropDown {
+    background-color: #1a091e;
+    border-color: #e40d4f;
+}
+.DropDown:hover {
+    background-color: #2e1f44;
+}
+
+.Foldout:active {
+    background-color: #2e1f44;
+    color: #ffffff;
+}
+
+/* Used for some dropdown menus - like the ones in the Lighting Settings */
+.MiniPullDown {
+    background-color: #321f47;
+    border-color: #e40d4f;
+    color: #ffffff;
+}
+.MiniPullDown:hover {
+    background-color: #2e1f44;
+    color: #000000;
+}
+
+/* Used for some other dropdown menus */
+.MiniPopup {
+    background-color: #321f47;
+    border-color: #e40d4f;
+    color: #ffffff;
+}
+.MiniPopup:hover {
+    background-color: #2e1f44;
+    color: #000000;
+}
+
+/* Seems to be only used for the Collab dropdown */
+.OffsetDropDown {
+    background-color: #1a091e;
+    border-color: #e40d4f;
+}
+.OffsetDropDown:hover {
+    background-color: #2e1f44;
+}
+
+.dockarea {
+    /*background-color: #1a091e;*/
+    background-color: #1a091e;
+}
+.dockHeader {
+    background-color: #120621;
+}
+
+.dragtab-first {
+    background-color: #1a091e;
+    border-color: transparent;
+}
+.dragtab-first:hover {
+    background-color: #2e1f44;
+}
+.dragtab-first:active {
+    background-color: #460003;
+}
+
+.dragtab {
+    background-color: #1a091e;
+    border-color: transparent;
+}
+.dragtab:hover {
+    background-color: #2e1f44;
+}
+.dragtab:active {
+    background-color: #460003;
+}
+.dragtab:focus {
+    background-color: #460003;
+}
+
+/* Colors everything: Hierarchy, Inspectors, Console, ... */
+.ScrollViewAlt,
+.TabWindowBackground,
+.ProjectBrowserIconAreaBg {
+    background-color: #08061c;
+}
+
+/* Both colors most of the text in Windows, Inspectors, etc */
+.BoldLabel {
+    color: #ffffff;
+}
+.ControlLabel {
+    color: #ffffff;
+}
+
+/* Used for clickable external links */
+.LinkLabel {
+    color: #c61157;
+}
+
+.ProjectBrowserTopBarBg {
+    background-color: #3d1f4e;
+    color: #ffeeee;
+}
+/* Asset file names */
+.ProjectBrowserGridLabel {
+    color: #ffeeee;
+}
+
+/* Used for the "Auto Generate Lighting On" etc text */
+#ProgressBarText {
+    color: #ffffff;
+}
+
+/* Used by the wide border in the Hierarchy and its hover effect */
+.WhiteBackground {
+    background-color: #13112d; /* 12071f gives a nice color, but makes text hard to read */
+}
+
+/* Used by the Build Settings window and likely other windows */
+.hostview {
+    background-color: #06091e;
+}
+
+
+
+/*************************************/
+/*  Project Settings Window Styling  */
+/*************************************/
+
+#SettingsHeader {
+    color: #ffffff;
+}
+
+#SettingsListItem {
+    color: #ffffff;
+}
+
+
+
+.ToolbarSearchTextFieldPopup
+{
+    background-color: #120621;
+}
+
+.IN-BigTitle
+{
+    background-color: #120621;
+}
+
+.IN-Title
+{
+    background-color: #000000;
+}
+
+
+.PaneOptions
+{
+    background-color: #000000;
+}
+
+.Toolbar
+{
+    background-color: #120621;
+}
+
+.SceneTopBarBg
+{
+    background-color: #000000;
+}
+
+.FoldoutHeader
+{
+    background-color: #000000;
+}
+
+
+.TabWindowToolbarBackground
+{
+    background-color: #000000;
+}
+
+.IconButton
+{
+    background-color: #120621;
+
+}
+
+.toolbarbutton
+{
+    background-color: #120621;
+}
+
+.ToolbarPopup
+{
+    background-color: #120621;
+}
+
+.ToolbarPopupLeft
+{
+    background-color: #120621;
+}
+
+.ToolbarSearch
+{
+    background-color: #120621;
+}
+
+.Label
+{
+    background-color: #120621;
+}
+
+.ProjectBrowserBottomBarBg
+{
+    background-color: #120621;
+}
+
+.BoldTextField
+{
+    background-color: #000000;
+}
+
+.ObjectField
+{
+    background-color: #000000;
+}
+
+.TV-Selection
+{
+    background-color: #120621;
+}

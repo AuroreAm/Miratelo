@@ -21,6 +21,7 @@ namespace Triheroes.Code.CapsuleAct
         }
     }
 
+    [need_ready]
     public class knocked_out_fall : act
     {
         public override priority priority => priority.reaction;
@@ -57,6 +58,7 @@ namespace Triheroes.Code.CapsuleAct
         {
             dir = _dir;
             speed = _speed;
+            ready_for_tick ();
         }
 
         protected override void _start()

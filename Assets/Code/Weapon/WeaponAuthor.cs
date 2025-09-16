@@ -7,7 +7,7 @@ namespace Triheroes.Code
 {
     public abstract class WeaponAuthor : MonoBehaviour, creator
     {
-        public void _creation()
+        public void _create ()
         {
             new character.ink ( gameObject );
             weapon = __creation ();
@@ -33,5 +33,8 @@ namespace Triheroes.Code
         {
             Destroy (this);
         }
+
+        public void _created(system s)
+        {}
     }
 }

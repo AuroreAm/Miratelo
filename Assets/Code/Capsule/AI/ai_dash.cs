@@ -18,8 +18,7 @@ namespace Triheroes.Code
 
         protected override void _step()
         {
-            dash.set ( direction );
-            if ( motor.start_act ( dash ) )
+            if ( motor.start_act ( dash._ ( direction ) ) )
             stop ();
         }
     }
