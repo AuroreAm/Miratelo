@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Lyra;
 using Triheroes.Code.CapsuleAct;
 using UnityEngine;
-
+/*
 namespace Triheroes.Code.Mecha
 {
     [path("mecha ai")]
@@ -69,3 +69,4 @@ namespace Triheroes.Code.Mecha
         {}
     }
 }
+*/

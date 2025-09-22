@@ -19,6 +19,8 @@ namespace Triheroes.Code
         [link]
         equip equip;
 
+        public act this [int i] => combo [i];
+
         public slay_combo ( act [] _combo )
         {
             combo = _combo;

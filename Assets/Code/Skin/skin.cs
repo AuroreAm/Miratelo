@@ -7,7 +7,7 @@ namespace Triheroes.Code
 {
     [star(order.skin)]
     [inked]
-    public class skin : star
+    public class skin : star.main
     {
         [link]
         character c;

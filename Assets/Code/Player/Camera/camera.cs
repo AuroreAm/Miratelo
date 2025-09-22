@@ -6,7 +6,7 @@ namespace Triheroes.Code
 {
     [star (order.camera)]
     [inked]
-    public class camera : star
+    public class camera : star.main
     {
         public static camera o { private set; get; }
         [link]

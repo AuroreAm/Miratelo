@@ -15,6 +15,8 @@ namespace Triheroes.Code
 		// layer mask constant
 		public static LayerMask TempLayer;
 		public static LayerMask Solid;
+		public static LayerMask Static;
+		public static LayerMask Decor;
 		public static LayerMask Attack;
 		public static LayerMask Character;
 		public static LayerMask SolidCharacterAttack;
@@ -24,7 +26,8 @@ namespace Triheroes.Code
 		// layer hardcoded constant
 		public static readonly int CHARACTER = 10;
 		public static readonly int ATTACK = 11;
-		public static readonly int SOLID = 9;
+		public static readonly int DECOR = 8;
+		public static readonly int STATIC = 9;
 		public static readonly int TRIGGER = 12;
 
 		public static readonly float Drag = 1;
@@ -35,11 +38,13 @@ namespace Triheroes.Code
 			o = this;
 
 			TempLayer = LayerMask.GetMask("temp");
-			Solid = LayerMask.GetMask("solid");
+			Solid = LayerMask.GetMask("static", "decor");
+			Static = LayerMask.GetMask("static");
+			Decor = LayerMask.GetMask("decor");
 			Attack = LayerMask.GetMask("attack");
 			Character = LayerMask.GetMask("character");
-			SolidCharacter = LayerMask.GetMask("solid", "character");
-			SolidCharacterAttack = LayerMask.GetMask("solid", "character", "attack");
+			SolidCharacter = LayerMask.GetMask("static", "decor", "character");
+			SolidCharacterAttack = LayerMask.GetMask("static", "decor", "character", "attack");
 			Trigger = LayerMask.GetMask("trigger");
 		}
 

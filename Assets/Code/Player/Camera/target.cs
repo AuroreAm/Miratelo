@@ -16,8 +16,8 @@ namespace Triheroes.Code
         protected override void _start()
         {
             h = cam.player.h;
-            roty_offset = vecteur.rot_direction_y ( spos, tpos ) + 14;
-            rotx_offset = Mathf.DeltaAngle(0, rotx_offset);
+            roty_offset = vecteur.rot_direction_y ( spos, tpos );
+            rotx_offset = Mathf.DeltaAngle(0, rotx_offset) + 10;
             roty_previous = vecteur.rot_direction_y ( spos, tpos );
             roty = roty_offset;
             rotx = rotx_offset;

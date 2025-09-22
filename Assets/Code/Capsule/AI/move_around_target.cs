@@ -42,11 +42,6 @@ namespace Triheroes.Code
             circle_way ();
         }
 
-        protected override void _stop()
-        {
-            unlink (point);
-        }
-
         protected override void _step()
         {
             if ( !warrior.target || point.count == 0 )
@@ -55,12 +50,12 @@ namespace Triheroes.Code
                 return;
             }
 
-            circle_way ();
+            circle_way (2); 
         }
 
-        void circle_way ()
+        void circle_way ( int start = 0 )
         {
-            for (int i = 0; i < point.count - 1; i++)
+            for (int i = start; i < point.count - 1; i++)
             {
                 point.set_point (i, target.position + vecteur.ldir ( new Vector3(0,roty_start + (i + way_counts - point.count ) * 10,0), Vector3.forward * _distance ) );
             }

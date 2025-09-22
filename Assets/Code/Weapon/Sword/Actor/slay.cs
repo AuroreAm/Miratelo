@@ -28,6 +28,8 @@ namespace Triheroes.Code.Sword.Combat
         [link]
         actor actor;
         [link]
+        warrior warrior;
+        [link]
         capsule capsule;
         [link]
         skin_dir skin_dir;
@@ -66,7 +68,7 @@ namespace Triheroes.Code.Sword.Combat
 
             foreach (Collider col in nearby)
             {
-                if ( pallas.contains (col.id()) )
+                if ( pallas.contains (col.id()) && pallas.is_enemy ( col.id(), warrior.faction ) )
                     pallas.radiate (col.id(), new incomming_slash ( actor.term, animation, skin.event_points (animation) [0] ) );
             }
         }

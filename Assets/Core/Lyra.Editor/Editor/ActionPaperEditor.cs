@@ -25,6 +25,11 @@ namespace Lyra.Editor
         public override void OnInspectorGUI()
         {
             _editor.OnGUI ();
+            if ( _target.gameObject.name != _editor.TypeName )
+            {
+                _target.gameObject.name = _editor.TypeName;
+                EditorUtility.SetDirty (_target.gameObject);
+            }
         }
     }
 }

@@ -45,9 +45,7 @@ namespace Lyra.Editor
                     a.transform.SetSiblingIndex ( _target.transform.GetSiblingIndex () +  1 );
                 }
             }
-
-            a.gameObject.name = t.Name;
-
+            
             EditorUtility.SetDirty (a);
             Selection.activeGameObject = a.gameObject;
 

@@ -98,7 +98,7 @@ namespace Triheroes.Code
             acts_parry.Add ( animation.SS1_1, parry0 );
             acts_parry.Add ( animation.SS1_2, parry1 );
 
-            acts_parry.Add ( animation.SS4, parry1 );
+            acts_parry.Add ( animation.SS4, parry0 );
         }
 
         protected override void _step()
@@ -126,7 +126,7 @@ namespace Triheroes.Code
             if ( acts_parry.ContainsKey ( slash_alert.incomming_slash.slash ) )
                 motor.start_act ( acts_parry [ slash_alert.incomming_slash.slash ] );
             else
-            motor.start_act ( acts_parry [animation.SS1_0] );
+            motor.start_act ( acts_parry [ animation.SS1_0 ] );
         }
 
         void parry_arrow ()

@@ -39,20 +39,4 @@ namespace Triheroes.Code
             stop ();
         }
     }
-
-    [path ("ai")]
-    public class look_target_normal : look_target
-    {
-        [link]
-        move move;
-
-        [link]
-        motor motor;
-
-        protected override void _start()
-        {
-            base._start();
-            motor.start_act (move);
-        }
-    }
 }

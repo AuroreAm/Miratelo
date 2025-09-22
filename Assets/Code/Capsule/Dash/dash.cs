@@ -52,7 +52,6 @@ namespace Triheroes.Code.CapsuleAct
         protected override void _start ()
         {
             this.link (capsule);
-
             stand.use (this);
             skin.play ( new skin.animation ( dash_animation, this ) {fade = fade , end = stop } );
             cu.start ( 5, skin.duration ( dash_animation ) );

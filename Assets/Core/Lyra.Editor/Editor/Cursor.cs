@@ -17,6 +17,7 @@ namespace Lyra.Editor
     public class CursorGUI
     {
         public SearchField SearchField { private set; get; }
+        bool _firstFrame = true;
         
         Dictionary <string, Type[]> _types;
         Type _filter;
@@ -31,11 +32,16 @@ namespace Lyra.Editor
             _types = GetTypesByPath ( filter );
 
             SearchField = new SearchField ();
-            SearchField.SetFocus ();
         }
 
         public void GUI()
         {
+            if (_firstFrame)
+            {
+                SearchField.SetFocus ();
+                _firstFrame = false;
+            }
+
             GUILayout.Label(_filter.Name);
 
             _searchQuerry = SearchField.OnGUI(_searchQuerry);

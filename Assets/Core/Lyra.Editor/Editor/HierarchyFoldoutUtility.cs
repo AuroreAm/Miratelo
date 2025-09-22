@@ -10,11 +10,8 @@ public static class HierarchyFoldoutUtility
     {
         EditorApplication.ExecuteMenuItem ("Window/General/Hierarchy");
         object sceneHierarchy =  typeof(EditorWindow).Assembly.GetType("UnityEditor.SceneHierarchyWindow").GetProperty("sceneHierarchy").GetValue( EditorWindow.focusedWindow );
-
         var GetExpandedGameObjectMethod = sceneHierarchy.GetType ().GetMethod("GetExpandedGameObjects", BindingFlags.Public | BindingFlags.Instance);
-
         List <GameObject> ExpandedGameObjects = (List <GameObject>) GetExpandedGameObjectMethod.Invoke( sceneHierarchy, null );
-
         return ExpandedGameObjects.Contains ( gameObject );
     }
     // NOTE: this class relies on reflection, might break for future Unity versions

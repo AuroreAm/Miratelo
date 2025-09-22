@@ -14,7 +14,6 @@ namespace Triheroes.Code
         float distance;
         float h;
         Vector3 offset;
-        protected const float r = .35f;
 
         [link]
         normal normal;
@@ -29,15 +28,30 @@ namespace Triheroes.Code
         {
             shot = normal;
             link (normal);
+
+            ray_distance = distance;
         }
 
+        float ray_distance;
+        const float distance_speed = 5;
+        const float r = .1f;
+        const float r2 = .5f;
+        Collider [] colliders = new Collider[1];
         void tps_pos ()
         {
-            float ray_distance = distance;
+            float distance = this.distance;
             Vector3 target_pos = player.position + offset + h * Vector3.up;
 
-            if ( Physics.SphereCast ( target_pos + vecteur.ldir( rot2, new Vector3 (0,0,r) ), r, vecteur.ldir( rot2, Vector3.back ), out RaycastHit hit, distance, vecteur.Solid ) )
-                ray_distance = hit.distance;
+            if ( Physics.SphereCast ( target_pos, r, vecteur.ldir( rot2, Vector3.back ), out RaycastHit hit, distance, vecteur.Static ) )
+                distance = hit.distance;
+
+            if (Physics.OverlapSphereNonAlloc ( target_pos + vecteur.ldir( rot2,Vector3.back ) * distance, r2, colliders, vecteur.Decor ) > 0)
+                distance -= r2;
+
+            if ( distance < ray_distance )
+            ray_distance = distance;
+            else
+            ray_distance = Mathf.Lerp ( ray_distance, distance, Time.deltaTime * distance_speed );
 
             pos = target_pos + vecteur.ldir( rot2,Vector3.back ) * ray_distance;
             rot = Quaternion.Euler( rot2 );

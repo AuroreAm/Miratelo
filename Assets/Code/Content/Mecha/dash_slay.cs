@@ -9,6 +9,60 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    public class mecha_slay : act
+    {
+        public override priority priority => priority.action;
+
+        [link]
+        actor actor;
+        [link]
+        warrior warrior;
+        [link]
+        capsule capsule;
+        [link]
+        skin_dir skin_dir;
+        [link]
+        skin skin;
+        [link]
+        slay.skin_path paths;
+        
+        [link]
+        mecha_sword mecha_sword;
+
+        term animation;
+
+        public mecha_slay ( term _animation )
+        {
+            animation = _animation;
+        }
+
+        protected override void _start ()
+        {
+            link (capsule);
+            link (skin_dir);
+            skin_dir.dir = skin.ani.transform.forward;
+            skin.play ( new skin.animation ( animation, this ) { end = stop, ev0 = begin_slash } );
+            send_slash_signal();
+        }
+
+        void begin_slash ()
+        {
+            slash.fire ( ((sword)mecha_sword).slash, ((sword)mecha_sword), paths.paths [animation], skin.duration (animation) - skin.event_points (animation) [0] );
+        }
+
+        void send_slash_signal ()
+        {
+            Collider[] nearby;
+            nearby = Physics.OverlapSphere ( ((sword)mecha_sword).position, ((sword)mecha_sword).length, vecteur.Character );
+
+            foreach (Collider col in nearby)
+            {
+                if ( pallas.contains (col.id()) && pallas.is_enemy ( col.id(), warrior.faction ) )
+                    pallas.radiate (col.id(), new incomming_slash ( actor.term, animation, skin.event_points (animation) [0] ) );
+            }
+        }
+    }
+
     public class dash_slay : act, gold <parried>
     {
         public override priority priority => priority.action;
@@ -50,12 +104,15 @@ namespace Triheroes.Code
                     ev0 = dash,
                     ev1 = begin_slash
                 });
+
+            send_slash_signal();
         }
 
         protected override void _step()
         {
             if (state == 1)
                 capsule.dir += vecteur.ldir(skin.roty, Vector3.forward) * cu.tick_delta();
+            
         }
 
         delta_curve cu;
@@ -67,7 +124,6 @@ namespace Triheroes.Code
 
         void begin_slash()
         {
-            send_slash_signal();
 
             var slash_name = ((sword)mecha_sword).slash;
             knocker.fire(slash_name, (sword)mecha_sword, path.paths[slash_animation], skin.duration(slash_animation) - skin.event_points(slash_animation)[1],  vecteur.ldir (skin.roty, new Vector3 ( 0,1,1 ) * 10 ) * 10, 10);
@@ -77,7 +133,7 @@ namespace Triheroes.Code
         void send_slash_signal()
         {
             RaycastHit[] ToSendSignal;
-            ToSendSignal = Physics.SphereCastAll(skin.position, dimension.r, vecteur.ldir(skin.roty, Vector3.forward), 5, vecteur.Character);
+            ToSendSignal = Physics.SphereCastAll(skin.position, ((sword)mecha_sword).length, vecteur.ldir(skin.roty, Vector3.forward), 6, vecteur.Character);
 
             foreach (RaycastHit Hit in ToSendSignal)
             {
@@ -86,7 +142,7 @@ namespace Triheroes.Code
                     new incomming_slash(
                         ((actor)warrior).term,
                         slash_animation,
-                        skin.event_points ( slash_animation ) [1] - skin.event_points (slash_animation) [0] )  );
+                        skin.event_points ( slash_animation ) [1] )  );
             }
         }
 

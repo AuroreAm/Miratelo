@@ -20,6 +20,8 @@ namespace Triheroes.Code
 
         public const int camera_shot = 89;
         public const int camera = 90;
+
+        public const int graphic_element = 100;
     }
 
     public static class triheroes_res

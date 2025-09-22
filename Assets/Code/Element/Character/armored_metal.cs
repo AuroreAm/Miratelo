@@ -28,7 +28,6 @@ namespace Triheroes.Code.Element
             phoenix.core.execute ( restore );
         }
 
-
         static readonly term impact_metal = new term ("nv_impact_metal");
         public void _radiate(hack gleam)
         {

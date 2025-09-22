@@ -68,7 +68,7 @@ namespace Triheroes.Code
             {
                 position += vecteur.forward (rotation) * hit.distance;
                 
-                if ( hit.collider.gameObject.layer == vecteur.SOLID )
+                if ( hit.collider.gameObject.layer == vecteur.DECOR || hit.collider.gameObject.layer == vecteur.STATIC )
                 {
                     virtus.return_ ();
                     return;

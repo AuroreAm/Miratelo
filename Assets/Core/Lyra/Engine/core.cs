@@ -20,7 +20,7 @@ namespace Lyra
 
             for (int i = 0; i < type_order.Count; i++)
             {
-                type_index.Add ( type_order [i], type_order [i] );
+                type_index_add ( type_order [i], type_order [i] );
                 
                 if (type_order [i].GetCustomAttribute<starAttribute>() != null)
                 {
@@ -30,7 +30,17 @@ namespace Lyra
                      deriveds.AddRange ( a.GetTypes().Where(type => type.IsSubclassOf(type_order [i]) ) );
 
                     foreach ( var a in deriveds )
-                    type_index.Add ( a, type_order [i] );
+                    type_index_add ( a, type_order [i] );
+                }
+            }
+
+            void type_index_add ( Type a, Type b )
+            {
+                if ( !type_index.ContainsKey ( a ) )
+                type_index.Add ( a, b );
+                else {
+                    if ( b.IsSubclassOf ( type_index [a] ) )
+                    type_index [a] = b;
                 }
             }
         }
@@ -60,7 +70,7 @@ namespace Lyra
             s.tick ( this );
         }
 
-        public void execute ( star self )
+        public void execute ( star.main self )
         {
             start (self);
         }

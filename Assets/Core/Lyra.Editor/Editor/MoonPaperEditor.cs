@@ -16,6 +16,8 @@ namespace Lyra.Editor
         moon_editor dE;
         CursorGUI cursor;
 
+        public string TypeName { private set; get; }
+
         bool isWindow;
 
         public static void Show ( SerializedProperty target, FieldInfo targetFi )
@@ -37,6 +39,7 @@ namespace Lyra.Editor
             if ( t.valid () )
             {
                 paper = (moon) Activator.CreateInstance ( t.write() );
+                TypeName = paper.GetType ().Name;
                 JsonUtility.FromJsonOverwrite ( data.stringValue, paper );
             }
         }
@@ -64,6 +67,7 @@ namespace Lyra.Editor
             void SetDat (Type t)
             {
                 paper = (moon) Activator.CreateInstance ( t );
+                TypeName = t.Name;
             }
         }
 

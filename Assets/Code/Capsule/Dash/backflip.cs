@@ -13,10 +13,12 @@ namespace Triheroes.Code.CapsuleAct
         capsule capsule;
         [link]
         skin skin;
+        [link]
+        capsule.gravity gravity;
 
         delta_curve movement;
         delta_curve jump;
-        float jump_height = 1.5f;
+        float jump_height = 2f;
 
         protected override void _ready ()
         {
@@ -31,12 +33,15 @@ namespace Triheroes.Code.CapsuleAct
             skin.play ( new skin.animation ( animation.backflip, this ) { end = stop } );
 
             movement.start ( 5, skin.duration (animation.backflip) );
-            jump.start ( jump_height, .5f );
+            jump.start ( jump_height, .25f );
         }
 
         protected override void _step()
         {
             capsule.dir += vecteur.ldir (skin.roty,Vector3.back) * movement.tick_delta () + new Vector3(0, jump.tick_delta () , 0);
+
+            if (jump.done && !gravity.on)
+            link (gravity);
         }
     }
 }
