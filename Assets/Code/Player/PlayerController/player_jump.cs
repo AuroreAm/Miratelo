@@ -8,7 +8,7 @@ namespace Triheroes.Code
     public class player_jump : action
     {
         [link]
-        ground ground;
+        Axeal.ground ground;
         [link]
         foot_ik ik;
         [link]
@@ -22,7 +22,7 @@ namespace Triheroes.Code
 
         protected override void _ready()
         {
-            jump.set (4,3);
+            jump.set (4,2);
         }
 
         protected override void _step ()

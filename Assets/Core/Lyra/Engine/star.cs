@@ -31,6 +31,11 @@ namespace Lyra {
         }
 
         protected void link(star.main linked) {
+            if (!on) {
+                Debug.LogError ("star is not on");
+                return;
+            }
+
             if (linked.host != null) {
                 Debug.LogError ("star already has a host");
                 return;
@@ -42,6 +47,11 @@ namespace Lyra {
         }
 
         protected void reverse_link (star _host) {
+            if (!on) {
+                Debug.LogError ("star is not on");
+                return;
+            }
+
             if (host != null) {
                 Debug.LogError ("star already has a host");
                 return;

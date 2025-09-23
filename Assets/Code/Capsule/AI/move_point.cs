@@ -12,7 +12,7 @@ namespace Triheroes.Code.CapsuleAct
         [link]
         motor motor;
         [link]
-        dimension dimension;
+        character c;
 
         List <Vector3> points = new List<Vector3> ();
         public float speed = 7;
@@ -34,12 +34,12 @@ namespace Triheroes.Code.CapsuleAct
 
             if ( points.Count == 0 || !move.on ) return;
             
-            Vector3 direction = ( points [0].xz () - dimension.position.xz () ).normalized;
+            Vector3 direction = ( points [0].xz () - c.position.xz () ).normalized;
             direction = direction * speed;
             move.walk ( direction );
             lastdir = direction * Time.deltaTime;
 
-            while ( Vector3.Distance ( dimension.position.xz (), points  [0].xz () ) < lastdir.magnitude + .5f )
+            while ( Vector3.Distance ( c.position.xz (), points  [0].xz () ) < lastdir.magnitude + .5f )
             {
                 points.RemoveAt (0);
                 if (points.Count == 0)

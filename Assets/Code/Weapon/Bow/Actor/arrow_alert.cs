@@ -8,7 +8,7 @@ namespace Triheroes.Code
     public class arrow_alert : controller, gold<incomming_arrow>
     {
         [link]
-        dimension dimension;
+        character c;
 
         public float timeleft { private set; get; }
         public bool alert { private set; get; }
@@ -33,7 +33,7 @@ namespace Triheroes.Code
 
         public void _radiate( incomming_arrow gleam )
         {
-            var _timeleft = Vector3.Distance ( dimension.position, gleam.position ) / gleam.speed;
+            var _timeleft = Vector3.Distance ( c.position, gleam.position ) / gleam.speed;
 
             if ( timeleft > _timeleft )
             {

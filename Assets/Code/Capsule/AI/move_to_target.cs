@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Lyra;
+using Triheroes.Code.Axeal;
 using Triheroes.Code.CapsuleAct;
 using UnityEngine;
 using UnityEngine.AI;
@@ -16,12 +17,12 @@ namespace Triheroes.Code
         [link]
         warrior warrior;
         [link]
-        dimension dimension;
+        capsule capsule;
         [link]
         move_point point;
         
         Coroutine routine_low_step;
-        dimension target => warrior.target.get_dimension ();
+        capsule target => warrior.target.c.system.get <capsule> ();
         NavMeshPath path = new NavMeshPath ();
 
         protected override void _start()
@@ -40,7 +41,7 @@ namespace Triheroes.Code
         bool close_enough ()
         {
             if ( !warrior.target ) return false;
-            return Vector3.Distance ( dimension.position, target.position ) < _stop_distance + dimension.r + target.r;
+            return Vector3.Distance ( capsule.c.position, target.c.position ) < _stop_distance + capsule.r + target.r;
         }
 
         protected override void _step()
@@ -57,7 +58,7 @@ namespace Triheroes.Code
 
         void _low_step ()
         {
-            if (NavMesh.CalculatePath ( dimension.position, target.position, NavMesh.AllAreas, path ))
+            if (NavMesh.CalculatePath ( capsule.c.position, target.c.position, NavMesh.AllAreas, path ))
                 point.set_way ( path.corners );
         }
 

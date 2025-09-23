@@ -12,9 +12,6 @@ namespace Triheroes.Code
         [link]
         motor motor;
 
-        [link]
-        react_knock react_knock;
-
         float speed = 7;
         protected override void _step()
         {

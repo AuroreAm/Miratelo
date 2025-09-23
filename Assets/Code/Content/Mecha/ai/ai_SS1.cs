@@ -9,6 +9,7 @@ namespace Triheroes.Code
     [path("mecha ai")]
     public class ai_SS1 : action
     {
+        /*
         [export]
         public int combo_index = 0;
 
@@ -31,6 +32,6 @@ namespace Triheroes.Code
         {
             if (!combo[combo_index].on)
                 stop();
-        }
+        }*/
     }
 }

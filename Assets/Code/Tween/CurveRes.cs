@@ -8,5 +8,6 @@ namespace Triheroes.Code
     public class CurveRes : ScriptableObject
     {
         public AnimationCurve curve;
+        public static implicit operator AnimationCurve ( CurveRes a ) => a.curve;
     }
 }

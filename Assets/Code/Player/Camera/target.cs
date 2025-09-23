@@ -1,3 +1,5 @@
+using Lyra;
+using Triheroes.Code.Axeal;
 using UnityEngine;
 
 namespace Triheroes.Code
@@ -8,14 +10,14 @@ namespace Triheroes.Code
         float rotx_offset;
         float roty_previous;
 
-        public dimension target_subject;
+        public character target_subject;
 
         Vector3 spos => cam.player.position;
         Vector3 tpos => target_subject.position;
         
         protected override void _start()
         {
-            h = cam.player.h;
+            h = cam.player.system.get<capsule>().h;
             roty_offset = vecteur.rot_direction_y ( spos, tpos );
             rotx_offset = Mathf.DeltaAngle(0, rotx_offset) + 10;
             roty_previous = vecteur.rot_direction_y ( spos, tpos );

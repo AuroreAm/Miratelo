@@ -42,14 +42,14 @@ namespace Triheroes.Code
         stand stand;
 
         [link]
-        dimension dimension;
+        character c;
         float direction;
 
-        dimension target => warrior.target.get_dimension();
+        character target => warrior.target.c;
 
         protected override void _start()
         {
-            direction = stand.roty - vecteur.rot_direction_y ( dimension.position, target.position );
+            direction = stand.roty - vecteur.rot_direction_y ( c.position, target.position );
         }
 
         protected override void _step()
@@ -60,7 +60,7 @@ namespace Triheroes.Code
                 return;
             }
 
-            stand.roty = vecteur.rot_direction_y ( dimension.position, target.position ) + direction;
+            stand.roty = vecteur.rot_direction_y ( c.position, target.position ) + direction;
         }
 
     }

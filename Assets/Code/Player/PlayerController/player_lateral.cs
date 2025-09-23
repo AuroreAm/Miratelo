@@ -25,7 +25,7 @@ namespace Triheroes.Code
             input = player.move;
             input = vecteur.ldir ( camera.o.tps_roty, input) * 6f;
 
-            lateral.WalkLateral ( input );
+            lateral.walk_lateral ( input );
         }
 
         protected override void _stop ()

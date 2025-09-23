@@ -1,6 +1,7 @@
 using Lyra;
 using UnityEngine;
 using Triheroes.Code.CameraShot;
+using Triheroes.Code.Axeal;
 
 namespace Triheroes.Code
 {
@@ -8,7 +9,7 @@ namespace Triheroes.Code
     {
         protected override void _start()
         {
-            h = cam.player.h + .25f;
+            h = cam.player.system.get<capsule>().h + .25f;
             distance = 4;
         }
 

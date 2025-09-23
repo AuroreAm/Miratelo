@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Lyra;
+using Triheroes.Code.Axeal;
 using UnityEngine;
 
 namespace Triheroes.Code.CapsuleAct
@@ -10,9 +11,7 @@ namespace Triheroes.Code.CapsuleAct
         public override priority priority => priority.def3.with2nd();
 
         [link]
-        capsule capsule;
-        [link]
-        capsule.gravity gravity;
+        axeal a;
 
         [link]
         skin skin;
@@ -22,15 +21,12 @@ namespace Triheroes.Code.CapsuleAct
         stand stand;
 
         term state;
-        public Vector3 dir;
+        Vector3 dir;
 
         bool firstframe;
 
         protected override void _start ()
         {
-            this.link(capsule);
-            this.link(gravity);
-
             stand.use(this);
             if (firstframe == true)
             {
@@ -100,13 +96,13 @@ namespace Triheroes.Code.CapsuleAct
             skin.ani.SetFloat(hash.dz, dz);
         }
         
-        /// <param name="dir"> per second </param>
-        public void WalkLateral(Vector3 dir)
+        /// <param name="dir_s"> per second </param>
+        public void walk_lateral(Vector3 dir_s)
         {
             if (on)
             {
-                capsule.dir += Time.deltaTime * stand.slope_projection (dir, ground.normal );
-                this.dir += dir;
+                a.walk (  dir_s  );
+                this.dir += dir_s;
             }
         }
     }

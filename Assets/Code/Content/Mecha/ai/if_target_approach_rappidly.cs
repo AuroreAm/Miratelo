@@ -12,10 +12,10 @@ namespace Triheroes.Code
         [link]
         warrior warrior;
         [link]
-        dimension dimension;
+        character c;
         [link]
         move_point point;
-        dimension target => warrior.target.get_dimension ();
+        character target => warrior.target.c;
 
         float target_distance;
 
@@ -23,17 +23,17 @@ namespace Triheroes.Code
         {
             if (!warrior.target) return;
 
-            target_distance = Vector3.Distance ( dimension.position, target.position );
+            target_distance = Vector3.Distance ( c.position, target.position );
         } 
 
         protected override void _step ()
         {
             if (!warrior.target) return;
 
-            if ( Vector3.Distance ( dimension.position, target.position ) < target_distance - point.lastdir.magnitude * 2 )
+            if ( Vector3.Distance ( c.position, target.position ) < target_distance - point.lastdir.magnitude * 2 )
             stop ();
 
-            target_distance = Vector3.Distance ( dimension.position, target.position );
+            target_distance = Vector3.Distance ( c.position, target.position );
         }
     }
 }

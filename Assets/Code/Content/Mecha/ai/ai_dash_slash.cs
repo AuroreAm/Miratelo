@@ -8,7 +8,7 @@ namespace Triheroes.Code
     [path ("AI")]
     public class ai_dash_slash : action
     {
-        [link]
+        /*[link]
         motor motor;
         
         dash_slay attack;
@@ -27,6 +27,6 @@ namespace Triheroes.Code
         {
             if (!attack.on)
             stop ();
-        }
+        }*/
     }
 }

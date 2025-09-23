@@ -10,7 +10,7 @@ namespace Triheroes.Code
     public class look_target : action
     {
         [link]
-        dimension dimension;
+        character c;
         [link]
         warrior warrior;
         [link]
@@ -21,7 +21,7 @@ namespace Triheroes.Code
         [export]
         public float _angular_speed = 160;
         
-        dimension target => warrior.target.get_dimension ();
+        character target => warrior.target.c;
 
         protected override void _start()
         {
@@ -30,7 +30,7 @@ namespace Triheroes.Code
 
         protected override void _step ()
         {
-            var rot = vecteur.rot_direction_y ( dimension.position,target.position );
+            var rot = vecteur.rot_direction_y ( c.position,target.position );
             stand.roty = Mathf.MoveTowardsAngle(skin.roty, rot, Time.deltaTime * _angular_speed);
 
             stand.rotate_skin ();

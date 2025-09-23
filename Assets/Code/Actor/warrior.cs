@@ -9,13 +9,14 @@ namespace Triheroes.Code
     public class warrior : moon
     {
         [link]
+        character _c;
+        public character c => _c;
+
+        [link]
         actor actor;
 
         [link]
         public photon photon;
-
-        [link]
-        character c;
 
         [link]
         public skin skin;
@@ -71,7 +72,7 @@ namespace Triheroes.Code
         public static implicit operator bool(warrior exists)
         {
             if (exists != null)
-            return exists.c.gameobject;
+            return exists._c.gameobject;
             else
             return false;
         }

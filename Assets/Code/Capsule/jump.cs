@@ -1,69 +1,59 @@
 using Lyra;
 using UnityEngine;
+using Triheroes.Code.Axeal;
 
-namespace Triheroes.Code.CapsuleAct
-{
-    public class jump : act
-    {
-        public override priority priority => priority.action.with2nd ();
+namespace Triheroes.Code {
+    public class jump : act {
+        public override priority priority => priority.action.with2nd();
 
         [link]
-        capsule capsule;
+        axeal a;
         [link]
         skin skin;
 
-        delta_curve cu;
+        force_curve_data f_jump;
+
         float max;
         float min;
         bool done;
 
         public term jump_animation = animation.jump;
 
-        protected override void _ready ()
-        {
-            cu = new delta_curve ( triheroes_res.curve.q ( animation.jump ).curve );
+        protected override void _ready() {
+            f_jump = new force_curve_data( .5f, triheroes_res.curve.q(animation.jump), 1);
         }
 
-        public void set ( float _max, float _min )
-        {
+        public void set(float _max, float _min) {
             max = _max;
             min = _min;
         }
 
-        protected override void _start()
-        {
-            this.link(capsule);
-
-            cu.start(max, .5f);
-            skin.play( new skin.animation ( jump_animation, this ) );
+        protected override void _start() {
+            f_jump.dir = Vector3.up * max;
+            a.set_force(f_jump);
+            skin.play(new skin.animation(jump_animation, this));
             done = false;
         }
-        
-        
-        /// <param name="dir">per second</param>
-        public void move(Vector3 dir, float factor = walk_factor.run)
-        {
+
+
+        public void move(Vector3 dir_s, float factor = walk_factor.run) {
             if (on)
-                capsule.dir += dir * Time.deltaTime * factor;
+                a.move (dir_s * factor);
         }
 
-        public void stop_jump()
-        {
-            if ( cu.current >= min && cu.current < (max + min)/ 2 )
-            done = true;
+        public void stop_jump() {
+            if ( a.main_force.current < (max + min) / 2)
+                done = true;
         }
 
-        protected override void _step()
-        {
-            capsule.dir += new Vector3(0, cu.tick_delta (), 0);
-
-            if ( done )
-            {
-                stop ();
+        protected override void _step() {
+            if (done && a.main_force.current >= min) {
+                a.stop_main_force();
+                stop();
                 return;
             }
 
-            if (cu.done)
+            if (a.main_force.done)
                 stop();
         }
     }

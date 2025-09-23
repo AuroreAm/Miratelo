@@ -61,7 +61,7 @@ namespace Triheroes.Code
         [link]
         CameraShot.subject subject_shot;
 
-        public void start_player_camera ( dimension player )
+        public void start_player_camera ( character player )
         {
             tps.player = player;
             set_shot ( tps );
@@ -72,7 +72,7 @@ namespace Triheroes.Code
             tps.transition_to ( tps_normal );
         }
 
-        public void transition_target ( dimension target )
+        public void transition_target ( character target )
         {
             tps_target.target_subject = target;
             tps.transition_to ( tps_target );

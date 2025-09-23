@@ -47,7 +47,7 @@ namespace Triheroes.Code
         [link]
         mecha_buster buster;
 
-        dimension target => warrior.target.get_dimension();
+        character target => warrior.target.c;
 
         public void _act_end(act a, bool replaced)
         { }

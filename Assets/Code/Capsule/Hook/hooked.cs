@@ -7,16 +7,17 @@ namespace Triheroes.Code.CapsuleAct
 {
     public class react_hook : moon, ruby <hook>
     {
-        [link]
+       /*[link]
         hooked hooked;
         
         [link]
         motor motor;
+        */
 
         public void _radiate(hook gleam)
         {
-            hooked.set ( gleam.curve, gleam.dir, gleam.duration );
-            motor.start_act (hooked);
+            /*hooked.set ( gleam.curve, gleam.dir, gleam.duration );
+            motor.start_act (hooked);*/
         }
     }
 
@@ -24,6 +25,12 @@ namespace Triheroes.Code.CapsuleAct
     public class hooked : act, gold <hook_spam>
     {
         public override priority priority => priority.reaction;
+
+        public void _radiate(hook_spam gleam)
+        {
+            // time = 0;
+        }
+        /*
 
         [link]
         capsule capsule;
@@ -59,10 +66,7 @@ namespace Triheroes.Code.CapsuleAct
             stop ();
         }
 
-        public void _radiate(hook_spam gleam)
-        {
-            time = 0;
-        }
+        }*/
     }
 
 }

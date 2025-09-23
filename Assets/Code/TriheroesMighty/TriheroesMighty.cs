@@ -6,13 +6,13 @@ namespace Triheroes.Code
 {
     public static class order
     {
-        public const int capsule_ground_detection = -70;
+        public const int axeal_ground = -70;
 
         public const int attack = 48;
         public const int arrow = 49;
         public const int slash = 50;
 
-        public const int capsule_gravity = 70;
+        public const int axeal_gravity = 70;
         public const int capsule = 71;
 
         public const int skin = 80;

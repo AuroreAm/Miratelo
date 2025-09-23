@@ -53,9 +53,9 @@ namespace Triheroes.Editor
             GUILayout.BeginHorizontal ();
             GUILayout.Label ("Or");
             if (GUILayout.Button ("Left Hand"))
-                TargetHand = Ani.GetComponent <CapsuleSkinAuthor> ().Hand [0];
+                TargetHand = Ani.GetComponent <AxealAuthor> ().Hand [0];
             if (GUILayout.Button ("Right Hand"))
-                TargetHand = Ani.GetComponent <CapsuleSkinAuthor> ().Hand [1];
+                TargetHand = Ani.GetComponent <AxealAuthor> ().Hand [1];
             GUILayout.EndHorizontal ();
 
             CustomDirection = EditorGUILayout.ObjectField ( "Custom Direction", CustomDirection, typeof(Transform), true ) as Transform;

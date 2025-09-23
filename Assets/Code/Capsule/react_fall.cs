@@ -1,6 +1,6 @@
 using Lyra;
+using Triheroes.Code.Axeal;
 using UnityEngine;
-using Triheroes.Code.CapsuleAct;
 
 namespace Triheroes.Code
 {
@@ -11,7 +11,7 @@ namespace Triheroes.Code
         ground ground;
 
         [link]
-        capsule.gravity gravity;
+        gravity gravity;
 
         [link]
         fall fall;
@@ -33,7 +33,7 @@ namespace Triheroes.Code
         ground ground;
 
         [link]
-        capsule.gravity gravity;
+        gravity gravity;
 
         [link]
         fall fall;

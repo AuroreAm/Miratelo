@@ -25,7 +25,7 @@ namespace Triheroes.Code
 
         void frame_actor ()
         {
-            camera.o.start_player_camera ( main_actor.system.get <dimension> () );
+            camera.o.start_player_camera ( main_actor.system.get <character> () );
         }
     }
 

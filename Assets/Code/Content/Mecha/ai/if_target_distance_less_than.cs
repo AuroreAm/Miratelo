@@ -14,11 +14,11 @@ namespace Triheroes.Code
         [export]
         public float distance;
 
-        dimension target => warrior.target.get_dimension ();
+        character target => warrior.target.c;
 
         protected override void _step()
         {
-            if (warrior.target && Vector3.Distance(warrior.get_dimension().position, target.position) < distance)
+            if (warrior.target && Vector3.Distance(warrior.c.position, target.position) < distance)
                 stop ();
         }
     }

@@ -5,7 +5,7 @@ using Lyra;
 
 namespace Triheroes.Code.CapsuleAct
 {
-
+    /*
     public class react_knock : moon, ruby<knock>
     {
         [link]
@@ -89,9 +89,9 @@ namespace Triheroes.Code.CapsuleAct
                 motor.start_act ( on_ground );
             }
         }
-    }
+    }*/
 
-    public class knocked_out_on_ground : act
+    /*public class knocked_out_on_ground : act
     {
         [link]
         capsule capsule;
@@ -151,5 +151,5 @@ namespace Triheroes.Code.CapsuleAct
             link ( gravity );
             skin.play ( new skin.animation ( animation.stand_up, this ) { end = stop } );
         }
-    }
+    }*/
 }

@@ -18,14 +18,14 @@ namespace Triheroes.Code
         [link]
         warrior warrior;
         [link]
-        dimension dimension;
+        character c;
         [link]
         move_point point;
 
         int way_counts;
         float roty_start;
 
-        dimension target => warrior.target.get_dimension ();
+        character target => warrior.target.c;
 
         protected override void _start()
         {
@@ -33,7 +33,7 @@ namespace Triheroes.Code
 
             if ( !warrior.target ) return;
 
-            roty_start = vecteur.rot_direction_y ( target.position, dimension.position );
+            roty_start = vecteur.rot_direction_y ( target.position, c.position );
 
             way_counts =  1 + (int) _angle_amount / 10;
             var points = new Vector3 [ way_counts ];

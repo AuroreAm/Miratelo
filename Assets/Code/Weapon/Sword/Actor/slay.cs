@@ -30,8 +30,6 @@ namespace Triheroes.Code.Sword.Combat
         [link]
         warrior warrior;
         [link]
-        capsule capsule;
-        [link]
         skin_dir skin_dir;
         [link]
         sword_user sword_user;
@@ -49,7 +47,6 @@ namespace Triheroes.Code.Sword.Combat
 
         protected override void _start ()
         {
-            link (capsule);
             link (skin_dir);
             skin_dir.dir = skin.ani.transform.forward;
             skin.play ( new skin.animation ( animation, this ) { end = stop, ev0 = begin_slash } );

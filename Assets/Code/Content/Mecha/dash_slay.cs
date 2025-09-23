@@ -7,10 +7,13 @@ using Triheroes.Code.Sword;
 using Triheroes.Code.Sword.Combat;
 using UnityEngine;
 
+/*
 namespace Triheroes.Code
 {
+     
     public class mecha_slay : act
     {
+        
         public override priority priority => priority.action;
 
         [link]
@@ -155,3 +158,4 @@ namespace Triheroes.Code
         }
     }
 }
+*/

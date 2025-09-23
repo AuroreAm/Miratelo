@@ -7,10 +7,10 @@ namespace Triheroes.Code
 {
     public class jump_away : act
     {
-        public override priority priority => priority.action;
 
-        [link]
-        capsule capsule;
+        public override priority priority => priority.action;
+        /*
+
         [link]
         skin skin;
         [link]
@@ -51,6 +51,6 @@ namespace Triheroes.Code
                 skin.play( new skin.animation( animation.fall_end, this ) );
                 stop();
             }
-        }
+        }*/
     }
 }

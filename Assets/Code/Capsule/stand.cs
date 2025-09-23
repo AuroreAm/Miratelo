@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using Lyra;
 using UnityEngine;
@@ -16,8 +16,6 @@ namespace Triheroes.Code
 
         [link]
         skin skin;
-
-        public static Vector3 slope_projection ( Vector3 Dir,Vector3 GroundNormal ) => Vector3.ProjectOnPlane (Dir, GroundNormal).normalized * Dir.magnitude;
 
         protected override void _ready()
         {

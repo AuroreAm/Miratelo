@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using Lyra;
 using UnityEngine;
 using Triheroes.Code.CameraShot;
+using Triheroes.Code.Axeal;
 
 namespace Triheroes.Code
 {
     public class player_camera : shot
     {
-        public dimension player;
+        public character player;
         float rotx;
         float roty;
         float distance;
@@ -121,7 +122,7 @@ namespace Triheroes.Code
             if (!warrior.target)
             Debug.LogWarning ("trying to target a target that doesn't exist");
 
-            camera.o.transition_target ( warrior.target.system.get <dimension> () );
+            camera.o.transition_target ( warrior.target.c );
         }
 
         protected override void _stop()

@@ -7,7 +7,6 @@ namespace Lyra
     {
         public GameObject gameobject { private set; get; }
         public Transform coord { private set; get; }
-        
         public Vector3 position => coord.position;
 
         public class ink : ink <character>

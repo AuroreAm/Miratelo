@@ -1,16 +1,17 @@
 using Lyra;
+using Triheroes.Code.Axeal;
 using UnityEngine;
 
-namespace Triheroes.Code.CapsuleAct
+namespace Triheroes.Code
 {
     public class fall : act
     {
         public override priority priority => priority.action.with2nd ();
 
         [link]
-        capsule capsule;
+        axeal a;
         [link]
-        protected capsule.gravity gravity;
+        protected gravity gravity;
         [link]
         protected ground ground;
         [link]
@@ -22,9 +23,6 @@ namespace Triheroes.Code.CapsuleAct
 
         protected override void _start()
         {
-            this.link (capsule);
-            this.link (gravity);
-
             skin.play ( new skin.animation ( animation.fall, this ) );
         }
 
@@ -49,10 +47,10 @@ namespace Triheroes.Code.CapsuleAct
         }
         
         /// <param name="dir">per second</param>
-        public virtual void move ( Vector3 dirPerSecond, float walkFactor = walk_factor.run )
+        public virtual void move ( Vector3 dir_s, float walk_factor = walk_factor.run )
         {
             if (on)
-            capsule.dir += Time.deltaTime * walkFactor * dirPerSecond;
+            a.move ( walk_factor * dir_s );
         }
     }
 
