@@ -4,7 +4,7 @@ using Triheroes.Code.Inv0Act;
 namespace Triheroes.Code
 {
     [path ("player controller")]
-    public class player_equip : action, acting
+    public class player_equip : action, act_handler
     {
         [link]
         motor motor;
@@ -20,9 +20,9 @@ namespace Triheroes.Code
         [link]
         return_weapon @return;
 
-        public void _act_end (act m, bool replaced)
+        public void _act_end (act m, act_status status)
         {
-            if ( !replaced && m == @return && draw.prepared )
+            if ( status == act_status.done && m == @return && draw.prepared )
                 motor.start_act2nd(draw, this);
         }
 

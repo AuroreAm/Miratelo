@@ -29,7 +29,7 @@ namespace Triheroes.Code {
         Vector3 dir;
 
         protected override void _start() {
-            this.link(footstep);
+            link(footstep);
             stand.use(this);
 
             if (frame != Time.frameCount) {

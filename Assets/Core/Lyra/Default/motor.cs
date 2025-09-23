@@ -7,14 +7,22 @@ namespace Lyra
     {
         public abstract priority priority { get; }
     }
+    
+    public enum act_status { done, abort, start_failed }
+
+    public interface act_handler
+    {
+        public void _act_end ( act a, act_status status );
+        public bool on { get; }
+    }
 
     // motor layer of behavior
     // asign only state that directly manipulate motion of a character: animation and movement
     public sealed class motor : controller, core_kind
     {
-        acting acting;
+        act_handler acting;
 
-        acting acting2nd;
+        act_handler acting2nd;
 
         public act act { get; private set; }
         public int priority { get; private set; } = -1;
@@ -37,7 +45,7 @@ namespace Lyra
         }
 
         bool replaced;
-        public bool start_act (act _act, acting handler = null )
+        public bool start_act (act _act, act_handler handler = null )
         {
             if ( _act.priority.level != 0 )
             {
@@ -45,7 +53,11 @@ namespace Lyra
                 return false;
             }
 
-            if (_act.priority <= priority) return false;
+            if (_act.priority <= priority) {
+                if (handler != null)
+                handler._act_end ( _act, act_status.start_failed );
+                return false;
+            }
             
             if ( replaced )
             {
@@ -56,9 +68,7 @@ namespace Lyra
             replaced = true;
             // TODO, if stopped here, should call handler or not?
             if (act != null)
-            {
                 act.stop(this);
-            }
 
             act = _act;
             priority = act.priority;
@@ -75,7 +85,7 @@ namespace Lyra
             return true;
         }
 
-        public void stop_act ( acting handler )
+        public void stop_act ( act_handler handler )
         {
             if (handler == acting)
                 act.stop(this);
@@ -83,15 +93,19 @@ namespace Lyra
                 Dev.Break(" handler can't stop state ");
         }
 
-        public bool start_act2nd ( act _act2nd, acting handler = null )
+        public bool start_act2nd ( act _act2nd, act_handler handler = null )
         {
             if ( _act2nd.priority.level != 1 )
             {
                 Debug.LogError ($"{_act2nd} must have level 1");
                 return false;
             }
-            if (!accept2nd) return false;
-            if (_act2nd.priority <= priority2nd) return false;
+
+            if (!accept2nd || _act2nd.priority <= priority2nd) {
+                if (handler != null)
+                handler._act_end ( _act2nd, act_status.start_failed );
+                return false;
+            }
             
             if ( replaced )
             {
@@ -120,7 +134,7 @@ namespace Lyra
         /// end the main state at request of the original handler only
         /// </summary>
         /// <param name="handler"></param>
-        public void stop_act2nd ( acting handler )
+        public void stop_act2nd ( act_handler handler )
         {
             if (handler == acting2nd)
                 act2nd.stop(this);
@@ -140,7 +154,7 @@ namespace Lyra
             accept2nd = false;
 
             if ( h != null && h.on )
-                h._act_end (m, replaced);
+                h._act_end (m, replaced? act_status.abort : act_status.done );
         }
 
         void end2nd ()
@@ -153,7 +167,7 @@ namespace Lyra
             priority2nd = -1;
 
             if ( h != null && h.on )
-                h._act_end(m, replaced);
+                h._act_end(m, replaced? act_status.abort : act_status.done );
         }
 
         public void _star_stop ( star s )
@@ -167,11 +181,6 @@ namespace Lyra
     }
 
 
-    public interface acting
-    {
-        public void _act_end ( act a, bool replaced );
-        public bool on { get; }
-    }
 
     public struct priority
     {

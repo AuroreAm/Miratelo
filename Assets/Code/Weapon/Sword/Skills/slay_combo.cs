@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     [need_ready]
-    public class slay_combo : action, acting
+    public class slay_combo : action, act_handler
     {
         act [] combo;
 
@@ -57,9 +57,8 @@ namespace Triheroes.Code
             stop ();
         }
 
-        public void _act_end(act m, bool replaced)
-        {
-            if ( replaced )
+        public void _act_end(act a, act_status status) {
+            if ( status != act_status.done )
             return;
 
             if ( ready_for_next )

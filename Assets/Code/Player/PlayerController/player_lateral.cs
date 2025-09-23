@@ -6,7 +6,7 @@ using Triheroes.Code.CapsuleAct;
 
 namespace Triheroes.Code
 {
-    public class player_lateral : controller , acting
+    public class player_lateral : controller , act_handler
     {
         [link]
         motor motor;
@@ -34,7 +34,7 @@ namespace Triheroes.Code
             motor.stop_act ( this );
         }
 
-        public void _act_end(act m, bool replaced)
-        {}
+        public void _act_end(act a, act_status status) {
+        }
     }
 }

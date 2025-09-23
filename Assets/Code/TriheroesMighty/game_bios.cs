@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     [superstar]
-    public class game_bios : bios
+    public class morai : bios
     {
         bios current;
 

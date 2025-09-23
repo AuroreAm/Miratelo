@@ -6,16 +6,13 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     [path("mecha ai")]
-    public class ai_aim : action, acting
+    public class ai_aim : action, act_handler
     {
         [link]
         mecha_buster.aim aim;
 
         [link]
         motor motor;
-
-        public void _act_end(act a, bool replaced)
-        {}
 
         protected override void _start()
         {
@@ -33,10 +30,13 @@ namespace Triheroes.Code
             if (!aim.on)
                 stop();
         }
+
+        public void _act_end(act a, act_status status) {
+        }
     }
 
     [path("mecha ai")]
-    public class ai_aim_target : action, acting
+    public class ai_aim_target : action, act_handler
     {
         [link]
         motor motor;
@@ -49,8 +49,8 @@ namespace Triheroes.Code
 
         character target => warrior.target.c;
 
-        public void _act_end(act a, bool replaced)
-        { }
+        public void _act_end(act a, act_status status) {
+        }
 
         protected override void _step()
         {

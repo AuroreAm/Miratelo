@@ -33,7 +33,7 @@ namespace Triheroes.Code
     public class start_play : action
     {
         [link]
-        game_bios bios;
+        morai bios;
 
         [link]
         play play;

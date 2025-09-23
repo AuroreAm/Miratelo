@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using UnityEngine;
 
 namespace Lyra {
@@ -177,6 +176,7 @@ namespace Lyra {
         }
 
         public abstract class neutron : star {
+            /// <summary> make sure anything after stop() is suposed to run even the star is stopped </summary>
             protected new void stop() {
                 base.stop();
             }

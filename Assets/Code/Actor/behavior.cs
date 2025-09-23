@@ -1,11 +1,9 @@
 using Lyra;
 using UnityEngine;
 
-namespace Triheroes.Code
-{
+namespace Triheroes.Code {
     [inked]
-    public class behavior : controller
-    {
+    public class behavior : controller {
         [link]
         script script;
 
@@ -13,26 +11,20 @@ namespace Triheroes.Code
         int frame;
         bool started;
 
-        public class ink : ink <behavior>
-        {
-            public ink ( term start )
-            {
+        public class ink : ink<behavior> {
+            public ink(term start) {
                 o.start = start;
             }
         }
 
-        protected override void _ready()
-        {
-            system.add ( script );
-            phoenix.core.execute (this);
+        protected override void _ready() {
+            phoenix.core.execute(this);
             frame = Time.frameCount;
         }
 
-        protected override void _step ()
-        {
-            if ( !started && frame != Time.frameCount )
-            {
-                phoenix.core.start_action ( script [start] );
+        protected override void _step() {
+            if (!started && frame != Time.frameCount) {
+                phoenix.core.start_action(script[start]);
                 started = true;
             }
         }

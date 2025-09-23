@@ -13,7 +13,6 @@ namespace Triheroes.Code
 
         [link]
         public skin skin;
-
         public Vector3 position => c.position;
 
         public term term;

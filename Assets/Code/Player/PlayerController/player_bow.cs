@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     [path ("player controller")]
-    public class player_bow : action2, acting
+    public class player_bow : action2, act_handler
     {
         [link]
         player_lateral lateral;
@@ -19,9 +19,6 @@ namespace Triheroes.Code
 
         [link]
         aim aim;
-
-        public void _act_end(act m, bool replaced)
-        {}
 
         protected override void _stepa()
         {
@@ -59,5 +56,7 @@ namespace Triheroes.Code
         {
             this.unlink ( lateral );
         }
+
+        public void _act_end(act a, act_status status) {}
     }
 }
