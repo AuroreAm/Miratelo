@@ -1,7 +1,6 @@
 using Lyra;
 using System.Collections;
 using System.Collections.Generic;
-using Triheroes.Code.CapsuleAct;
 using Triheroes.Code.Mecha;
 using Triheroes.Code.Sword;
 using Triheroes.Code.Sword.Combat;

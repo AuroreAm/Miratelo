@@ -4,7 +4,7 @@ using Lyra;
 using Triheroes.Code.Axeal;
 using UnityEngine;
 
-namespace Triheroes.Code.CapsuleAct
+namespace Triheroes.Code
 {
     public class backflip : act
     {

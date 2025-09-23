@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Lyra;
 
-namespace Triheroes.Code.CapsuleAct
+namespace Triheroes.Code
 {
     /*
     public class react_knock : moon, ruby<knock>

@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using Lyra;
 using UnityEngine;
 
-namespace Triheroes.Code.CapsuleAct
+namespace Triheroes.Code
 {
     public class move_point : controller
     {
         [link]
-        move move;
-        [link]
-        motor motor;
-        [link]
         character c;
+        [link]
+        move move;
 
         List <Vector3> points = new List<Vector3> ();
         public float speed = 7;
@@ -28,15 +26,14 @@ namespace Triheroes.Code.CapsuleAct
 
         protected override void _step()
         {
-
-            if ( points.Count != 0 && !move.on )
-                motor.start_act ( move );
-
-            if ( points.Count == 0 || !move.on ) return;
+            if ( points.Count == 0 ) return;
             
             Vector3 direction = ( points [0].xz () - c.position.xz () ).normalized;
+
             direction = direction * speed;
+
             move.walk ( direction );
+
             lastdir = direction * Time.deltaTime;
 
             while ( Vector3.Distance ( c.position.xz (), points  [0].xz () ) < lastdir.magnitude + .5f )
@@ -48,7 +45,6 @@ namespace Triheroes.Code.CapsuleAct
         }
 
         // TODO impossible path notice
-        
         protected override void _stop()
         {
             lastdir = Vector3.zero;

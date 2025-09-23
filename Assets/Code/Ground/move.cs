@@ -160,7 +160,6 @@ namespace Triheroes.Code {
         #endregion
     }
 
-
     public static class walk_factor {
         public const float idle = 0;
         public const float walk = 0.15f;

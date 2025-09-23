@@ -1,23 +1,36 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Lyra
 {
-    public sealed class ActionPaper : MonoBehaviour
+    public abstract class ActionPaperBase : MonoBehaviour
+    {
+        public abstract action write ();
+    }
+
+    public class ActionPaper : ActionPaperBase
     {
         public moon_paper <action> Paper;
 
-        public action write () 
+        public override action write () 
         {
             var a = Paper.write ();
-
             if ( a is decorator d)
-            {
-                action [] Childs = new action [ transform.childCount ];
-                for (int i = 0; i < Childs.Length; i++)
-                    Childs [i] = transform.GetChild (i).GetComponent <ActionPaper> ().write ();
-                d.set (Childs);
-            }
+            PopulateDecorator (d);
             return a;
+        }
+
+        public void PopulateDecorator (decorator d)
+        {
+            List <action> Childs = new List <action> ();
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                if (transform.GetChild (i).TryGetComponent <ActionPaper> (out var c))
+                Childs .Add ( c.write () );
+            }
+
+            d.set (Childs.ToArray ());
         }
 
         #if UNITY_EDITOR

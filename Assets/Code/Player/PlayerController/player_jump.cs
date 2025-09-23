@@ -1,5 +1,4 @@
 using Lyra;
-using Triheroes.Code.CapsuleAct;
 using static Triheroes.Code.animation;
 
 namespace Triheroes.Code

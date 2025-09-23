@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Lyra;
-using Triheroes.Code.CapsuleAct;
 using UnityEngine;
 
 namespace Triheroes.Code

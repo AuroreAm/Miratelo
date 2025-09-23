@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Lyra;
 using UnityEngine;
 
-namespace Triheroes.Code.CapsuleAct
+namespace Triheroes.Code
 {
     public class lock_target : controller
     {

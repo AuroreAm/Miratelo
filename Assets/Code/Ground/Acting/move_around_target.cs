@@ -1,6 +1,5 @@
 using Lyra;
 using UnityEngine;
-using Triheroes.Code.CapsuleAct;
 using System.Collections;
 using System.Collections.Generic;
 

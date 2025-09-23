@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Lyra;
-using Triheroes.Code.CapsuleAct;
 using Triheroes.Code.Sword;
 using Triheroes.Code.Sword.Combat;
 using UnityEngine;

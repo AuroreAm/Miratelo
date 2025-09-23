@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using Lyra;
-using Triheroes.Code.CapsuleAct;
 using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [path ("ai")]
+    [path ("move")]
     public class look_target : action
     {
         [link]

@@ -42,7 +42,7 @@ namespace Lyra
 
         public static void substitute ( term term, bool resume_after = false )
         {
-            if ( static_domain.Peek () == null )
+            if (static_domain.Count == 0)
             throw new InvalidOperationException ( "can't use task_sequence outside of its child" );
             
             static_domain.Peek ().substitute_internal ( static_domain.Peek ().script [term], resume_after );
@@ -63,7 +63,7 @@ namespace Lyra
 
         public static void abort ()
         {
-            if ( static_domain.Peek () == null )
+            if (static_domain.Count == 0)
             throw new InvalidOperationException ( "can't use task_sequence outside of its child" );
             
             static_domain.Peek ().stop ();

@@ -2,7 +2,7 @@ using Lyra;
 using UnityEngine;
 using Triheroes.Code.Axeal;
 
-namespace Triheroes.Code.CapsuleAct {
+namespace Triheroes.Code {
     public class dash : act {
         public override priority priority => priority.action;
 

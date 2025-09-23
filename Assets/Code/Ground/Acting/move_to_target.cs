@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Lyra;
 using Triheroes.Code.Axeal;
-using Triheroes.Code.CapsuleAct;
 using UnityEngine;
 using UnityEngine.AI;
 
