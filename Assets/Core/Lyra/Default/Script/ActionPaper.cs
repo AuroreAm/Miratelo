@@ -15,12 +15,12 @@ namespace Lyra
         public override action write () 
         {
             var a = Paper.write ();
-            if ( a is decorator d)
+            if ( a is decorator_kind d)
             PopulateDecorator (d);
             return a;
         }
 
-        public void PopulateDecorator (decorator d)
+        public void PopulateDecorator (decorator_kind d)
         {
             List <action> Childs = new List <action> ();
 
@@ -34,11 +34,11 @@ namespace Lyra
         }
 
         #if UNITY_EDITOR
-        public bool IsDecorator ()
+        public bool IsDecoratorKind ()
         {
             return
             Paper.type.valid () &&
-            Paper.type.write ().IsSubclassOf ( typeof ( decorator ) );
+            typeof(decorator_kind).IsAssignableFrom (Paper.type.write ());
         }
         #endif
     }

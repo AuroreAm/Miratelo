@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Lyra
 {
-    public class task_sequence : decorator
+    /*public class task_sequence : decorator
     {
         action ptr_action;
         int ptr;
@@ -127,6 +127,6 @@ namespace Lyra
         {
             task_sequence.substitute ( term );
         }
-    }
+    }*/
 
 }

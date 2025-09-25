@@ -57,7 +57,7 @@ namespace Lyra.Editor
         {
             return
             go.GetComponent <ActionPaper> () &&
-            go.GetComponent <ActionPaper> ().IsDecorator () &&
+            go.GetComponent <ActionPaper> ().IsDecoratorKind () &&
             go.transform.childCount == 0;
         }
 

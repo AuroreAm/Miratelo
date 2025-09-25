@@ -45,12 +45,6 @@ namespace Triheroes.Code
 
         protected override void _step()
         {
-            if ( close_enough () )
-            {
-                stop ();
-                return;
-            }
-
             if ( !warrior.target )
             stop ();
         }

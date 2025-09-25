@@ -5,8 +5,12 @@ using UnityEngine;
 
 namespace Lyra
 {
+    public interface decorator_kind {
+        public void set ( action [] child );
+    }
+
     [path ("decorator")]
-    public abstract class decorator : action, core_kind
+    public abstract class decorator : action, core_kind, decorator_kind
     {
         protected action [] o;
         public abstract void _star_stop(star s);

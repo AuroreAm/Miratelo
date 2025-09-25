@@ -14,18 +14,22 @@ namespace Lyra
         private bool ready;
         public system system { get; private set; }
 
+        static Action <moon> moon_constructor_event;
         public moon ()
         {
             #if UNITY_EDITOR
             if ( ! UnityEditor.EditorApplication.isPlaying )
             return;
             #endif
-
+            moon_constructor_event?.Invoke ( this );
+            moon_constructor_event = null;
             id = ++static_counter;
 
             if ( system_domain.Count > 0 && system_domain.Peek() != null )
                 system_domain.Peek().add(this);
         }
+        /// <summary> set a constructor event, make sure to instance the moon after calling this, with great power come great responsibility </summary>  <param name="e"></param>
+        public static void set_constructor_event ( Action<moon> e ) => moon_constructor_event = e;
 
         internal static Stack <system> system_domain = new Stack<system> ();
 
@@ -219,6 +223,8 @@ namespace Lyra
 
             public system create_system ()
             {
+                photon p = get_or_add_founder ( typeof (photon) ) as photon;
+
                 stack.Push (this);
                 moon.system_domain.Push (null);
                 author._create ();
@@ -227,7 +233,9 @@ namespace Lyra
 
                 var s = new system ( founder );
                 author._created (s);
-                
+
+                p.radiate ( new system_ready ());
+
                 return s;
             }
 
@@ -255,6 +263,8 @@ namespace Lyra
     [AttributeUsage(AttributeTargets.Class)]
     public class inkedAttribute : Attribute
     { }
+
+    public struct system_ready {}
 }
 
 // TODO: reflection cache for dependency

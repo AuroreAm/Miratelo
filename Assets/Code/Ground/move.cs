@@ -24,7 +24,7 @@ namespace Triheroes.Code {
         public float factor;
 
         float sprint_cooldown;
-        int frame;
+        int frame = -1;
 
         Vector3 dir;
 

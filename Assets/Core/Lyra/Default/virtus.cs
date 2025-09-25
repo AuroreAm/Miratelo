@@ -132,7 +132,7 @@ namespace Lyra
                 }
             }
 
-            int frame;
+            int frame = -1;
             public void return_virtus (virtus v)
             {
                 active.Remove (v.rent_id);

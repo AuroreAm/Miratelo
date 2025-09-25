@@ -92,7 +92,7 @@ namespace Lyra.Editor
             if ( go.GetComponent <ActionPaper> () )
             EditorGUI.DrawRect ( selectionRect, new Color (.4f,.4f,.6f,.4f) );
 
-            if ( go.GetComponent <ActionPaper> () && go.GetComponent <ActionPaper> ().IsDecorator () )
+            if ( go.GetComponent <ActionPaper> () && go.GetComponent <ActionPaper> ().IsDecoratorKind () )
             EditorGUI.DrawRect ( selectionRect, new Color (.4f,.4f,.7f,.4f) );
 
             if ( go.GetComponent <ScriptAuthor> () )

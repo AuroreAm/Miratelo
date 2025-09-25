@@ -68,7 +68,7 @@ namespace Lyra
             replaced = true;
             // TODO, if stopped here, should call handler or not?
             if (act != null)
-                act.stop(this);
+                act.abort(this);
 
             act = _act;
             priority = act.priority;
@@ -77,7 +77,7 @@ namespace Lyra
             acting = handler;
 
             if (!accept2nd && act2nd != null)
-                act2nd.stop(this);
+                act2nd.abort(this);
 
             replaced = false;
             act.tick(this);
@@ -85,10 +85,36 @@ namespace Lyra
             return true;
         }
 
+        public bool can_start_act (act _act) {
+            if ( _act.priority.level != 0 )
+            {
+                Debug.LogError ($"{_act} must have level 0");
+                return false;
+            }
+
+            if (_act.priority <= priority)
+                return false;
+
+            return true;
+        }
+
+        public bool can_start_act2nd (act _act2nd) {
+            if ( _act2nd.priority.level != 1 )
+            {
+                Debug.LogError ($"{_act2nd} must have level 1");
+                return false;
+            }
+
+            if (!accept2nd || _act2nd.priority <= priority2nd) 
+                return false;
+
+            return true;
+        }
+
         public void stop_act ( act_handler handler )
         {
             if (handler == acting)
-                act.stop(this);
+                act.abort(this);
             else
                 Dev.Break(" handler can't stop state ");
         }
@@ -116,7 +142,7 @@ namespace Lyra
             replaced = true;
 
             if (act2nd != null)
-                act2nd.stop(this);
+                act2nd.abort(this);
 
             acting2nd = handler;
 
@@ -137,7 +163,7 @@ namespace Lyra
         public void stop_act2nd ( act_handler handler )
         {
             if (handler == acting2nd)
-                act2nd.stop(this);
+                act2nd.abort(this);
             else
                 Debug.LogError(" handler can't stop state ");
         }

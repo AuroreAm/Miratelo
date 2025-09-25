@@ -98,21 +98,21 @@ namespace Triheroes.Code
         }
 
         #region Animation commands
-        public float[] event_points(term Key)
+        public float[] event_points(term key)
         {
-            if (ext.states.TryGetValue(Key, out AniExt.state State))
+            if (ext.states.TryGetValue(key, out AniExt.state State))
                 return State.evs;
             else
-                Debug.LogError("no state corresponding key in Animator controller");
+                Dev.Break($"no state {key.name} key in Animator controller");
             return null;
         }
 
-        public float duration(term Key)
+        public float duration(term key)
         {
-            if (ext.states.TryGetValue(Key, out AniExt.state State))
+            if (ext.states.TryGetValue(key, out AniExt.state State))
                 return State.duration;
             else
-                Debug.LogError("no state corresponding key in Animator controller");
+                Dev.Break($"no state {key.name} key in Animator controller");
             return 0;
         }
 
@@ -124,7 +124,7 @@ namespace Triheroes.Code
             if (ext.states.TryGetValue(animation.key, out AniExt.state State))
                 ((state)players[animation.layer]).play(animation, State.duration, State.evs, false);
             else
-                Debug.LogError("no state corresponding key in Animator controller");
+                Dev.Break($"no state {animation.key.name} key in Animator controller");
         }
 
         public void hold(animation animation)
@@ -135,7 +135,7 @@ namespace Triheroes.Code
             if (ext.states.TryGetValue(animation.key, out AniExt.state State))
                 ((state)players[animation.layer]).play(animation, State.duration, State.evs, true);
             else
-                Debug.LogError("no state corresponding key in Animator controller");
+                Dev.Break($"no state {animation.key.name} key in Animator controller");
         }
 
         public void enable_sync_layer(int layer)
@@ -158,7 +158,7 @@ namespace Triheroes.Code
             if (ext.states.TryGetValue(key, out AniExt.state AnimationState))
                 return AnimationState.key == ((state)players[layer]).animation_key;
             else
-                Debug.LogError("no state corresponding key in Animator controller");
+                Dev.Break($"no state {key.name} key in Animator controller");
             return false;
         }
 
@@ -167,7 +167,7 @@ namespace Triheroes.Code
             if (ext.states.TryGetValue(key, out AniExt.state AnimationState))
                 return ((state)players[layer]).transitioning_from(AnimationState.key);
             else
-                Debug.LogError("no state corresponding key in Animator controller");
+                Dev.Break($"no state {key.name} key in Animator controller");
             return false;
         }
 

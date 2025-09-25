@@ -3,13 +3,12 @@ using UnityEngine;
 
 namespace Triheroes.Code {
     [inked]
-    public class behavior : controller {
+    public class behavior : controller, ruby <system_ready> {
         [link]
         script script;
 
         term start;
-        int frame;
-        bool started;
+        sequence start_script;
 
         public class ink : ink<behavior> {
             public ink(term start) {
@@ -17,16 +16,13 @@ namespace Triheroes.Code {
             }
         }
 
-        protected override void _ready() {
-            phoenix.core.execute(this);
-            frame = Time.frameCount;
+        protected override void _start() {
+                phoenix.core.start_action( start_script );
         }
 
-        protected override void _step() {
-            if (!started && frame != Time.frameCount) {
-                phoenix.core.start_action(script[start]);
-                started = true;
-            }
+        public void _radiate(system_ready gleam) {
+            start_script =  script[start].instance_sequence ();
+            phoenix.core.execute(this);
         }
     }
 }

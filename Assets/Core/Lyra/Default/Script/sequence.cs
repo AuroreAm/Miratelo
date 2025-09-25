@@ -11,6 +11,11 @@ namespace Lyra
         [export]
         public bool reset = true ;
 
+        public static sequence new_sequence ( action[] o ){
+            set_constructor_event ( s => ((sequence)s).set ( o ) );
+            return new sequence ();
+        }
+
         protected sealed override void _start ()
         {
             if (reset)
@@ -26,8 +31,10 @@ namespace Lyra
         protected override void _abort()
         {
             if (o[ptr].on)
-            o[ptr].stop (this);
+            o[ptr].abort (this);
         }
+
+        // TODO NOTE sequence act like a while loop, if all child directly stop at start, it triggers stack overflow
 
         public override void _star_stop(star p)
         {

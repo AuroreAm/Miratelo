@@ -165,7 +165,7 @@ namespace Lyra {
             c._star_stop(this);
         }
 
-        public void stop(core_kind handler) {
+        public void abort (core_kind handler) {
             if (handler == core)
                 abort();
             else
