@@ -29,17 +29,21 @@ namespace Triheroes.Code
             active_arrows.Remove (this);
         }
 
+
+        #region fire
         static Vector3 _pos;
         static Quaternion _rot;
         static float _spd;
 
-        public static void fire (int name, Vector3 pos, Quaternion rot, float spd)
-        {
-            _pos = pos;
-            _rot = rot;
-            _spd = spd;
-            orion.rent (name);
+        public class w : bridge {
+            public void fire ( Vector3 pos, Quaternion rot, float spd ) { 
+                _pos = pos;
+                _rot = rot;
+                _spd = spd;
+                orion.rent (name);
+            }
         }
+        #endregion
 
         static List <arrow> active_arrows = new List<arrow>();
         public static void deflect ( Vector3 position, Vector3 normal )

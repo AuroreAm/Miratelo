@@ -15,25 +15,23 @@ namespace Triheroes.Code
         [link]
         axeal a;
         
-        force_curve_data f_jump;
-        force_curve_data f_move;
         force_curve_data[] f;
         float jump_height = 2f;
 
         protected override void _ready ()
         {
-            f_move = new force_curve_data ( skin.duration (animation.backflip), triheroes_res.curve.q (animation.backflip) );
+            f = new force_curve_data[2];
 
-            f_jump = new force_curve_data ( Vector3.up * jump_height, .25f, triheroes_res.curve.q (animation.jump), 1 );
+            f[0] = new force_curve_data ( skin.duration (animation.backflip), res.curves.q (animation.backflip) );
 
-            f = new force_curve_data[] { f_move, f_jump };
+            f[1] = new force_curve_data ( Vector3.up * jump_height, .25f, res.curves.q (animation.jump), 1 );
         }
 
         protected override void _start ()
         {
             skin.play ( new skin.animation ( animation.backflip, this ) { end = stop } );
 
-            f_move.dir = vecteur.ldir (skin.roty,Vector3.back);
+            f[0].dir = vecteur.ldir (skin.roty,Vector3.back * 5f);
             a.set_forces (f);
         }
     }

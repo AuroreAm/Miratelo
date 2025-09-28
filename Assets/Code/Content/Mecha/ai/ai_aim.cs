@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Lyra;
 using UnityEngine;
-
+/*
 namespace Triheroes.Code
 {
     [path("mecha ai")]
@@ -63,4 +63,4 @@ namespace Triheroes.Code
             aim.at(vecteur.rot_direction_y(buster.position, target.position));
         }
     }
-}
+}*/

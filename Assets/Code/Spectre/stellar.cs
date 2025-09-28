@@ -34,6 +34,10 @@ namespace Triheroes.Code {
             public void stop (int id) {
                 orion.get <stellar> (name, id).stop ();
             }
+
+            public void set_position ( int id, Vector3 position ) {
+                orion.get <stellar> (name, id).position = position;
+            }
         }
         #endregion
 
@@ -46,7 +50,13 @@ namespace Triheroes.Code {
             frame_id = 0;
         }
 
+
         void stop (){
+            if ( !loop )
+            {
+                Debug.LogWarning ("non looping stellar can't be stopped");
+                return;
+            }
             virtus.return_ ();
         }
 

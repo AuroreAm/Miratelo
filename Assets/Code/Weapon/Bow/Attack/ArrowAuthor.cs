@@ -11,6 +11,8 @@ namespace Triheroes.Code
         public arrow.skin skin;
         public bool arrow_billboard;
 
+        arrow.w w;
+
         protected override void _virtus_create()
         {
             if ( arrow_billboard )
@@ -18,5 +20,7 @@ namespace Triheroes.Code
             else
             new arrow.spectre.ink ( skin );
         }
+
+        public arrow.w get_w () => get_bridge (ref w);
     }
 }

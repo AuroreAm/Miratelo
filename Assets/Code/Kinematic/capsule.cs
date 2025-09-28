@@ -24,6 +24,7 @@ namespace Triheroes.Code.Axeal
             }
         }
 
+
         protected override void _ready() {
             cc = _c.gameobject.AddComponent<CharacterController>();
             cc.height = h;

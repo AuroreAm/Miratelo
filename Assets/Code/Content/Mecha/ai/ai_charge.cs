@@ -1,5 +1,5 @@
 using Lyra;
-
+/*
 namespace Triheroes.Code.Mecha
 {
     [path ("mecha ai")]
@@ -19,4 +19,4 @@ namespace Triheroes.Code.Mecha
             stop ();
         }
     }
-}
+}*/

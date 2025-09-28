@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using Lyra;
+using Triheroes.Code;
+using UnityEngine;
 
 namespace Triheroes.Code
 {
@@ -23,9 +25,39 @@ namespace Triheroes.Code
 
         public const int graphic_element = 100;
     }
+}
 
-    public static class triheroes_res
-    {
-        public static readonly game_resources <CurveRes> curve = new game_resources<CurveRes> ( "Path" );
+namespace Triheroes{
+
+    [CreateAssetMenu(fileName = "TriheroesMighty", menuName = "Game/Main Resources")]
+    public class TriheroesMighty : ScriptableObject {
+        public List <CurveRes> Curves;
+        public List <StellarAuthor> Stellars;
+        public List <ArrowAuthor> Arrows;
     }
+
+    [superstar]
+    public class res : moon {
+
+        protected override void _ready() {
+            TriheroesMighty main = Resources.Load <TriheroesMighty> ( "TriheroesMighty" );
+
+            if (!main)
+                throw new System.Exception ( "TriheroesMighty not found, game cannot start" );
+
+            foreach (var a in main.Stellars)
+                stellars.add ( new term (a.name), a );
+            
+            foreach (var a in main.Arrows)
+                arrows.add ( new term (a.name), a );
+
+            foreach (var a in main.Curves)
+                curves.add ( new term (a.name), a );
+        }
+
+        public static res <StellarAuthor> stellars = new res<StellarAuthor> ();
+        public static res <ArrowAuthor> arrows = new res<ArrowAuthor> ();
+        public static res <CurveRes> curves = new res<CurveRes> ();
+    }
+    
 }

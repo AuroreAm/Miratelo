@@ -47,7 +47,6 @@ namespace Triheroes.Code
         
         public void shot ()
         {
-            arrow.fire ( bow_user.weapon.arrow, bow_user.weapon.string_position, Quaternion.Euler ( bow_user.weapon.rot ), 30 );
         }
 
         protected override void _stop ()

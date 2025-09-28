@@ -45,7 +45,7 @@ namespace Lyra {
             phoenix.core.link(linked);
         }
 
-        protected void reverse_link (star _host) {
+        /*protected void reverse_link (star _host) {
             if (!on) {
                 Debug.LogError ("star is not on");
                 return;
@@ -64,7 +64,7 @@ namespace Lyra {
 
             host = _host;
             host.web.Add (this);
-        }
+        }*/
 
         protected void unlink(star.main linked) {
             linked.host = null;

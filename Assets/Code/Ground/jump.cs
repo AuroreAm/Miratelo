@@ -20,7 +20,7 @@ namespace Triheroes.Code {
         public term jump_animation = animation.jump;
 
         protected override void _ready() {
-            f_jump = new force_curve_data( .5f, triheroes_res.curve.q(animation.jump), 1);
+            f_jump = new force_curve_data( .5f, res.curves.q(animation.jump), 1);
         }
 
         public void set(float _max, float _min) {

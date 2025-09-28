@@ -7,9 +7,6 @@ namespace Lyra
 {
     public static class game_resources
     {
-        public static readonly game_resources < VirtusCreator > virtus_so = new game_resources<VirtusCreator> ( "Virtus" );
-        public static readonly game_resources < VirtusAuthor > virtus_go = new game_resources<VirtusAuthor> ("Spectre");
-
         public static readonly game_resources < AudioClip > SE = new game_resources<AudioClip> ("SE");
     }
     
@@ -43,6 +40,18 @@ namespace Lyra
         public T q ( int id )
         {
             return _res[id];
+        }
+    }
+
+    public sealed class res <T> {
+        Dictionary < term, T > main = new Dictionary<term, T> ();
+
+        public void add ( term key, T value ) {
+            main.Add ( key, value );
+        }
+
+        public T q ( term key ) {
+            return main[key];
         }
     }
 }
