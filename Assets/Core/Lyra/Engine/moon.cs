@@ -260,7 +260,7 @@ namespace Lyra
     public class exportAttribute : Attribute
     { }
 
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class, Inherited = true)]
     public class inkedAttribute : Attribute
     { }
 

@@ -16,9 +16,9 @@ namespace Triheroes.Code
             }
         }
 
-        public static readonly term mecha_plasma = new term ( "arrow" );
         public const float plasma_speed = 50;
-        public const float plasma_energy = .3f;
+        public const float plasma_cost = .3f;
+        public static readonly term mecha_plasma = new term ( "mecha_plasma" );
 
         Transform orig, end;
         public float roty => vecteur.rot_direction_y (orig.position, end.position);
@@ -52,11 +52,12 @@ namespace Triheroes.Code
             {
                 roty = y;
             }
-
+            
             public void charge_buster ()
             {
                 if ( on )
                 buster.charge += buster.charge_speed * Time.deltaTime;
+
             }
 
             public void shot ()
@@ -65,7 +66,7 @@ namespace Triheroes.Code
 
                 if ( buster.charge <= 0 ) return;
 
-                buster.charge -= plasma_energy;
+                buster.charge -= plasma_cost;
 
                 arrow.fire ( mecha_plasma, buster.position, Quaternion.Euler ( new Vector3 (0, roty, 0) ), plasma_speed );
             }

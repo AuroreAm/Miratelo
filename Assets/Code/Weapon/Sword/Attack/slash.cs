@@ -32,16 +32,20 @@ namespace Triheroes.Code.Sword
             }
         }
 
+        #region fire
         static path _path;
         static sword _sword;
         static float _duration;
-        public static void fire ( int name, sword sword, path path, float duration )
-        {
-            _path = path;
-            _sword = sword;
-            _duration = duration;
-            orion.rent (name);
+
+        public class w: bridge {
+            public void fire ( sword sword, path path, float duration ) {
+                _path = path;
+                _sword = sword;
+                _duration = duration;
+                orion.rent (name);
+            }
         }
+        #endregion
 
         protected override void _start ()
         {

@@ -55,7 +55,7 @@ namespace Triheroes.Code.Sword.Combat
 
         void begin_slash ()
         {
-            slash.fire ( sword_user.weapon.slash, sword_user.weapon, paths.paths [animation], skin.duration (animation) - skin.event_points (animation) [0] );
+            sword_user.weapon.slash.fire ( sword_user.weapon, paths.paths [animation], skin.duration (animation) - skin.event_points (animation) [0] ); 
         }
 
         void send_slash_signal ()

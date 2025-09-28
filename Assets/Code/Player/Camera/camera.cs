@@ -16,6 +16,10 @@ namespace Triheroes.Code
         public Camera unity_camera {private set; get;}
         CameraShot.shot shot;
 
+        public Quaternion get_billboard_rotation ( Vector3 position ) {
+            return Quaternion.LookRotation ( unity_camera.transform.position - position );
+        }
+
         public class ink : ink <camera>
         {
             public ink ( Camera camera, Transform coord )

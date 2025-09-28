@@ -27,5 +27,15 @@ namespace Lyra
 
         public void _created(system s)
         {}
+
+        protected T get_bridge <T> ( ref T w ) where T : bridge, new () {
+            if (w == null) {
+                var n = new term (name);
+                w = bridge.create <T> ( n );
+                orion.add ( this, name );
+            }
+            
+            return w;
+        }
     }
 }

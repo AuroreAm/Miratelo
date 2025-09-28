@@ -8,11 +8,11 @@ namespace Triheroes.Code
     public class SwordAuthor : WeaponAuthor
     {
         public float Length;
-        public string SlashName;
+        public SlashAuthor Slash;
 
         protected override weapon __creation()
         {
-            return new sword.ink ( Length, SlashName ).o;
+            return new sword.ink ( Length, Slash.get_w () ).o;
         }
 
         #if UNITY_EDITOR

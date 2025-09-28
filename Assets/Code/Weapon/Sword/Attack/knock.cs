@@ -9,21 +9,22 @@ namespace Triheroes.Code
 {
     public class knocker : attack, gold<hacked>
     {
-        [link]
-        slash slash;
-
         Vector3 dir;
         float speed;
 
+        #region fire
         static Vector3 _dir;
         static float _speed;
 
-        public static void fire ( int name, sword sword, path path, float duration, Vector3 knock_dir, float knock_speed )
-        {
-            _dir = knock_dir;
-            _speed = knock_speed;
-            slash.fire ( name, sword, path, duration );
+        public class w : slash.w {
+            public void fire ( sword sword, path path, float duration, Vector3 knock_dir, float knock_speed )
+            {   
+                _dir = knock_dir;
+                _speed = knock_speed;
+                fire (  sword, path, duration );
+            }
         }
+        #endregion
 
         protected override void _start()
         {

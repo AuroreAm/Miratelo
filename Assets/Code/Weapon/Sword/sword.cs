@@ -1,5 +1,6 @@
 using Lyra;
 using System.Collections.Generic;
+using Triheroes.Code.Sword;
 using UnityEngine;
 
 namespace Triheroes.Code
@@ -12,18 +13,14 @@ namespace Triheroes.Code
         public Vector3 position => c.position;
 
         public float length { get; private set; }
-        public term slash { get; private set; }
-        public term slash_hook_up { get; private set;}
-        public term slash_hook_spam { get; private set;}
+        public slash.w slash { get; private set; }
 
         public class ink : ink < sword >
         {
-            public ink ( float length, string slash_name )
+            public ink ( float length, slash.w slash )
             {
                 o.length = length;
-                o.slash = new term ( slash_name );
-                o.slash_hook_up = new term ( slash_name + "_hook_up" );
-                o.slash_hook_spam = new term ( slash_name + "_hook_spam" );
+                o.slash = slash;
             }
         }
 

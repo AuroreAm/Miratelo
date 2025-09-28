@@ -9,24 +9,25 @@ namespace Triheroes.Code
 {
     public class hooker : attack, gold <hacked>
     {
-        [link]
-        slash slash;
-
         AnimationCurve cu;
         Vector3 dir;
         float duration;
 
+        
+        #region fire
         static AnimationCurve _hook_curve;
         static Vector3 _hook_dir;
         static float _duration;
 
-        public static void fire ( int name, sword sword, path path, float duration, AnimationCurve hook_curve, Vector3 hook_dir, float hook_duration )
-        {
-            _hook_curve = hook_curve;
-            _hook_dir = hook_dir;
-            _duration = hook_duration;
-            slash.fire ( name, sword, path, duration );
+        public class w : slash.w {
+            public void fire ( sword sword, path path, float duration, AnimationCurve hook_curve, Vector3 hook_dir, float hook_duration ) {
+                _hook_curve = hook_curve;
+                _hook_dir = hook_dir;
+                _duration = hook_duration;
+                fire ( sword, path, duration );
+            }
         }
+        #endregion
 
         protected override void _start()
         {

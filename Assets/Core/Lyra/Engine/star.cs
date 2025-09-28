@@ -188,6 +188,6 @@ namespace Lyra {
         public void _star_stop(star s);
     }
 
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class, Inherited = true)]
     public class need_readyAttribute : Attribute { }
 }

@@ -11,20 +11,12 @@ namespace Triheroes.Code
     {
         public Material TrailMaterial;
         public int FrameNumber = 1;
+        slash.w w;
 
-        public enum type { normal, hooker, hook_spammer, knocker }
-        public type Type;
-
-        protected override void _virtus_create()
-        {
-            new Sword.slash.ink ( TrailMaterial, FrameNumber );
-            
-            if ( Type == type.hooker )
-            new ink <hooker> ();
-            else if (Type == type.hook_spammer)
-            new ink <hook_spammer> ();
-            else if ( Type == type.knocker )
-            new ink <knocker> ();
+        protected override void _virtus_create() {
+            new slash.ink ( TrailMaterial, FrameNumber );
         }
+
+        public slash.w get_w () => get_bridge (ref w);
     }
 }
