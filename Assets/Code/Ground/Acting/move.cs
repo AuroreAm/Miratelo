@@ -3,7 +3,7 @@ using Lyra;
 namespace Triheroes.Code.Acting
 {
     [path("acting")]
-    public class move : acting {
+    public class move : acting.first {
         [link]
         Code.move move_act;
 

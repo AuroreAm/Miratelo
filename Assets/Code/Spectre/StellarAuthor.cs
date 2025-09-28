@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    [CreateAssetMenu(fileName = "---", menuName = "RPG/Stellar")]
     public class StellarAuthor : VirtusCreator {
         public Material Material;
         public int FrameNumber;
