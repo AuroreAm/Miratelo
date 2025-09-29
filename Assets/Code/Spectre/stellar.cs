@@ -4,14 +4,13 @@ using UnityEngine;
 namespace Triheroes.Code {
     // billboard sprite sheet
     [inked]
-    [need_ready]
     public class stellar : spectre {
-        Mesh[] frame;
+        Mesh[] frames;
         Material material;
         int frame_number;
         float frame_id;
 
-        const float speed = 4;
+        const float speed = 12;
         Vector3 position;
         bool loop;
 
@@ -41,7 +40,7 @@ namespace Triheroes.Code {
         }
         #endregion
 
-        protected override void _ready() {
+        protected override void __ready() {
             compute_mesh_frame(frame_number);
         }
 
@@ -49,7 +48,6 @@ namespace Triheroes.Code {
             position = _position;
             frame_id = 0;
         }
-
 
         void stop (){
             if ( !loop )
@@ -61,7 +59,7 @@ namespace Triheroes.Code {
         }
 
         protected override void _step() {
-            Graphics.DrawMesh(frame[Mathf.FloorToInt(frame_id)], position, camera.o.get_billboard_rotation(position), material, 0);
+            Graphics.DrawMesh(frames[Mathf.FloorToInt(frame_id)], position, camera.o.get_billboard_rotation(position), material, 0);
 
             frame_id += Time.deltaTime * speed;
             if ( !loop && frame_id > frame_number ) {
@@ -71,20 +69,47 @@ namespace Triheroes.Code {
 
         // create all quad meshes for each frame
         void compute_mesh_frame(int frame_number) {
-            frame = new Mesh[frame_number];
+            frames = new Mesh[frame_number];
+            
+            float frame_width = 1f / frame_number;
 
-            for (int i = 0; i < frame_number; i++) {
-                frame[i] = new Mesh();
-                frame[i].vertices = new Vector3[] { new Vector3(-.5f, -.5f, 0), new Vector3(.5f, -.5f, 0), new Vector3(.5f, .5f, 0), new Vector3(-.5f, .5f, 0) };
-                frame[i].triangles = new int[] { 0, 1, 2, 0, 2, 3 };
+            for (int i = 0; i < frame_number; i++)
+            {
+                Mesh m = new Mesh();
 
-                // strip uv to frame number, only horizontal sprite sheet
-                float frame_width = 1f / frame_number;
-                float frame_offset = i * frame_width;
-                frame[i].uv = new Vector2[] { new Vector2(frame_offset, 0), new Vector2(frame_offset + frame_width, 0), new Vector2(frame_offset + frame_width, 1), new Vector2(frame_offset, 1) };
+                // Standard quad vertices
+                Vector3[] vertices = new Vector3[]
+                {
+                    new Vector3(-0.5f, -0.5f, 0), // Bottom Left
+                    new Vector3( 0.5f, -0.5f, 0), // Bottom Right
+                    new Vector3(-0.5f,  0.5f, 0), // Top Left
+                    new Vector3( 0.5f,  0.5f, 0)  // Top Right
+                };
 
-                frame[i].RecalculateBounds();
-                frame[i].RecalculateNormals();
+                // UV mapping for this frame
+                float uMin = i * frame_width;
+                float uMax = (i + 1) * frame_width;
+
+                Vector2[] uvs = new Vector2[]
+                {
+                    new Vector2(uMin, 0), // Bottom Left
+                    new Vector2(uMax, 0), // Bottom Right
+                    new Vector2(uMin, 1), // Top Left
+                    new Vector2(uMax, 1)  // Top Right
+                };
+
+                int[] triangles = new int[]
+                {
+                    0, 2, 1, // First triangle
+                    2, 3, 1  // Second triangle
+                };
+
+                m.vertices = vertices;
+                m.uv = uvs;
+                m.triangles = triangles;
+                m.RecalculateNormals();
+
+                frames [i] = m;
             }
         }
     }

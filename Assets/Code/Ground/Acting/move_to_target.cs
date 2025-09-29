@@ -7,7 +7,7 @@ using UnityEngine.AI;
 
 namespace Triheroes.Code
 {
-    [path ("AI")]
+    [path ("acting")]
     public class move_to_target : action
     {
         [export]

@@ -9,4 +9,18 @@ namespace Triheroes.Code.Acting
 
         protected override act get_act() => move_act;
     }
+
+    [path("move")]
+    public class set_move_point_speed : action {
+        [link]
+        move_point point;
+
+        [export]
+        public float speed = 7;
+
+        protected override void _start() {
+            point.speed = speed;
+            stop ();
+        }
+    }
 }

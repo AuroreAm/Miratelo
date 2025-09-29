@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    [path ("move")]
+    [path ("acting")]
     public class look_target : action
     {
         [link]

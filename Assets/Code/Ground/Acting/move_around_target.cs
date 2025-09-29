@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Triheroes.Code
 {
-    [path ("AI")]
+    [path ("acting")]
     public class move_around_target : action
     {
         [export]

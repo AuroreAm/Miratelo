@@ -37,6 +37,7 @@ namespace Triheroes.Code.Mecha
             st_charge_init = res.stellars.q (new term("charge1")).get_w ();
             st_charge_loop = res.stellars.q (new term("charge2")).get_w ();
             st_shoot = res.stellars.q (new term("charge3")).get_w ();
+            plasma = res.arrows.q (new term ("arrow")).get_w ();
         }
 
         public class aim : act
@@ -76,7 +77,6 @@ namespace Triheroes.Code.Mecha
         }
 
         public class charger : controller {
-
             [link]
             aim aim;
 
@@ -94,8 +94,8 @@ namespace Triheroes.Code.Mecha
             protected override void _start() {
                 state = state_.charge;
                 // effect at start
-                buster.st_charge_init.fire (buster.position);
-                charge_loop = buster.st_charge_loop.fire (buster.position);
+                buster.st_charge_init.fire (buster.end.position);
+                charge_loop = buster.st_charge_loop.fire (buster.end.position);
             }
 
             protected override void _step() {
@@ -111,12 +111,15 @@ namespace Triheroes.Code.Mecha
             }
 
             public void shoot () {
-                if (state == state_.charged) state = state_.shooting;
+                if (state == state_.charged) {
+                    state = state_.shooting;
+                    buster.st_charge_loop.stop ( charge_loop );
+                }
 
                 if (state == state_.shooting)
                 {
-                    buster.st_shoot.fire (buster.position);
-                    // buster.plasma.fire ( buster.end.position, Quaternion.Euler (0, aim.roty,0), plasma_speed );
+                    buster.st_shoot.fire (buster.end.position);
+                    buster.plasma.fire ( buster.end.position, Quaternion.Euler (0, aim.roty,0), plasma_speed );
                     charge -= plasma_cost;
                     if (charge <= 0) state = state_.done;
                 }
