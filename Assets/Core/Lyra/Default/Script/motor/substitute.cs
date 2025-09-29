@@ -7,25 +7,28 @@ namespace Lyra
     public sealed class substitute : task, ruby < system_ready > {
         [export]
         public term term;
-
-        [export]
-        public bool absolute;
-
+        
         [link]
         script script;
 
-        tasks index;
+        tasks tasks;
+        
+        task_decorator domain;
+
+        protected override void _ready() {
+            domain = task_decorator.get_domain ();
+        }
 
         protected override bool _can_start() {
-            return index.can_start ();
+            return tasks.can_start ();
         }
 
         public void _radiate(system_ready gleam) {
-            index = script [term].instance_tasks ();
+            tasks = (tasks) script [term];
         }
 
         protected override void _start() {
-            task_decorator.substitute ( index );
+            domain.substitute ( tasks );
         }
     }
 }

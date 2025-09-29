@@ -3,48 +3,43 @@ using UnityEngine;
 
 namespace Lyra {
     public class script : moon {
-        Dictionary<term, index> library = new Dictionary<term, index>();
+        Dictionary<term, action> library = new Dictionary<term, action>();
 
-        public void add_index(index ind) {
+        public void add_index(action ind, term name) {
             system.add(ind);
-            library.Add(ind.name, ind);
+            library.Add(name, ind);
         }
 
-        public index this[term id] => library[id];
-    }
+        public action this[term id] => library[id];
 
 
-    [path("")]
-    public sealed class index : decorator {
-        public term name { private set; get; }
-        action[] child => o;
-        public bool repeat;
-        public bool absolute;
-        public bool reset;
+        #if UNITY_EDITOR
+        [link]
+        script_indexor sci;
 
-        public index(string _name) {
-            name = new term(_name);
+        public class script_indexor : public_moon <script_indexor> {
+            [link]
+            internal script script;
+            [link]
+            character c;
+
+            protected override void _ready() {
+                register ( c.gameobject.GetInstanceID () );
+            }
         }
 
-        protected override void _start() {
-            Debug.LogError("index is not supposed to start");
-        }
+        [superstar]
+        public class crypt : index <script_indexor> {
+            static crypt o;
 
-        public sequence instance_sequence () {
-            var s = sequence.new_sequence (child);
-            s.repeat = repeat;
-            s.reset = reset;
-            return s;
-        }
+            protected override void _ready() {
+                o = this;
+            }
 
-        public tasks instance_tasks () {
-            var t = tasks.new_tasks (child);
-            t.repeat = repeat;
-            t.reset = reset;
-            return t;
+            public static Dictionary <term, action> get (int id) {
+                return o.ptr[id].script.library;
+            }
         }
-
-        public override void _star_stop(star s) {
-        }
+        #endif
     }
 }

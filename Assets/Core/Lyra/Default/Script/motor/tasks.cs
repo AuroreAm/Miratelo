@@ -27,12 +27,12 @@ namespace Lyra {
 
             ptr_task = o[ptr];
 
-            task_tick(ptr_task);
+            ptr_task.tick (this);
         }
 
         protected override void _step() {
             if (!hold)
-            task_tick(ptr_task);
+            ptr_task.tick (this);
             else
             check_hold ();
         }
@@ -57,13 +57,13 @@ namespace Lyra {
             }
 
             if (!hold)
-            task_tick(ptr_task);
+            ptr_task.tick (this);
         }
 
         void check_hold () {
             if ( ptr_task.can_start () ) {
                 hold = false;
-                task_tick (ptr_task);
+                ptr_task.tick (this);
             }
         }
 

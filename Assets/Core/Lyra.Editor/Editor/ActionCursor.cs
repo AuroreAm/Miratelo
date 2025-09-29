@@ -27,13 +27,14 @@ namespace Lyra.Editor
         {
             ActionPaper a;
             a = new GameObject ().AddComponent < ActionPaper > ();
+            a.name = "-";
 
             a.Paper.type.content = t.AssemblyQualifiedName;
             a.Paper.data = JsonUtility.ToJson ( Activator.CreateInstance ( t ));
 
             if ( _target )
             {
-                if ( HierarchyFoldoutUtility.IsExpanded ( _target ) || _target.GetComponent <IndexPaper> () || GOIsDecoratorWith0Childs ( _target ) )
+                if ( HierarchyFoldoutUtility.IsExpanded ( _target ) || GOIsDecoratorWith0Childs ( _target ) )
                 {
                     a.transform.SetParent ( _target.transform );
                     a.transform.SetAsFirstSibling ();

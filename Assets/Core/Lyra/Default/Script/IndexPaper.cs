@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
 namespace Lyra {
     public sealed class IndexPaper : MonoBehaviour {
         public bool Repeat = false;
@@ -23,3 +24,4 @@ namespace Lyra {
         }
     }
 }
+*/

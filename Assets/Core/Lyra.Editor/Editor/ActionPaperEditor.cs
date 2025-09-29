@@ -16,7 +16,7 @@ namespace Lyra.Editor
         void OnEnable ()
         {
             _target = target as ActionPaper;
-            _editor = ScriptableObject.CreateInstance <MoonPaperEditor> ();
+            _editor = CreateInstance <MoonPaperEditor> ();
 
             var paper = serializedObject.FindProperty ( PaperField );
             _editor.Load ( paper , _target.GetType ().GetField ( PaperField, BindingFlags.Instance | BindingFlags.Public ) );
@@ -25,11 +25,6 @@ namespace Lyra.Editor
         public override void OnInspectorGUI()
         {
             _editor.OnGUI ();
-            if ( _target.gameObject.name != _editor.TypeName )
-            {
-                _target.gameObject.name = _editor.TypeName;
-                EditorUtility.SetDirty (_target.gameObject);
-            }
         }
     }
 }

@@ -54,7 +54,7 @@ namespace Lyra.Editor
                 var Key = _types.ElementAt(i).Key;
 
                 Section = EditorGUILayout.BeginVertical();
-                EditorGUI.DrawRect(Section, new Color(.2f, .2f, .2f));
+                EditorGUI.DrawRect(Section, new Color(.9f, .9f, .9f));
 
                 List<Type> TypeList = new List<Type>();
                 for (int j = 0; j < _types[Key].Length; j++)

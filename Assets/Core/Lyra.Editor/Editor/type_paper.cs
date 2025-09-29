@@ -19,8 +19,8 @@ namespace Lyra.Editor
 
             position.height = EditorGUIUtility.singleLineHeight;
 
-            if ( GUI.Button ( position, TypeNameByString ( property.FindPropertyRelative ("Content").stringValue ) ) )
-            TypeSelectionWindow.Show ( property );
+            if (UnityEngine.GUI.Button ( position, TypeNameByString( property.FindPropertyRelative ("Content").stringValue ) ) )
+                TypeSelectionWindow.Show ( property );
 
             EditorGUI.EndProperty ();
         }

@@ -5,8 +5,14 @@ namespace Lyra
 {
     public abstract class task : action { 
 
+        task_decorator domain;
+
+        protected override void _ready() {
+            domain = task_decorator.get_domain ();
+        }
+
         protected void fail () {
-            task_decorator.task_failed ();
+            domain.task_failed ();
             stop ();
         }
 

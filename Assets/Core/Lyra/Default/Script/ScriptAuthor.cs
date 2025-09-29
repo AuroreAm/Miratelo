@@ -13,8 +13,8 @@ namespace Lyra
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                if ( transform.GetChild (i).TryGetComponent <IndexPaper> ( out var c ) )
-                system.get <script> ().add_index ( c.write () );
+                if ( transform.GetChild (i).TryGetComponent <ActionPaper> ( out var c ) )
+                system.get <script> ().add_index ( c.write (), new term (c.gameObject.name) );
             }
         }
     }

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Reflection;
 using System.Collections.Generic;
+using System;
 
 namespace Lyra.Editor
 {
@@ -20,23 +21,10 @@ namespace Lyra.Editor
             Undo.RegisterCreatedObjectUndo (a, "Create Script");
         }
 
-        [MenuItem ("GameObject/Index")]
-        static void CreateIndexPaper ()
-        {
-            var a = new GameObject ("---");
-            a.AddComponent <IndexPaper> ();
-
-            if (Selection.activeGameObject)
-            a.transform.SetParent (Selection.activeGameObject.transform);
-
-            Selection.activeGameObject = a;
-            Undo.RegisterCreatedObjectUndo (a, "Create Index");
-        }
-
-        [MenuItem ("Window/Script Dock")]
+        [MenuItem ("Window/Lyra/Script Dock")]
         public static void ShowWindow ()
         {
-            EditorWindow.GetWindow(typeof(ScriptAuthorEditor));
+            GetWindow(typeof(ScriptAuthorEditor));
         }
 
         void OnEnable ()
@@ -54,16 +42,13 @@ namespace Lyra.Editor
             if (!go)
             can = false;
 
-            if ( go && !( go.GetComponent <IndexPaper> () || go.GetComponent <ActionPaper> () ) )
+            if ( go && !( go.GetComponent<ScriptAuthor> () || go.GetComponent <ActionPaper> ()) )
             can = false;
 
             GUILayout.BeginHorizontal ();
 
             if (GUILayout.Button ("+",GUILayout.Width (64)) && can)
                 ActionCursor.Show ( go );
-
-            if ( GUILayout.Button ("New Index") )
-                CreateIndexPaper ();
 
             if (GUILayout.Button ("-",GUILayout.Width (32)) && can)
                 Undo.DestroyObjectImmediate ( go );
@@ -80,20 +65,34 @@ namespace Lyra.Editor
             EditorApplication.hierarchyWindowItemOnGUI += OnHierarchyWindowItemOnGUI;
         }
 
+        static Dictionary <type_paper, Type> TypeCache = new Dictionary <type_paper, Type> ();
+
         static void OnHierarchyWindowItemOnGUI ( int instanceID, Rect selectionRect )
         {
             var go = EditorUtility.InstanceIDToObject ( instanceID ) as GameObject;
 
             if ( go == null ) return;
 
-            if ( go.GetComponent <IndexPaper> () )
-            EditorGUI.DrawRect ( selectionRect, new Color (.2f,.1f,.2f,.4f) );
+            ActionPaper actionPaper = go.GetComponent <ActionPaper> ();
+            if ( actionPaper )
+            {
+                EditorGUI.DrawRect ( selectionRect, new Color (.5f,.5f,.6f) );
+                if (  actionPaper.IsDecoratorKind () )
+                EditorGUI.DrawRect ( selectionRect, new Color (.7f,.5f,.6f) );
 
-            if ( go.GetComponent <ActionPaper> () )
-            EditorGUI.DrawRect ( selectionRect, new Color (.4f,.4f,.6f,.4f) );
+                string Label = "---";
+                if (TypeCache.ContainsKey (actionPaper.Paper.type))
+                    Label = TypeCache[actionPaper.Paper.type].Name;
+                else if ( actionPaper.Paper.type.valid () )
+                {
+                    Type t = actionPaper.Paper.type.write ();
+                    Label =  t.Name;
+                    TypeCache.Add (actionPaper.Paper.type, t);
+                }
+                Label += $"({actionPaper.gameObject.name})";
 
-            if ( go.GetComponent <ActionPaper> () && go.GetComponent <ActionPaper> ().IsDecoratorKind () )
-            EditorGUI.DrawRect ( selectionRect, new Color (.4f,.4f,.7f,.4f) );
+                EditorGUI.LabelField ( selectionRect, Label, Styles.o.Action );
+            }
 
             if ( go.GetComponent <ScriptAuthor> () )
             EditorGUI.DrawRect ( selectionRect, new Color (.7f,.4f,.4f,.4f) );

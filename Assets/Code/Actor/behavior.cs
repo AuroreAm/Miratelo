@@ -8,7 +8,7 @@ namespace Triheroes.Code {
         script script;
 
         term start;
-        sequence start_script;
+        action start_script;
 
         public class ink : ink<behavior> {
             public ink(term start) {
@@ -17,11 +17,11 @@ namespace Triheroes.Code {
         }
 
         protected override void _start() {
-                phoenix.core.start_action( start_script );
+            phoenix.core.start_action( start_script );
         }
 
         public void _radiate(system_ready gleam) {
-            start_script =  script[start].instance_sequence ();
+            start_script =  script[start];
             phoenix.core.execute(this);
         }
     }

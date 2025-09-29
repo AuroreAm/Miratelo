@@ -816,7 +816,7 @@ GameObject:
   - component: {fileID: 69769334}
   - component: {fileID: 69769335}
   m_Layer: 0
-  m_Name: move
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -834,7 +834,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 761637957}
-  m_Father: {fileID: 1474477853}
+  - {fileID: 763080994}
+  m_Father: {fileID: 1008238054}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &69769335
@@ -1722,6 +1723,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7859779248996954257, guid: 10fdd06b0e9fa5c42876404c580344b7, type: 3}
   m_PrefabInstance: {fileID: 122785267}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &123922071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 123922072}
+  - component: {fileID: 123922073}
+  m_Layer: 0
+  m_Name: '-'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &123922072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123922071}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 763080994}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &123922073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123922071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Lyra.substitute, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    data: '{"term":{"value":988022362,"name":"skill0"}}'
 --- !u!1 &134500031
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,7 +1781,7 @@ GameObject:
   - component: {fileID: 134500032}
   - component: {fileID: 134500033}
   m_Layer: 0
-  m_Name: player_bow
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2492,7 +2540,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2062926520}
+  - {fileID: 1982620826}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2941,7 +2989,7 @@ GameObject:
   - component: {fileID: 209715080}
   - component: {fileID: 209715081}
   m_Layer: 0
-  m_Name: all
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3113,7 +3161,7 @@ GameObject:
   - component: {fileID: 219410650}
   - component: {fileID: 219410651}
   m_Layer: 0
-  m_Name: react_fall_hard
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3522,6 +3570,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7859779248996954257, guid: 10fdd06b0e9fa5c42876404c580344b7, type: 3}
   m_PrefabInstance: {fileID: 236990704}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &239553137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 239553138}
+  - component: {fileID: 239553139}
+  m_Layer: 0
+  m_Name: '-'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &239553138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239553137}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2047616438}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &239553139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239553137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Lyra.stop, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    data: '{}'
 --- !u!1001 &241504040
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5472,6 +5567,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 339871026}
   m_CullTransparentMesh: 1
+--- !u!1 &344859224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 344859225}
+  - component: {fileID: 344859226}
+  m_Layer: 0
+  m_Name: '-'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &344859225
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344859224}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 479251592}
+  - {fileID: 715670924}
+  m_Father: {fileID: 1388517643}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &344859226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344859224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Lyra.sequence, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    data: '{"repeat":true,"reset":true}'
 --- !u!1001 &352095083
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8089,53 +8233,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6693538150133264831, guid: a9804205907f4da44983f74817c3614a, type: 3}
   m_PrefabInstance: {fileID: 459702887}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &459762595
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 459762596}
-  - component: {fileID: 459762597}
-  m_Layer: 0
-  m_Name: start
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &459762596
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 459762595}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1831117577}
-  m_Father: {fileID: 999134602}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &459762597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 459762595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e8f8c10d3e93414ca7dcf34dc434a24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Repeat: 0
-  Reset: 1
-  Absolute: 0
 --- !u!1001 &459929682
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8198,6 +8295,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3076300493533936161, guid: b20b1deda73746846b2a916ade16ac4c, type: 3}
   m_PrefabInstance: {fileID: 459929682}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &471818152
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 471818153}
+  - component: {fileID: 471818154}
+  m_Layer: 0
+  m_Name: '-'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &471818153
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471818152}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2047616438}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &471818154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471818152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Triheroes.Code.Mecha.wait_for_charge, Triheroes.Code, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    data: '{}'
 --- !u!1001 &474180402
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8322,6 +8467,57 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3076300493533936161, guid: b20b1deda73746846b2a916ade16ac4c, type: 3}
   m_PrefabInstance: {fileID: 477824674}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &479251591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 479251592}
+  - component: {fileID: 479251593}
+  m_Layer: 0
+  m_Name: '-'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &479251592
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479251591}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1561741804}
+  - {fileID: 1216606692}
+  - {fileID: 2047616438}
+  m_Father: {fileID: 344859225}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &479251593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479251591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Triheroes.Code.Mecha.aim, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+    data: '{}'
 --- !u!1001 &481328982
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8446,6 +8642,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6693538150133264831, guid: a9804205907f4da44983f74817c3614a, type: 3}
   m_PrefabInstance: {fileID: 484471362}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &485534061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 485534062}
+  - component: {fileID: 485534063}
+  m_Layer: 0
+  m_Name: skill0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &485534062
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485534061}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1388517643}
+  m_Father: {fileID: 999134602}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &485534063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485534061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Lyra.tasks, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    data: '{"repeat":false,"reset":true,"absolute":false}'
 --- !u!1001 &486228206
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9388,7 +9632,7 @@ GameObject:
   - component: {fileID: 547124899}
   - component: {fileID: 547124900}
   m_Layer: 0
-  m_Name: sequence
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10032,6 +10276,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7859779248996954257, guid: 10fdd06b0e9fa5c42876404c580344b7, type: 3}
   m_PrefabInstance: {fileID: 600705390}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &606331647
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 606331648}
+  - component: {fileID: 606331649}
+  m_Layer: 0
+  m_Name: '-'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &606331648
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606331647}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1193522387}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &606331649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606331647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Lyra.log, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    data: '{"text":"done"}'
 --- !u!1001 &609456172
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12215,7 +12506,7 @@ GameObject:
   - component: {fileID: 714555410}
   - component: {fileID: 714555411}
   m_Layer: 0
-  m_Name: player_sword
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12251,6 +12542,53 @@ MonoBehaviour:
     type:
       content: Triheroes.Code.player_sword, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
+    data: '{}'
+--- !u!1 &715670923
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 715670924}
+  - component: {fileID: 715670925}
+  m_Layer: 0
+  m_Name: '-'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &715670924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715670923}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 344859225}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &715670925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715670923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Lyra.stop, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     data: '{}'
 --- !u!1001 &718836380
 PrefabInstance:
@@ -13193,7 +13531,7 @@ GameObject:
   - component: {fileID: 761637957}
   - component: {fileID: 761637958}
   m_Layer: 0
-  m_Name: move_to_target
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13230,6 +13568,55 @@ MonoBehaviour:
       content: Triheroes.Code.move_to_target, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
     data: '{"_stop_distance":2.0}'
+--- !u!1 &763080993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 763080994}
+  - component: {fileID: 763080995}
+  m_Layer: 0
+  m_Name: '-'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &763080994
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763080993}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1831196215}
+  - {fileID: 123922072}
+  m_Father: {fileID: 69769334}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &763080995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763080993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Lyra.sequence, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    data: '{"repeat":true,"reset":true}'
 --- !u!1001 &766042014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13303,7 +13690,7 @@ GameObject:
   - component: {fileID: 767936208}
   - component: {fileID: 767936209}
   m_Layer: 0
-  m_Name: player_equip
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14219,7 +14606,7 @@ GameObject:
   - component: {fileID: 801015210}
   - component: {fileID: 801015211}
   m_Layer: 0
-  m_Name: if_target_approach
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16426,6 +16813,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6693538150133264831, guid: a9804205907f4da44983f74817c3614a, type: 3}
   m_PrefabInstance: {fileID: 935651346}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &940486917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 940486918}
+  - component: {fileID: 940486919}
+  m_Layer: 0
+  m_Name: '-'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &940486918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 940486917}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2047616438}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &940486919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 940486917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Triheroes.Code.Mecha.burst, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+    data: '{"interval":0.25}'
 --- !u!1001 &941096380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16809,7 +17244,7 @@ GameObject:
   - component: {fileID: 958643396}
   - component: {fileID: 958643397}
   m_Layer: 0
-  m_Name: player_sword_target
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17444,8 +17879,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 459762596}
-  - {fileID: 1474477853}
+  - {fileID: 1193522387}
+  - {fileID: 1008238054}
+  - {fileID: 485534062}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17511,6 +17947,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6693538150133264831, guid: a9804205907f4da44983f74817c3614a, type: 3}
   m_PrefabInstance: {fileID: 1004528316}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1008238053
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1008238054}
+  - component: {fileID: 1008238055}
+  m_Layer: 0
+  m_Name: move0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1008238054
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008238053}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 69769334}
+  m_Father: {fileID: 999134602}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1008238055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008238053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Lyra.tasks, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    data: '{"repeat":false,"reset":true,"absolute":false}'
 --- !u!1001 &1016031544
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19427,7 +19911,7 @@ GameObject:
   - component: {fileID: 1107675910}
   - component: {fileID: 1107675911}
   m_Layer: 0
-  m_Name: move
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21274,7 +21758,7 @@ GameObject:
   - component: {fileID: 1193333371}
   - component: {fileID: 1193333372}
   m_Layer: 0
-  m_Name: player_dash
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21311,6 +21795,56 @@ MonoBehaviour:
       content: Triheroes.Code.player_dash, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
     data: '{}'
+--- !u!1 &1193522386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1193522387}
+  - component: {fileID: 1193522388}
+  m_Layer: 0
+  m_Name: start
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1193522387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193522386}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1831117577}
+  - {fileID: 1418072653}
+  - {fileID: 606331648}
+  m_Father: {fileID: 999134602}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1193522388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193522386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Lyra.sequence, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    data: '{"repeat":true,"reset":true}'
 --- !u!1001 &1198024211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21683,6 +22217,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4643708003929595432, guid: 60054fa3598232e4f9611b71791654f9, type: 3}
   m_PrefabInstance: {fileID: 1216249253}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1216606691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1216606692}
+  - component: {fileID: 1216606693}
+  m_Layer: 0
+  m_Name: '-'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1216606692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216606691}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 479251592}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1216606693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216606691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Triheroes.Code.Mecha.charge, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+    data: '{}'
 --- !u!1001 &1217835078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22880,7 +23462,7 @@ GameObject:
   - component: {fileID: 1280840628}
   - component: {fileID: 1280840629}
   m_Layer: 0
-  m_Name: all
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24535,6 +25117,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6693538150133264831, guid: a9804205907f4da44983f74817c3614a, type: 3}
   m_PrefabInstance: {fileID: 1380114463}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1388517642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1388517643}
+  - component: {fileID: 1388517644}
+  m_Layer: 0
+  m_Name: '-'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1388517643
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388517642}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 344859225}
+  m_Father: {fileID: 485534062}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1388517644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388517642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Triheroes.Code.Acting.move, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+    data: '{}'
 --- !u!1001 &1391741621
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25042,7 +25673,7 @@ GameObject:
   - component: {fileID: 1418072653}
   - component: {fileID: 1418072654}
   m_Layer: 0
-  m_Name: tasks
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25060,8 +25691,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1107675910}
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_Father: {fileID: 1193522387}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1418072654
 MonoBehaviour:
@@ -25885,53 +26516,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7859779248996954257, guid: 10fdd06b0e9fa5c42876404c580344b7, type: 3}
   m_PrefabInstance: {fileID: 1473110470}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1474477852
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1474477853}
-  - component: {fileID: 1474477854}
-  m_Layer: 0
-  m_Name: move0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1474477853
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1474477852}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 69769334}
-  m_Father: {fileID: 999134602}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1474477854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1474477852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e8f8c10d3e93414ca7dcf34dc434a24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Repeat: 0
-  Reset: 1
-  Absolute: 0
 --- !u!1001 &1483252536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27234,6 +27818,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6693538150133264831, guid: a9804205907f4da44983f74817c3614a, type: 3}
   m_PrefabInstance: {fileID: 1557354931}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1561741803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1561741804}
+  - component: {fileID: 1561741805}
+  m_Layer: 0
+  m_Name: '-'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1561741804
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561741803}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 479251592}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1561741805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561741803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Triheroes.Code.Mecha.try_aim_target, Triheroes.Code, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    data: '{}'
 --- !u!1001 &1563594265
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27431,7 +28063,7 @@ GameObject:
   - component: {fileID: 1569400035}
   - component: {fileID: 1569400036}
   m_Layer: 0
-  m_Name: player_jump
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29029,7 +29661,7 @@ GameObject:
   - component: {fileID: 1696176497}
   - component: {fileID: 1696176498}
   m_Layer: 0
-  m_Name: player_target
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30875,7 +31507,7 @@ GameObject:
   - component: {fileID: 1831117577}
   - component: {fileID: 1831117578}
   m_Layer: 0
-  m_Name: test_get_enemy
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30892,7 +31524,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 459762596}
+  m_Father: {fileID: 1193522387}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1831117578
@@ -30912,6 +31544,54 @@ MonoBehaviour:
       content: Triheroes.Code.test_get_enemy, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
     data: '{}'
+--- !u!1 &1831196214
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1831196215}
+  - component: {fileID: 1831196216}
+  m_Layer: 0
+  m_Name: '-'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1831196215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831196214}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 763080994}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1831196216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831196214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Triheroes.Code.if_target_distance_less_than, Triheroes.Code, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    data: '{"distance":5.0}'
 --- !u!1001 &1842131868
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32783,7 +33463,7 @@ GameObject:
   - component: {fileID: 1977552559}
   - component: {fileID: 1977552560}
   m_Layer: 0
-  m_Name: player_move
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32893,7 +33573,7 @@ GameObject:
   - component: {fileID: 1982620826}
   - component: {fileID: 1982620825}
   m_Layer: 0
-  m_Name: sequence
+  m_Name: start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32927,7 +33607,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1280840628}
-  m_Father: {fileID: 2062926520}
+  m_Father: {fileID: 179650625}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1985369276
@@ -33065,7 +33745,7 @@ GameObject:
   - component: {fileID: 1987806715}
   - component: {fileID: 1987806716}
   m_Layer: 0
-  m_Name: substitute
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33100,7 +33780,7 @@ MonoBehaviour:
   Paper:
     type:
       content: Lyra.substitute, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    data: '{"term":{"value":-1427498984,"name":"move0"},"absolute":false}'
+    data: '{"term":{"value":-1427498984,"name":"move0"}}'
 --- !u!1001 &1987943851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33670,7 +34350,7 @@ GameObject:
   - component: {fileID: 2030927643}
   - component: {fileID: 2030927644}
   m_Layer: 0
-  m_Name: race
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33831,6 +34511,56 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6693538150133264831, guid: a9804205907f4da44983f74817c3614a, type: 3}
   m_PrefabInstance: {fileID: 2046588788}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2047616437
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2047616438}
+  - component: {fileID: 2047616439}
+  m_Layer: 0
+  m_Name: '-'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2047616438
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047616437}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 471818153}
+  - {fileID: 940486918}
+  - {fileID: 239553138}
+  m_Father: {fileID: 479251592}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2047616439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047616437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0995bf8f4763014b8fed00e04f84324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paper:
+    type:
+      content: Lyra.sequence, Pixify, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    data: '{"repeat":true,"reset":true}'
 --- !u!1001 &2055406069
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34028,7 +34758,7 @@ GameObject:
   - component: {fileID: 2059660743}
   - component: {fileID: 2059660744}
   m_Layer: 0
-  m_Name: player_parry
+  m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34127,53 +34857,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7859779248996954257, guid: 10fdd06b0e9fa5c42876404c580344b7, type: 3}
   m_PrefabInstance: {fileID: 2060191517}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2062926519
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2062926520}
-  - component: {fileID: 2062926521}
-  m_Layer: 0
-  m_Name: start
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2062926520
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2062926519}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1982620826}
-  m_Father: {fileID: 179650625}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2062926521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2062926519}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e8f8c10d3e93414ca7dcf34dc434a24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Repeat: 0
-  Reset: 1
-  Absolute: 0
 --- !u!1001 &2066620937
 PrefabInstance:
   m_ObjectHideFlags: 0

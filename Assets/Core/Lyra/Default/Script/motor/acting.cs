@@ -4,21 +4,25 @@ using System;
 namespace Lyra
 {
     public abstract class acting : task , decorator_kind, core_kind, act_handler {
-        static Stack <acting> static_domain = new Stack <acting> ();
-
         [link]
         motor motor;
 
         act act;
 
+        action [] o;
         parallel.all parallel;
         protected abstract act get_act();
 
+        static Stack <acting> domain = new Stack <acting> ();
         protected sealed override void _ready() {
+            domain.Push (this);
             system.add ( parallel );
             __ready ();
+            domain.Pop ();
+
             act = get_act ();
         }
+        public static acting get_domain () => domain.Peek ();
 
         protected virtual void __ready () {}
 
@@ -63,11 +67,8 @@ namespace Lyra
             fail ();
         }
 
-        public static void stop_act () {
-            if (static_domain.Count == 0)
-            throw new InvalidOperationException ( "can't use acting outside of its child" );
-            
-            static_domain.Peek ().motor_stop_act ();
+        public void stop_act () {
+            motor_stop_act ();
         }
 
         // TODO bool can start
@@ -77,9 +78,7 @@ namespace Lyra
             if (!on)
             return;
 
-            static_domain.Push (this);
             parallel.tick (this);
-            static_domain.Pop ();
         }
 
         protected override bool _can_start() {
@@ -87,11 +86,8 @@ namespace Lyra
         }
 
         protected override void _step() {
-            if (parallel.on) {
-                static_domain.Push (this);
+            if (parallel.on)
                 parallel.tick (this);
-                static_domain.Pop ();
-            }
         }
 
         protected override void _stop() {
@@ -103,6 +99,7 @@ namespace Lyra
         }
 
         public void set(action[] child) {
+            o = child;
             parallel = new parallel.all ();
             parallel.set (child);
         }
@@ -112,8 +109,14 @@ namespace Lyra
 
     [path ("acting")]
     public class stop : action {
+        acting domain;
+
+        protected override void _ready() {
+            domain = acting.get_domain ();
+        }
+
         protected override void _start() {
-            acting.stop_act ();
+            domain.stop_act ();
         }
     }
 }

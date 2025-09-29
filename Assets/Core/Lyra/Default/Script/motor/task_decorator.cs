@@ -6,13 +6,18 @@ using UnityEngine;
 namespace Lyra
 {
     public abstract class task_decorator : task, core_kind, decorator_kind {
-        protected static Stack<task_decorator> static_domain = new Stack<task_decorator> ();
 
-        protected void task_tick ( action o ) {
-            static_domain.Push (this);
-            o.tick ( this );
-            static_domain.Pop ();
+        static Stack<task_decorator> domain = new Stack<task_decorator> ();
+        protected sealed override void _ready() {
+            domain.Push (this);
+            for (int i = 0; i < o.Length; i++)
+                system.add ( o[i] );
+            domain.Pop ();
+
+            __ready ();
         }
+        /// <summary> get the current task domain, only on ready </summary>
+        public static task_decorator get_domain () => domain.Peek ();
 
         protected task [] o;
         public abstract void _star_stop(star s);
@@ -32,38 +37,17 @@ namespace Lyra
                 else Debug.LogWarning ($"direct child of task decorator {child[i].GetType()} is not a task");
         }
 
-        protected sealed override void _ready() {
-            for (int i = 0; i < o.Length; i++)
-                system.add ( o[i] ) ;
 
-            __ready ();
-        }
-
-        internal static void task_failed () {
-            if (static_domain.Count == 0) {
-                Debug.LogError (" task_failed called outside task decorator");
-                return;
-            }
-
-            static_domain.Peek ()._task_fail ();
+        internal void task_failed () {   
+            _task_fail ();
         }
         
-        public static void substitute ( tasks t ) {
-            if (static_domain.Count == 0) {
-                Debug.LogError (" substitute called outside task decorator");
-                return;
-            }
-
-            static_domain.Peek ()._substitute ( t );
+        public void substitute ( tasks t ) {
+            _substitute ( t );
         }
 
-        public static void insert_substitute ( tasks t ) {
-            if (static_domain.Count == 0) {
-                Debug.LogError (" insert_substitute called outside task decorator");
-                return;
-            }
-
-            static_domain.Peek ()._insert_substitute ( t );
+        public void insert_substitute ( tasks t ) {
+            _insert_substitute ( t );
         }
 
         protected virtual void _task_fail () {}

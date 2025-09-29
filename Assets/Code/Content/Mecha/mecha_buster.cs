@@ -51,6 +51,8 @@ namespace Triheroes.Code.Mecha
             mecha_buster buster;
             [link]
             skin skin;
+            [link]
+            stand stand;
 
             protected override void _start()
             {
@@ -61,6 +63,10 @@ namespace Triheroes.Code.Mecha
             public void at (float y)
             {
                 roty = y;
+            }
+
+            protected override void _step() {
+                stand.roty = roty;
             }
 
             protected override void _stop()
@@ -106,13 +112,14 @@ namespace Triheroes.Code.Mecha
 
             public void shoot () {
                 if (state == state_.charged) state = state_.shooting;
-                    else return;
 
-                buster.st_shoot.fire (buster.position);
-                buster.plasma.fire ( buster.end.position, Quaternion.Euler (0, aim.roty,0), plasma_speed );
-                charge -= plasma_cost;
-
-                if (charge <= 0) state = state_.done;
+                if (state == state_.shooting)
+                {
+                    buster.st_shoot.fire (buster.position);
+                    // buster.plasma.fire ( buster.end.position, Quaternion.Euler (0, aim.roty,0), plasma_speed );
+                    charge -= plasma_cost;
+                    if (charge <= 0) state = state_.done;
+                }
             }
         }
     }
