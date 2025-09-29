@@ -62,7 +62,7 @@ namespace Lyra
             [link]
             protected virtus virtus;
 
-            protected override void _ready()
+            protected sealed override void _ready()
             {
                 virtus.register ( this );
                 __ready ();
