@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Lyra;
 using UnityEngine;
 
+/*
 namespace Triheroes.Code
 {
     [path ("AI")]
@@ -30,3 +31,4 @@ namespace Triheroes.Code
         }
     }
 }
+*/

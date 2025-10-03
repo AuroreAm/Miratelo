@@ -1,13 +1,10 @@
+using System.Collections.Generic;
 using Lyra;
 using UnityEngine;
 
 namespace Lyra {
     [path ("script")]
     public class tasks : task_decorator {
-        task ptr_task;
-        bool hold;
-        int ptr;
-
         [export]
         public bool repeat = false;
         [export]
@@ -15,77 +12,107 @@ namespace Lyra {
         [export]
         public bool absolute;
 
-        public static tasks new_tasks ( action[] o ){
-            set_constructor_event ( s => ((tasks)s).set ( o ) );
-            return new tasks ();
+        int ptr;
+        action ptr_task;
+
+        int state;
+        const int sequence = 0; const int replaced = 1; const int replacing = 2; const int hold = 3;
+
+        void tick () {
+            domain = this;
+            ptr_task.tick (this);
         }
 
         protected sealed override void _start() {
+            state = sequence;
+
             if (reset)
-                ptr = 0;
-            hold = false;
+            ptr = 0;
 
-            ptr_task = o[ptr];
-
-            ptr_task.tick (this);
+            ptr_task = o [ptr];
+            tick ();
         }
 
         protected override void _step() {
-            if (!hold)
-            ptr_task.tick (this);
-            else
-            check_hold ();
+            if (state != hold)
+            tick ();
+            else check_continue ();
+        }
+
+        void check_continue () {
+            if ( o [ptr + 1].can_start () ) {
+            state = sequence;
+            increment ();
+            }
         }
 
         protected override void _stop() {
             if (ptr_task.on)
-                ptr_task.abort(this);
+            ptr_task.abort (this);
         }
 
         public override void _star_stop(star s) {
             if (!on)
                 return;
 
-            if (ptr_task == s) {
-                    ptr++;
-                    if (ptr >= o.Length) { ptr = 0; 
-                    if (!repeat) { 
-                        if (hold) fail(); else stop(); 
-                        return; } }
+            if (state == sequence) {
+                if (finished ()) {
+                    stop ();
+                    return;
+                }
 
-                ptr_task = o[ptr];
+                increment ();
             }
+            else if (state == replaced) {
+                if (finished ()) {
+                    stop ();
+                    return;
+                }
 
-            if (!hold)
-            ptr_task.tick (this);
-        }
-
-        void check_hold () {
-            if ( ptr_task.can_start () ) {
-                hold = false;
-                ptr_task.tick (this);
+                state = sequence;
+                increment ();
             }
         }
+
+        void increment () {
+             ptr++;
+             ptr_task = o [ptr];
+             tick ();
+        }
+
+        bool finished () => ptr +1 > o.Length && !repeat;
 
         protected override bool _can_start() {
             return o [0].can_start ();
         }
         
         protected override void _task_fail() {
-            if (!absolute)
-            hold = true;
-            else { fail (); }
+            if ( finished () ) {
+                fail ();
+                return;
+            }
+            if (state == sequence)
+            ptr ++;
+            state = hold;
         }
 
-        protected override void _substitute(tasks t) {
-            var previous = ptr_task;
-            ptr_task = t;
-            previous.abort (this);
+        protected override void _replace(tasks t) {
+            if ( state == sequence ) {
+                state = replacing;
+                ptr_task.abort (this);
+                ptr_task = t;
+                state = replaced;
+                tick ();
+            } else if ( state == replaced ) {
+                Dev.Break ( "can't replace task twice" );
+            }
         }
 
-        protected override void _insert_substitute(tasks t) {
-            ptr --;
-            _substitute(t);
+        protected override void _replace_before(tasks t) {
+            if (state == sequence) {
+                ptr --;
+                _replace ( t );
+            }
         }
     }
 }

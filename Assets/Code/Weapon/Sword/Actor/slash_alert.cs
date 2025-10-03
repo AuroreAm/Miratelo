@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using Lyra;
-using Triheroes.Code.Sword.Combat;
 using UnityEngine;
 
 namespace Triheroes.Code

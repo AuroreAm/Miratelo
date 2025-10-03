@@ -8,7 +8,7 @@ namespace Lyra
     {
         public virtus instance()
         {
-            var b = new system.creator ( Instantiate (this) ).create_system ();
+            var b = new system.creator ( this ).create_system ();
             return b.get <virtus> ();
         }
 
@@ -25,7 +25,7 @@ namespace Lyra
             Destroy (this);
         }
 
-        public void _created(system s)
+        public virtual void _created(system s)
         {}
 
         protected T get_bridge <T> ( ref T w ) where T : bridge, new () {

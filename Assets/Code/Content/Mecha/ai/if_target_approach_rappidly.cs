@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Lyra;
-
+/*
 namespace Triheroes.Code
 {
     [path ("mecha ai")]
@@ -35,4 +35,4 @@ namespace Triheroes.Code
             target_distance = Vector3.Distance ( c.position, target.position );
         }
     }
-}
+}*/

@@ -24,13 +24,13 @@ namespace Triheroes.Code
 		public static LayerMask Trigger;
 
 		// layer hardcoded constant
-		public static readonly int CHARACTER = 10;
-		public static readonly int ATTACK = 11;
-		public static readonly int DECOR = 8;
-		public static readonly int STATIC = 9;
-		public static readonly int TRIGGER = 12;
+		public const int CHARACTER = 10;
+		public const int ATTACK = 11;
+		public const int DECOR = 8;
+		public const int STATIC = 9;
+		public const int TRIGGER = 12;
 
-		public static readonly float Drag = 1;
+		public const float Drag = 1;
 
 		// initialisation
 		protected override void _ready()

@@ -3,24 +3,26 @@ using System.Collections.Generic;
 using Lyra;
 using UnityEngine;
 
-namespace Triheroes.Code
-{
-    [CreateAssetMenu(fileName = "Slash", menuName = "RPG/ArrowModel")]
-    public class ArrowAuthor : VirtusCreator
-    {
-        public arrow.skin skin;
-        public bool arrow_billboard;
-
+namespace Triheroes.Code {
+    public class ArrowAuthor : VirtusAuthor {
         arrow.w w;
 
-        protected override void _virtus_create()
-        {
-            if ( arrow_billboard )
-            new arrow_billboard.ink ( skin );
-            else
-            new arrow.spectre.ink ( skin );
+        List<AuthorModule> modules;
+
+        protected override void _virtus_create() {
+            modules = new List<AuthorModule>(GetComponents<AuthorModule>());
+
+            new ink<arrow>();
+
+            foreach (var a in modules)
+                a._create();
         }
 
-        public arrow.w get_w () => get_bridge (ref w);
+        public override void _created(system s) {
+            foreach (var a in modules)
+                a._created(s);
+        }
+
+        public arrow.w get_w() => get_bridge(ref w);
     }
 }

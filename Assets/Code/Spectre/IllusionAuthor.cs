@@ -10,7 +10,7 @@ namespace Triheroes.Code
     {
         protected override void _virtus_create()
         {
-            new illusion.ink ( GetComponent <ParticleSystem> () );
+            new illusion.ink ( Instantiate (GetComponent <ParticleSystem> ()) );
         }
     }
 }

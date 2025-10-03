@@ -1,32 +1,31 @@
 using Lyra;
 using System.Collections.Generic;
 using UnityEngine;
-using static Triheroes.Code.Sword.Combat.slay;
 
 namespace Triheroes.Code
 {
     public class SlashSkinPathAuthor : SkinAuthorModule, ISerializationCallbackReceiver
     {
         [SerializeField]
-        public List <path> SerializedPaths;
+        public List <slay.path> SerializedPaths;
 
-        public Dictionary <term, path> Paths = new Dictionary<term, path> ();
+        public Dictionary <term, slay.path> Paths = new Dictionary<term, slay.path> ();
 
         public override void _create()
         {
-            new ink < skin_path >().o.paths = Paths;
+            new ink < slay.skin_path >().o.paths = Paths;
         }
 
         public void OnBeforeSerialize()
         {
-            SerializedPaths = new List<path> ();
+            SerializedPaths = new List<slay.path> ();
             if (Paths != null)
                 SerializedPaths.AddRange(Paths.Values);
         }
 
         public void OnAfterDeserialize()
         {
-            Paths = new Dictionary<term, path> ();
+            Paths = new Dictionary<term, slay.path> ();
             if (SerializedPaths != null)
                 foreach (var v in SerializedPaths)
                 {

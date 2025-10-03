@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Lyra;
-using Triheroes.Code.Sword;
 using UnityEngine;
-using static Triheroes.Code.Sword.Combat.slay;
 
 namespace Triheroes.Code
 {
@@ -20,7 +18,7 @@ namespace Triheroes.Code
         static float _duration;
 
         public class w : slash.w {
-            public void fire ( sword sword, path path, float duration, AnimationCurve hook_curve, Vector3 hook_dir, float hook_duration ) {
+            public void fire ( sword sword, slay.path path, float duration, AnimationCurve hook_curve, Vector3 hook_dir, float hook_duration ) {
                 _hook_curve = hook_curve;
                 _hook_dir = hook_dir;
                 _duration = hook_duration;

@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Lyra;
-using Triheroes.Code.Sword;
-using Triheroes.Code.Sword.Combat;
 using UnityEngine;
 
 namespace Triheroes.Code
@@ -97,7 +95,7 @@ namespace Triheroes.Code
             acts_parry.Add ( animation.SS1_1, parry0 );
             acts_parry.Add ( animation.SS1_2, parry1 );
 
-            acts_parry.Add ( animation.SS4, parry0 );
+            acts_parry.Add ( animation.SS4, parry1 );
         }
 
         protected override void _step()

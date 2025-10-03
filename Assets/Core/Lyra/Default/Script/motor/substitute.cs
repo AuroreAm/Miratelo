@@ -12,12 +12,6 @@ namespace Lyra
         script script;
 
         tasks tasks;
-        
-        task_decorator domain;
-
-        protected override void _ready() {
-            domain = task_decorator.get_domain ();
-        }
 
         protected override bool _can_start() {
             return tasks.can_start ();
@@ -28,7 +22,7 @@ namespace Lyra
         }
 
         protected override void _start() {
-            domain.substitute ( tasks );
+            task_decorator.domain.replace ( tasks );
         }
     }
 }

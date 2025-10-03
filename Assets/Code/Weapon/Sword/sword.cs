@@ -1,6 +1,4 @@
 using Lyra;
-using System.Collections.Generic;
-using Triheroes.Code.Sword;
 using UnityEngine;
 
 namespace Triheroes.Code
@@ -11,6 +9,7 @@ namespace Triheroes.Code
         [link]
         character c;
         public Vector3 position => c.position;
+        public Vector3 tip_position => c.position + c.gameobject.transform.forward * length;
 
         public float length { get; private set; }
         public slash.w slash { get; private set; }

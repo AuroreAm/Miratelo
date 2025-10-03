@@ -37,7 +37,7 @@ namespace Triheroes.Code.Mecha
             st_charge_init = res.stellars.q (new term("charge1")).get_w ();
             st_charge_loop = res.stellars.q (new term("charge2")).get_w ();
             st_shoot = res.stellars.q (new term("charge3")).get_w ();
-            plasma = res.arrows.q (new term ("arrow")).get_w ();
+            plasma = res.arrows.q (new term ("plasma")).get_w ();
         }
 
         public class aim : act

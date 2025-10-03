@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using Lyra;
 using UnityEngine;
 
-namespace Triheroes.Code.Sword.Combat
-{
-    public class parry : act
-    {
+namespace Triheroes.Code {
+    public class parry : act {
         public override priority priority => priority.action;
 
         [link]
@@ -16,42 +12,34 @@ namespace Triheroes.Code.Sword.Combat
 
         term parry_animation = animation.SS8_0;
 
-        public parry (term _parry_animation)
-        {
+        public parry(term _parry_animation) {
             parry_animation = _parry_animation;
         }
 
-        protected override void _start ()
-        {
-            skin.play ( new skin.animation ( parry_animation, this )
-            {
+        protected override void _start() {
+            skin.play(new skin.animation(parry_animation, this) {
                 end = stop,
                 ev0 = start_parry,
                 ev1 = end_parry
-            } );
+            });
         }
 
-        void start_parry ()
-        {
-            sword_user.weapon.enable_parry ();
+        void start_parry() {
+            sword_user.weapon.enable_parry();
         }
 
-        void end_parry ()
-        {
-            sword_user.weapon.disable_parry ();
+        void end_parry() {
+            sword_user.weapon.disable_parry();
         }
 
-        protected override void _stop ()
-        {
-            sword_user.weapon.disable_parry ();
+        protected override void _stop() {
+            sword_user.weapon.disable_parry();
         }
     }
 
-    public struct parried
-    {}
+    public struct parried { }
 
-    public class parry_arrow : act
-    {
+    public class parry_arrow : act {
         public override priority priority => priority.action;
 
         [link]
@@ -66,33 +54,28 @@ namespace Triheroes.Code.Sword.Combat
 
         term anim;
 
-        public parry_arrow ( term animation )
-        {
+        public parry_arrow(term animation) {
             anim = animation;
         }
 
-        protected override void _start ()
-        {
-            skin.play ( new skin.animation ( anim, this )
-            {
+        protected override void _start() {
+            skin.play(new skin.animation(anim, this) {
                 end = stop,
                 ev0 = active_parry,
                 fade = .05f
-            } );
+            });
         }
 
-        void active_parry ()
-        {
+        void active_parry() {
             can_parry = true;
         }
 
-        protected override void _step()
-        {
-            if ( !alert.alert || !can_parry ) return;
+        protected override void _step() {
+            if (!alert.alert || !can_parry) return;
 
-            if ( Vector3.Distance ( alert.position, sword_user.weapon.position ) < ( sword_user.weapon.length + ( alert.speed * Time.deltaTime ) ) && Mathf.Abs ( Mathf.DeltaAngle ( vecteur.rot_direction_y ( skin.position, alert.position ), skin.roty ) ) < 90 )
-            {
-                arrow.deflect ( alert.position, vecteur.ldir ( skin.roty, Vector3.forward ));
+            if (Vector3.Distance(alert.position, sword_user.weapon.position) < (sword_user.weapon.length + (alert.speed * Time.deltaTime)) && Mathf.Abs(Mathf.DeltaAngle(vecteur.rot_direction_y(skin.position, alert.position), skin.roty)) < 90) {
+                Vector3 deflect = vecteur.ldir ( new Vector3 ( Random.Range (-10f, 10f), Random.Range ( -45, 45 ) + skin.roty, 0 ), Vector3.forward );
+                arrow.deflect(alert.position, deflect);
                 can_parry = false;
             }
         }

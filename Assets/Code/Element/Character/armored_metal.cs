@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Lyra;
-using Triheroes.Code.Sword;
 using UnityEngine;
 
 namespace Triheroes.Code.Element

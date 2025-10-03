@@ -1,15 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using Lyra;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Triheroes.Code
 {
     [inked]
     public class illusion : spectre
     {
-        int illusion_id;
         new ParticleSystem system;
 
         public class ink : ink < illusion >

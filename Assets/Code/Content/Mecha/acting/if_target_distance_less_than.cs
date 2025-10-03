@@ -18,7 +18,6 @@ namespace Triheroes.Code
 
         protected override void _step()
         {
-            Debug.Log ($"{Vector3.Distance(warrior.c.position.xz (), target.position.xz () )} < {distance}");
             if ( warrior.target && Vector3.Distance(warrior.c.position.xz (), target.position.xz () ) < distance )
                 stop ();
         }

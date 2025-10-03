@@ -8,61 +8,20 @@ using UnityEngine.AI;
 namespace Triheroes.Code
 {
     [path ("acting")]
-    public class move_to_target : action
+    public class move_to_target : move_to
     {
-        [export]
-        public float _stop_distance;
-
         [link]
         warrior warrior;
+
         [link]
         capsule capsule;
-        [link]
-        move_point point;
-        
-        Coroutine routine_low_step;
-        capsule target => warrior.target.c.system.get <capsule> ();
-        NavMeshPath path = new NavMeshPath ();
 
-        protected override void _start()
-        {
-            link ( point );
-            routine_low_step = phoenix.o.StartCoroutine ( ie_low_step () );
+        protected override float get_offset_stop_distance() {
+            return capsule.r + warrior.target.system.get <capsule> ().r;
         }
 
-        protected override void _stop()
-        {
-            point.clear ();
-            unlink ( point );
-            phoenix.o.StopCoroutine ( routine_low_step );
-        }
-
-        bool close_enough ()
-        {
-            if ( !warrior.target ) return false;
-            return Vector3.Distance ( capsule.c.position, target.c.position ) < _stop_distance + capsule.r + target.r;
-        }
-
-        protected override void _step()
-        {
-            if ( !warrior.target )
-            stop ();
-        }
-
-        void _low_step ()
-        {
-            if (NavMesh.CalculatePath ( capsule.c.position, target.c.position, NavMesh.AllAreas, path ))
-                point.set_way ( path.corners );
-        }
-
-        IEnumerator ie_low_step ()
-        {
-            var y = new WaitForSeconds (.75f);
-            while (true)
-            {
-                _low_step ();
-                yield return y;
-            }
+        protected override Vector3 get_target() {
+            return warrior.target.c.position;
         }
     }
 }

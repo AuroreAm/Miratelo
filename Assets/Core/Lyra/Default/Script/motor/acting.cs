@@ -6,23 +6,20 @@ namespace Lyra
     public abstract class acting : task , decorator_kind, core_kind, act_handler {
         [link]
         motor motor;
-
         act act;
-
         action [] o;
         parallel.all parallel;
         protected abstract act get_act();
 
-        static Stack <acting> domain = new Stack <acting> ();
+        /// <summary> last acting which ticked </summary>
+        public static acting domain {private set; get;}
+
         protected sealed override void _ready() {
-            domain.Push (this);
             system.add ( parallel );
             __ready ();
-            domain.Pop ();
 
             act = get_act ();
         }
-        public static acting get_domain () => domain.Peek ();
 
         protected virtual void __ready () {}
 
@@ -78,6 +75,7 @@ namespace Lyra
             if (!on)
             return;
 
+            domain = this;
             parallel.tick (this);
         }
 
@@ -86,8 +84,10 @@ namespace Lyra
         }
 
         protected override void _step() {
-            if (parallel.on)
+            if (parallel.on) {
+                domain = this;
                 parallel.tick (this);
+            }
         }
 
         protected override void _stop() {
@@ -109,14 +109,8 @@ namespace Lyra
 
     [path ("acting")]
     public class stop : action {
-        acting domain;
-
-        protected override void _ready() {
-            domain = acting.get_domain ();
-        }
-
         protected override void _start() {
-            domain.stop_act ();
+            acting.domain.stop_act ();
         }
     }
 }

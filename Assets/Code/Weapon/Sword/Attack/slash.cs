@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using Lyra;
-using Triheroes.Code.Sword.Combat;
 using UnityEngine;
-using static Triheroes.Code.Sword.Combat.slay;
 
-namespace Triheroes.Code.Sword
+namespace Triheroes.Code
 {
     [star (order.slash)]
     public class slash : virtus.star
@@ -13,7 +11,7 @@ namespace Triheroes.Code.Sword
         photon photon;
 
         skin performer;
-        path path;
+        slay.path path;
         sword sword;
 
         Mesh trail = new Mesh ();
@@ -33,12 +31,12 @@ namespace Triheroes.Code.Sword
         }
 
         #region fire
-        static path _path;
+        static slay.path _path;
         static sword _sword;
         static float _duration;
 
         public class w: bridge {
-            public void fire ( sword sword, path path, float duration ) {
+            public void fire ( sword sword, slay.path path, float duration ) {
                 _path = path;
                 _sword = sword;
                 _duration = duration;
@@ -64,7 +62,7 @@ namespace Triheroes.Code.Sword
 
         protected override void _step ()
         {
-            int path_cap = Mathf.Clamp ( Mathf.RoundToInt ( time / path.delta ), 0, path.orig.Length );
+            int path_cap = Mathf.Clamp ( Mathf.RoundToInt ( time / slay.path.delta ), 0, path.orig.Length );
             time += Time.deltaTime;
             
             while (path_ptr < path_cap)
@@ -179,6 +177,7 @@ namespace Triheroes.Code.Sword
             Vector3 ABHalf = ( A + B ) / 2;
             Vector3 CDHalf = ( vertices[path_ptr * 2] + position + D ) / 2;
 
+            // linecast to hit
             if ( Physics.Linecast ( A , B, out ray_hit, vecteur.SolidCharacterAttack ) || Physics.Linecast ( B, D, out ray_hit, vecteur.SolidCharacterAttack ) || Physics.Linecast ( ABHalf, D, out ray_hit, vecteur.SolidCharacterAttack  ) || Physics.Linecast ( A, CDHalf, out ray_hit, vecteur.SolidCharacterAttack ) )
                 hit ();
         }

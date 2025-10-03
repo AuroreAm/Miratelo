@@ -3,16 +3,9 @@ using UnityEngine;
 
 namespace Lyra
 {
-    public abstract class task : action { 
-
-        task_decorator domain;
-
-        protected override void _ready() {
-            domain = task_decorator.get_domain ();
-        }
-
+    public abstract class task : action {  
         protected void fail () {
-            domain.task_failed ();
+            task_decorator.domain.task_failed ();
             stop ();
         }
 

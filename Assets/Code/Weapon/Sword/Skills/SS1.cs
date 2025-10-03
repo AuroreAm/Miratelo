@@ -1,8 +1,4 @@
 using Lyra;
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using Triheroes.Code.Sword.Combat;
 
 namespace Triheroes.Code
 {

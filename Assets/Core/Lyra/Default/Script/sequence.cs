@@ -11,11 +11,6 @@ namespace Lyra
         [export]
         public bool reset = true ;
 
-        public static sequence new_sequence ( action[] o ){
-            set_constructor_event ( s => ((sequence)s).set ( o ) );
-            return new sequence ();
-        }
-
         protected sealed override void _start ()
         {
             if (reset)

@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace Lyra {
     public abstract class parallel : decorator {
+        private parallel () {}
+
         protected override void _start() {
             foreach (star p in o)
                 p.tick(this);
@@ -21,9 +23,34 @@ namespace Lyra {
                     p.abort(this);
         }
 
-        public class all : parallel {
+        public sealed class all : parallel {
+            /// <summary> true when parallel is starting all child node, used to prevent stopping as all child are not all started </summary>
+            bool start_frame;
+            bool check_stop_first;
+            protected override void _start() {
+                start_frame = true;
+                base._start();
+                start_frame = false;
+                check_stop ();
+            }
+            
+            void check_stop () {
+                if (check_stop_first) {
+                    foreach (var n in o)
+                        if (n.on)
+                            return;
+
+                    stop();
+                }
+            }
+            
             public override void _star_stop(star p) {
                 if (!on) return;
+
+                if (start_frame) {
+                    check_stop_first = true;
+                    return;
+                }
 
                 foreach (var n in o)
                     if (n.on)
@@ -33,7 +60,7 @@ namespace Lyra {
             }
         }
 
-        public class first_linked : parallel {
+        public sealed class first_linked : parallel {
             public override void _star_stop(star p) {
                 if (!on) return;
 
@@ -43,7 +70,7 @@ namespace Lyra {
 
         }
 
-        public class race : parallel {
+        public sealed class race : parallel {
             public override void _star_stop(star p) {
                 if (!on) return;
 
