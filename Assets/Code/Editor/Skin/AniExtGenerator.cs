@@ -37,6 +37,7 @@ namespace Triheroes.Editor
                 else
                     AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(m));
             }
+            
             AssetDatabase.SaveAssets();
             RefreshPending = false;
         }

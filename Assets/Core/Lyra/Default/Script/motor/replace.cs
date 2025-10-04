@@ -1,10 +1,7 @@
-using Lyra;
-using UnityEngine;
-
 namespace Lyra
 {
     [path ("script")]
-    public sealed class substitute : task, ruby < system_ready > {
+    public sealed class replace : task, ruby < system_ready > {
         [export]
         public term term;
         
@@ -22,7 +19,8 @@ namespace Lyra
         }
 
         protected override void _start() {
-            task_decorator.domain.replace ( tasks );
+            tasks.descend (this);
+            look_for_task_decorator_parent ().replace ( tasks );
         }
     }
 }

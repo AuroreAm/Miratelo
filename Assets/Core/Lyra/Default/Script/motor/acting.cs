@@ -11,14 +11,16 @@ namespace Lyra
         parallel.all parallel;
         protected abstract act get_act();
 
-        /// <summary> last acting which ticked </summary>
-        public static acting domain {private set; get;}
-
         protected sealed override void _ready() {
+            
             system.add ( parallel );
             __ready ();
 
             act = get_act ();
+        }
+
+        protected override void _descend() {
+            parallel.descend (this);
         }
 
         protected virtual void __ready () {}
@@ -75,7 +77,6 @@ namespace Lyra
             if (!on)
             return;
 
-            domain = this;
             parallel.tick (this);
         }
 
@@ -84,10 +85,8 @@ namespace Lyra
         }
 
         protected override void _step() {
-            if (parallel.on) {
-                domain = this;
+            if (parallel.on)
                 parallel.tick (this);
-            }
         }
 
         protected override void _stop() {
@@ -110,7 +109,20 @@ namespace Lyra
     [path ("acting")]
     public class stop : action {
         protected override void _start() {
-            acting.domain.stop_act ();
+            look_for_acting_parent().stop_act ();
+        }
+
+        acting look_for_acting_parent () {
+            acting result = null;
+            for (int i = ancestors.Count - 1; i >= 0; i--)
+            {
+                if (ancestors[i] is acting a)
+                {
+                    result = a;
+                    break;
+                }
+            }
+            return result;
         }
     }
 }

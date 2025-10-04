@@ -1,25 +1,21 @@
 using System;
 using UnityEngine;
 
-namespace Lyra
-{
-    public abstract class act : star.neutron
-    {
+namespace Lyra {
+    public abstract class act : star.neutron {
         public abstract priority priority { get; }
     }
-    
+
     public enum act_status { done, abort, start_failed }
 
-    public interface act_handler
-    {
-        public void _act_end ( act a, act_status status );
+    public interface act_handler {
+        public void _act_end(act a, act_status status);
         public bool on { get; }
     }
 
     // motor layer of behavior
     // asign only state that directly manipulate motion of a character: animation and movement
-    public sealed class motor : controller, core_kind
-    {
+    public sealed class motor : controller, core_kind {
         act_handler acting;
 
         act_handler acting2nd;
@@ -30,13 +26,11 @@ namespace Lyra
         public act act2nd { get; private set; }
         public int priority2nd { get; private set; } = -1;
 
-        protected override void _ready()
-        {
-            phoenix.core.execute (this);
+        protected override void _ready() {
+            phoenix.core.execute(this);
         }
 
-        protected override void _step()
-        {
+        protected override void _step() {
             if (act != null && act.on)
                 act.tick(this);
 
@@ -45,23 +39,20 @@ namespace Lyra
         }
 
         bool replaced;
-        public bool start_act (act _act, act_handler handler = null )
-        {
-            if ( _act.priority.level != 0 )
-            {
-                Debug.LogError ($"{_act} must have level 0");
+        public bool start_act(act _act, act_handler handler = null) {
+            if (_act.priority.level != 0) {
+                Debug.LogError($"{_act} must have level 0");
                 return false;
             }
 
             if (_act.priority <= priority) {
                 if (handler != null)
-                handler._act_end ( _act, act_status.start_failed );
+                    handler._act_end(_act, act_status.start_failed);
                 return false;
             }
-            
-            if ( replaced )
-            {
-                Debug.LogError ("should not start act on act ending that was trigerred by higher priority");
+
+            if (replaced) {
+                Debug.LogError("should not start act on act ending that was trigerred by higher priority");
                 return false;
             }
 
@@ -85,10 +76,9 @@ namespace Lyra
             return true;
         }
 
-        public bool can_start_act (act _act) {
-            if ( _act.priority.level != 0 )
-            {
-                Debug.LogError ($"{_act} must have level 0");
+        public bool can_start_act(act _act) {
+            if (_act.priority.level != 0) {
+                Debug.LogError($"{_act} must have level 0");
                 return false;
             }
 
@@ -98,44 +88,39 @@ namespace Lyra
             return true;
         }
 
-        public bool can_start_act2nd (act _act2nd) {
-            if ( _act2nd.priority.level != 1 )
-            {
-                Debug.LogError ($"{_act2nd} must have level 1");
+        public bool can_start_act2nd(act _act2nd) {
+            if (_act2nd.priority.level != 1) {
+                Debug.LogError($"{_act2nd} must have level 1");
                 return false;
             }
 
-            if (!accept2nd || _act2nd.priority <= priority2nd) 
+            if (!accept2nd || _act2nd.priority <= priority2nd)
                 return false;
 
             return true;
         }
 
-        public void stop_act ( act_handler handler )
-        {
+        public void stop_act(act_handler handler) {
             if (handler == acting)
                 act.abort(this);
             else
                 Dev.Break(" handler can't stop state ");
         }
 
-        public bool start_act2nd ( act _act2nd, act_handler handler = null )
-        {
-            if ( _act2nd.priority.level != 1 )
-            {
-                Debug.LogError ($"{_act2nd} must have level 1");
+        public bool start_act2nd(act _act2nd, act_handler handler = null) {
+            if (_act2nd.priority.level != 1) {
+                Debug.LogError($"{_act2nd} must have level 1");
                 return false;
             }
 
             if (!accept2nd || _act2nd.priority <= priority2nd) {
                 if (handler != null)
-                handler._act_end ( _act2nd, act_status.start_failed );
+                    handler._act_end(_act2nd, act_status.start_failed);
                 return false;
             }
-            
-            if ( replaced )
-            {
-                Debug.LogError ("should not start act on act ending that was trigerred by higher priority");
+
+            if (replaced) {
+                Debug.LogError("should not start act on act ending that was trigerred by higher priority");
                 return false;
             }
 
@@ -151,7 +136,7 @@ namespace Lyra
 
             replaced = false;
 
-            act2nd.tick(this );
+            act2nd.tick(this);
 
             return true;
         }
@@ -160,16 +145,14 @@ namespace Lyra
         /// end the main state at request of the original handler only
         /// </summary>
         /// <param name="handler"></param>
-        public void stop_act2nd ( act_handler handler )
-        {
+        public void stop_act2nd(act_handler handler) {
             if (handler == acting2nd)
                 act2nd.abort(this);
             else
                 Debug.LogError(" handler can't stop state ");
         }
 
-        void end ()
-        {
+        void end() {
             var m = act;
             var h = acting;
 
@@ -179,12 +162,11 @@ namespace Lyra
 
             accept2nd = false;
 
-            if ( h != null && h.on )
-                h._act_end (m, replaced? act_status.abort : act_status.done );
+            if (h != null && h.on)
+                h._act_end(m, replaced ? act_status.abort : act_status.done);
         }
 
-        void end2nd ()
-        {
+        void end2nd() {
             var m = act2nd;
             var h = acting2nd;
 
@@ -192,12 +174,11 @@ namespace Lyra
             acting2nd = null;
             priority2nd = -1;
 
-            if ( h != null && h.on )
-                h._act_end(m, replaced? act_status.abort : act_status.done );
+            if (h != null && h.on)
+                h._act_end(m, replaced ? act_status.abort : act_status.done);
         }
 
-        public void _star_stop ( star s )
-        {
+        public void _star_stop(star s) {
             if (s == act)
                 end();
 
@@ -208,36 +189,33 @@ namespace Lyra
 
 
 
-    public struct priority
-    {
+    public struct priority {
         public int value { private set; get; }
         public int level { private set; get; }
         public bool accept2nd { private set; get; }
 
-        private priority ( int _value, int _level )
-        {
+        private priority(int _value, int _level) {
             value = _value;
             level = _level;
             accept2nd = false;
         }
 
-        public priority with2nd ()
-        {
+        public priority with2nd() {
             accept2nd = true;
             return this;
         }
 
-        public static implicit operator int ( priority p ) => p.value;
+        public static implicit operator int(priority p) => p.value;
 
-        public static readonly priority def = new priority (0, 0);
-        public static readonly priority def2 = new priority (1, 0);
-        public static readonly priority def3 = new priority (2, 0);
-        public static readonly priority action = new priority (3, 0);
-        public static readonly priority action2 = new priority (4, 0);
-        public static readonly priority reaction = new priority (5, 0);
-        public static readonly priority recovery = new priority (6, 0);
+        public static readonly priority def = new priority(0, 0);
+        public static readonly priority def2 = new priority(1, 0);
+        public static readonly priority def3 = new priority(2, 0);
+        public static readonly priority action = new priority(3, 0);
+        public static readonly priority action2 = new priority(4, 0);
+        public static readonly priority reaction = new priority(5, 0);
+        public static readonly priority recovery = new priority(6, 0);
 
-        public static readonly priority sub = new priority (2, 1);
+        public static readonly priority sub = new priority(2, 1);
     }
 
 }

@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
 
 namespace Lyra
 {
@@ -28,10 +25,17 @@ namespace Lyra
 
         protected sealed override void _ready()
         {
-            for (int i = 0; i < o.Length; i++)
+            for (int i = 0; i < o.Length; i++) {
                 system.add ( o[i] ) ;
+            }
 
             __ready ();
+        }
+
+        protected override void _descend() {
+            for (int i = 0; i < o.Length; i++) {
+                o [i].descend (this);
+            }
         }
 
         protected virtual void __ready ()

@@ -1,52 +1,59 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Lyra
-{
+namespace Lyra {
     [star(-1)]
-    public abstract class action : star.neutron
-    {
-        public static void start (action Script)
-        {
-            if (Script != null)
-            {
-                phoenix.core.start_action ( Script );
+    public abstract class action : star.neutron {
+        protected List<action> ancestors { private set; get; } = new List<action>();
+
+        /// <summary> make parent of this action registering it in the ancestors list </summary>
+        public void descend(action parent) {
+            ancestors.Clear();
+            ancestors.AddRange(parent.ancestors);
+            ancestors.Add(parent);
+            _descend();
+        }
+
+        protected virtual void _descend() { }
+
+        public static void start(action Script) {
+            if (Script != null) {
+                phoenix.core.start_action(Script);
             }
             else
-            Debug.LogWarning ("script is null");
+                Debug.LogWarning("script is null");
+        }
+
+        public sealed class root : action {
         }
     }
 
     [path("default")]
-    public class log : action
-    {
+    public class log : action {
         [export]
         public string text;
 
-        protected override void _step()
-        {
-            Debug.Log (text);
-            stop ();
+        protected override void _step() {
+            Debug.Log(text);
+            stop();
         }
     }
 
     [path("default")]
-    public class wait : action
-    {
+    public class wait : action {
         [export]
         public float time;
         float t;
 
-        protected override void _start()
-        {
+        protected override void _start() {
             t = time;
         }
 
-        protected override void _step()
-        {
+        protected override void _step() {
             t -= Time.deltaTime;
             if (t <= 0)
-                stop ();
+                stop();
         }
     }
 }

@@ -2,11 +2,9 @@ using System.Collections.Generic;
 using Lyra;
 using UnityEngine;
 
-namespace Triheroes.Code
-{
-    [star (order.slash)]
-    public class slash : virtus.star
-    {
+namespace Triheroes.Code {
+    [star(order.slash)]
+    public class slash : virtus.star {
         [link]
         photon photon;
 
@@ -14,17 +12,15 @@ namespace Triheroes.Code
         slay.path path;
         sword sword;
 
-        Mesh trail = new Mesh ();
+        Mesh trail = new Mesh();
         Material material;
         int frame_number;
         float duration;
         Vector3 position;
         float time;
 
-        public class ink : ink <slash>
-        {
-            public ink ( Material material, int frame_number )
-            {
+        public class ink : ink<slash> {
+            public ink(Material material, int frame_number) {
                 o.material = material;
                 o.frame_number = frame_number;
             }
@@ -35,18 +31,17 @@ namespace Triheroes.Code
         static sword _sword;
         static float _duration;
 
-        public class w: bridge {
-            public void fire ( sword sword, slay.path path, float duration ) {
+        public class w : bridge {
+            public void fire(sword sword, slay.path path, float duration) {
                 _path = path;
                 _sword = sword;
                 _duration = duration;
-                orion.rent (name);
+                orion.rent(name);
             }
         }
         #endregion
 
-        protected override void _start ()
-        {
+        protected override void _start() {
             path = _path;
             sword = _sword;
             performer = ((actor)sword.owner).skin;
@@ -55,34 +50,31 @@ namespace Triheroes.Code
             position = performer.position;
             time = 0;
             ray_ptr = 0;
-            hitted.Clear ();
+            hitted.Clear();
 
-            CreateTrail ();
+            CreateTrail();
         }
 
-        protected override void _step ()
-        {
-            int path_cap = Mathf.Clamp ( Mathf.RoundToInt ( time / slay.path.delta ), 0, path.orig.Length );
+        protected override void _step() {
+            int path_cap = Mathf.Clamp(Mathf.RoundToInt(time / slay.path.delta), 0, path.orig.Length);
             time += Time.deltaTime;
-            
-            while (path_ptr < path_cap)
-            {
-                remesh ();
-                path_ptr ++;
+
+            while (path_ptr < path_cap) {
+                remesh();
+                path_ptr++;
             }
 
-            form_uv ();
+            form_uv();
 
-            if ( ray_ptr != path_ptr && path_ptr < path_count )
-            {
-                raycast ();
+            if (ray_ptr != path_ptr && path_ptr < path_count) {
+                raycast();
                 ray_ptr = path_ptr;
             }
 
-            Graphics.DrawMesh (trail, position, Quaternion.identity, material, 0);
+            Graphics.DrawMesh(trail, position, Quaternion.identity, material, 0);
 
             if (time > duration)
-                virtus.return_ ();
+                virtus.return_();
         }
 
         Vector3[] vertices;
@@ -91,28 +83,25 @@ namespace Triheroes.Code
         int path_count;
         Vector2[] uvs;
 
-        void CreateTrail ()
-        {
+        void CreateTrail() {
             path_count = path.orig.Length;
             vertices = new Vector3[path_count * 2];
-            triangles = new int[ (path_count - 1) * 6];
+            triangles = new int[(path_count - 1) * 6];
             uvs = new Vector2[path_count * 2];
 
             path_ptr = 0;
-            remesh ();
+            remesh();
         }
-        
-        void remesh()
-        {
+
+        void remesh() {
             trail.Clear();
 
             // Update vertices of current path
-            vertices[path_ptr * 2] = vecteur.ldir ( performer.roty, path.orig [path_ptr] ) + ( performer.position - position );
-            vertices[path_ptr * 2 + 1] = vecteur.ldir ( performer.roty, path.dir [path_ptr] * sword.length ) + vertices[path_ptr * 2];
+            vertices[path_ptr * 2] = vecteur.ldir(performer.roty, path.orig[path_ptr]) + (performer.position - position);
+            vertices[path_ptr * 2 + 1] = vecteur.ldir(performer.roty, path.dir[path_ptr] * sword.length) + vertices[path_ptr * 2];
 
             // Set future path to current path to discard them
-            for (int i = path_ptr + 1; i < path_count; i++)
-            {
+            for (int i = path_ptr + 1; i < path_count; i++) {
                 vertices[i * 2] = vertices[path_ptr * 2];
                 vertices[i * 2 + 1] = vertices[path_ptr * 2 + 1];
             }
@@ -121,8 +110,7 @@ namespace Triheroes.Code
             int quadCount = path_count - 1;
             int t = 0;
 
-            for (int i = 0; i < quadCount; i++)
-            {
+            for (int i = 0; i < quadCount; i++) {
                 int i0 = i * 2;
                 int i1 = i0 + 1;
                 int i2 = (i + 1) * 2;
@@ -147,20 +135,18 @@ namespace Triheroes.Code
             trail.RecalculateNormals();
         }
 
-        void form_uv ()
-        {
+        void form_uv() {
             float normalized_time = time / duration;
-            int frame_index = Mathf.FloorToInt ( normalized_time * (frame_number - 1) );
+            int frame_index = Mathf.FloorToInt(normalized_time * (frame_number - 1));
 
             float frame_width = 1f / frame_number;
             float frame_offset = frame_index * frame_width;
 
-            for (int i = 0; i < path_count; i++)
-            {
-                float v = ( (float) i ) / (path_count - 1);
+            for (int i = 0; i < path_count; i++) {
+                float v = ((float)i) / (path_count - 1);
 
-                uvs[i * 2] = new Vector2( frame_offset + v * frame_width, 0 );
-                uvs[i * 2 + 1] = new Vector2( frame_offset + v * frame_width, 1 );
+                uvs[i * 2] = new Vector2(frame_offset + v * frame_width, 0);
+                uvs[i * 2 + 1] = new Vector2(frame_offset + v * frame_width, 1);
             }
 
             trail.uv = uvs;
@@ -168,48 +154,42 @@ namespace Triheroes.Code
 
         RaycastHit ray_hit;
         int ray_ptr;
-        void raycast ()
-        {
+        void raycast() {
             // raycast Z pattern using the paths
             Vector3 A = vertices[ray_ptr * 2] + position;
             Vector3 B = vertices[ray_ptr * 2 + 1] + position;
             Vector3 D = vertices[path_ptr * 2 + 1] + position;
-            Vector3 ABHalf = ( A + B ) / 2;
-            Vector3 CDHalf = ( vertices[path_ptr * 2] + position + D ) / 2;
+            Vector3 ABHalf = (A + B) / 2;
+            Vector3 CDHalf = (vertices[path_ptr * 2] + position + D) / 2;
 
             // linecast to hit
-            if ( Physics.Linecast ( A , B, out ray_hit, vecteur.SolidCharacterAttack ) || Physics.Linecast ( B, D, out ray_hit, vecteur.SolidCharacterAttack ) || Physics.Linecast ( ABHalf, D, out ray_hit, vecteur.SolidCharacterAttack  ) || Physics.Linecast ( A, CDHalf, out ray_hit, vecteur.SolidCharacterAttack ) )
-                hit ();
+            if (Physics.Linecast(A, CDHalf, out ray_hit, vecteur.SolidCharacterAttack) || Physics.Linecast(A, B, out ray_hit, vecteur.SolidCharacterAttack) || Physics.Linecast(B, D, out ray_hit, vecteur.SolidCharacterAttack) || Physics.Linecast(ABHalf, D, out ray_hit, vecteur.SolidCharacterAttack))
+                hit();
         }
 
-        List <int> hitted = new List<int> ();
-        void hit ()
-        {
-            if ( hitted.Contains ( ray_hit.collider.id () ) ) return;
+        List<int> hitted = new List<int>();
+        void hit() {
+            if (hitted.Contains(ray_hit.collider.id())) return;
 
-            if ( ray_hit.collider.gameObject.layer == vecteur.ATTACK )
-            {
-                sword.owner.photon.radiate ( new parried () );
-                virtus.return_ ();
+            if (ray_hit.collider.gameObject.layer == vecteur.ATTACK) {
+                sword.owner.photon.radiate(new parried());
+                virtus.return_();
                 return;
             }
-            
-            if (  pallas.contains ( ray_hit.collider.id () ) && pallas.is_enemy ( ray_hit.collider.id (), sword.owner.faction ) )
-            {
-                pallas.radiate ( ray_hit.collider.id (), new hack ( 2, ray_hit.point ) );
-                hitted.Add ( ray_hit.collider.id () );
 
-                photon.radiate ( new hacked ( ray_hit.collider.id () ) );
-                sword.owner.photon.radiate ( new hacked ( ray_hit.collider.id () ) );
+            if (pallas.contains(ray_hit.collider.id()) && pallas.is_enemy(ray_hit.collider.id(), sword.owner.faction)) {
+                pallas.radiate(ray_hit.collider.id(), new hack(2, ray_hit.point));
+                hitted.Add(ray_hit.collider.id());
+
+                photon.radiate(new hacked(ray_hit.collider.id()));
+                sword.owner.photon.radiate(new hacked(ray_hit.collider.id()));
             }
         }
     }
 
-    public struct hacked
-    {
+    public struct hacked {
         public int hacked_id;
-        public hacked ( int _hacked_id )
-        {
+        public hacked(int _hacked_id) {
             hacked_id = _hacked_id;
         }
     }

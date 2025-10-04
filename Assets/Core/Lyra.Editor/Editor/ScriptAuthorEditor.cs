@@ -76,9 +76,9 @@ namespace Lyra.Editor
             ActionPaper actionPaper = go.GetComponent <ActionPaper> ();
             if ( actionPaper )
             {
-                EditorGUI.DrawRect ( selectionRect, new Color (.5f,.5f,.6f) );
+                EditorGUI.DrawRect ( selectionRect, new Color (.1f,.1f,.4f) );
                 if (  actionPaper.IsDecoratorKind () )
-                EditorGUI.DrawRect ( selectionRect, new Color (.7f,.5f,.6f) );
+                EditorGUI.DrawRect ( selectionRect, new Color (.4f,.2f,.1f) );
 
                 string Label = "---";
                 if (TypeCache.ContainsKey (actionPaper.Paper.type))

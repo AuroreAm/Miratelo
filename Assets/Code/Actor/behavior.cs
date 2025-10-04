@@ -17,7 +17,7 @@ namespace Triheroes.Code {
         }
 
         protected override void _start() {
-            phoenix.core.start_action( start_script );
+            phoenix.core.start_action ( start_script );
         }
 
         public void _radiate(system_ready gleam) {

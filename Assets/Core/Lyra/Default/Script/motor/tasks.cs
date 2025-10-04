@@ -19,7 +19,6 @@ namespace Lyra {
         const int sequence = 0; const int replaced = 1; const int replacing = 2; const int hold = 3;
 
         void tick () {
-            domain = this;
             ptr_task.tick (this);
         }
 
@@ -40,7 +39,7 @@ namespace Lyra {
         }
 
         void check_continue () {
-            if ( o [ptr + 1].can_start () ) {
+            if ( o [ptr].can_start () ) {
             state = sequence;
             increment ();
             }
@@ -75,12 +74,18 @@ namespace Lyra {
         }
 
         void increment () {
-             ptr++;
+             add_ptr ();
              ptr_task = o [ptr];
              tick ();
         }
 
-        bool finished () => ptr +1 > o.Length && !repeat;
+        void add_ptr () {
+            ptr ++;
+            if (repeat &&ptr >= o.Length)
+                ptr = 0;
+        }
+
+        bool finished () => ptr + 1 >= o.Length && !repeat;
 
         protected override bool _can_start() {
             return o [0].can_start ();
@@ -91,9 +96,12 @@ namespace Lyra {
                 fail ();
                 return;
             }
-            if (state == sequence)
-            ptr ++;
+            
             state = hold;
+
+            if (state == sequence)
+                add_ptr ();
+            ptr_task.abort (this);
         }
 
         protected override void _replace(tasks t) {
