@@ -22,7 +22,7 @@ namespace Triheroes.Code
         public float jump_out_distance = 15;
 
         protected override void _start() {
-            
+
             float offset;
             offset = vecteur.rot_direction_y ( warrior.target.c.position, c.position );
 
@@ -32,7 +32,7 @@ namespace Triheroes.Code
             }
 
             stop ();
-
+            
         }
 
         bool raycast ( float angle, out Vector3 position ) {

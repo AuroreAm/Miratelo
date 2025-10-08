@@ -9,3 +9,5 @@ Often source of bug
 - bad code copy
 - Coroutine yeld resume, not return
 - static stays after replaying
+
+- jump raycast of KN0 not workng

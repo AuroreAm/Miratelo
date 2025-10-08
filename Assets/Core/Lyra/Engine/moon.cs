@@ -154,7 +154,8 @@ namespace Lyra
             if (planets.TryGetValue(typeof(T), out moon m))
                 return m as T;
             else
-                return null;
+                Debug.LogError($"no moon of type {typeof(T).Name} found in system {this}");
+            return null;
         }
 
         // local callback

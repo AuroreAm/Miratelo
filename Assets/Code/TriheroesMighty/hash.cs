@@ -67,6 +67,9 @@ namespace Triheroes.Code
 
         public static readonly term SS4 = new term("SS4");
         
+        public static readonly term S1_charge = new term("S1_charge");
+        public static readonly term S1 = new term ("S1");
+
         public static readonly term begin_aim = new term("begin_aim");
         public static readonly term start_shoot = new term("start_shoot");
     }

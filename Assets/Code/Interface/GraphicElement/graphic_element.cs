@@ -6,7 +6,6 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     [star(order.graphic_element)]
-    public class graphic_element : action
-    {
+    public abstract class graphic_element : action {
     }
 }

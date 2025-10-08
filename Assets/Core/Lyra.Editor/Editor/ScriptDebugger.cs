@@ -47,7 +47,7 @@ namespace Lyra.Editor {
             content = new AreaList ();
             foreach (var a in l.Values)
                 content.Add ( ActionGUIBase.Create ( a ) );
-            main.Add ( content );
+            main.Add ( new Scroll ( content ) );
 
             screen = new AreaScreen (main);
         }

@@ -26,6 +26,8 @@ namespace Triheroes.Code
         void frame_actor ()
         {
             camera.o.start_player_camera ( main_actor.system.get <character> () );
+            ui.o.health_hud.start ( main_actor.system.get <health_point> () );
+            ui.o.hud_Label.set ( main_actor.system.get <actor> () );
         }
     }
 

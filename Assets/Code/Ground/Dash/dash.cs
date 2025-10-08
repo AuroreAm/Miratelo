@@ -40,7 +40,7 @@ namespace Triheroes.Code {
         }
 
         protected override void _ready() {
-            f = new force_curve_data (.5f, res.curves.q (new term("jump")) );
+            f = new force_curve_data (.5f, res.curves.q (animation.jump) );
         }
 
         protected override void _start() {
