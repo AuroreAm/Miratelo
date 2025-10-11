@@ -58,6 +58,25 @@ namespace Lyra
         }
     }
 
+	public static class TransformExtensions
+	{
+		public static void ClearChildren ( this Transform t ) {
+			for (int i = t.childCount - 1; i >= 0; i--) {
+				UnityEngine.Object.Destroy ( t.GetChild ( i ).gameObject );
+			}
+		}
+	}
+
+	public static class ArrayExtensions
+	{
+		public static T[] Fill<T>(this T[] array) where T : new() {
+			for (int i = 0; i < array.Length; i++) {
+				array[i] = new T();
+			}
+			return array;
+		}
+	}
+
 	public static class Dev
 	{
 		public static void Break ( string message )

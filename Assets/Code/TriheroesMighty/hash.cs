@@ -79,4 +79,10 @@ namespace Triheroes.Code
         public static readonly Quaternion BowDefaultRotation = Quaternion.identity;
         public static readonly Quaternion SwordDefaultRotation = Quaternion.Euler(0, -90, 0);
     }
+
+    public static class GO {
+        public static readonly term heart_hp = new term("heart_hp");
+        public static readonly term heart_hp_glow = new term("heart_hp_glow");
+        public static readonly term character_hud_label = new term("character_hud_label");
+    }
 }

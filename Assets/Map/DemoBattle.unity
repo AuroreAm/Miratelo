@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 5abd3198b28bc61489ad0eb27d084a7c, type: 2}
+  m_LightingDataAsset: {fileID: 0}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 15f5009296c9e1644b7a896facad9a03, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -4398,7 +4398,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 934d9892e975c144d8b42bd04e8f1459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHP: 10
+  Heart: 10
+  Stamina: 7
 --- !u!1001 &258923962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9890,7 +9891,6 @@ GameObject:
   m_Component:
   - component: {fileID: 520415268}
   - component: {fileID: 520415269}
-  - component: {fileID: 520415270}
   m_Layer: 0
   m_Name: KN0
   m_TagString: Untagged
@@ -9930,19 +9930,6 @@ MonoBehaviour:
   Faction: 1
   Scripts: {fileID: 999134601}
   StartScript: start
---- !u!114 &520415270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 520415267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 934d9892e975c144d8b42bd04e8f1459, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHP: 10
 --- !u!1001 &522915627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37367,10 +37354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FullOverlay: {fileID: 339871028}
-  Label: {fileID: 78361628}
   HeartContainer: {fileID: 578414426}
-  HeartPrefab: {fileID: 559546684063693165, guid: 517136b2d3828db4281f40a837f44a72, type: 3}
-  HeartSize: 16
 --- !u!1001 &2075130050
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ namespace Triheroes.Code {
 
     [need_ready]
     [inked]
-    public class full_overlay : graphic_element {
+    public class full_overlay : graphic {
         public class ink : ink<full_overlay> {
             public ink(RawImage image) {
                 o.image = image;

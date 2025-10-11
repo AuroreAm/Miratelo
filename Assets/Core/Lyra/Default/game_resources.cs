@@ -54,4 +54,11 @@ namespace Lyra
             return main[key];
         }
     }
+
+    public static class resExtensions
+    {
+        public static T instantiate <T> (this res<T> r, term key) where T : Object {
+            return Object.Instantiate ( r.q ( key ) );
+        }
+    }
 }

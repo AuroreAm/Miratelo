@@ -1,10 +1,13 @@
 using Lyra;
 
 namespace Triheroes.Code.Element {
-    public class skin : element, ruby<perce> {
+    public class skin : element, ruby <perce> {
+
+        [link]
+        health health;
 
         public void _radiate(perce gleam) {
-            photon.radiate (new damage(gleam.raw));
+            health.damage ( gleam.raw );
         }
 
         protected override void _ready() {

@@ -32,8 +32,6 @@ namespace Triheroes.Code.Element
         {
             if (AP > 0)
             AP -= gleam.raw;
-            else
-            photon.radiate ( new damage (gleam.raw) );
 
             restore.cooldown = cooldown;
 

@@ -10,16 +10,15 @@ namespace Triheroes.Code
 
         public RawImage FullOverlay;
 
-        public Text Label;
         public RectTransform HeartContainer;
-        public RectTransform HeartPrefab;
-        public float HeartSize;
 
         public override void _create() {
-            new ui.ink ( Label, HeartContainer, HeartPrefab, HeartSize );
+            new ink <ui> ();
             new full_overlay.ink ( FullOverlay );
+            new player_hud.ink ( HeartContainer );
         }
 
-        public override void _created(system s) {}
+        public override void _created(system s) {
+        }
     }
 }
