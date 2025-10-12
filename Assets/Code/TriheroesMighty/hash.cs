@@ -83,6 +83,8 @@ namespace Triheroes.Code
     public static class GO {
         public static readonly term heart_hp = new term("heart_hp");
         public static readonly term heart_hp_glow = new term("heart_hp_glow");
+        public static readonly term stamina_dot = new term ("stamina_dot");
+        public static readonly term stamina_dot_glow = new term ("stamina_dot_glow");
         public static readonly term character_hud_label = new term("character_hud_label");
     }
 }

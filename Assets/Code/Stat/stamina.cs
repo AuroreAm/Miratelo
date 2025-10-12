@@ -5,21 +5,30 @@ namespace Triheroes.Code {
 
     [inked]
     public class stamina : auto_stat {
-        int state = 0;
+        [link]
+        public hud_pos hud;
+
+        public int state {private set; get;}
         public const int idle = 0; public const int hot = 1; public const int fatigue = 2;
 
-        int max;
+        public int max_active {get; private set;}
         float regen_speed;
-        float cooldown_duration;
+        public float cooldown_duration {private set; get;}
 
         float red_stamina;
         float green_stamina;
         float ghost_stamina;
         float cooldown;
 
+        public float hot_ui {private set; get;}
+        public float green_ui => green_stamina;
+        public float red_ui => red_stamina;
+        public float ghost_ui => ghost_stamina;
+        public float cooldown_ui => cooldown;
+
         public class ink : ink<stamina> {
             public ink(int _max, float _regen_speed = 1, float _cooldown_duration = 2) {
-                o.max = _max;
+                o.max_active = _max;
                 o.regen_speed = _regen_speed;
                 o.cooldown_duration = _cooldown_duration;
 
@@ -42,6 +51,7 @@ namespace Triheroes.Code {
         }
 
         void to_idle() {
+            ghost_stamina = 0;
             state = idle;
         }
 
@@ -50,16 +60,17 @@ namespace Triheroes.Code {
             state = fatigue;
         }
 
-        void to_hot() {
+        void to_hot () {
+            ghost_stamina = 0;
             cooldown = cooldown_duration;
             state = hot;
         }
 
         void handle_idle(float dt) {
             // regen green
-            if (green_stamina < max) {
+            if (green_stamina < max_active) {
                 green_stamina += dt * regen_speed;
-                if (green_stamina > max) green_stamina = max;
+                if (green_stamina > max_active) green_stamina = max_active;
             }
         }
 
@@ -74,23 +85,23 @@ namespace Triheroes.Code {
 
         void handle_fatigue(float dt) {
             // first refill red
-            if (red_stamina < max) {
+            if (red_stamina < max_active) {
                 red_stamina += dt * regen_speed;
-                if (red_stamina > max) red_stamina = max;
+                if (red_stamina > max_active) red_stamina = max_active;
                 return;
             }
 
             // then refill ghost stamina
-            if (ghost_stamina < max) {
+            if (ghost_stamina < max_active) {
                 ghost_stamina += dt * regen_speed;
-                if (ghost_stamina > max) ghost_stamina = max;
+                if (ghost_stamina > max_active) ghost_stamina = max_active;
                 return;
             }
 
             // when ghosts full, instant refill green and idle
-            if (ghost_stamina >= max) {
-                green_stamina = max;
-                state = idle;
+            if (ghost_stamina >= max_active) {
+                green_stamina = max_active;
+                to_idle ();
             }
         }
 
@@ -99,6 +110,9 @@ namespace Triheroes.Code {
 
         public bool use_green(int amount) {
             if (!has_green(amount)) return false;
+
+            if ( state != hot )
+            hot_ui = green_stamina;
 
             green_stamina -= amount;
 
@@ -116,7 +130,10 @@ namespace Triheroes.Code {
 
             // use green first
             if (green_stamina > 0) {
-                float green_used = Mathf.Min(green_stamina, remaining);
+                 if ( state != hot )
+                hot_ui = green_stamina;
+
+                float green_used = Mathf.Min ( green_stamina, remaining );
                 green_stamina -= green_used;
                 remaining -= green_used;
             }

@@ -27,6 +27,8 @@ namespace Triheroes.Code {
             if ( Input.GetKeyDown (KeyCode.R) ) {
                 var l = new life_hud ( main_actor.system.get<health> ().primary as life);
                 l.start ( ui.o.player_hud.heart_container );
+
+                ui.o.player_hud.bind_stamina ( main_actor.system.get <stamina> () );
             }
         }
     }

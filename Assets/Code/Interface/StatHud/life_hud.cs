@@ -26,13 +26,8 @@ namespace Triheroes.Code {
         }
 
         protected override void _start() {
-            layer0 = res.go.instantiate ( GO.heart_hp ).GetComponent <HeartGraphic> ();
-            layer0.transform.SetParent ( container, false );
-            layer0.rectTransform.anchoredPosition = Vector2.zero;
-
-            layer1 = res.go.instantiate ( GO.heart_hp_glow ).GetComponent <HeartGraphic> ();
-            layer1.transform.SetParent ( container, false );
-            layer1.rectTransform.anchoredPosition = Vector2.zero;
+            layer0 = instantiate_graphic_to_container <HeartGraphic> ( GO.heart_hp, container );
+            layer1 = instantiate_graphic_to_container <HeartGraphic> ( GO.heart_hp_glow, container );
 
             layer0._vh = _l0;
             layer1._vh = _l1;
@@ -47,55 +42,45 @@ namespace Triheroes.Code {
 
         const float lerp_speed = 5;
         void check_hot () {
-            int _hot_qstart = 0;
-            life_point [] red_hearts = life.get_red;
-             for (int i = 0; i < red_hearts.Length; i++) {
-                if ( red_hearts [i].q0.is_hot ) {
-                    _hot_qstart = i * 4;
-                    break;
-                }
-                if ( red_hearts [i].q1.is_hot ) {
-                    _hot_qstart = 1 + i * 4;
-                    break;
-                }
-                if ( red_hearts [i].q2.is_hot ) {
-                    _hot_qstart = 2 + i * 4;
-                    break;
-                }
-                if ( red_hearts [i].q3.is_hot ) {
-                    _hot_qstart = 3 + i * 4;
-                    break;
-                }
-            }
+            int _hot_qstart = find_hot_quarter_start ();
 
             if ( _hot_qstart != -1 )
             hot_qstart = _hot_qstart;
 
-            float hot_q_end_target = hot_qstart;
-
-            for (int i = red_hearts.Length - 1 ; i >= 0; i--) {
-                if ( red_hearts [i].q3.is_hot ) {
-                    hot_q_end_target = 1 + 3 + i * 4;
-                    break;
-                }
-                if ( red_hearts [i].q2.is_hot ) {
-                    hot_q_end_target = 1 + 2 + i * 4;
-                    break;
-                }
-                if ( red_hearts [i].q1.is_hot ) {
-                    hot_q_end_target = 1 + 1 + i * 4;
-                    break;
-                }
-                if ( red_hearts [i].q0.is_hot ) {
-                    hot_q_end_target = 1 + i * 4;
-                    break;
-                }
-            }
+            float hot_q_end_target = find_hot_quarter_end ();
 
             if ( hot_q_end_target > hot_qend )
             hot_qend = hot_q_end_target;
 
             hot_qend = Mathf.Lerp ( hot_qend, hot_q_end_target, lerp_speed * Time.deltaTime );
+        }
+
+        int find_hot_quarter_start () {
+            life_point [] red_hearts = life.get_red;
+             for (int i = 0; i < red_hearts.Length; i++) {
+                if ( red_hearts [i].q0.is_hot ) return i * 4;
+                if ( red_hearts [i].q1.is_hot ) return 1 + i * 4;
+                if ( red_hearts [i].q2.is_hot ) return 2 + i * 4;
+                if ( red_hearts [i].q3.is_hot ) return 3 + i * 4;
+            }
+            return -1;
+        }
+
+        float find_hot_quarter_end () {
+            life_point [] red_hearts = life.get_red;
+
+            for (int i = red_hearts.Length - 1 ; i >= 0; i--) {
+                if ( red_hearts [i].q3.is_hot )
+                    return 1 + 3 + i * 4;
+                if ( red_hearts [i].q2.is_hot )
+                    return 1 + 2 + i * 4;
+                if ( red_hearts [i].q1.is_hot )
+                    return 1 + 1 + i * 4;
+                if ( red_hearts [i].q0.is_hot )
+                    return 1 + i * 4;
+            }
+
+            return hot_qstart;
         }
 
         const float heart_size = 16;

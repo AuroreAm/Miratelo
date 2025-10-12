@@ -11,11 +11,12 @@ namespace Triheroes.Code
         public RawImage FullOverlay;
 
         public RectTransform HeartContainer;
+        public RectTransform StaminaContainer;
 
         public override void _create() {
-            new ink <ui> ();
+            new ui.ink ( GetComponent <Canvas> ().GetComponent <RectTransform> () );
             new full_overlay.ink ( FullOverlay );
-            new player_hud.ink ( HeartContainer );
+            new player_hud.ink ( HeartContainer, StaminaContainer );
         }
 
         public override void _created(system s) {

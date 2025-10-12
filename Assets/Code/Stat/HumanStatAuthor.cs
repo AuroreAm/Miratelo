@@ -11,6 +11,7 @@ namespace Triheroes.Code
 
         public override void _create() {
             new ink <health> ();
+            new stamina.ink ( Stamina );
         }
 
         public override void _created(system s) {
