@@ -5,39 +5,7 @@ using UnityEngine.UI;
 
 namespace Triheroes.Code
 {
-    [RequireComponent(typeof(CanvasRenderer))]
-    public class HeartHP : MaskableGraphic {
-
-        /*public int QHP {
-            get {
-                return _QHP;
-            }
-            set {
-                if (_QHP == value) return;
-                SetVerticesDirty ();
-                _QHP = value;
-            }
-        }
-        int _QHP;
-
-        protected override void OnPopulateMesh(VertexHelper vh) {
-            vh.Clear ();
-
-            for (int i = 0; i < QHP; i++) {
-                DrawHeartQuarter ( vh, i % 4 , Color.red, Mathf.Floor ( i / 4 ) * 16, 16 );
-            }
-        }
-        */
-
-        public Texture2D tex;
-        public override Texture mainTexture => tex;
-        public Action <VertexHelper> _vh;
-
-        protected override void OnPopulateMesh(VertexHelper vh) {
-            vh.Clear ();
-            _vh?.Invoke ( vh );
-        }
-
+    public class HeartGraphic : HudGraphic {
         public static void DrawHeartQuarter ( VertexHelper vh, int quarterId, Color color, float x, float size ) {
             // get center of heart
             float centerX = x + size / 2f;

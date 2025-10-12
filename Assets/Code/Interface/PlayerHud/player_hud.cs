@@ -5,7 +5,7 @@ namespace Triheroes.Code
 {
     [inked]
     public class player_hud : moon {
-        
+
         public RectTransform heart_container;
 
         public class ink : ink <player_hud> {
@@ -13,6 +13,5 @@ namespace Triheroes.Code
                 o.heart_container = _heart_container;
             }
         }
-
     }
 }

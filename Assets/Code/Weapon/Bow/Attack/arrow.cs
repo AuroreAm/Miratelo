@@ -69,7 +69,7 @@ namespace Triheroes.Code {
                 }
 
                 if (pallas.contains(hit.collider.id())) {
-                    pallas.radiate(hit.collider.id(), new perce(1, position));
+                    pallas.radiate(hit.collider.id(), new perce(5, position));
                     virtus.return_();
                 }
             }

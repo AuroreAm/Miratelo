@@ -75,38 +75,30 @@ namespace Triheroes.Code {
 
         /// <returns> quarter_count rest </returns>
         public int damage (int quarter_count, float hot) {
-            float hot_offset = .5f;
-
             for ( int i = count - 1 ; i >= 0 && quarter_count > 0; i-- ) {
                 quarter_count --;
                 count --;
                 switch (i) {
 
                     case 0:
-                    q0.hot = hot + get_hot_log_offset ();
+                    q0.hot = hot;
                     break;
 
                     case 1:
-                    q1.hot = hot + get_hot_log_offset ();
+                    q1.hot = hot;
                     break;
 
                     case 2:
-                    q2.hot = hot + get_hot_log_offset ();
+                    q2.hot = hot;
                     break;
 
                     case 3:
-                    q3.hot = hot + get_hot_log_offset ();
+                    q3.hot = hot;
                     break;
-
                 }
             }
 
             return quarter_count;
-
-            float get_hot_log_offset () {
-                hot_offset = hot_offset / 2;
-                return .5f - hot_offset;
-            }
         }
 
         public void tick ( float dt ) {
