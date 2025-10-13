@@ -7,12 +7,14 @@ namespace Triheroes.Code {
     public class ArrowAuthor : VirtusAuthor {
         arrow.w w;
 
+        public moon_paper <matter> Matter;
         List<AuthorModule> modules;
 
         protected override void _virtus_create() {
             modules = new List<AuthorModule>(GetComponents<AuthorModule>());
 
             new ink<arrow>();
+            new matter_registry.ink ( Matter.write () );
 
             foreach (var a in modules)
                 a._create();

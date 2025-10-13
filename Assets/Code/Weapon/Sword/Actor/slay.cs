@@ -41,6 +41,9 @@ namespace Triheroes.Code {
     }
 
     public class slay : slay_base {
+
+        const float vu_per_mu = .005f;
+
         [link]
         sword_user sword_user;
 
@@ -58,7 +61,7 @@ namespace Triheroes.Code {
         }
 
         void begin_slash() {
-            weapon.slash.fire(weapon, paths.paths[animation], skin.duration(animation) - skin.event_points(animation)[0]);
+            weapon.slash ( weapon.matter.mu * vu_per_mu , paths.paths[animation], skin.duration(animation) - skin.event_points(animation)[0] );
         }
 
         void send_slash_signal() {

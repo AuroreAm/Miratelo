@@ -18,11 +18,11 @@ namespace Triheroes.Code
         static float _duration;
 
         public class w : slash.w {
-            public void fire ( sword sword, slay.path path, float duration, AnimationCurve hook_curve, Vector3 hook_dir, float hook_duration ) {
+            public void fire ( sword sword, float vu, slay.path path, float duration, AnimationCurve hook_curve, Vector3 hook_dir, float hook_duration ) {
                 _hook_curve = hook_curve;
                 _hook_dir = hook_dir;
                 _duration = hook_duration;
-                fire ( sword, path, duration );
+                fire ( sword, vu, path, duration );
             }
         }
         #endregion

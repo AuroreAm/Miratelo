@@ -13,7 +13,8 @@ namespace Triheroes.Code {
         }
 
         public override void damage ( float raw ) {
-            int quarter_count = Mathf.FloorToInt ( raw / quarter.value );
+            const float eps = .0001f;
+            int quarter_count = Mathf.FloorToInt ( ( raw + eps ) / quarter.value );
 
             quarter_count = red.damage ( quarter_count );
             black.damage ( quarter_count );

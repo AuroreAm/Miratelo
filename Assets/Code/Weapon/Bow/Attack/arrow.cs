@@ -6,10 +6,16 @@ using UnityEngine;
 namespace Triheroes.Code {
     [star(order.arrow)]
     public class arrow : virtus.star {
+        [link]
+        matter_registry registry;
+
+        matter matter => registry.matter;
+
         public float speed { private set; get; }
         public Vector3 position { private set; get; }
         public Quaternion rotation { private set; get; }
         float timeleft;
+        float vu => speed / 100;
 
         protected override void _start() {
             active_arrows.Add(this);
@@ -69,7 +75,7 @@ namespace Triheroes.Code {
                 }
 
                 if (pallas.contains(hit.collider.id())) {
-                    pallas.radiate(hit.collider.id(), new perce(5, position));
+                    pallas.radiate(hit.collider.id(), new damage ( position , matter, vu, damage.pierce ) );
                     virtus.return_();
                 }
             }
@@ -114,16 +120,6 @@ namespace Triheroes.Code {
             public Vector3 roty;
             public Mesh mesh;
             public Material material;
-        }
-    }
-
-    public struct perce {
-        public float raw;
-        public Vector3 position;
-
-        public perce(float _raw, Vector3 _position) {
-            raw = _raw;
-            position = _position;
         }
     }
 

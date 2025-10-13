@@ -9,9 +9,11 @@ namespace Triheroes.Code
     {
         public float Length;
         public SlashAuthor Slash;
+        public moon_paper <matter> Matter;
 
         protected override weapon __creation()
         {
+            new matter_registry.ink ( Matter.write () );
             return new sword.ink ( Length, Slash.get_w () ).o;
         }
 

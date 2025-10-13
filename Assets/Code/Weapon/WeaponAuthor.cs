@@ -34,7 +34,7 @@ namespace Triheroes.Code
             Destroy (this);
         }
 
-        public void _created(system s)
+        public virtual void _created(system s)
         {}
     }
 }

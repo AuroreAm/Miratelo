@@ -80,7 +80,7 @@ namespace Triheroes.Code {
                     return 1 + i * 4;
             }
 
-            return hot_qstart;
+            return 0;
         }
 
         const float heart_size = 16;

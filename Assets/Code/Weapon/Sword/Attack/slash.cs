@@ -11,6 +11,7 @@ namespace Triheroes.Code {
         skin performer;
         slay.path path;
         sword sword;
+        float vu;
 
         Mesh trail = new Mesh();
         Material material;
@@ -29,10 +30,12 @@ namespace Triheroes.Code {
         #region fire
         static slay.path _path;
         static sword _sword;
+        static float _vu;
         static float _duration;
 
         public class w : bridge {
-            public void fire(sword sword, slay.path path, float duration) {
+            public void fire(sword sword, float vu, slay.path path, float duration) {
+                _vu = vu;
                 _path = path;
                 _sword = sword;
                 _duration = duration;
@@ -44,6 +47,7 @@ namespace Triheroes.Code {
         protected override void _start() {
             path = _path;
             sword = _sword;
+            vu = _vu;
             performer = ((actor)sword.owner).skin;
 
             duration = _duration;
@@ -178,7 +182,7 @@ namespace Triheroes.Code {
             }
 
             if (pallas.contains(ray_hit.collider.id()) && pallas.is_enemy(ray_hit.collider.id(), sword.owner.faction)) {
-                pallas.radiate(ray_hit.collider.id(), new hack(2, ray_hit.point));
+                pallas.radiate( ray_hit.collider.id(), new damage ( ray_hit.point, sword.matter, vu, damage.slash ) );
                 hitted.Add(ray_hit.collider.id());
 
                 photon.radiate(new hacked(ray_hit.collider.id()));

@@ -15,11 +15,11 @@ namespace Triheroes.Code
         static float _speed;
 
         public class w : slash.w {
-            public void fire ( sword sword, slay.path path, float duration, Vector3 knock_dir, float knock_speed )
+            public void fire ( sword sword, float vu, slay.path path, float duration, Vector3 knock_dir, float knock_speed )
             {   
                 _dir = knock_dir.normalized;
                 _speed = knock_speed;
-                fire (  sword, path, duration );
+                fire (  sword, vu, path, duration );
             }
         }
         #endregion
