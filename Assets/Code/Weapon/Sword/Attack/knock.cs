@@ -32,7 +32,7 @@ namespace Triheroes.Code
 
         public void _radiate(hacked gleam)
         {
-            pallas.radiate ( gleam.hacked_id, new knock( dir, speed ) );
+            /*pallas.radiate ( gleam.hacked_id, new knock( dir, speed ) );*/
         }
     }
 

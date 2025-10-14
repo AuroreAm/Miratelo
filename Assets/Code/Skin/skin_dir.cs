@@ -27,10 +27,10 @@ namespace Triheroes.Code
 
         protected override void _step()
         {
-            delta = ani.GetFloat(hash.spd) - t;
+            delta = ani.GetFloat(sh.spd) - t;
             if ( delta < 0 ) delta = 0;
 
-            t = ani.GetFloat(hash.spd);
+            t = ani.GetFloat(sh.spd);
         }
 
         protected override void _stop()

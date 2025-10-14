@@ -18,12 +18,12 @@ namespace Triheroes.Code.Mecha
         protected override void _start()
         {
             time = duration;
-            skin.play ( new skin.animation ( animation.stun_begin, this ) {end = stun_hold} );
+            skin.play ( new skin.animation ( anim.stun_begin, this ) {end = stun_hold} );
         }
 
         void stun_hold ()
         {
-            skin.play ( new skin.animation ( animation.stun, this ) );
+            skin.play ( new skin.animation ( anim.stun, this ) );
         }
 
         protected override void _step()

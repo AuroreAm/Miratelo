@@ -9,6 +9,9 @@ namespace Triheroes.Code
     [need_ready]
     public class slay_combo : action, act_handler
     {
+        [link]
+        stamina stamina;
+
         act [] combo;
 
         int ptr;
@@ -48,7 +51,7 @@ namespace Triheroes.Code
         {
             ready_for_next = false;
             ptr = 0;
-            motor.start_act ( combo [ptr], this );
+            start_motor ();
         }
 
         protected override void _step()
@@ -71,9 +74,15 @@ namespace Triheroes.Code
 
             ready_for_next = false;
             if (ptr < combo.Length)
-            motor.start_act ( combo [ptr], this );
+            start_motor ();
             else
             ptr = 0;
+        }
+
+        void start_motor () {
+            bool success = motor.start_act ( combo [ptr], this );
+            if (success)
+            stamina.use ( 1 );
         }
     }
 }

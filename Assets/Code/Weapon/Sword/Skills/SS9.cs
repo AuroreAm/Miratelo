@@ -6,7 +6,7 @@ namespace Triheroes.Code
     {
         public slay_combo skill;
 
-        static readonly term[] key = {  animation.SS9_0, animation.SS9_1, animation.SS9_2, animation.SS9_1, animation.SS9_2, animation.SS9_1, animation.SS9_2 };
+        static readonly term[] key = {  anim.SS9_0, anim.SS9_1, anim.SS9_2, anim.SS9_1, anim.SS9_2, anim.SS9_1, anim.SS9_2 };
 
         
         protected override void _ready()

@@ -1,5 +1,5 @@
 using Lyra;
-using static Triheroes.Code.animation;
+using static Triheroes.Code.anim;
 
 namespace Triheroes.Code
 {
@@ -28,7 +28,7 @@ namespace Triheroes.Code
         {
             if (ground && player.jump.down && motor.act != jump)
             {
-                jump.jump_animation = (move.state == idle)? animation.jump : ( (ik.dominand_foot == foot_ik.foot.left) ? jump_left_foot : jump_right_foot );
+                jump.jump_animation = (move.state == idle)? anim.jump : ( (ik.dominand_foot == foot_ik.foot.left) ? jump_left_foot : jump_right_foot );
 
                 fall.land_animation = (move.state == idle)? fall_end : ( (ik.dominand_foot == foot_ik.foot.left) ? fall_end_left_foot : fall_end_right_foot );
                 

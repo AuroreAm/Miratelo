@@ -10,7 +10,7 @@ namespace Triheroes.Code
     public class player_sword : action, gold <hacked>
     {
         [link]
-        SS1 SS1;
+        skills s;
 
         public void _radiate(hacked gleam)
         {
@@ -20,7 +20,7 @@ namespace Triheroes.Code
         protected override void _step()
         {
             if ( player.action2.down )
-            SS1.skill.spam ();
+            s.get<SS1> ().spam ();
         }
     }
 
@@ -88,14 +88,14 @@ namespace Triheroes.Code
         {
             acts_parry = new Dictionary<term, act> ();
 
-            var parry0 = new parry ( animation.SS8_0 );
-            var parry1 = new parry ( animation.SS8_1 );
+            var parry0 = new parry ( anim.SS8_0 );
+            var parry1 = new parry ( anim.SS8_1 );
 
-            acts_parry.Add ( animation.SS1_0, parry1 );
-            acts_parry.Add ( animation.SS1_1, parry0 );
-            acts_parry.Add ( animation.SS1_2, parry1 );
+            acts_parry.Add ( anim.SS1_0, parry1 );
+            acts_parry.Add ( anim.SS1_1, parry0 );
+            acts_parry.Add ( anim.SS1_2, parry1 );
 
-            acts_parry.Add ( animation.SS4, parry1 );
+            acts_parry.Add ( anim.SS4, parry1 );
         }
 
         protected override void _step()
@@ -123,7 +123,7 @@ namespace Triheroes.Code
             if ( acts_parry.ContainsKey ( slash_alert.incomming_slash.slash ) )
                 motor.start_act ( acts_parry [ slash_alert.incomming_slash.slash ] );
             else
-            motor.start_act ( acts_parry [ animation.SS1_0 ] );
+            motor.start_act ( acts_parry [ anim.SS1_0 ] );
         }
 
         void parry_arrow ()

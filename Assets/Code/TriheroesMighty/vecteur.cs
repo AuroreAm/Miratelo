@@ -13,22 +13,25 @@ namespace Triheroes.Code
 		public static vecteur o;
 
 		// layer mask constant
-		public static LayerMask TempLayer;
 		public static LayerMask Solid;
 		public static LayerMask Static;
 		public static LayerMask Decor;
 		public static LayerMask Attack;
-		public static LayerMask Character;
+		/* public static LayerMask Character;
 		public static LayerMask SolidCharacterAttack;
-		public static LayerMask SolidCharacter;
+		public static LayerMask SolidCharacter; */
+		public static LayerMask SolidHit;
+		public static LayerMask SolidHitAttack;
+		public static LayerMask Hitbox;
 		public static LayerMask Trigger;
 
 		// layer hardcoded constant
-		public const int CHARACTER = 10;
-		public const int ATTACK = 11;
 		public const int DECOR = 8;
 		public const int STATIC = 9;
-		public const int TRIGGER = 12;
+		public const int CHARACTER = 10;
+		public const int ATTACK = 11;
+		public const int HITBOX = 12;
+		public const int TRIGGER = 13;
 
 		public const float Drag = 1;
 
@@ -37,14 +40,16 @@ namespace Triheroes.Code
 		{
 			o = this;
 
-			TempLayer = LayerMask.GetMask("temp");
 			Solid = LayerMask.GetMask("static", "decor");
 			Static = LayerMask.GetMask("static");
 			Decor = LayerMask.GetMask("decor");
 			Attack = LayerMask.GetMask("attack");
-			Character = LayerMask.GetMask("character");
-			SolidCharacter = LayerMask.GetMask("static", "decor", "character");
-			SolidCharacterAttack = LayerMask.GetMask("static", "decor", "character", "attack");
+			Hitbox = LayerMask.GetMask("hitbox");
+			// Character = LayerMask.GetMask("character");
+			// SolidCharacter = LayerMask.GetMask("static", "decor", "character");
+			// SolidCharacterAttack = LayerMask.GetMask("static", "decor", "character", "attack");
+			SolidHit = LayerMask.GetMask("static", "decor", "hitbox");
+			SolidHitAttack = LayerMask.GetMask("static", "decor", "hitbox", "attack");
 			Trigger = LayerMask.GetMask("trigger");
 		}
 
@@ -85,7 +90,9 @@ namespace Triheroes.Code
 
 	public static class ColliderExtensions
 	{
-		public static int id(this Collider c) => c.gameObject.GetInstanceID();
+		public static int uid (this Collider c) => c.GetInstanceID ();
+
+		public static int cid (this Collider c) => xenos.character_id_of ( c.GetInstanceID () );
 	}
 
 	// character sorting by average angle and distance

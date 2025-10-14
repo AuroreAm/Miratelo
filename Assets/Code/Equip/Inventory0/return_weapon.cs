@@ -50,9 +50,9 @@ namespace Triheroes.Code.Inv0Act
         static term get_corresponding_animation ( weapon weapon )
         {
             if ( weapon is sword )
-            return animation.return_sword;
+            return anim.return_sword;
             if ( weapon is bow )
-            return animation.return_bow;
+            return anim.return_bow;
 
             return new term ();
         }

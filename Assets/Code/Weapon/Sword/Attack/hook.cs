@@ -36,7 +36,7 @@ namespace Triheroes.Code
 
         public void _radiate(hacked gleam)
         {
-            pallas.radiate ( gleam.hacked_id, new hook ( dir, cu, duration ) );
+            /*pallas.radiate ( gleam.hacked_id, new hook ( dir, cu, duration ) );*/
         }
     }
 
@@ -58,7 +58,7 @@ namespace Triheroes.Code
     {
         public void _radiate(hacked gleam)
         {
-            pallas.radiate ( gleam.hacked_id, new hook_spam () );
+            /*pallas.radiate ( gleam.hacked_id, new hook_spam () );*/
         }
     }
 

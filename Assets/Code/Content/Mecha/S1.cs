@@ -16,7 +16,7 @@ namespace Triheroes.Code.Mecha
         protected override void _start() {
             stand.use (this);
 
-            skin.play ( new skin.animation ( animation.S1_charge, this ) );
+            skin.play ( new skin.animation ( anim.S1_charge, this ) );
         }
 
         protected override void _step() {
@@ -39,13 +39,13 @@ namespace Triheroes.Code.Mecha
         float time;
 
         protected override void _ready() {
-            f = new force_curve_data ( duration, res.curves.q (animation.jump) );
+            f = new force_curve_data ( duration, res.curves.q (anim.jump) );
         }
 
         protected override void _start() {
             time = 0;
 
-            skin.play ( new skin.animation ( animation.S1, this )  );
+            skin.play ( new skin.animation ( anim.S1, this )  );
 
             f.dir = vecteur.ldir ( skin.roty, Vector3.forward ) * 20;
             a.set_force (f);

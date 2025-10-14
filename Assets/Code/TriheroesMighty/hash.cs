@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public static class hash
+    public static class sh
     {
         //----- ANIMATION VAR ------
         public static readonly int spd = Animator.StringToHash("spd");
@@ -17,7 +17,7 @@ namespace Triheroes.Code
         public static readonly int z = Animator.StringToHash("z");
     }
 
-    public static class animation
+    public static class anim
     {
         public static readonly term idle = new term("idle");
         public static readonly term walk = new term("walk");
@@ -74,10 +74,15 @@ namespace Triheroes.Code
         public static readonly term start_shoot = new term("start_shoot");
     }
 
-    public static class Const
+    [path ("skill")]
+    public static class skl {
+        public static readonly term SS1 = new term ( "SS1" );
+    }
+
+    public static class val
     {
-        public static readonly Quaternion BowDefaultRotation = Quaternion.identity;
-        public static readonly Quaternion SwordDefaultRotation = Quaternion.Euler(0, -90, 0);
+        public static readonly Quaternion def_bow_rotation = Quaternion.identity;
+        public static readonly Quaternion def_sword_rotation = Quaternion.Euler(0, -90, 0);
     }
 
     public static class GO {

@@ -1,8 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Lyra;
 using UnityEngine;
+
 
 namespace Triheroes.Code {
     public struct hack {
@@ -17,6 +17,9 @@ namespace Triheroes.Code {
 
     public abstract class slay_base : act {
         public override priority priority => priority.action;
+        
+        [link]
+        protected skills s;
 
         [link]
         protected slay.skin_path paths;
@@ -42,8 +45,6 @@ namespace Triheroes.Code {
 
     public class slay : slay_base {
 
-        const float vu_per_mu = .005f;
-
         [link]
         sword_user sword_user;
 
@@ -61,16 +62,14 @@ namespace Triheroes.Code {
         }
 
         void begin_slash() {
-            weapon.slash ( weapon.matter.mu * vu_per_mu , paths.paths[animation], skin.duration(animation) - skin.event_points(animation)[0] );
+            weapon.slash ( s.get <sword_mastery> ().su, paths.paths[animation], skin.duration(animation) - skin.event_points(animation)[0] );
         }
 
         void send_slash_signal() {
-            Collider[] nearby;
-            nearby = Physics.OverlapSphere(weapon.position, weapon.length, vecteur.Character);
+            var signaled = xenos.enemy_of ( Physics.OverlapSphere(weapon.position, weapon.length, vecteur.Hitbox), warrior.faction );
 
-            foreach (Collider col in nearby) {
-                if (pallas.contains(col.id()) && pallas.is_enemy(col.id(), warrior.faction))
-                    pallas.radiate(col.id(), new incomming_slash(actor.term, animation, skin.event_points(animation)[0]));
+            foreach ( photon p in signaled ) {
+                    p.radiate( new incomming_slash(actor.term, animation, skin.event_points(animation)[0]) );
             }
         }
 

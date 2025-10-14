@@ -14,9 +14,6 @@ namespace Triheroes.Code
         float speed = 7;
         protected override void _step()
         {
-            if ( Input.GetKeyDown (KeyCode.T) ) {
-                system.get <stamina> ().use_forced ( 1 );
-            }
 
             if (motor.act == null)
                 motor.start_act ( move );

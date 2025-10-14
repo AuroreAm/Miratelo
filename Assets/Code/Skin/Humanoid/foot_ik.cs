@@ -16,8 +16,8 @@ namespace Triheroes.Code
 
         SkinIk IK;
         Transform[] Foot;
-        float get_ik_l () => IK.ani.GetFloat(hash.lik);
-        float get_ik_r () => IK.ani.GetFloat(hash.rik);
+        float get_ik_l () => IK.ani.GetFloat(sh.lik);
+        float get_ik_r () => IK.ani.GetFloat(sh.rik);
 
         public enum foot { left, right }
         public foot dominand_foot { private set; get; }

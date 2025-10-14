@@ -36,7 +36,7 @@ namespace Triheroes.Code
             }
             else
             {
-                if (state == animation.idle)
+                if (state == anim.idle)
                     to_idle();
                 else to_lateral();
             }
@@ -52,14 +52,14 @@ namespace Triheroes.Code
         void set_animation()
         {
             // idle => lateral
-            if (state == animation.idle && dir.sqrMagnitude >= 0.01f)
+            if (state == anim.idle && dir.sqrMagnitude >= 0.01f)
             {
                 to_lateral();
                 set_animation();
                 return;
             }
             // lateral => idle // lateral animation
-            else if (state == animation.run_lateral)
+            else if (state == anim.run_lateral)
             {
                 Vector3 relativeDir = vecteur.ldir (360 - skin.roty, dir).normalized;
                 set_animation_direction_float(relativeDir.x, relativeDir.z);
@@ -76,14 +76,14 @@ namespace Triheroes.Code
 
         void to_lateral()
         {
-            skin.play( new skin.animation ( animation.run_lateral, this ) );
-            state = animation.run_lateral;
+            skin.play( new skin.animation ( anim.run_lateral, this ) );
+            state = anim.run_lateral;
         }
 
         void to_idle()
         {
-            skin.play ( new skin.animation ( animation.idle, this ) );
-            state = animation.idle;
+            skin.play ( new skin.animation ( anim.idle, this ) );
+            state = anim.idle;
         }
 
         float dx; float dz;
@@ -92,8 +92,8 @@ namespace Triheroes.Code
             dx = Mathf.MoveTowards(dx, _dx, GravityPerSecond * Time.deltaTime);
             dz = Mathf.MoveTowards(dz, _dz, GravityPerSecond * Time.deltaTime);
 
-            skin.ani.SetFloat(hash.dx, dx);
-            skin.ani.SetFloat(hash.dz, dz);
+            skin.ani.SetFloat(sh.dx, dx);
+            skin.ani.SetFloat(sh.dz, dz);
         }
         
         /// <param name="dir_s"> per second </param>

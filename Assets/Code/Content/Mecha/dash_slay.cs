@@ -5,8 +5,6 @@ using UnityEngine;
 
 namespace Triheroes.Code {
     public class mecha_dash_slay : slay_base, gold<parried> {
-        const float vu_per_mu = .02f;
-
         [link]
         mecha_sword mecha_sword;
 
@@ -17,7 +15,7 @@ namespace Triheroes.Code {
         stun stun;
 
         force_curve_data f;
-        term animation = Code.animation.SS4;
+        term animation = Code.anim.SS4;
 
         protected override sword weapon => (sword) mecha_sword;
 
@@ -39,7 +37,7 @@ namespace Triheroes.Code {
 
         void begin_slash()
         {
-            weapon.slash ( weapon.matter.mu * vu_per_mu, paths.paths[animation], skin.duration(animation) - skin.event_points(animation)[1] );
+            weapon.slash ( s.get <sword_mastery> ().su * 2, paths.paths[animation], skin.duration(animation) - skin.event_points(animation)[1] );
             // vecteur.ldir (skin.roty, new Vector3 ( 0,1,1 ) * 10 ) * 10, 10
         }
 
@@ -50,18 +48,13 @@ namespace Triheroes.Code {
 
         void send_slash_signal()
         {
-            RaycastHit[] ToSendSignal;
-            ToSendSignal = Physics.SphereCastAll(skin.position, weapon.length, vecteur.ldir(skin.roty, Vector3.forward), 6, vecteur.Character);
+            var signaled = xenos.enemy_of ( Physics.SphereCastAll(skin.position, weapon.length, vecteur.ldir(skin.roty, Vector3.forward), 6, vecteur.Hitbox), warrior.faction );
 
-            foreach (RaycastHit hit in ToSendSignal)
-            {
-                if (pallas.contains(hit.collider.id()) && pallas.is_enemy(hit.collider.id(), warrior.faction))
-                    pallas.radiate(hit.collider.id(),
-                    new incomming_slash(
+            foreach ( var p in signaled )
+            p.radiate (  new incomming_slash(
                         ((actor)warrior).term,
                         animation,
-                        skin.event_points ( animation ) [1] )  );
-            }
+                        skin.event_points ( animation ) [1] ) );
         }
         
         [link]

@@ -19,7 +19,7 @@ namespace Triheroes.Code
         protected override void _step()
         {
             if ( move.on && warrior.target != null )
-            if ( move.state == animation.idle || move.state == animation.brake || move.state == animation.rotation_brake )
+            if ( move.state == anim.idle || move.state == anim.brake || move.state == anim.rotation_brake )
             stand.roty = vecteur.rot_direction_y ( ((actor)warrior).position,((actor)warrior.target).position );
         }
     }

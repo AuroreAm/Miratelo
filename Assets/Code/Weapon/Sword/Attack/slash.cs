@@ -167,26 +167,28 @@ namespace Triheroes.Code {
             Vector3 CDHalf = (vertices[path_ptr * 2] + position + D) / 2;
 
             // linecast to hit
-            if (Physics.Linecast(A, CDHalf, out ray_hit, vecteur.SolidCharacterAttack) || Physics.Linecast(A, B, out ray_hit, vecteur.SolidCharacterAttack) || Physics.Linecast(B, D, out ray_hit, vecteur.SolidCharacterAttack) || Physics.Linecast(ABHalf, D, out ray_hit, vecteur.SolidCharacterAttack))
+            if (Physics.Linecast(A, CDHalf, out ray_hit, vecteur.SolidHitAttack) || Physics.Linecast(A, B, out ray_hit, vecteur.SolidHitAttack) || Physics.Linecast(B, D, out ray_hit, vecteur.SolidHitAttack) || Physics.Linecast(ABHalf, D, out ray_hit, vecteur.SolidHitAttack))
                 hit();
         }
 
         List<int> hitted = new List<int>();
         void hit() {
-            if (hitted.Contains(ray_hit.collider.id())) return;
-
-            if (ray_hit.collider.gameObject.layer == vecteur.ATTACK) {
+            if (ray_hit.collider.gameObject.layer == vecteur.ATTACK ) {
                 sword.owner.photon.radiate(new parried());
                 virtus.return_();
                 return;
             }
 
-            if (pallas.contains(ray_hit.collider.id()) && pallas.is_enemy(ray_hit.collider.id(), sword.owner.faction)) {
-                pallas.radiate( ray_hit.collider.id(), new damage ( ray_hit.point, sword.matter, vu, damage.slash ) );
-                hitted.Add(ray_hit.collider.id());
+            if (ray_hit.collider.gameObject.layer != vecteur.HITBOX ) return;
+            
+            if (hitted.Contains(ray_hit.collider.cid())) return;
 
-                photon.radiate(new hacked(ray_hit.collider.id()));
-                sword.owner.photon.radiate(new hacked(ray_hit.collider.id()));
+            if (xenos.contains(ray_hit.collider.uid()) && xenos.is_enemy(ray_hit.collider.uid(), sword.owner.faction)) {
+                xenos.damage ( ray_hit.collider.uid (), new damage ( ray_hit.point, sword.matter, vu, damage.slash ) );
+                hitted.Add(ray_hit.collider.cid());
+
+                photon.radiate(new hacked(ray_hit.collider.cid()));
+                sword.owner.photon.radiate(new hacked(ray_hit.collider.cid()));
             }
         }
     }

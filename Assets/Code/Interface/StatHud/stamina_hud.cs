@@ -45,7 +45,7 @@ namespace Triheroes.Code
 
             Color color;
 
-            if (stamina.state == stamina.fatigue) {
+            if (stamina.status == stamina.state.fatigue) {
                 color = Color.red;
                 for (int i = 0; i < stamina.max_active; i++)
                     draw_dot ( vh, i, stamina.red_ui, color, dot_size );
@@ -57,21 +57,21 @@ namespace Triheroes.Code
                 return;
             }
 
-            if ( stamina.state == stamina.hot ) {
+            if ( stamina.status == stamina.state.hot ) {
                 color = Color.white;
                 for (int i = Mathf.FloorToInt ( stamina.green_ui ); i < stamina.max_active; i++)
                 draw_dot ( vh, i, Mathf.Lerp ( stamina.green_ui, stamina.hot_ui, stamina.cooldown_ui / stamina.cooldown_duration ), color, dot_size );
             }
 
-            color = stamina.state == stamina.hot ? Color.cyan : new Color (0,.5f,1);
+            color = stamina.status == stamina.state.hot ? Color.cyan : new Color (0,.5f,1);
 
             for (int i = 0; i < stamina.max_active; i++)
-                draw_dot ( vh, i, stamina.green_ui, color, dot_size );
+                draw_dot ( vh, i, stamina.green_ui + stamina.regen_ui, color, dot_size );
         }
 
         void _l1 ( VertexHelper vh ) {
             Color color;
-            if (stamina.state == stamina.fatigue) {
+            if (stamina.status == stamina.state.fatigue) {
                 color = new Color ( 1, .64f, 0 );
                 for (int i = 0; i < stamina.max_active; i++)
                     draw_dot ( vh, i, stamina.ghost_ui, color, dot_size2 );
@@ -79,7 +79,7 @@ namespace Triheroes.Code
                 return;
             }
 
-            if ( stamina.state == stamina.hot ) {
+            if ( stamina.status == stamina.state.hot ) {
                 color = Color.red;
                 for (int i = Mathf.CeilToInt ( stamina.green_ui ); i < stamina.max_active; i++)
                 draw_dot ( vh, i, Mathf.Lerp ( stamina.green_ui, stamina.hot_ui, stamina.cooldown_ui / stamina.cooldown_duration ), color, dot_size );

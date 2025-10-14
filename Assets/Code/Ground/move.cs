@@ -39,7 +39,7 @@ namespace Triheroes.Code {
             }
             // don't reset anything if this is aquired/freed on the same frame
             else {
-                if (state == animation.idle)
+                if (state == anim.idle)
                     to_idle();
                 else
                     to_run();
@@ -61,19 +61,19 @@ namespace Triheroes.Code {
 
         void set_animation() {
             // idle => run
-            if (state == animation.idle && (dir.magnitude > 0.01f)) {
+            if (state == anim.idle && (dir.magnitude > 0.01f)) {
                 to_run();
                 set_animation();
                 return;
             }
             // run modulation ( walk - run - sprint ) => idle
-            else if (state == animation.run || state == animation.sprint || state == animation.walk) {
+            else if (state == anim.run || state == anim.sprint || state == anim.walk) {
                 if (!factor_corresponds_state(factor, state))
                     to_run();
 
                 if (dir.magnitude < 0.01f) {
                     footstep.stop();
-                    if (state == animation.sprint || sprint_cooldown > 0)
+                    if (state == anim.sprint || sprint_cooldown > 0)
                         brake();
                     else
                         to_idle();
@@ -82,26 +82,26 @@ namespace Triheroes.Code {
         }
 
         void to_idle() {
-            skin.play(new skin.animation(animation.idle, this));
-            state = animation.idle;
+            skin.play(new skin.animation(anim.idle, this));
+            state = anim.idle;
         }
 
         void to_run() {
-            if (state == animation.sprint)
+            if (state == anim.sprint)
                 sprint_cooldown = 0.5f;
 
-            term Animation = (factor == walk_factor.walk) ? animation.walk : (factor == walk_factor.run) ? animation.run : animation.sprint;
+            term Animation = (factor == walk_factor.walk) ? anim.walk : (factor == walk_factor.run) ? anim.run : anim.sprint;
             skin.play(new skin.animation(Animation, this) { fade = .2f });
 
             // get interval time from two footstep animation events from the clip
             footstep.play(skin.event_points(Animation)[1] - skin.event_points(Animation)[0]);
 
-            state = (factor == walk_factor.walk) ? animation.walk : (factor == walk_factor.run) ? animation.run : animation.sprint;
+            state = (factor == walk_factor.walk) ? anim.walk : (factor == walk_factor.run) ? anim.run : anim.sprint;
         }
 
         void brake() {
-            skin.play(new skin.animation(animation.brake, this) { end = _brake_end, fade = .05f });
-            state = animation.brake;
+            skin.play(new skin.animation(anim.brake, this) { end = _brake_end, fade = .05f });
+            state = anim.brake;
             link(skin_dir);
             skin_dir.dir = skin.ani.transform.forward.normalized;
         }
@@ -113,7 +113,7 @@ namespace Triheroes.Code {
         }
 
         static bool factor_corresponds_state(float factor, term state) {
-            return (factor == walk_factor.walk && state == animation.walk) || (factor == walk_factor.run && state == animation.run) || (factor == walk_factor.sprint && state == animation.sprint);
+            return (factor == walk_factor.walk && state == anim.walk) || (factor == walk_factor.run && state == anim.run) || (factor == walk_factor.sprint && state == anim.sprint);
         }
 
         void rotation() {
@@ -121,18 +121,18 @@ namespace Triheroes.Code {
                 stand.roty = vecteur.rot_direction_y(Vector3.zero, dir);
 
             // brake turn animation if rotation difference is too high // and is sprinting
-            if (state == animation.sprint && Mathf.Abs(Mathf.DeltaAngle(stand.roty, skin.roty)) > 120)
+            if (state == anim.sprint && Mathf.Abs(Mathf.DeltaAngle(stand.roty, skin.roty)) > 120)
                 rotation_brake();
 
-            if (state == animation.brake && Mathf.Abs(Mathf.DeltaAngle(stand.roty, skin.roty)) > 120)
+            if (state == anim.brake && Mathf.Abs(Mathf.DeltaAngle(stand.roty, skin.roty)) > 120)
                 rotation_brake();
 
             stand.rotate_skin();
         }
 
         void rotation_brake() {
-            skin.play(new skin.animation(animation.rotation_brake, this) { end = _rotation_brake_end, fade = .05f });
-            state = animation.rotation_brake;
+            skin.play(new skin.animation(anim.rotation_brake, this) { end = _rotation_brake_end, fade = .05f });
+            state = anim.rotation_brake;
             if (skin_dir.on)
                 unlink(skin_dir);
         }
@@ -153,7 +153,7 @@ namespace Triheroes.Code {
                 dir += _dir_s;
                 factor = _factor;
 
-                if (state != animation.rotation_brake && state != animation.idle)
+                if (state != anim.rotation_brake && state != anim.idle)
                     a.walk(_dir_s * _factor);
             }
         }

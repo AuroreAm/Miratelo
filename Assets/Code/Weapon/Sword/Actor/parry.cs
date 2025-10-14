@@ -10,7 +10,7 @@ namespace Triheroes.Code {
         [link]
         skin skin;
 
-        term parry_animation = animation.SS8_0;
+        term parry_animation = anim.SS8_0;
 
         public parry(term _parry_animation) {
             parry_animation = _parry_animation;

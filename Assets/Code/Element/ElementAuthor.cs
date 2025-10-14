@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
+    /*
     public class ElementAuthor : SkinAuthorModule
     {
         public moon_paper <element> Element;
@@ -16,5 +17,5 @@ namespace Triheroes.Code
         {
             system.add ( Element.write () );
         }
-    }
+    }*/
 }

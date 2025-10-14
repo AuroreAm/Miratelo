@@ -17,10 +17,10 @@ namespace Triheroes.Code {
         float min;
         bool done;
 
-        public term jump_animation = animation.jump;
+        public term jump_animation = anim.jump;
 
         protected override void _ready() {
-            f_jump = new force_curve_data( .5f, res.curves.q(animation.jump), 1);
+            f_jump = new force_curve_data( .5f, res.curves.q(anim.jump), 1);
         }
 
         public void set(float _max, float _min) {

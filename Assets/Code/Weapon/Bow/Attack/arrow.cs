@@ -66,7 +66,7 @@ namespace Triheroes.Code {
         void cast() {
             float spd = speed * Time.deltaTime;
 
-            if (Physics.Raycast(position, vecteur.forward(rotation), out RaycastHit hit, spd, vecteur.SolidCharacterAttack)) {
+            if (Physics.Raycast(position, vecteur.forward(rotation), out RaycastHit hit, spd, vecteur.SolidHitAttack )) {
                 position += vecteur.forward(rotation) * (hit.distance - 0.1f);
 
                 if (hit.collider.gameObject.layer == vecteur.DECOR || hit.collider.gameObject.layer == vecteur.STATIC) {
@@ -74,8 +74,8 @@ namespace Triheroes.Code {
                     return;
                 }
 
-                if (pallas.contains(hit.collider.id())) {
-                    pallas.radiate(hit.collider.id(), new damage ( position , matter, vu, damage.pierce ) );
+                if (xenos.contains(hit.collider.uid())) {
+                    xenos.damage (hit.collider.uid(), new damage ( position , matter, vu, damage.pierce ) );
                     virtus.return_();
                 }
             }
@@ -84,9 +84,9 @@ namespace Triheroes.Code {
         }
 
         void signal() {
-            if (Physics.Raycast(position, vecteur.forward(rotation), out RaycastHit hit, 2 * speed, vecteur.Character)) {
-                if (pallas.contains(hit.collider.id()))
-                    pallas.radiate(hit.collider.id(), new incomming_arrow(position, speed));
+            if (Physics.Raycast(position, vecteur.forward(rotation), out RaycastHit hit, 2 * speed, vecteur.Hitbox )) {
+                if (xenos.contains(hit.collider.uid()))
+                    xenos.photon_of ( hit.collider.uid () ).radiate ( new incomming_arrow(position, speed) );
             }
         }
 

@@ -8,6 +8,6 @@ namespace Triheroes.Code
     {
         protected override int hand => 1;
         protected override int layer => skin.sword;
-        protected override Quaternion default_rotation => Const.SwordDefaultRotation;
+        protected override Quaternion default_rotation => val.def_sword_rotation;
     }
 }

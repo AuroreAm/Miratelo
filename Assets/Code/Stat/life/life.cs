@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Triheroes.Code {
 
-    public class life : health_system {
+    public class life : health_system.primary {
 
         HP red;
         HP black;
@@ -13,7 +13,7 @@ namespace Triheroes.Code {
         }
 
         public override void damage ( float raw ) {
-            const float eps = .0001f;
+            
             int quarter_count = Mathf.FloorToInt ( ( raw + eps ) / quarter.value );
 
             quarter_count = red.damage ( quarter_count );

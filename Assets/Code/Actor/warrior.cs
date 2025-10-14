@@ -38,7 +38,7 @@ namespace Triheroes.Code
 
         protected override void _ready()
         {
-            pallas.register ( this, faction );
+            xenos.register ( this, faction );
         }
 
         public void lock_target ( warrior actor )
@@ -60,7 +60,7 @@ namespace Triheroes.Code
 
         public warrior get_nearest_foe ( float distance )
         {
-            List < warrior > foe = pallas.get_foes(faction);
+            List < warrior > foe = xenos.get_foes(faction);
             foe.Sort( new SortDistanceA (skin.roty, skin.position, distance) );
 
             if (foe.Count > 0 && Vector3.Distance(skin.position, foe[0].skin.position) < distance)
@@ -88,7 +88,7 @@ namespace Triheroes.Code
 
         protected override void _start()
         {
-            warrior.lock_target ( pallas.get_foes (warrior.faction) [0] );
+            warrior.lock_target ( xenos.get_foes (warrior.faction) [0] );
             stop ();
         }
     }

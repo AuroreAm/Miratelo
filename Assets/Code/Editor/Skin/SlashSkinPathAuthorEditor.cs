@@ -12,8 +12,8 @@ namespace Triheroes.Editor
     public class SlashSkinPathAuthorEditor : UnityEditor.Editor
     {
         readonly term[] EditableClip = new term[] {
-            animation.SS1_0,animation.SS1_1,animation.SS1_2,
-            animation.SS4
+            anim.SS1_0,anim.SS1_1,anim.SS1_2,
+            anim.SS4
          };
 
         SlashSkinPathAuthor Target;
@@ -148,7 +148,7 @@ namespace Triheroes.Editor
             HandEnd.localPosition = Vector3.zero;
 
             if (!CustomDirection)
-            HandEnd.localRotation = Const.SwordDefaultRotation;
+            HandEnd.localRotation = val.def_sword_rotation;
             else
             HandEnd.rotation = Quaternion.LookRotation ( CustomDirection.position - TargetHand.position );
 

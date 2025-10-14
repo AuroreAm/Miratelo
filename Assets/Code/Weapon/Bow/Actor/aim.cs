@@ -28,7 +28,7 @@ namespace Triheroes.Code
 
         void begin_aim ()
         {
-            skin.hold ( new skin.animation ( animation.begin_aim, this ) { layer = skin.upper } );
+            skin.hold ( new skin.animation ( anim.begin_aim, this ) { layer = skin.upper } );
             at (0,skin.roty);
         }
 
@@ -42,7 +42,7 @@ namespace Triheroes.Code
         {
             float target_y = Mathf.DeltaAngle ( bow_user.weapon.rot.y, skin.roty_direct ) + roty;
             stand.roty = Mathf.MoveTowardsAngle (stand.roty,target_y, speed );
-            skin.ani.SetFloat ( hash.x, Mathf.DeltaAngle ( 0, rotx ) );
+            skin.ani.SetFloat ( sh.x, Mathf.DeltaAngle ( 0, rotx ) );
         }
         
         public void shot ()

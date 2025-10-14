@@ -19,11 +19,11 @@ namespace Triheroes.Code
         [link]
         footstep footstep;
 
-        public term land_animation = animation.fall_end;
+        public term land_animation = anim.fall_end;
 
         protected override void _start()
         {
-            skin.play ( new skin.animation ( animation.fall, this ) );
+            skin.play ( new skin.animation ( anim.fall, this ) );
         }
 
         
@@ -64,7 +64,7 @@ namespace Triheroes.Code
             if ( !landed && ground && gravity < 0 && Vector3.Angle(Vector3.up, ground.normal) <= 45 )
             {
                 skin.play (
-                    new skin.animation ( animation.fall_end_hard, this )
+                    new skin.animation ( anim.fall_end_hard, this )
                         {
                             end = stop,
                             ev0 = play_footstep

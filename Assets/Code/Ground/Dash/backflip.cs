@@ -22,14 +22,14 @@ namespace Triheroes.Code
         {
             f = new force_curve_data[2];
 
-            f[0] = new force_curve_data ( skin.duration (animation.backflip), res.curves.q (animation.backflip) );
+            f[0] = new force_curve_data ( skin.duration (anim.backflip), res.curves.q (anim.backflip) );
 
-            f[1] = new force_curve_data ( Vector3.up * jump_height, .25f, res.curves.q (animation.jump), 1 );
+            f[1] = new force_curve_data ( Vector3.up * jump_height, .25f, res.curves.q (anim.jump), 1 );
         }
 
         protected override void _start ()
         {
-            skin.play ( new skin.animation ( animation.backflip, this ) { end = stop } );
+            skin.play ( new skin.animation ( anim.backflip, this ) { end = stop } );
 
             f[0].dir = vecteur.ldir (skin.roty,Vector3.back * 5f);
             a.set_forces (f);

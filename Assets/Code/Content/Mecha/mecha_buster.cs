@@ -57,7 +57,7 @@ namespace Triheroes.Code.Mecha
 
             protected override void _start()
             {
-                skin.hold(new skin.animation(animation.begin_aim, this) { layer = skin.upper });
+                skin.hold(new skin.animation(anim.begin_aim, this) { layer = skin.upper });
                 at(skin.roty);
             }
 

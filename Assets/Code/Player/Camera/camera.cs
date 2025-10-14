@@ -101,7 +101,7 @@ namespace Triheroes.Code
             RaycastHit hit;
 
             bool hit_something = Physics.Raycast(screen_ray, out hit,
-            256, vecteur.SolidCharacter);
+            256, vecteur.SolidHit);
 
             _exclude.layer = d;
 

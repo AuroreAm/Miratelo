@@ -47,7 +47,7 @@ namespace Triheroes.Code
         {
             // fetch the ground element
             if ( Physics.Raycast ( actor.position + Vector3.up * .1f, Vector3.down, out RaycastHit hit, .5f, vecteur.Solid ) )
-            ground = hit.collider.id ();
+            ground = hit.collider.gameObject.GetInstanceID ();
 
             if ( terra.contains ( ground ) )
             terra.clash ( foot, ground );

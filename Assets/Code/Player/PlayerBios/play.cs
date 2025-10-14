@@ -45,7 +45,7 @@ namespace Triheroes.Code {
         public term main_actor;
 
         protected override void _start() {
-            bios.change(play._(pallas.get_actor(main_actor)));
+            bios.change(play._(xenos.get_actor(main_actor)));
             stop();
         }
     }

@@ -15,20 +15,10 @@ namespace Triheroes.Code
         skin skin;
 
         [link]
-        stand stand;
+        stand stand; 
 
         [link]
-        motor motor;
-
-        [link]
-        dash dash;
-
-        [link]
-        backflip backflip;
-
-        [link]
-        move move;
-
+        skills s;
 
         protected override void _step()
         {
@@ -83,18 +73,8 @@ namespace Triheroes.Code
                     skin.roty = roty;
                 }
 
-                spam (direction);
+                s.get <D0> ().spam (direction);
             }
-        }
-
-        void spam ( direction direction )
-        {
-            if ( direction != direction.back )
-            {
-                motor.start_act ( dash._ ( direction ) );
-            }
-            else
-                motor.start_act ( backflip );
         }
     }
 }

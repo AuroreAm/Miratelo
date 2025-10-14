@@ -25,19 +25,19 @@ namespace Triheroes.Code
 
         float jump_out_distance = 15;
         
-        readonly term land_animation = animation.fall_end;
+        readonly term land_animation = anim.fall_end;
 
         protected override void _ready() {
             f = new force_curve_data[2];
 
-            f[0] = new force_curve_data ( 1, res.curves.q (animation.backflip) );
+            f[0] = new force_curve_data ( 1, res.curves.q (anim.backflip) );
 
-            f[1] = new force_curve_data ( Vector3.up * jump_height, .25f, res.curves.q (animation.jump), 1 );
+            f[1] = new force_curve_data ( Vector3.up * jump_height, .25f, res.curves.q (anim.jump), 1 );
         }
 
         protected override void _start() {
             done = false;
-            skin.play ( new skin.animation ( animation.jump, this ) {end = jump_done} );
+            skin.play ( new skin.animation ( anim.jump, this ) {end = jump_done} );
             
             f[0].dir = vecteur.ldir (skin.roty,Vector3.back * jump_out_distance);
             a.set_forces (f);
