@@ -13,7 +13,8 @@ namespace Triheroes.Code
 
         protected override weapon __creation()
         {
-            new matter_registry.ink ( Matter.write () );
+            matter m = Matter.write ();
+            new matter_registry.ink ( m );
             return new sword.ink ( Length, Slash.get_w () ).o;
         }
 

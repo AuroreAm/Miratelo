@@ -56,7 +56,7 @@ namespace Triheroes.Code {
         }
 
         int find_hot_quarter_start () {
-            life_point [] red_hearts = life.get_red;
+            HP4 [] red_hearts = life.get_red;
              for (int i = 0; i < red_hearts.Length; i++) {
                 if ( red_hearts [i].q0.is_hot ) return i * 4;
                 if ( red_hearts [i].q1.is_hot ) return 1 + i * 4;
@@ -67,7 +67,7 @@ namespace Triheroes.Code {
         }
 
         float find_hot_quarter_end () {
-            life_point [] red_hearts = life.get_red;
+            HP4 [] red_hearts = life.get_red;
 
             for (int i = red_hearts.Length - 1 ; i >= 0; i--) {
                 if ( red_hearts [i].q3.is_hot )
@@ -87,7 +87,7 @@ namespace Triheroes.Code {
         void _l0 ( VertexHelper vh ) {
             
             // black heart
-            life_point [] black_hearts = life.get_black;
+            HP4 [] black_hearts = life.get_black;
             Color color = Color.black;
 
             for (int i = 0; i < black_hearts.Length; i++){
@@ -105,7 +105,7 @@ namespace Triheroes.Code {
             }
 
             // red heart
-            life_point [] red_hearts = life.get_red;
+            HP4 [] red_hearts = life.get_red;
             color = Color.red;
 
             for (int i = 0; i < red_hearts.Length; i++){
@@ -144,7 +144,7 @@ namespace Triheroes.Code {
 
         // glow layer
         void _l1 ( VertexHelper vh ) {
-            life_point [] red_hearts = life.get_red;
+            HP4 [] red_hearts = life.get_red;
             Color color = Color.red;
 
             if (hot_qstart != Mathf.RoundToInt(hot_qend)) {

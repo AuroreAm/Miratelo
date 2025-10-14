@@ -30,7 +30,7 @@ namespace Triheroes.Code {
         public float regen_ui => regen;
 
         public class ink : ink <stamina> {
-             public ink(int _max, float _regen_speed = 1, float _cooldown_duration = 2) {
+             public ink(int _max, float _regen_speed = 2, float _cooldown_duration = 2) {
                 o.max_active = _max;
                 o.regen_speed = _regen_speed;
                 o.cooldown_duration = _cooldown_duration;

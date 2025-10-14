@@ -4674,7 +4674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Heart: 7
-  Stamina: 7
+  Stamina: 10
 --- !u!114 &257928871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10192,6 +10192,7 @@ GameObject:
   - component: {fileID: 520415268}
   - component: {fileID: 520415269}
   - component: {fileID: 520415270}
+  - component: {fileID: 520415271}
   m_Layer: 0
   m_Name: KN0
   m_TagString: Untagged
@@ -10248,6 +10249,20 @@ MonoBehaviour:
       content: Triheroes.Code.sword_mastery, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
     data: '{}'
+--- !u!114 &520415271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520415267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd46de886b623649ae83efd237451d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CircuitHeart: 2
+  ShieldingHP: 1400
 --- !u!1001 &522915627
 PrefabInstance:
   m_ObjectHideFlags: 0

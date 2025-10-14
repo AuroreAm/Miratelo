@@ -37,15 +37,15 @@ namespace Triheroes.Code {
 
         public void damage ( damage damage ) {
             if ( systems.Length > 0 )
-            systems [systems.Length - 1].damage ( damage.value );
+            systems [systems.Length - 1].damage ( damage );
             else 
-            primary.damage ( damage.value );
+            primary.damage ( damage );
         }
     }
 
     public abstract class health_system : auto_stat {
         public const float eps = .0001f;
-        public abstract void damage (float raw);
+        public abstract void damage ( damage damage );
 
         private health_system () {}
 

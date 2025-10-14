@@ -6,8 +6,10 @@ namespace Triheroes.Code
     public struct damage {
         public Vector3 point;
         public float value {get; set;}
+        public matter damager;
 
         public damage ( Vector3 point, matter matter, float vu, type type ) {
+            damager = matter;
             this.point = point;
             value = matter.mu * matter.damage_factor * vu * type.factor;
         }

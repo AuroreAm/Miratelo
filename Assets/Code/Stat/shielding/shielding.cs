@@ -22,8 +22,13 @@ namespace Triheroes.Code {
             penetrationHP = penetrationHP_max;
         }
 
-        public override void damage(float raw) {
-            raw = Mathf.FloorToInt(raw + eps);
+        public override void damage ( damage damage ) {
+            if ( damage.damager is metal m ) {
+                if (m.voltic)
+                damage.value *= 10;
+            }
+
+            float raw = Mathf.FloorToInt(damage.value + eps);
             hot = hot_duration;
 
             HP -= raw;
@@ -31,8 +36,11 @@ namespace Triheroes.Code {
             if (penetrationHP > 0)
                 penetrationHP -= raw;
             else {
-                previous.damage(raw * penetration_factor);
+                damage.value *= penetration_factor;
+                previous.damage ( damage );
             }
+
+            Debug.Log ( $"{HP} - {penetrationHP}" );
         }
 
         protected override void _step() {

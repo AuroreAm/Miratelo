@@ -33,32 +33,35 @@ namespace Triheroes.Code
 
         protected sealed override void _ready() {
             mu = _mu;
+            __ready ();
         }
+
+        protected virtual void __ready () {}
     }
 
     public sealed class air : matter {
         public override float damage_factor => .001f;
     }
 
-    public sealed class titanium : matter {
+    public abstract class metal : matter {
+        [export]
+        public bool _voltic;
+        public bool voltic {get; private set;}
+
+        protected override void __ready() {
+            voltic = _voltic;
+        }
+    }
+
+    public sealed class titanium : metal {
         public override float damage_factor => 1.25f;
     }
 
-    public sealed class metal : matter {
+    public sealed class iron : metal {
         public override float damage_factor => 1;
     }
 
     public sealed class wood : matter {
         public override float damage_factor => .06f;
-    }
-
-    [path ("element")]
-    public abstract class element : public_moon <element>
-    {
-        [link]
-        public photon photon;
-
-        [link]
-        public warrior warrior;
     }
 }
