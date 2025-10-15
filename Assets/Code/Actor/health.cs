@@ -58,6 +58,5 @@ namespace Triheroes.Code {
             }
         }
         public abstract class primary : health_system {}
-
     }
 }

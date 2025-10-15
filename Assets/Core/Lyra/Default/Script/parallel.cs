@@ -24,7 +24,7 @@ namespace Lyra {
         }
 
         public sealed class all : parallel {
-            /// <summary> true when parallel is starting all child node, used to prevent stopping as all child are not all started </summary>
+            /// true when parallel is starting all child node, used to prevent stopping as all child are not all started
             bool start_frame;
             bool check_stop_first;
             protected override void _start() {

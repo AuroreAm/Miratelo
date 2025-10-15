@@ -29,7 +29,7 @@ namespace Lyra
             o[ptr].abort (this);
         }
 
-        // TODO NOTE sequence act like a while loop, if all child directly stop at start, it triggers stack overflow
+        // NOTE sequence act like a while loop, if all child directly stop at start, it triggers stack overflow if the sequence is on repeat
 
         public override void _star_stop(star p)
         {

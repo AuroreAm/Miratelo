@@ -2,7 +2,6 @@ using System;
 using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Text;
 
 namespace Lyra
 {
@@ -268,4 +267,4 @@ namespace Lyra
     public struct system_ready {}
 }
 
-// TODO: reflection cache for dependency
+// TODO: reflection for dependency

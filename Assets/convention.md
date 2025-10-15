@@ -1,6 +1,6 @@
 ### **Lyra Framework – Coding Guide**
 
-Lyra is my RPG character framework built on top of Unity.
+Lyra is an RPG character framework built on top of Unity.
 It have its own life cycle system, deterministic code order, and an atomic system with forced dependency injection, created for Triheroes.
 
 ## General Naming & Style Rules
@@ -32,6 +32,7 @@ Important injected fields can be shortened to single letters.
 Example:
 character → c
 axeal → a
+skills -> s
 
 Use [link] (dependency injection) only for truly required components.
 

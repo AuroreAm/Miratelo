@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Triheroes.Code {
     public class shielding : health_system.sub {
-
         const float hot_duration = 2;
         const float penetration_factor = 0.5f;
         const float penetration_max_HP_factor = 0.1f;
@@ -14,19 +13,23 @@ namespace Triheroes.Code {
         float HP;
         float penetrationHP;
         float hot;
+        
+        metal matter;
 
-        public shielding(int _max) {
+        public shielding(int _max, metal _matter) {
+            matter = _matter;
             max = _max;
             HP = _max;
             penetrationHP_max = _max * penetration_max_HP_factor;
             penetrationHP = penetrationHP_max;
         }
 
+        protected sealed override void _ready() {
+            system.add ( matter );
+        }
+
         public override void damage ( damage damage ) {
-            if ( damage.damager is metal m ) {
-                if (m.voltic)
-                damage.value *= 10;
-            }
+            damage = matter.reaction (damage);
 
             float raw = Mathf.FloorToInt(damage.value + eps);
             hot = hot_duration;

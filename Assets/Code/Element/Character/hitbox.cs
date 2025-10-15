@@ -4,7 +4,6 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     public class hitbox : public_moon <hitbox> {
-
         [link]
         health health;
 

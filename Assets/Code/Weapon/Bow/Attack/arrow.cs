@@ -75,7 +75,7 @@ namespace Triheroes.Code {
                 }
 
                 if (xenos.contains(hit.collider.uid())) {
-                    xenos.damage (hit.collider.uid(), new damage ( position , matter, vu, damage.pierce ) );
+                    xenos.damage (hit.collider.uid(), new damage ( vecteur.forward(rotation), position , matter, vu, damage.pierce ) );
                     virtus.return_();
                 }
             }

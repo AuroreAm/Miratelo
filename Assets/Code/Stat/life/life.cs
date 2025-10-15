@@ -7,12 +7,19 @@ namespace Triheroes.Code {
         HP4vessel red;
         HP4vessel black;
 
+        flesh matter;
+
         public life ( int point_count ) {
             red = new HP4vessel ( point_count );
             black = new HP4vessel ( point_count );
         }
 
+        protected sealed override void _ready() {
+            matter = new flesh ();
+        }
+
         public override void damage ( damage damage ) {
+            damage = matter.reaction ( damage );
             
             int quarter_count = Mathf.FloorToInt ( ( damage.value + eps ) / HP4.one.value );
 

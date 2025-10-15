@@ -184,11 +184,13 @@ namespace Triheroes.Code {
             if (hitted.Contains(ray_hit.collider.cid())) return;
 
             if (xenos.contains(ray_hit.collider.uid()) && xenos.is_enemy(ray_hit.collider.uid(), sword.owner.faction)) {
-                xenos.damage ( ray_hit.collider.uid (), new damage ( ray_hit.point, sword.matter, vu, damage.slash ) );
+
+                xenos.damage ( ray_hit.collider.uid (), new damage ( ray_hit.point, vecteur.ldir( performer.roty,Vector3.forward ), sword.matter, vu, damage.slash ) );
                 hitted.Add(ray_hit.collider.cid());
 
-                photon.radiate(new hacked(ray_hit.collider.cid()));
-                sword.owner.photon.radiate(new hacked(ray_hit.collider.cid()));
+                photon.radiate( new hacked(ray_hit.collider.cid()) );
+                sword.owner.photon.radiate( new hacked(ray_hit.collider.cid()) );
+
             }
         }
     }

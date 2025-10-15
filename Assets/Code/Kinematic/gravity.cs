@@ -21,7 +21,7 @@ namespace Triheroes.Code.Axeal {
         }
 
         protected override void _step() {
-            // add gravity force // limit falling velocity when it reach terminal velocity
+            // add gravity force //  falling velocity limited when it reach terminal velocity
             if (g > -1000)
                 g += Physics.gravity.y * Time.deltaTime * mass;
 

@@ -14,7 +14,7 @@ namespace Lyra {
     }
 
     // motor layer of behavior
-    // asign only state that directly manipulate motion of a character: animation and movement
+    // asign state that directly manipulate motion of a character: animation and movement
     public sealed class motor : controller, core_kind {
         act_handler acting;
 
@@ -57,7 +57,7 @@ namespace Lyra {
             }
 
             replaced = true;
-            // TODO, if stopped here, should call handler or not?
+
             if (act != null)
                 act.abort(this);
 

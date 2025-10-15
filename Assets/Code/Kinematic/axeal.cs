@@ -4,11 +4,11 @@ using UnityEngine;
 using Lyra;
 
 namespace Triheroes.Code.Axeal {
-    // character controller physics
     // kinematic physics
     [inked]
-    public class axeal : controller {
+    public class axeal : controller, gold <push> {
         public float m { get; private set; }
+        public float mu => m * 10; // kg to mu ( 0.1 kg )
 
         [link]
         capsule capsule;
@@ -100,6 +100,20 @@ namespace Triheroes.Code.Axeal {
 
         public void deviate_main_force ( Vector3 _dir ) => forces [0].deviate ( _dir );
 
-        public static Vector3 slope_projection ( Vector3 Dir,Vector3 GroundNormal ) => Vector3.ProjectOnPlane (Dir, GroundNormal).normalized * Dir.magnitude;
+        public static Vector3 slope_projection ( Vector3 dir,Vector3 GroundNormal ) => Vector3.ProjectOnPlane (dir, GroundNormal).normalized * dir.magnitude;
+
+        public void _radiate(push gleam) {
+            add_force ( new force_curve_data ( gleam.dir_per_mu / mu , .5f, push.force ) );
+        }
+    }
+
+    public struct push {
+        public Vector3 dir_per_mu;
+        public static AnimationCurve force = res.curves.q ( sh.force );
+
+        public push ( Vector3 dir_per_mu ) {
+            this.dir_per_mu = dir_per_mu;
+        }
+
     }
 }

@@ -45,27 +45,6 @@ namespace Lyra {
             phoenix.core.link(linked);
         }
 
-        /*protected void reverse_link (star _host) {
-            if (!on) {
-                Debug.LogError ("star is not on");
-                return;
-            }
-
-            if (host != null) {
-                Debug.LogError ("star already has a host");
-                return;
-            }
-
-            if (!_host.on)
-            {
-                Debug.LogError ("host is not on");
-                return;
-            }
-
-            host = _host;
-            host.web.Add (this);
-        }*/
-
         protected void unlink(star.main linked) {
             linked.host = null;
             web.Remove(linked);
@@ -146,8 +125,6 @@ namespace Lyra {
                 Dev.Break("star is already on");
         }
 
-        // TODO: maybe ready_for_tick called but not immediately ticked after
-
         public void tick(core_kind _core) {
             if (on == false)
                 core = _core;
@@ -176,7 +153,7 @@ namespace Lyra {
         }
 
         public abstract class neutron : star {
-            /// <summary> make sure anything after stop() is suposed to run even the star is stopped </summary>
+            /// <summary> make sure code after stop() are code supposed to run with stopped star </summary>
             protected new void stop() {
                 base.stop();
             }
@@ -184,7 +161,7 @@ namespace Lyra {
     }
 
     public interface core_kind {
-        /// <summary> called when a ticked star stops, careful when the ticker is another star, it will always call </summary>
+        /// <summary> called when a ticked star stops </summary>
         public void _star_stop(star s);
     }
 

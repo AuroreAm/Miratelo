@@ -15,6 +15,9 @@ namespace Triheroes.Code
         public static readonly int x = Animator.StringToHash("x");
         public static readonly int y = Animator.StringToHash("y");
         public static readonly int z = Animator.StringToHash("z");
+
+        //
+        public static readonly term force = new term ("force");
     }
 
     public static class anim

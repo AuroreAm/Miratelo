@@ -10263,6 +10263,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CircuitHeart: 2
   ShieldingHP: 1400
+  Matter:
+    type:
+      content: Triheroes.Code.iron, Triheroes.Code, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+    data: '{"_mu":0.0,"_voltic":false}'
 --- !u!1001 &522915627
 PrefabInstance:
   m_ObjectHideFlags: 0
