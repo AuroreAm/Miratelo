@@ -10,13 +10,20 @@ namespace Lyra
         public type_paper type;
         public string data;
 
-        public T write ()
+        public T write (  )
         {
             if ( !type.valid () )
                 throw new InvalidOperationException ( $"{type.content} typepaper has invalid content" );
                 
             T p = Activator.CreateInstance ( System.Type.GetType (type.content) ) as T;
             JsonUtility.FromJsonOverwrite ( data, p );
+
+            return p;
+        }
+
+        public T write ( moon host ) {
+            var p = write ();
+            host.system.add ( p );
             return p;
         }
     }

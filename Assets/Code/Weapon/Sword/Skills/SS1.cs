@@ -13,9 +13,9 @@ namespace Triheroes.Code
         protected override void _ready() {
             var combo = new act [3];
              for (int i = 0; i < 3; i++)
-            combo [i] = new slay ( key [i] );
+            combo [i] = with ( new slay ( key [i] ) );
 
-            this.combo = new slay_combo( combo );
+            this.combo = with ( new slay_combo( combo ) );
         }
 
         public void spam () {

@@ -3,15 +3,8 @@ using UnityEngine;
 
 namespace Lyra {
     public abstract class task_decorator : task, core_kind, decorator_kind {
-        protected sealed override void _ready() {
-            for (int i = 0; i < o.Length; i++) {
-                system.add(o[i]);
-            }
 
-            __ready();
-        }
-
-        protected override void _descend() {
+        protected sealed override void _descend() {
             for (int i = 0; i < o.Length; i++) {
                 o[i].descend(this);
             }
@@ -23,9 +16,6 @@ namespace Lyra {
         public void set(action[] child) {
             if (on)
                 throw new InvalidOperationException("can't set active decorator");
-
-            if (system != null)
-                throw new InvalidOperationException("can't set already running decorator");
 
             o = new task[child.Length];
 
@@ -50,7 +40,5 @@ namespace Lyra {
         protected virtual void _task_fail() { }
         protected virtual void _replace(tasks t) { }
         protected virtual void _replace_before(tasks t) { }
-
-        protected virtual void __ready() { }
     }
 }

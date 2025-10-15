@@ -16,7 +16,7 @@ namespace Triheroes.Code
         public override void _created(system s) {
             skills ss = s.get <skills> ();
             foreach ( var skill in skills ) {
-                ss.add ( skill.write () );
+                ss.add ( skill.write (ss) );
             }
         }
     }

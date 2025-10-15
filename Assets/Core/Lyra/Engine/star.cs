@@ -73,29 +73,20 @@ namespace Lyra {
 
             if (!on) {
                 on = true;
-
-                enter_my_system_field();
                 _start();
-                exit_my_system_field();
-
                 return;
             }
-            if (on) {
-                enter_my_system_field();
-                _step();
-                exit_my_system_field();
-            }
+            if (on)
+                _step();  
         }
 
         private void abort() {
             if (on) {
                 on = false;
 
-                enter_my_system_field();
                 _abort();
                 ready = false;
                 clear_web();
-                exit_my_system_field();
 
                 notify_core_on_stopping();
             }
@@ -107,11 +98,9 @@ namespace Lyra {
             if (on) {
                 on = false;
 
-                enter_my_system_field();
                 _stop();
                 ready = false;
                 clear_web();
-                exit_my_system_field();
                 notify_core_on_stopping();
             }
             else

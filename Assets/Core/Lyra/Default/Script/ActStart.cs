@@ -9,8 +9,7 @@ namespace Lyra
         public ActionPaper Script;
         void Start ()
         {
-            action script = Script.write ();
-            phoenix.star.add ( script );
+            action script = Script.write ( phoenix.star.get <script.crypt> () );
             action.start ( script );
             Destroy (gameObject);
         }

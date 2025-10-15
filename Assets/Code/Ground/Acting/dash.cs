@@ -13,7 +13,7 @@ namespace Triheroes.Code.Acting {
         public direction direction;
 
         protected override void __ready() {
-            dash_act = new Code.dash()._ (direction);
+            dash_act = with ( new Code.dash()._ (direction) );
         }
 
         protected override act get_act() => dash_act;

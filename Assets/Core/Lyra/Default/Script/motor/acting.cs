@@ -12,10 +12,7 @@ namespace Lyra
         protected abstract act get_act();
 
         protected sealed override void _ready() {
-            
-            system.add ( parallel );
             __ready ();
-
             act = get_act ();
         }
 
@@ -98,8 +95,11 @@ namespace Lyra
         }
 
         public void set(action[] child) {
+            if (on)
+            throw new InvalidOperationException("can't set active acting");
+
             o = child;
-            parallel = new parallel.all ();
+            parallel = with ( new parallel.all () );
             parallel.set (child);
         }
 

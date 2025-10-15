@@ -14,21 +14,13 @@ namespace Lyra
         public system system { get; private set; }
 
         static Action <moon> moon_constructor_event;
-        public moon ()
-        {
-            #if UNITY_EDITOR
-            if ( ! UnityEditor.EditorApplication.isPlaying )
-            return;
-            #endif
-            moon_constructor_event?.Invoke ( this );
-            moon_constructor_event = null;
+        
+        public moon () {
             id = ++static_counter;
 
-            if ( system_domain.Count > 0 && system_domain.Peek() != null )
-                system_domain.Peek().add(this);
+            if ( system.creator.on_creation )
+            system.creator.add_brick ( this );
         }
-        /// <summary> set a constructor event, make sure to instance the moon after calling this, with great power come great responsibility </summary>  <param name="e"></param>
-        public static void set_constructor_event ( Action<moon> e ) => moon_constructor_event = e;
 
         internal static Stack <system> system_domain = new Stack<system> ();
 
@@ -40,20 +32,8 @@ namespace Lyra
             if (GetType().GetCustomAttribute<inkedAttribute>() != null && !ready)
                 Debug.LogError($"{GetType().Name} was structured without package");
 
-            system = structure;
-            enter_my_system_field();
+            system = structure; 
             _ready ();
-            exit_my_system_field();
-        }
-
-        protected void enter_my_system_field ()
-        {
-            system_domain.Push ( system );
-        }
-
-        protected void exit_my_system_field ()
-        {
-            system_domain.Pop ();
         }
 
         public abstract class ink <T> where T : moon, new()
@@ -67,6 +47,17 @@ namespace Lyra
                 o.ready = true;
             }
             public T o { private set; get; }
+        }
+
+        protected T a_new <T> () where T : moon, new () {
+            T moon = new T ();
+            system.add ( moon );
+            return moon;
+        }
+
+        protected T with <T> ( T moon ) where T : moon {
+            system.add ( moon );
+            return moon;
         }
     }
 
@@ -88,9 +79,11 @@ namespace Lyra
         Dictionary<Type, moon> planets = new Dictionary<Type, moon>();
         List<moon> satellites = new List<moon>();
 
-        private system( Dictionary<Type, moon> founders )
+        private system( Dictionary<Type, moon> founders, List <moon> bricks )
         {
-            satellites.AddRange(founders.Values);
+            satellites.AddRange (founders.Values);
+            satellites.AddRange (bricks);
+            satellites.RemoveDuplicates ();
 
             foreach (var kvp in founders)
                 planets.Add(kvp.Key, kvp.Value);
@@ -106,7 +99,7 @@ namespace Lyra
                 new_member(d);
         }
 
-        public void add ( moon item )
+        internal void add ( moon item )
         {
             if (satellites.Contains (item) )
                 return;
@@ -221,17 +214,21 @@ namespace Lyra
                 }
             }
 
+            List <moon> bricks = new List<moon> ();
+            internal static void add_brick ( moon moon ) {
+                o.bricks.Add ( moon );
+            } 
+
             public system create_system ()
             {
+                bricks.Clear ();
                 photon p = get_or_add_founder ( typeof (photon) ) as photon;
 
                 stack.Push (this);
-                moon.system_domain.Push (null);
                 author._create ();
-                moon.system_domain.Pop ();
                 stack.Pop ();
 
-                var s = new system ( founder );
+                var s = new system ( founder, bricks );
                 author._created (s);
 
                 p.radiate ( new system_ready ());

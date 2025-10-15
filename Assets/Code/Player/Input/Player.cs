@@ -8,19 +8,19 @@ namespace Triheroes.Code
     {
         protected override void _ready()
         {
-            v = new input ("Vertical", true);
-            h= new input ("Horizontal", true);
-            mousex= new input ("Mouse X", true);
-            mousey= new input ("Mouse Y", true);
-            jump= new input ("Action0");
-            action1= new input ("Action1");
-            action2= new input ("Action2");
-            action3= new input ("Action3");
-            focus= new input ("L2",true);
-            dash= new input ("R2",true);
-            alt= new input ("L1");
-            aim= new input ("R1");
-            down= new input ("DPadDown",true);
+            v = with ( new input ("Vertical", true) );
+            h= with ( new input ("Horizontal", true) );
+            mousex= with ( new input ("Mouse X", true) );
+            mousey= with ( new input ("Mouse Y", true) );
+            jump= with ( new input ("Action0") );
+            action1= with ( new input ("Action1") );
+            action2= with ( new input ("Action2") );
+            action3= with ( new input ("Action3") );
+            focus= with ( new input ("L2",true) );
+            dash= with ( new input ("R2",true) );
+            alt= with ( new input ("L1") );
+            aim= with ( new input ("R1") );
+            down= with ( new input ("DPadDown",true) );
         }
 
         public static Vector3 move => new Vector3(h.Raw,0, v.Raw);

@@ -43,6 +43,29 @@ namespace Lyra
 		{
 			l.Add ( typeof (T) );
 		}
+
+		public static void RemoveDuplicates<T>(this List<T> list) where T : class
+		{
+			if (list == null)
+				throw new ArgumentNullException(nameof(list));
+				
+			var uniqueItems = new HashSet<T>();
+			var indicesToRemove = new List<int>();
+			
+			for (int i = 0; i < list.Count; i++)
+			{
+				if (!uniqueItems.Add(list[i]))
+				{
+					indicesToRemove.Add(i);
+				}
+			}
+			
+			// Remove from end to beginning to preserve indices
+			for (int i = indicesToRemove.Count - 1; i >= 0; i--)
+			{
+				list.RemoveAt(indicesToRemove[i]);
+			}
+		}
     }
 
 	public static class Vector4Extensions

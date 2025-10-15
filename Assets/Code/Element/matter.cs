@@ -15,10 +15,6 @@ namespace Triheroes.Code
                 o.matter = matter;
             }
         }
-
-        protected override void _ready() {
-            system.add ( matter );
-        }
     }
 
     [path ("element")]

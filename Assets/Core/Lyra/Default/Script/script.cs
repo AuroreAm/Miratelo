@@ -7,7 +7,6 @@ namespace Lyra {
 
         public void add_index(action ind, term name) {
             ind.descend( new action.root () );
-            system.add(ind);
             library.Add(name, ind);
         }
 

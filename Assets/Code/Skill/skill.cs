@@ -9,7 +9,6 @@ namespace Triheroes.Code {
         Dictionary < Type, skill > library = new Dictionary<Type, skill> ();
 
         public void add (skill skill) {
-            system.add (skill);
             library.Add ( skill.get_base (skill.GetType()), skill );
         }
 

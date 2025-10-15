@@ -6,16 +6,14 @@ namespace Triheroes.Code
     public class SkinHitBoxAuthor : SkinAuthorModule {
 
         public override void _create() {
-        }
-
-        public override void _created(system s) {
+            
             Collider [] HitBoxes = GetComponentsInChildren <Collider> ();
 
             foreach ( var h in HitBoxes ) {
-                s.add ( new hitbox ( h ) );
+                new hitbox ( h );
             }
         }
-
+        
         #if UNITY_EDITOR
         [ContextMenu("clean ragdoll useless component")]
         void clean () {
