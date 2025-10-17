@@ -12,7 +12,6 @@ namespace Triheroes.Code
         public int Faction;
 
         public ScriptAuthor Scripts;
-        public string StartScript;
  
         List <AuthorModule> modules;
 
@@ -40,9 +39,10 @@ namespace Triheroes.Code
             new warrior.ink (Faction);
 
             modules.Add ( Instantiate ( Skin ) );
-            modules.Add ( Scripts );
 
-            new behavior.ink ( new term (StartScript) );
+            new ink <script> ();
+            if (Scripts)
+            modules.Add ( Scripts );
 
             foreach (var a in modules)
             a._create ();

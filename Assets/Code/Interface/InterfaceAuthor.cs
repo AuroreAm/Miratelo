@@ -12,11 +12,12 @@ namespace Triheroes.Code
 
         public RectTransform HeartContainer;
         public RectTransform StaminaContainer;
+        public RectTransform AltHeartContainer;
 
         public override void _create() {
             new ui.ink ( GetComponent <Canvas> ().GetComponent <RectTransform> () );
             new full_overlay.ink ( FullOverlay );
-            new player_hud.ink ( HeartContainer, StaminaContainer );
+            new player_hud.ink ( HeartContainer, StaminaContainer, AltHeartContainer );
         }
 
         public override void _created(system s) {

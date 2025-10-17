@@ -16,11 +16,22 @@ namespace Triheroes.Code {
         }
 
         protected override void _start() {
-            frame_actor();
+            frame_actor ();
+            play_actor ();
         }
 
         void frame_actor() {
             camera.o.start_player_camera(main_actor.system.get<character>());
+        }
+
+        void play_actor () {
+            var sb = new script_builder ( main_actor.system );
+            sb._a <parallel.all> ();
+            scr.add_player (sb);
+            sb._ ();
+
+            main_actor.system.get <script> ().add_index ( sb.final (), sh.player );
+            phoenix.core.start_action ( main_actor.system.get <script> () [sh.player] );
         }
 
         protected override void _step() {

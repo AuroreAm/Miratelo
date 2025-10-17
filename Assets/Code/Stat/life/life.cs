@@ -15,7 +15,7 @@ namespace Triheroes.Code {
         }
 
         protected sealed override void _ready() {
-            matter = new flesh ();
+            matter = a_new <flesh> ();
         }
 
         public override void damage ( damage damage ) {

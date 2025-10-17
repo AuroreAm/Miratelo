@@ -19,7 +19,7 @@ namespace Triheroes.Code
             Debug.LogError ("there's still weapon user active but changed it, a bug will occur since the previous weapon user was not free");
 
             weapon_user = _weapon_user;
-            this.link ( _weapon_user );
+            link ( _weapon_user );
         }
 
         public void remove_weapon_user ()
@@ -27,13 +27,13 @@ namespace Triheroes.Code
             if (weapon_user == null)
             Debug.LogError ("Trying to remove unexisting weapon user");
 
-            this.unlink ( weapon_user );
+            unlink ( weapon_user );
             weapon_user = null;
         }
 
-        public void link_inventory ( inventory inventory )
+        public void link_inventory ( inventory _inventory )
         {
-            this.inventory = inventory;
+            inventory = _inventory;
         }
     }
 }

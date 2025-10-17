@@ -13,9 +13,9 @@ namespace Triheroes.Code
         {
             var combo = new act [key.Length];
              for (int i = 0; i < key.Length; i++)
-            combo [i] = new parry_arrow ( key [i] );
+            combo [i] = with ( new parry_arrow ( key [i] ) );
 
-            skill = new slay_combo ( combo );
+            skill = with ( new slay_combo ( combo ) );
         }
     }
 }

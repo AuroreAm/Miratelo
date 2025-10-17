@@ -18,6 +18,7 @@ namespace Triheroes.Code
 
         //
         public static readonly term force = new term ("force");
+        public static readonly term player = new term ("player");
     }
 
     public static class anim
@@ -93,6 +94,9 @@ namespace Triheroes.Code
         public static readonly term heart_hp_glow = new term("heart_hp_glow");
         public static readonly term stamina_dot = new term ("stamina_dot");
         public static readonly term stamina_dot_glow = new term ("stamina_dot_glow");
+        public static readonly term armor_wheel = new term ("armor_wheel");
+        public static readonly term armor_wheel_glow = new term ("armor_wheel_glow");
+
         public static readonly term character_hud_label = new term("character_hud_label");
     }
 }

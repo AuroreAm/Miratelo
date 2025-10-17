@@ -8,11 +8,14 @@ namespace Triheroes.Code {
         const float penetration_max_HP_factor = 0.1f;
         const float regen_speed = 10;
 
-        float max;
-        float penetrationHP_max;
+        public float max { private set; get; }
+        public float penetrationHP_max { private set; get;}
         float HP;
         float penetrationHP;
         float hot;
+
+        public float HP_ui => HP;
+        public float penetrationHP_ui => penetrationHP;
         
         metal matter;
 
@@ -52,6 +55,10 @@ namespace Triheroes.Code {
                 penetrationHP += regen_speed * Time.deltaTime;
                 if (penetrationHP > penetrationHP_max)
                     penetrationHP = penetrationHP_max;
+            }
+
+            if ( Input.GetKeyDown (KeyCode.R) ) {
+                new armor_hud ( this ).start ( ui.o.player_hud.alt_heart_container );
             }
         }
     }

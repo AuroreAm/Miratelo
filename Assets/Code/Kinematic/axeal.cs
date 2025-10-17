@@ -88,8 +88,11 @@ namespace Triheroes.Code.Axeal {
         }
 
         public void add_force (force_curve_data _data) {
-            if (force_count + 1 >= forces.Length)
-                forces = new force_curve [force_count + 1];
+            if (force_count + 1 >= forces.Length) {
+                var new_forces = new List <force_curve> ( forces );
+                new_forces.Add ( new force_curve () );
+                forces = new_forces.ToArray ();
+            }
 
             forces [force_count] = new force_curve ( _data );
             force_count++;

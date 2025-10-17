@@ -88,8 +88,8 @@ namespace Triheroes.Code
         {
             acts_parry = new Dictionary<term, act> ();
 
-            var parry0 = new parry ( anim.SS8_0 );
-            var parry1 = new parry ( anim.SS8_1 );
+            var parry0 = with ( new parry ( anim.SS8_0 ) );
+            var parry1 = with (new parry ( anim.SS8_1 ) );
 
             acts_parry.Add ( anim.SS1_0, parry1 );
             acts_parry.Add ( anim.SS1_1, parry0 );
