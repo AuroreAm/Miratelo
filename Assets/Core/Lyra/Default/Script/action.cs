@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Lyra {
-    [star(-1)]
+    [star(-1)] 
     public abstract class action : star.neutron {
         protected List<action> ancestors { private set; get; } = new List<action>();
 
@@ -26,6 +26,14 @@ namespace Lyra {
         }
 
         public sealed class root : action {
+        }
+    }
+
+    [ AttributeUsage ( AttributeTargets.Class, Inherited = true ) ]
+    public class paperAttribute : Attribute {
+        public Type PaperType;
+        public paperAttribute ( Type t ) {
+            PaperType = t;
         }
     }
 

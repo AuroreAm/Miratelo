@@ -12,6 +12,10 @@ namespace Triheroes.Code {
             library.Add ( skill.get_base (skill.GetType()), skill );
         }
 
+        public bool contains <T> () where T:skill {
+            return library.ContainsKey ( typeof (T) );
+        }
+
         public T get <T> ( ) where T : skill {
             return (T) library [typeof (T)];
         }

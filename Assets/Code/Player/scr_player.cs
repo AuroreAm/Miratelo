@@ -4,18 +4,22 @@ using Triheroes.Code;
 
 namespace Triheroes.Code {
     public static partial class scr {
-        public static void add_player(script_builder sb) {
-            sb.a<player_move>();
-            sb.a<player_jump>();
-            sb.a<player_equip>();
-            sb.a<player_sword>();
-            sb.a<player_dash>();
-            sb.a<player_bow>();
-            sb.a<player_parry>();
-            sb.a<player_sword_target>();
-            sb.a<player_target> ();
+        public static void add_player(actor player, script_builder sb) {
 
-            add_actor(sb);
+            // player movement, this is now just used for capsule based character.
+            sb.a <player_move> ();
+            sb.a <player_jump> ();
+
+            // skills controller
+            skills s = player.system.get <skills> ();
+            if ( s.contains <decoherence_blink> () )
+            sb.a <player_decoherence_blink> ();
+
+            // face idle player
+            sb.a <face_idle> ();
+
+            // normal reaction of an actor
+            add_actor ( sb );
         }
     }
 }

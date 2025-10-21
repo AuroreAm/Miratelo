@@ -153,7 +153,7 @@ namespace Triheroes.Code {
                 dir += _dir_s;
                 factor = _factor;
 
-                if (state != anim.rotation_brake && state != anim.idle)
+                if (state != anim.rotation_brake && state != anim.idle && state != anim.brake)
                     a.walk(_dir_s * _factor);
             }
         }

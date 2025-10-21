@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class SkinHitBoxAuthor : SkinAuthorModule {
+    public class SkinHitBoxAuthor : SkinWriterModule {
 
-        public override void _create() {
+        protected override void _create() {
             
             Collider [] HitBoxes = GetComponentsInChildren <Collider> ();
 

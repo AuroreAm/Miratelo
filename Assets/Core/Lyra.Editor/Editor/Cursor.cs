@@ -8,16 +8,15 @@ using System.Reflection;
 
 namespace Lyra.Editor
 {
-    public class CursorGUI<T> : CursorGUI where T : moon
+    public class cursorgui<T> : cursorgui where T : moon
     {
-        public CursorGUI(Action<Type> Ev) : base(typeof (T), Ev)
+        public cursorgui(Action<Type> Ev) : base(typeof (T), Ev)
         {}
     }
 
-    public class CursorGUI
+    public class cursorgui
     {
-        public SearchField SearchField { private set; get; }
-        bool _firstFrame = true;
+        public SearchField searchfield { private set; get; }
         
         Dictionary <string, Type[]> _types;
         Type _filter;
@@ -25,26 +24,24 @@ namespace Lyra.Editor
         Vector2 _scroll;
         Action<Type> _onSelect;
 
-        public CursorGUI ( Type filter, Action <Type> onSelect )
+        public cursorgui ( Type filter, Action <Type> onSelect )
         {
             _filter = filter;
             _onSelect = onSelect;
             _types = GetTypesByPath ( filter );
 
-            SearchField = new SearchField ();
+            searchfield = new SearchField ();
+        }
+
+        public void focus () {
+            searchfield.SetFocus ();
         }
 
         public void GUI()
         {
-            if (_firstFrame)
-            {
-                SearchField.SetFocus ();
-                _firstFrame = false;
-            }
-
             GUILayout.Label(_filter.Name);
 
-            _searchQuerry = SearchField.OnGUI(_searchQuerry);
+            _searchQuerry = searchfield.OnGUI(_searchQuerry);
 
             _scroll = GUILayout.BeginScrollView(_scroll, GUILayout.Height(512));
 

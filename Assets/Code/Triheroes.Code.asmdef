@@ -2,7 +2,8 @@
     "name": "Triheroes.Code",
     "rootNamespace": "Triheroes.Code",
     "references": [
-        "GUID:b0589b58c1593d7469e35a172dc83873"
+        "GUID:b0589b58c1593d7469e35a172dc83873",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

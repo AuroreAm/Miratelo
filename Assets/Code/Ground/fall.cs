@@ -21,8 +21,7 @@ namespace Triheroes.Code
 
         public term land_animation = anim.fall_end;
 
-        protected override void _start()
-        {
+        protected override void _start() {
             skin.play ( new skin.animation ( anim.fall, this ) );
         }
 
@@ -56,6 +55,7 @@ namespace Triheroes.Code
 
     public class fall_hard : fall
     {
+
         public override priority priority => priority.action2.with2nd ();
         bool landed;
 

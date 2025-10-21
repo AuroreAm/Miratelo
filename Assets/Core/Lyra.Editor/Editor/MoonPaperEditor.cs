@@ -7,41 +7,26 @@ namespace Lyra.Editor
 {
     public class MoonPaperEditor : EditorWindow
     {
-        SerializedProperty target;
-        SerializedProperty type;
-        SerializedProperty data;
-        FieldInfo field;
-
-        moon paper;
-        moon_editor dE;
-        CursorGUI cursor;
-
         public string TypeName { private set; get; }
 
+        moon_paper <moon> target;
+        FieldInfo fi;
+        SerializedProperty property;
+
+        cursorgui cursor;
         bool isWindow;
 
-        public static void Show ( SerializedProperty target, FieldInfo targetFi )
-        {
+        moon_editor dE;
+
+        public static void Show ( SerializedProperty target, FieldInfo targetFi ) {
             GetWindow <MoonPaperEditor> ().Load (target,targetFi);
             GetWindow <MoonPaperEditor> ().isWindow = true;
         }
 
-        public void Load ( SerializedProperty target, FieldInfo targetFi )
-        {
-            this.target = target;
-            field = targetFi;
-
-            type = target.FindPropertyRelative ("type").FindPropertyRelative("content");
-            type_paper t = new type_paper ( type.stringValue );
-
-            data = target.FindPropertyRelative ("data");
-
-            if ( t.valid () )
-            {
-                paper = (moon) Activator.CreateInstance ( t.write() );
-                TypeName = paper.GetType ().Name;
-                JsonUtility.FromJsonOverwrite ( data.stringValue, paper );
-            }
+        public void Load ( SerializedProperty _property, FieldInfo _fi ) {
+            property = _property;
+            fi = _fi;
+            target = new moon_paper<moon> ( _property.FindPropertyRelative ("data").stringValue, _property.FindPropertyRelative ("type").stringValue );
         }
 
         public void OnGUI ()
@@ -52,61 +37,49 @@ namespace Lyra.Editor
 
         void MoonSelectionGUI ()
         {
-            if (paper!=null) return;
+            if ( target.valid () ) return;
 
             if (cursor == null)
             {
-                if (field.FieldType.IsArray)
-                cursor = new CursorGUI ( field.FieldType.GetElementType ().GetGenericArguments ()[0], SetDat );
+                if (fi.FieldType.IsArray)
+                cursor = new cursorgui ( fi.FieldType.GetElementType ().GetGenericArguments ()[0], SetDat );
                 else
-                cursor = new CursorGUI ( field.FieldType.GetGenericArguments ()[0], SetDat );
+                cursor = new cursorgui ( fi.FieldType.GetGenericArguments ()[0], SetDat );
+
+                if (isWindow) cursor.focus ();
             }
 
             cursor.GUI ();
 
-            void SetDat (Type t)
-            {
-                paper = (moon) Activator.CreateInstance ( t );
-                TypeName = t.Name;
+            void SetDat (Type t) {
+                target = new moon_paper<moon> (t);
             }
         }
 
         void MoonEditorGUI ()
         {
-            if (paper == null) return;
+            if ( !target.valid () ) return;
 
             if (dE == null)
-            dE = moon_editor.create_editor ( paper );
+            dE = moon_editor.create_editor ( target.paper );
 
             dE._gui ();
 
-            if ( isWindow && GUILayout.Button ("Save"))
-            {
+            if ( isWindow && GUILayout.Button ("Save")) {
                 Save ();
                 Close ();
             }
 
-            if (!isWindow)
-            {
+            if (!isWindow) {
                 Save ();
             }
 
-            if (GUILayout.Button ("Break"))
-            {
-                type.stringValue = "";
-                data.stringValue = "";
-                target.serializedObject.ApplyModifiedProperties ();
-                cursor = null;
-                paper = null;
-                if (isWindow)
-                Close ();
+            if (GUILayout.Button ("Break")) {
+                target = new moon_paper<moon> ();
             }
 
-            void Save ()
-            {
-                type.stringValue = paper.GetType ().AssemblyQualifiedName;
-                data.stringValue = JsonUtility.ToJson (paper);
-                target.serializedObject.ApplyModifiedProperties ();
+            void Save () {
+                target.stream_to_SerializedProperty ( property );
             }
         }
     }
@@ -126,7 +99,7 @@ namespace Lyra.Editor
 
             position.height = EditorGUIUtility.singleLineHeight;
 
-            UnityEngine.GUI.Label ( position, property.FindPropertyRelative ("type").FindPropertyRelative("content").stringValue );
+            UnityEngine.GUI.Label ( position, property.FindPropertyRelative ("type").stringValue );
             position.y += EditorGUIUtility.singleLineHeight;
             UnityEngine.GUI.Label ( position, property.FindPropertyRelative ("data").stringValue );
             position.y += EditorGUIUtility.singleLineHeight;

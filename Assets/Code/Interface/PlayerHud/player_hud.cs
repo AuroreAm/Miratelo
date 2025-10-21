@@ -2,10 +2,10 @@ using Lyra;
 using UnityEngine;
 
 namespace Triheroes.Code
-{
+{/*
     [need_ready]
     [inked]
-    public class player_hud : graphic {
+    public class player_hud : graphic_element {
 
         public RectTransform heart_container;
         public RectTransform alt_heart_container;
@@ -35,5 +35,5 @@ namespace Triheroes.Code
         protected override void _step() {
             stamina_container.anchoredPosition = monitered.hud.stamina (); 
         }
-    }
+    }*/
 }

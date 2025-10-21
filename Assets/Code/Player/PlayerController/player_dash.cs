@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Lyra;
+using Triheroes.Code.Axeal;
 
 namespace Triheroes.Code
 {
     [path ("player controller")]
-    public class player_dash : action
+    public class player_decoherence_blink : action
     {
         [link]
         warrior warrior;
@@ -18,11 +19,28 @@ namespace Triheroes.Code
         stand stand; 
 
         [link]
+        ground ground;
+
+        [link]
+        player_jump jump;
+
+        [link]
         skills s;
+
+        buffer iground = new buffer ( .1f );
+        buffer idash = new buffer ( .25f );
+
+        decoherence_blink skill => s.get <decoherence_blink> ();
 
         protected override void _step()
         {
             if ( player.dash.down )
+            idash.stack ();
+
+            if ( ground )
+            iground.stack ();
+
+            if ( idash.on && iground.on )
             {
                 direction direction = direction.forward;
 
@@ -35,7 +53,7 @@ namespace Triheroes.Code
                     input = Vector3.forward;
 
                     // rotate input from camera view to world
-                    input = vecteur.ldir (camera.o.tps_roty.y, input);
+                    input = vecteur.ldir (tps.main_roty.y, input);
 
                     // get closest direction
                     float desired_dash_roty = vecteur.rot_direction_y ( Vector3.zero, input );
@@ -73,7 +91,23 @@ namespace Triheroes.Code
                     skin.roty = roty;
                 }
 
-                s.get <D0> ().spam (direction);
+                var success = skill.spam (direction);
+
+                if ( success ) {
+                    iground.clear ();
+                    idash.clear ();
+                }
+            }
+
+            if ( jump.jump_down () && skill.active() ) {
+                skill.prepare_jump ();
+                jump.start_jump ();
+            }
+
+            if ( iground.on && idash.on && jump.active () ) {
+                skill.spam_decoherence_air_only ();
+                iground.clear ();
+                idash.clear ();
             }
         }
     }

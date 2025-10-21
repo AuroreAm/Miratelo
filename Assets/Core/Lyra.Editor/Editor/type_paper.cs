@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Lyra.Editor
 {
-    [CustomPropertyDrawer(typeof (type_paper))]
+    /*[CustomPropertyDrawer(typeof (type_paper))]
     public class type_paperDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
@@ -27,5 +27,5 @@ namespace Lyra.Editor
 
         static string TypeNameByString ( string FullAssemblyName )
         => ( ( !string.IsNullOrEmpty ( FullAssemblyName ) ) && Type.GetType ( FullAssemblyName ) != null ) ? Type.GetType ( FullAssemblyName ).Name : FullAssemblyName;
-    }
+    }*/
 }

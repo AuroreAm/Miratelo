@@ -65,8 +65,6 @@ namespace Lyra.Editor
             EditorApplication.hierarchyWindowItemOnGUI += OnHierarchyWindowItemOnGUI;
         }
 
-        static Dictionary <type_paper, Type> TypeCache = new Dictionary <type_paper, Type> ();
-
         static void OnHierarchyWindowItemOnGUI ( int instanceID, Rect selectionRect )
         {
             var go = EditorUtility.InstanceIDToObject ( instanceID ) as GameObject;
@@ -81,14 +79,9 @@ namespace Lyra.Editor
                 EditorGUI.DrawRect ( selectionRect, new Color (.4f,.2f,.1f) );
 
                 string Label = "---";
-                if (TypeCache.ContainsKey (actionPaper.Paper.type))
-                    Label = TypeCache[actionPaper.Paper.type].Name;
-                else if ( actionPaper.Paper.type.valid () )
-                {
-                    Type t = actionPaper.Paper.type.write ();
-                    Label =  t.Name;
-                    TypeCache.Add (actionPaper.Paper.type, t);
-                }
+                Type t = actionPaper.GetPaperType ();
+                if ( t != null )
+                Label =  t.Name;
                 Label += $"({actionPaper.gameObject.name})";
 
                 EditorGUI.LabelField ( selectionRect, Label, Styles.o.Action );

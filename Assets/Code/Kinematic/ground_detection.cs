@@ -34,7 +34,7 @@ namespace Triheroes.Code.Axeal {
 
             if (on_ground) {
                 normal = hit.normal;
-                raw = hit.distance <= 0.2f;
+                raw = hit.distance <= 0.11f;
             }
         }
     }

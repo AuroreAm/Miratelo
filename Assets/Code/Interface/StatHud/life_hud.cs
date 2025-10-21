@@ -1,10 +1,10 @@
 using Lyra;
 using UnityEngine;
 using UnityEngine.UI;
-
+/*
 namespace Triheroes.Code {
     [need_ready]
-    public class life_hud : graphic {
+    public class life_hud : graphic_element {
 
         life life;
         RectTransform container;
@@ -168,4 +168,4 @@ namespace Triheroes.Code {
             container.ClearChildren ();
         }
     }
-}
+}*/

@@ -50,6 +50,8 @@ namespace Lyra
             }
             
             star = new system.creator ( superstar.ToArray (), this ).create_system ();
+            
+            star.add ( core );
         }
 
         public void _create() {}

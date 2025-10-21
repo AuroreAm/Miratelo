@@ -1,8 +1,8 @@
 using System;
-using UnityEngine;
 
 namespace Lyra
 {
+    /*
     [Serializable]
     public struct type_paper
     {
@@ -21,10 +21,10 @@ namespace Lyra
             {
                 Type t = Type.GetType (content);
                 if ( t == null )
-                throw new System.InvalidOperationException ( "type paper has invalid content" );
+                throw new InvalidOperationException ( "type paper has invalid content" );
                 return t;
             }
-            throw new System.InvalidOperationException ( "type paper has invalid content" );
+            throw new InvalidOperationException ( "type paper has invalid content" );
         }
-    }
+    }*/
 }

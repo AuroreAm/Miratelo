@@ -28,7 +28,7 @@ namespace Triheroes.Code
 
         protected override void _step()
         {
-            if (player.action2.down)
+            if (player.W.down)
             {
                 var freeSword = get_usable_sword();
                 if (freeSword != -1 && equip.weapon_user == null)
@@ -56,7 +56,7 @@ namespace Triheroes.Code
                 motor.start_act2nd(draw, this);
             }
 
-            if (player.action1.down && equip.weapon_user != null)
+            if (player.E.down && equip.weapon_user != null)
             {
                 @return.set(inventory.get_free_place_for(equip.weapon_user.weapon_base));
                 motor.start_act2nd(@return, this);

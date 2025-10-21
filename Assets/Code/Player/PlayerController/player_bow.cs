@@ -29,12 +29,12 @@ namespace Triheroes.Code
         protected override void _startb()
         {
             motor.start_act2nd ( aim, this );
-            this.link (lateral);
+            link (lateral);
         }
 
         protected override void _stepb()
         {
-            aim.at ( camera.o.tps_roty.x, camera.o.tps_roty.y );
+            aim.at ( tps.main_roty.x, tps.main_roty.y );
 
             if ( !aim.on )
             {
@@ -48,13 +48,13 @@ namespace Triheroes.Code
                 swap ();
             }
 
-            if ( player.action2.down )
+            if ( player.W.down )
             aim.shot ();
         }
 
         protected override void _stopb()
         {
-            this.unlink ( lateral );
+            unlink ( lateral );
         }
 
         public void _act_end(act a, act_status status) {}

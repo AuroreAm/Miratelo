@@ -11,18 +11,23 @@ namespace Triheroes.Code
         [link]
         motor motor;
 
-        float speed = 7;
+        [link]
+        actor_speed actor_speed;
+
+        protected override void _start() {
+            actor_speed.speed = 5.5f;
+        }
+
         protected override void _step()
         {
-
             if (motor.act == null)
                 motor.start_act ( move );
 
             Vector3 input = player.move;
             float runFactor = player.dash ? walk_factor.sprint : ( input.magnitude > 0.7f ? walk_factor.run : walk_factor.walk );
-            input.Normalize ();
 
-            input = vecteur.ldir ( camera.o.tps_roty, input ) * speed;
+            input.Normalize ();
+            input = vecteur.ldir ( tps.main_roty, input ) * actor_speed.speed;
 
             if (motor.act == move)
             move.walk (input, runFactor );

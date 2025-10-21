@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Lyra;
 using Triheroes.Code.Axeal;
+using System.Drawing;
 
 namespace Triheroes.Code
 {
+    [inked]
     // IK foot manager for humanoids
     public class foot_ik : moon
     {
@@ -15,7 +17,12 @@ namespace Triheroes.Code
         skin skin;
 
         SkinIk IK;
-        Transform[] Foot;
+        Transform[] foots;
+        Quaternion [] default_rotation;
+        float base_offset;
+        
+        Vector3 forward => vecteur.ldir ( skin.roty, Vector3.forward );
+
         float get_ik_l () => IK.ani.GetFloat(sh.lik);
         float get_ik_r () => IK.ani.GetFloat(sh.rik);
 
@@ -28,7 +35,14 @@ namespace Triheroes.Code
             IK._ik += _ik;
             IK._late_ik += set_ik_rot;
 
-            Foot = new Transform[] { IK.ani.GetBoneTransform(HumanBodyBones.LeftFoot), IK.ani.GetBoneTransform(HumanBodyBones.RightFoot) };
+            foots = new Transform[] { IK.ani.GetBoneTransform(HumanBodyBones.LeftFoot), IK.ani.GetBoneTransform(HumanBodyBones.RightFoot) };
+        }
+
+        public class ink : ink <foot_ik> {
+            public ink ( Quaternion [] _default_rotation, float _base_offset ) {
+                o.default_rotation = _default_rotation;
+                o.base_offset = _base_offset;
+            }
         }
 
         Quaternion rotlik;
@@ -49,10 +63,9 @@ namespace Triheroes.Code
 
         void set_ik_rot ()
         {
-            // TODO: foot rotation are different from character to character, this is a quick fix
             // foot rotation
-            Foot[0].rotation = Quaternion.Lerp(Foot[0].rotation, rotlik, IK.iklx);
-            Foot[1].rotation = Quaternion.Lerp(Foot[1].rotation, rotrik, IK.ikrx);
+            foots[0].rotation = Quaternion.Lerp(foots[0].rotation, rotlik, IK.iklx);
+            foots[1].rotation = Quaternion.Lerp(foots[1].rotation, rotrik, IK.ikrx);
         }
 
         void set_dominant_foot ()
@@ -65,31 +78,44 @@ namespace Triheroes.Code
 
         void calculate_ik ()
         {
+            // postion offset
             float PosYl = 0;
             float PosYr = 0;
 
-            IK.ikl = Foot[0].position;
-            IK.ikr = Foot[1].position;
-            rotlik = Foot[0].rotation;
-            rotrik = Foot[1].rotation;
+            // postion of ik positions, used in OnAnimatorIK ();
+            IK.ikl = foots[0].position;
+            IK.ikr = foots[1].position;
 
+            // rotation of ik, used in LateUpdate after animation
+            rotlik = foots[0].rotation;
+            rotrik = foots[1].rotation;
+
+            // weight of ik from animation
             IK.iklx = get_ik_l();
             IK.ikrx = get_ik_r();
 
-            /*if (Physics.Raycast(Foot[0].position + Vector3.up * 0.5f, Vector3.down, out RaycastHit hit, 1, Vecteur.Solid))
+            // calculation // fix here
+            if (Physics.Raycast(foots[0].position + Vector3.up * 0.5f, Vector3.down, out RaycastHit hit, 1, vecteur.Solid))
             {
-                PosYl = hit.point.y - ss.Coord.position.y + 0.1f;
-                S.ikl = hit.point + new Vector3(0, 0.1f, 0);
-                Rotlik = Quaternion.FromToRotation(Foot[0].forward, hit.normal) * Foot[0].rotation;
+                PosYl = base_offset + hit.point.y - skin.position.y;
+                IK.ikl = new Vector3 (hit.point.x,hit.point.y + base_offset,hit.point.z);
+                
+                Quaternion surfaceRotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+                rotlik = surfaceRotation * Quaternion.LookRotation(forward) * default_rotation[0];
             }
-            if (Physics.Raycast(Foot[1].position + Vector3.up * 0.5f, Vector3.down, out hit, 1, Vecteur.Solid))
-            {
-                PosYr = hit.point.y - ss.Coord.position.y + 0.1f;
-                S.ikr = hit.point + new Vector3(0, 0.1f, 0);
-                Rotrik = Quaternion.FromToRotation(Foot[1].forward, hit.normal) * Foot[1].rotation;
-            }*/
 
-            skin.offset_posy = Mathf.Min(PosYl * IK.iklx, PosYr * IK.ikrx, 0);
+            if (Physics.Raycast(foots[1].position + Vector3.up * 0.5f, Vector3.down, out hit, 1, vecteur.Solid))
+            {
+                PosYr = base_offset + hit.point.y - skin.position.y;
+                IK.ikr = new Vector3 (hit.point.x,hit.point.y + base_offset,hit.point.z);
+
+                // Simpler rotation fix
+                Quaternion surfaceRotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+                rotrik = surfaceRotation * Quaternion.LookRotation(forward) * default_rotation[1];
+            }
+
+            // model offset postion to compensate ik
+            skin.offset_posy = Mathf.Min (PosYl * IK.iklx + .1f, PosYr * IK.ikrx + .1f, 0);
         }
 
         void check_can_continue_ik ()

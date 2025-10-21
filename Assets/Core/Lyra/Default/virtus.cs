@@ -94,6 +94,7 @@ namespace Lyra
 
             public int rent_virtus ()
             {
+                clean ();
                 prepare_capacity ();
                 virtus u = queue.Dequeue();
 
@@ -116,6 +117,16 @@ namespace Lyra
                 }
             }
 
+            void clean () {
+                // to make sure the virtus is not used again in the same frame, they are moved to the pending list first then reused on a later frame
+                if ( Time.frameCount != frame && pending.Count > 0 )
+                {
+                    foreach (var p in pending)
+                        queue.Enqueue(p);
+                    pending.Clear();
+                }
+            }
+
             int frame = -1;
             public void return_virtus (virtus v)
             {
@@ -125,13 +136,7 @@ namespace Lyra
                 pending.Add(v);
                 frame = Time.frameCount;
 
-                // to make sure the virtus is not used again in the same frame, they are moved to the pending list first then reused on a later frame
-                if ( Time.frameCount != frame && pending.Count > 0 )
-                {
-                    foreach (var p in pending)
-                        queue.Enqueue(p);
-                    pending.Clear();
-                }
+                frame = Time.frameCount;
             }
         }
     }

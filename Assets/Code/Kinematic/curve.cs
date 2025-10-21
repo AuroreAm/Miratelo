@@ -43,6 +43,10 @@ namespace Triheroes.Code.Axeal
 
         public void deviate ( Vector3 _dir ) => dir = _dir.normalized;
 
+        public void jump_to ( float t ) {
+            cu.jump_to (t);
+        }
+
         public Vector3 tick () {
             return cu.tick_delta () * dir;
         }

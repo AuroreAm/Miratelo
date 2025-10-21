@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Triheroes.Code
-{
+{ /*
     [need_ready]
-    public class stamina_hud : graphic {
+    public class stamina_hud : graphic_element {
     
         stamina stamina;
         RectTransform container;
@@ -92,5 +92,5 @@ namespace Triheroes.Code
             StaminaGraphic.DrawStamina ( vh, angle, radius, color, size );
         }
 
-    }
+    }*/
 }

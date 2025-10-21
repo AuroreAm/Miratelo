@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Triheroes.Code
-{
+{/*
     public class StaminaGraphic : HudGraphic {
 
         public static void DrawStamina ( VertexHelper vh, float angle, float distance, Color color, float size ) {
@@ -41,5 +41,5 @@ namespace Triheroes.Code
             vh.AddTriangle(currentVertexCount, currentVertexCount + 1, currentVertexCount + 2);
             vh.AddTriangle(currentVertexCount + 2, currentVertexCount + 3, currentVertexCount);
         }
-    }
+    }*/
 }

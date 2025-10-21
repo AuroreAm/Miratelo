@@ -2,7 +2,7 @@ using Lyra;
 using UnityEngine;
 
 namespace Triheroes.Code
-{
+{/*
     public class MechaStatAuthor : ActorAuthorModule {
         public int CircuitHeart = 1;
         public int ShieldingHP = 600;
@@ -20,5 +20,5 @@ namespace Triheroes.Code
             s.get <health> ().put_primary ( circuit );
             s.get <health> ().add ( shield );
         }
-    }
+    }*/
 }

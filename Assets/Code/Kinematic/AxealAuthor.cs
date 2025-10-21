@@ -4,21 +4,26 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class AxealAuthor : SkinAuthorModule {
+    public class AxealAuthor : SkinWriterModule {
         
         public float Height;
         public float Radius;
         public float Mass;
 
         public Transform[] Hand;
+        public Quaternion[] FootDefaultRotation;
+        public float FootBaseOffset;
 
-        public override void _create ()
+        protected override void _create ()
         {
             new axeal.ink (Mass);
             new capsule.ink (Height, Radius);
 
             if ( Hand.Length > 0 )
             new hands.ink ( Hand );
+
+            if ( FootDefaultRotation.Length > 0 )
+            new foot_ik.ink ( FootDefaultRotation, FootBaseOffset );
         }
 
         #if UNITY_EDITOR
@@ -44,6 +49,21 @@ namespace Triheroes.Code
             GameObject B = new GameObject("RH"); B.transform.SetParent(Ani.GetBoneTransform(HumanBodyBones.RightHand));
             B.transform.localPosition = Vector3.zero;
             Hand = new Transform[2] { A.transform, B.transform };
+
+            UnityEditor.EditorUtility.SetDirty (this);
+        }
+
+        [ContextMenu("Set foot default rotation")]
+        void AddFootEnd ()
+        {
+            Animator Ani = GetComponent<Animator>();
+            Quaternion A =  Ani.GetBoneTransform(HumanBodyBones.LeftFoot).rotation;
+            Quaternion B =  Ani.GetBoneTransform(HumanBodyBones.RightFoot).rotation;
+            FootDefaultRotation = new Quaternion[2] { A, B };
+
+            FootBaseOffset = Ani.GetBoneTransform(HumanBodyBones.LeftFoot).position.y;
+
+            UnityEditor.EditorUtility.SetDirty (this);
         }
         #endif
     }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Lyra
 {
-    public class core : core_kind
+    public class core : moon, core_kind
     {
         int [] type_segment;
         List<Type> type_order;
@@ -78,6 +78,10 @@ namespace Lyra
         public void start_action ( action action )
         {
             start ( action );
+        }
+
+        public void stop_action ( action action ) {
+            action.abort ( this );
         }
 
         internal void link ( star.main linked )

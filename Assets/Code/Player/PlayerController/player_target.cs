@@ -15,14 +15,14 @@ namespace Triheroes.Code
 
         protected override void _step()
         {
-            if ( player.focus.down && !warrior.target )
+            if ( player._lock.down && !warrior.target )
             {
                 warrior.unlock_target ();
                 warrior.lock_target ( warrior.get_nearest_foe (distance) );
                 return;
             }
 
-            if ( player.focus.down && warrior.target )
+            if ( player._lock.down && warrior.target )
                 warrior.unlock_target ();
         }
     }

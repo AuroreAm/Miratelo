@@ -4,18 +4,15 @@ using UnityEngine;
 
 namespace Lyra
 {
-    public sealed class ScriptAuthor : AuthorModule
+    public sealed class ScriptAuthor : ExtWriter
     {
-        public sealed override void _create () {
-        }
-
-        public override void _created (system system)
+        protected sealed override void WriteTo ()
         {
-            script s = system.get <script> ();
+            script s = this.s.get <script> ();
             for (int i = 0; i < transform.childCount; i++)
             {
                 if ( transform.GetChild (i).TryGetComponent <ActionPaper> ( out var c ) )
-                s.add_index ( c.write (s), new term (c.gameObject.name) );
+                s.add_or_change_index ( c.Write (s), new term (c.gameObject.name) );
             }
         }
     }

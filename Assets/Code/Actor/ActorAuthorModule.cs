@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public abstract class ActorAuthorModule : AuthorModule
-    {
+    public abstract class ActorAuthorModule : AuthorModule {
     }
 }

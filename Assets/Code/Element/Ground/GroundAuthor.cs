@@ -4,13 +4,12 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public class GroundAuthor : MonoBehaviour
+    public class GroundAuthor : SceneInitWriter
     {
         public enum GroundType { wood, asphalt }
         public GroundType type;
 
-        void Start()
-        {
+        protected override void Init() {
             ground_element Ground = null;
             switch (type)
             {

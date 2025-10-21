@@ -3,34 +3,6 @@ using UnityEngine;
 using Triheroes.Code.Axeal;
 
 namespace Triheroes.Code {
-
-    public class D0 : skill {
-        [link]
-        stamina stamina;
-
-        [link]
-        motor motor;
-        
-        [link]
-        dash dash;
-
-        [link]
-        backflip backflip;
-
-        public void spam(direction direction) {
-            if (stamina.has_green()) {
-                bool success;
-                if (direction != direction.back)
-                    success = motor.start_act(dash._(direction));
-                else
-                    success = motor.start_act(backflip);
-
-                if (success)
-                    stamina.use (1);
-            }
-        }
-    }
-
     public class dash : act {
         public override priority priority => priority.action;
 

@@ -12,14 +12,17 @@ namespace Triheroes.Code
         [link]
         skills s;
 
+        [link]
+        player_camera pc;
+
         public void _radiate(hacked gleam)
         {
-            camera.o.hit_pause.spam ();
+            pc.cam.hit_pause.spam ();
         }
 
         protected override void _step()
         {
-            if ( player.action2.down )
+            if ( player.W.down )
             s.get<SS1> ().spam ();
         }
     }
@@ -34,7 +37,7 @@ namespace Triheroes.Code
         [link]
         lock_target lock_target;
         [link]
-        player_camera_target camera_target;
+        tps_target camera_target;
 
         protected override void _stepa()
         {
@@ -100,7 +103,7 @@ namespace Triheroes.Code
 
         protected override void _step()
         {
-            if ( equip.weapon_user is sword_user && player.action3.down )
+            if ( equip.weapon_user is sword_user && player.N.down )
             {
                 if (arrow_alert.alert)
                 {

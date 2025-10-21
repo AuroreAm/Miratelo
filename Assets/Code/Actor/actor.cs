@@ -9,7 +9,7 @@ namespace Triheroes.Code
     public class actor : moon
     {
         [link]
-        character c; 
+        character c;
 
         [link]
         public skin skin;

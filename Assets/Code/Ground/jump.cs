@@ -14,8 +14,6 @@ namespace Triheroes.Code {
         force_curve_data f_jump;
 
         float max;
-        float min;
-        bool done;
 
         public term jump_animation = anim.jump;
 
@@ -23,36 +21,27 @@ namespace Triheroes.Code {
             f_jump = new force_curve_data( .5f, res.curves.q(anim.jump), 1);
         }
 
-        public void set(float _max, float _min) {
+        public void set(float _max) {
             max = _max;
-            min = _min;
         }
 
         protected override void _start() {
             f_jump.dir = Vector3.up * max;
             a.set_force(f_jump);
             skin.play(new skin.animation(jump_animation, this));
-            done = false;
         }
 
 
         public void move(Vector3 dir_s, float factor = walk_factor.run) {
             if (on)
-                a.move (dir_s * factor);
+                a.move (factor * dir_s);
         }
 
         public void stop_jump() {
-            if ( a.main_force.current < (max + min) / 2)
-                done = true;
+                a.forces [0].jump_to ( .25f );
         }
 
         protected override void _step() {
-            if (done && a.main_force.current >= min) {
-                a.stop_main_force();
-                stop();
-                return;
-            }
-
             if (a.main_force.done)
                 stop();
         }

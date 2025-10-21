@@ -1,7 +1,7 @@
 using Lyra;
 using UnityEngine;
 
-namespace Triheroes.Code {
+namespace Triheroes.Code {/*
     public class shielding : health_system.sub {
         const float hot_duration = 2;
         const float penetration_factor = 0.5f;
@@ -61,5 +61,5 @@ namespace Triheroes.Code {
                 new armor_hud ( this ).start ( ui.o.player_hud.alt_heart_container );
             }
         }
-    }
+    }*/
 }

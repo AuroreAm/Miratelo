@@ -46,6 +46,7 @@ namespace Triheroes.Code {
     public abstract class health_system : auto_stat {
         public const float eps = .0001f;
         public abstract void damage ( damage damage );
+        public health_system_hud hud {protected set; get;}
 
         private health_system () {}
 

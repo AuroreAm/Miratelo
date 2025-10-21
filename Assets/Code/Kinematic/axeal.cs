@@ -20,7 +20,11 @@ namespace Triheroes.Code.Axeal {
         [link]
         skin_dir skin_dir; 
 
-        force_curve [] forces = new force_curve [2];
+        /// <summary> all force, active and inactive on the axeal, for internal use,
+        /// this is public accessible for special case tweak
+        /// don't mess with the reference
+        /// e.g. for jump to finish curve early </summary>
+        public force_curve [] forces = new force_curve [2];
         int force_count;
 
         public class ink : ink <axeal> {
@@ -117,6 +121,5 @@ namespace Triheroes.Code.Axeal {
         public push ( Vector3 dir_per_mu ) {
             this.dir_per_mu = dir_per_mu;
         }
-
     }
 }

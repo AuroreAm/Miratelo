@@ -1,4 +1,3 @@
-using System;
 using Lyra;
 using UnityEngine;
 
@@ -8,16 +7,17 @@ namespace Triheroes.Code
     [inked]
     public class camera : star.main
     {
-        public static camera o { private set; get; }
+        public static camera o;
+
         [link]
         public hit_pause hit_pause;
 
         Transform coord;
-        public Camera unity_camera {private set; get;}
+        Camera unity_camera; public static Camera cam => o.unity_camera;
         CameraShot.shot shot;
 
-        public Quaternion get_billboard_rotation ( Vector3 position ) {
-            return Quaternion.LookRotation ( unity_camera.transform.position - position );
+        public static Quaternion get_billboard_rotation ( Vector3 position ) {
+            return Quaternion.LookRotation ( o.unity_camera.transform.position - position );
         }
 
         public class ink : ink <camera>
@@ -46,10 +46,10 @@ namespace Triheroes.Code
         void set_shot ( CameraShot.shot _shot )
         {
             if ( shot != null )
-                this.unlink ( shot );
+                unlink ( shot );
 
             shot = _shot;
-            this.link ( shot );
+            link ( shot );
         }
 
         // public methods
@@ -57,7 +57,7 @@ namespace Triheroes.Code
         [link]
         CameraShot.dummy dummy;
         [link]
-        player_camera tps;
+        tps tps;
         [link]
         normal tps_normal;
         [link]
@@ -86,8 +86,6 @@ namespace Triheroes.Code
         {
             set_shot ( subject_shot );
         }
-
-        public Vector3 tps_roty => tps.rot2;
 
         // Screen ray
         Ray screen_ray;

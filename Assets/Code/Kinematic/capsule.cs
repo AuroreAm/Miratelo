@@ -27,6 +27,7 @@ namespace Triheroes.Code.Axeal
 
         protected override void _ready() {
             cc = _c.gameobject.AddComponent<CharacterController>();
+            cc.skinWidth = 0.0001f;
             cc.height = h;
             cc.radius = r;
             cc.center = new Vector3 (0, h / 2, 0);

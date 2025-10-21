@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 namespace Triheroes.Code
 {
-    public class HeartGraphic : HudGraphic {
+
+    /*public class HeartGraphic : HudGraphic {
         public static void DrawHeartQuarter ( VertexHelper vh, int quarterId, Color color, float x, float size ) {
             // get center of heart
             float centerX = x + size / 2f;
@@ -86,5 +87,5 @@ namespace Triheroes.Code
             vh.AddTriangle(currentVertexCount, currentVertexCount + 1, currentVertexCount + 2);
             vh.AddTriangle(currentVertexCount + 2, currentVertexCount + 3, currentVertexCount);
         }
-    }
+    }*/
 }

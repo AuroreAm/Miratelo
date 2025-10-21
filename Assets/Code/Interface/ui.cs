@@ -24,7 +24,7 @@ namespace Triheroes.Code
         public full_overlay full_overlay;
 
         [link]
-        public player_hud player_hud;
+        public health_hud health_hud;
 
         protected override void _ready() {
             o = this;

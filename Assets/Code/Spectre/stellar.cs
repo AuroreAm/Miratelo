@@ -59,7 +59,7 @@ namespace Triheroes.Code {
         }
 
         protected override void _step() {
-            Graphics.DrawMesh(frames[Mathf.FloorToInt(frame_id)], position, camera.o.get_billboard_rotation(position), material, 0);
+            Graphics.DrawMesh(frames[Mathf.FloorToInt(frame_id)], position, camera.get_billboard_rotation(position), material, 0);
 
             frame_id += Time.deltaTime * speed;
             if ( !loop && frame_id > frame_number ) {

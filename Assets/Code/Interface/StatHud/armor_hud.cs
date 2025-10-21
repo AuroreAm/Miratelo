@@ -1,11 +1,11 @@
 using Lyra;
 using UnityEngine;
 using UnityEngine.UI;
-
+/*
 namespace Triheroes.Code
 {
     [need_ready]
-    public class armor_hud : graphic {
+    public class armor_hud : graphic_element {
         public const float unit_HP = 100;
         public const float unit_penetration = 10;
 
@@ -68,4 +68,4 @@ namespace Triheroes.Code
             container.ClearChildren ();
         }
     }
-}
+}*/

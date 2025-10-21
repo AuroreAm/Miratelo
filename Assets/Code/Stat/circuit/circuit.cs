@@ -2,7 +2,7 @@ using Lyra;
 using UnityEngine;
 
 namespace Triheroes.Code
-{
+{/*
     public class circuit : health_system.primary {
         HP4vessel blue;
 
@@ -20,6 +20,6 @@ namespace Triheroes.Code
         protected override void _step() {
             blue.tick ( Time.deltaTime );
         }
-    }
+    }*/
 
 }

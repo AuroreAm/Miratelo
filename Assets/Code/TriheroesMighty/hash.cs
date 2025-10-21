@@ -17,8 +17,16 @@ namespace Triheroes.Code
         public static readonly int z = Animator.StringToHash("z");
 
         //
+        public static readonly term camera = new term ("camera");
+        public static readonly term direct_capture = new term ("direct_capture");
+        public static readonly term hud = new term ("hud");
+
+        //
         public static readonly term force = new term ("force");
         public static readonly term player = new term ("player");
+        public static readonly term after_image = new term ("after_image");
+
+        public static readonly term decoherence_blink = new term ("decoherence_blink");
     }
 
     public static class anim
@@ -78,7 +86,6 @@ namespace Triheroes.Code
         public static readonly term start_shoot = new term("start_shoot");
     }
 
-    [path ("skill")]
     public static class skl {
         public static readonly term SS1 = new term ( "SS1" );
     }
@@ -89,14 +96,8 @@ namespace Triheroes.Code
         public static readonly Quaternion def_sword_rotation = Quaternion.Euler(0, -90, 0);
     }
 
-    public static class GO {
-        public static readonly term heart_hp = new term("heart_hp");
-        public static readonly term heart_hp_glow = new term("heart_hp_glow");
+    public static class tl {
+        public static readonly term heart = new term ("heart");
         public static readonly term stamina_dot = new term ("stamina_dot");
-        public static readonly term stamina_dot_glow = new term ("stamina_dot_glow");
-        public static readonly term armor_wheel = new term ("armor_wheel");
-        public static readonly term armor_wheel_glow = new term ("armor_wheel_glow");
-
-        public static readonly term character_hud_label = new term("character_hud_label");
     }
 }

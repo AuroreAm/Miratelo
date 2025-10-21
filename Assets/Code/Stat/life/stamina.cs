@@ -6,7 +6,7 @@ namespace Triheroes.Code {
     [inked]
     public class stamina : auto_stat {
         [link]
-        public hud_pos hud;
+        public hud_pos hud_pos;
 
         public enum state { idle, hot, fatigue }
         public state status { private set; get; }
@@ -28,6 +28,7 @@ namespace Triheroes.Code {
         public float ghost_ui => ghost_stamina;
         public float cooldown_ui => cooldown;
         public float regen_ui => regen;
+        public stamina_hud hud {private set; get;}
 
         public class ink : ink <stamina> {
              public ink(int _max, float _regen_speed = 2, float _cooldown_duration = 2) {
@@ -42,6 +43,7 @@ namespace Triheroes.Code {
 
         protected override void _ready() {
             phoenix.core.execute(this);
+            hud = new stamina_hud (this);
         }
 
         protected override void _step() {
@@ -143,6 +145,66 @@ namespace Triheroes.Code {
 
             return true;
         }
+    }
 
+    public class stamina_hud : health_system_hud {
+        stamina stamina;
+        const float radius = 8;
+        const float dot_size = 8;
+        const float dot_size2 = 7;
+
+        public stamina_hud ( stamina _stamina ) {
+            stamina = _stamina;
+        }
+
+        public override void _draw(UILayer l0, UILayer l1) {
+            Color color;
+
+             if (stamina.status == stamina.state.fatigue) {
+                color = Color.red;
+                for (int i = 0; i < stamina.max_active; i++)
+                    draw_dot ( l0, i, stamina.red_ui, color, dot_size );
+
+                color = Color.white;
+                for (int i = 0; i < stamina.max_active; i++)
+                    draw_dot ( l0, i, stamina.ghost_ui, color, dot_size2 );
+                color = new Color ( 1, .64f, 0 );
+                for (int i = 0; i < stamina.max_active; i++)
+                    draw_dot ( l1, i, stamina.ghost_ui, color, dot_size2 );
+
+                return;
+            }
+
+            if ( stamina.status == stamina.state.hot ) {
+                color = Color.white;
+                for (int i = Mathf.FloorToInt ( stamina.green_ui ); i < stamina.max_active; i++)
+                draw_dot ( l0, i, Mathf.Lerp ( stamina.green_ui, stamina.hot_ui, stamina.cooldown_ui / stamina.cooldown_duration ), color, dot_size );
+
+                color = Color.red;
+                for (int i = Mathf.FloorToInt ( stamina.green_ui ); i < stamina.max_active; i++)
+                draw_dot ( l1, i, Mathf.Lerp ( stamina.green_ui, stamina.hot_ui, stamina.cooldown_ui / stamina.cooldown_duration ), color, dot_size );
+            }
+
+            color = stamina.status == stamina.state.hot ? Color.cyan : new Color (0,.5f,1);
+
+            for (int i = 0; i < stamina.max_active; i++)
+                draw_dot ( l0, i, stamina.green_ui + stamina.regen_ui, color, dot_size );
+        }
+
+        void draw_dot ( UILayer l, int i, float value, Color color, float dot_size ) {
+            float angle = ( 360f / stamina.max_active ) * i;
+            float size = Mathf.Clamp01 ( value - i ) * dot_size;
+            draw_stamina ( l, size, angle, 16, color );
+        }
+
+        void draw_stamina ( UILayer l, float size, float angle, float distance, Color color ) {
+            Vector3 xys = new Vector3 (
+                Mathf.Cos(angle * Mathf.Deg2Rad) * distance,
+                Mathf.Sin(angle * Mathf.Deg2Rad) * distance,
+                size
+            );
+
+            l.draw_square ( xys, l.tile_of (tl.stamina_dot), color );
+        }
     }
 }

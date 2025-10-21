@@ -22,7 +22,7 @@ namespace Triheroes.Code
 
             Vector3 input;
             input = player.move;
-            input = vecteur.ldir ( camera.o.tps_roty, input) * 6f;
+            input = vecteur.ldir ( tps.main_roty, input) * 6f;
 
             lateral.walk_lateral ( input );
         }

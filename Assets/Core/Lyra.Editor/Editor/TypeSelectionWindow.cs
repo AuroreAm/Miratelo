@@ -10,7 +10,7 @@ namespace Lyra.Editor
     public class TypeSelectionWindow : EditorWindow
     {
         SerializedProperty _target;
-        CursorGUI _cursor;
+        cursorgui _cursor;
 
         public static void Show ( SerializedProperty target )
         {
@@ -24,7 +24,7 @@ namespace Lyra.Editor
 
         void OnEnable ()
         {
-            _cursor = new CursorGUI ( typeof (moon) , OnSelect );
+            _cursor = new cursorgui ( typeof (moon) , OnSelect );
         }
 
         void OnGUI ()

@@ -1,4 +1,4 @@
-using Lyra;
+using Lyra;/*
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -173,4 +173,4 @@ namespace Triheroes.Code
             DrawTexture ( vh, CoverTile, FrameSize, Color.white );
         }
     }
-}
+}*/

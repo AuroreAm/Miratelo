@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     [path("ground reaction")]
-    public class react_fall : action
+    public class react_fall_simple : action
     {
         [link]
         ground ground;

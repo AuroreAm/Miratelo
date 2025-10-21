@@ -1,6 +1,6 @@
 using Lyra;
 using UnityEngine;
-
+/*
 namespace Triheroes.Code {
     public class HP4vessel {
         const float hot_duration = .5f;
@@ -93,4 +93,4 @@ namespace Triheroes.Code {
             }
         }
     }
-}
+}*/
