@@ -58,5 +58,4 @@ namespace Triheroes.Code {
         }
     }
 
-    public enum direction { forward, right, left, back }
 }

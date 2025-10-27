@@ -27,6 +27,11 @@ namespace Triheroes.Code
         public static readonly term after_image = new term ("after_image");
 
         public static readonly term decoherence_blink = new term ("decoherence_blink");
+        public static readonly term red_blink = new term ("red_blink");
+    }
+
+    public static class sp {
+        public static readonly term red_bloom = new term ("red_bloom");
     }
 
     public static class anim

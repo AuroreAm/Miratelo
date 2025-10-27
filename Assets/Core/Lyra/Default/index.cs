@@ -20,7 +20,17 @@ namespace Lyra
         public static void register (int id, T pix)
         {
             o.ptr.Add ( id, pix );
+            o._new (id, pix);
         }
+
+        public static void unregister ( int id ) {
+            var item = o.ptr [id];
+            o.ptr.Remove ( id );
+            o._exit (item);
+        }
+
+        protected virtual void _new ( int id, T pix ) {}
+        protected virtual void _exit ( T pix ) {}
     }
 
     public abstract class public_moon <T> : moon where T : public_moon <T>
@@ -28,6 +38,10 @@ namespace Lyra
         public void register ( int id )
         {
             index <T>.register (id, (T) this);
+        }
+
+        public void unregister ( int id ) {
+            index <T>.unregister (id);
         }
 
         public abstract class of_character <T1> : public_moon <T1> where T1:of_character <T1>

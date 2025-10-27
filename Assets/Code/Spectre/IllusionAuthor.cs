@@ -12,5 +12,9 @@ namespace Triheroes.Code
         {
             new illusion.ink ( Instantiate (GetComponent <ParticleSystem> ()) );
         }
+
+        illusion.w w;
+
+        public illusion.w get_w () => bridge_cache ( ref w );
     }
 }

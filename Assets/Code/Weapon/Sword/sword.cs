@@ -9,6 +9,10 @@ namespace Triheroes.Code {
         [link]
         matter_registry registry;
 
+        [link]
+        sword_rb rb;
+        public override weapon_handle handle => rb;
+
         public float sv_to_vu => vu_per_mu * matter.mu * velocity_factor_length * length;
         public const float vu_per_mu = 0.01f;
         public const float velocity_factor_length = 0.5f;

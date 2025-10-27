@@ -9,13 +9,14 @@ namespace Triheroes.Code
     public class InterfaceWriter : Writer {
 
         public RawImage FullOverlay;
-        public UILayer l0;
-        public UILayer l1;
+        public RectTransform [] Healths;
+        public RectTransform Energy;
+        public Text Prompt;
 
         protected override void __create() {
             new ui.ink ( GetComponent <Canvas> ().GetComponent <RectTransform> () );
             new full_overlay.ink ( FullOverlay );
-            new health_hud.ink ( l0, l1 );
+            new player_hud.ink ( Healths, Energy, Prompt );
         }
     }
 }

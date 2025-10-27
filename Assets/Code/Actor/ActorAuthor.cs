@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public sealed class ActorAuthor : MonoBehaviour, creator {
+    public sealed class ActorAuthor : CharacterAuthor, creator {
         public string Name;
         public int Faction;
         public SkinWriter Skin;
@@ -16,7 +16,7 @@ namespace Triheroes.Code
 
         List < ActorAuthorModule > modules;
 
-        public void Spawn (){
+        public override void Spawn (){
             Spawn ( transform.position, transform.rotation );
         }
 

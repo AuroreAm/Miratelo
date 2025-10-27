@@ -75,9 +75,9 @@ namespace Triheroes.Code
         equip equip;
         [link]
         motor motor;
-
+        
         [link]
-        SS9 SS9;
+        skills s;
 
         Dictionary < term, act > acts_parry;
 
@@ -124,14 +124,14 @@ namespace Triheroes.Code
         void parry_sword ()
         {
             if ( acts_parry.ContainsKey ( slash_alert.incomming_slash.slash ) )
-                motor.start_act ( acts_parry [ slash_alert.incomming_slash.slash ] );
+                motor.start ( acts_parry [ slash_alert.incomming_slash.slash ] );
             else
-            motor.start_act ( acts_parry [ anim.SS1_0 ] );
+            motor.start ( acts_parry [ anim.SS1_0 ] );
         }
 
         void parry_arrow ()
         {
-            SS9.skill.spam ();
+            s.get <SS9> ().spam ();
         }
     }
 }

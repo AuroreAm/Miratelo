@@ -15,6 +15,6 @@ namespace Triheroes.Code
         new stellar.ink ( Material, FrameNumber, Loop );
         }
 
-        public stellar.w get_w () => get_bridge (ref w);
+        public stellar.w get_w () => bridge_cache (ref w);
     }
 }

@@ -9,12 +9,17 @@ namespace Triheroes.Code
     {
         public float Length;
         public SlashAuthor Slash;
-        public moon_paper <matter> Matter;
+        public moon_paper < matter > Matter;
+        public Rigidbody RigidBody;
 
-        protected override weapon __creation()
+        protected override weapon __create ()
         {
             matter m = Matter.write ();
             new matter_registry.ink ( m );
+
+            new sword_rb.ink ( Instantiate (RigidBody) );
+            new sword.ink ( Length, Slash.get_w () );
+
             return new sword.ink ( Length, Slash.get_w () ).o;
         }
 

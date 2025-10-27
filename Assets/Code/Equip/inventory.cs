@@ -15,7 +15,7 @@ namespace Triheroes.Code
             equip.link_inventory ( this );
         }
 
-        public virtual void register_weapon ( weapon weapon )
+        public virtual void try_put_weapon ( weapon weapon )
         {}
     }
 }

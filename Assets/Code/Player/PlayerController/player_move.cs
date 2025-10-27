@@ -21,7 +21,7 @@ namespace Triheroes.Code
         protected override void _step()
         {
             if (motor.act == null)
-                motor.start_act ( move );
+                motor.start ( move );
 
             Vector3 input = player.move;
             float runFactor = player.dash ? walk_factor.sprint : ( input.magnitude > 0.7f ? walk_factor.run : walk_factor.walk );

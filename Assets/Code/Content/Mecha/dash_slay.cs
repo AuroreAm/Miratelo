@@ -60,7 +60,7 @@ namespace Triheroes.Code {
         [link]
         motor motor;
         public void _radiate(parried gleam) {
-            motor.start_act (stun);
+            motor.start (stun);
         }
     }
 }

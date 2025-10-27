@@ -31,17 +31,6 @@ namespace Triheroes.Code {
             hot -= Time.deltaTime;
             if (hot < 0)
             hot = 0;
-
-            
-            if ( Input.GetKeyDown (KeyCode.R) ) {
-                    int damage_q = 5;
-                    if ( damage_q > 0 && hot == 0 ) {
-                    hot_q = hp_q;
-                    hot = hot_duration;
-                }
-
-                hp_q = Mathf.Max ( hp_q - damage_q, 0 );
-            }
         }
 
         public override void damage(damage damage) {

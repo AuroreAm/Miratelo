@@ -17,7 +17,7 @@ namespace Lyra {
         public void _created(system s) { }
         protected abstract void _virtus_create();
 
-        protected T get_bridge <T> ( ref T w ) where T : bridge, new () {
+        protected T bridge_cache <T> ( ref T w ) where T : bridge, new () {
             if (w == null) {
                 var n = new term (name);
                 w = bridge.create <T> ( n );

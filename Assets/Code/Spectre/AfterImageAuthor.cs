@@ -12,6 +12,6 @@ namespace Triheroes.Code
         }
 
         after_image.w w;
-        public after_image.w get_w () => get_bridge (ref w);
+        public after_image.w get_w () => bridge_cache (ref w);
     }
 }

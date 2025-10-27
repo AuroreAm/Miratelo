@@ -15,18 +15,17 @@ namespace Triheroes.Code {
 
         [link]
         move_point point;
-
-        Coroutine routine_low_step;
         NavMeshPath path = new NavMeshPath ();
+
+        interval interval;
+        public move_to () {
+            interval = new interval (_low_step,.75f);
+        }
 
         protected sealed override void _start()
         {
             link ( point );
-            routine_low_step = phoenix.o.StartCoroutine ( ie_low_step () );
-            __start ();
         }
-
-        protected virtual void __start () {}
 
         protected abstract Vector3 get_target (); 
         protected virtual float get_offset_stop_distance () => 0;
@@ -36,21 +35,14 @@ namespace Triheroes.Code {
             return Vector3.Distance ( capsule.c.position, get_target() ) < _stop_distance + get_offset_stop_distance ();
         }
 
+        protected override void _step() {
+            interval.tick ( Time.deltaTime );
+        }
+
         protected sealed override void _stop()
         {
             point.clear ();
             unlink ( point );
-            phoenix.o.StopCoroutine ( routine_low_step );
-        }
-
-        IEnumerator ie_low_step ()
-        {
-            var y = new WaitForSeconds (.75f);
-            while (true)
-            {
-                _low_step ();
-                yield return y;
-            }
         }
 
         void _low_step ()

@@ -10,7 +10,7 @@ namespace Triheroes.Code
         public string arrow;
         public Transform BowString;
 
-        protected override weapon __creation()
+        protected override weapon __create ()
         {
             return new bow.ink ( BowString, arrow ).o;
         }

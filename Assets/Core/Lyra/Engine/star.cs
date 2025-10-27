@@ -114,6 +114,10 @@ namespace Lyra {
                 Dev.Break("star is already on");
         }
 
+        protected void unready_for_tick () {
+            ready = false;
+        }
+
         public void tick(core_kind _core) {
             if (on == false)
                 core = _core;
@@ -146,6 +150,26 @@ namespace Lyra {
             protected new void stop() {
                 base.stop();
             }
+        }
+    }
+
+    public struct interval {
+        readonly float interval_duration;
+        readonly Action low;
+        float t;
+
+        public void tick ( float dt ) {
+            t -= dt;
+            while ( t <= 0 ) {
+                low ();
+                t += interval_duration;
+            }
+        }
+
+        public interval ( Action ev, float interval ) {
+            t = 0;
+            interval_duration = interval;
+            low = ev;
         }
     }
 

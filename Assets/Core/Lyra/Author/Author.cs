@@ -61,4 +61,8 @@ namespace Lyra
         public virtual void _create () {}
         public virtual void _created (system s) {}
     }
+
+    public abstract class CharacterAuthor : MonoBehaviour {
+        public abstract void Spawn ();
+    }
 }

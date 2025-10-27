@@ -58,7 +58,7 @@ namespace Triheroes.Code
             fall.land_animation = (move.state == idle)? fall_end : ( (ik.dominand_foot == foot_ik.foot.left) ? fall_end_left_foot : fall_end_right_foot );
             
             bool success;
-            success = motor.start_act (jump);
+            success = motor.start (jump);
 
             if ( success ) {
             ijump.clear (); iground.clear ();

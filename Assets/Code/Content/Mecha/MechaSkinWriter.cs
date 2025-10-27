@@ -13,8 +13,8 @@ namespace Triheroes.Code.Mecha
             
         protected override void _create ()
         {
-            new mecha_sword.ink ( MechaSword.get () );
-            new mecha_buster.ink ( BusterOrigin, BusterEnd );
+           /* new mecha_sword.ink ( MechaSword.get () );
+            new mecha_buster.ink ( BusterOrigin, BusterEnd );*/
         }
     }
 }

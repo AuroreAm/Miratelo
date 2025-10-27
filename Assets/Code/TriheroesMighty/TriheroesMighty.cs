@@ -36,6 +36,7 @@ namespace Triheroes{
         public List <GameObject> Prefabs;
         public List <CurveRes> Curves;
         public List <StellarAuthor> Stellars;
+        public List <IllusionAuthor> Illusions;
         public List <ArrowAuthor> Arrows;
         public List <AfterImageAuthor> AfterImages;
     }
@@ -63,10 +64,14 @@ namespace Triheroes{
 
             foreach (var a in main.AfterImages)
                 after_image.add ( new term (a.name), a );
+
+            foreach (var a in main.Illusions)
+                illusions.add ( new term (a.name), a );
         }
 
         public static res <GameObject> go = new res<GameObject> ();
         public static res <StellarAuthor> stellars = new res<StellarAuthor> ();
+        public static res <IllusionAuthor> illusions = new res<IllusionAuthor> ();
         public static res <ArrowAuthor> arrows = new res<ArrowAuthor> ();
         public static res <AfterImageAuthor> after_image = new res<AfterImageAuthor> ();
         public static res <CurveRes> curves = new res<CurveRes> ();

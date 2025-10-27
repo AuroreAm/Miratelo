@@ -5,8 +5,11 @@ using UnityEngine;
 
 namespace Triheroes.Code
 {
-    public sealed class weapon_place
+    public sealed class weapon_place : moon
     {
+        [link]
+        warrior warrior;
+
         weapon weapon;
         Transform place;
         public bool occupied => weapon != null;
@@ -22,6 +25,7 @@ namespace Triheroes.Code
                 Debug.LogError("place already occupied");
 
             weapon = _weapon;
+            weapon.handle.aquire (warrior);
             weapon.coord.SetParent(place);
             weapon.coord.localPosition = Vector3.zero;
             weapon.coord.localRotation = Quaternion.identity;
@@ -37,6 +41,7 @@ namespace Triheroes.Code
             weapon w = weapon;
             w.coord.SetParent(null);
             weapon = null;
+            weapon.handle.dispose ();
             return w;
         }
     }
@@ -44,9 +49,6 @@ namespace Triheroes.Code
     [inked]
     public class inv0 : inventory
     {
-        [link]
-        warrior warrior;
-
         public weapon_place[] sword_place { private set; get; }
         public weapon_place get_free_sword_place ()
         {
@@ -83,12 +85,10 @@ namespace Triheroes.Code
             }
         }
 
-        public override void register_weapon (weapon weapon)
+        public override void try_put_weapon (weapon weapon)
         {
             if (!free_place_for_exists (weapon))
                 return;
-
-            weapon.aquire ( warrior );
             get_free_place_for(weapon).put(weapon);
         }
 

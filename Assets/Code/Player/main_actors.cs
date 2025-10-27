@@ -1,13 +1,14 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using Lyra;
-using UnityEngine;
 
 namespace Triheroes.Code
 {
     [superstar]
     public class main_actors : moon {
         List <warrior> main = new List<warrior> ();
+        public int count => main.Count;
+        public warrior this [int id] => main [id];
 
         public void add ( warrior warrior ) {
             main.Add ( warrior );
@@ -24,8 +25,5 @@ namespace Triheroes.Code
 
             script.add_or_change_index ( sb.final (), sh.player );
         }
-
-        public int count => main.Count;
-        public warrior this [int id] => main [id];
     }
 }

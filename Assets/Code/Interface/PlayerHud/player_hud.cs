@@ -1,39 +1,61 @@
 using Lyra;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace Triheroes.Code
-{/*
-    [need_ready]
+namespace Triheroes.Code {
     [inked]
     public class player_hud : graphic_element {
+        character_label[] labels;
+        health_hud[] healths;
+        energy_hud energy;
 
-        public RectTransform heart_container;
-        public RectTransform alt_heart_container;
-        RectTransform stamina_container;
+        public prompt prompt {private set; get;}
 
-        stamina monitered;
+        main_actors ma;
 
-        public class ink : ink <player_hud> {
-            public ink ( RectTransform _heart_container, RectTransform _stamina_container, RectTransform _alt_heart_container ) { 
-                o.heart_container = _heart_container;
-                o.stamina_container = _stamina_container;
-                o.alt_heart_container = _alt_heart_container;
+        public class ink : ink<player_hud> {
+            public ink(RectTransform[] healths_hud, RectTransform energy, Text prompt) {
+                o.healths = new health_hud[healths_hud.Length];
+                o.labels = new character_label[healths_hud.Length];
+
+                for (int i = 0; i < healths_hud.Length; i++) {
+                    o.healths[i] = new health_hud(healths_hud[i].GetChild(1).GetComponent<RectTransform>());
+
+                    o.labels[i] = new character_label(healths_hud[i].GetChild(0).GetComponent<Text>());
+                }
+
+                o.energy = new energy_hud(energy);
+
+                o.prompt = new prompt ( prompt );
             }
         }
 
-        public void bind_stamina (stamina stamina) {
-            monitered = stamina;
-
-            ready_for_tick ();
-            phoenix.core.start_action (this);
+        protected override void _ready() {
+            phoenix.core.start_action(this);
+            ma = phoenix.star.get<main_actors>();
         }
 
-        protected override void _start() {
-            new stamina_hud ( monitered ).start ( stamina_container );
+        void start_healths_hud() {
+            for (int i = 0; i < healths.Length; i++) {
+                if (i < ma.count) {
+                    healths[i].start(ma[i].system.get<health>());
+                    labels[i].start(((actor)ma[i]).name);
+                }
+                else {
+                    labels[i].end();
+                    healths[i].end();
+                }
+            }
         }
 
         protected override void _step() {
-            stamina_container.anchoredPosition = monitered.hud.stamina (); 
+            if (energy.on)
+                energy.container.anchoredPosition = energy.stamina.hud_pos.stamina();
         }
-    }*/
-}
+
+        public void frame_player(actor actor) {
+            start_healths_hud();
+            energy.start(actor.system.get<stamina>());
+        }
+    }
+} 

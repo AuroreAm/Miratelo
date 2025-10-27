@@ -48,7 +48,7 @@ namespace Triheroes.Code {
             path = _path;
             sword = _sword;
             vu = _vu;
-            performer = ((actor)sword.owner).skin;
+            performer = ((actor)sword.handle.owner).skin;
 
             duration = _duration;
             position = performer.position;
@@ -174,7 +174,7 @@ namespace Triheroes.Code {
         List<int> hitted = new List<int>();
         void hit() {
             if (ray_hit.collider.gameObject.layer == vecteur.ATTACK ) {
-                sword.owner.photon.radiate(new parried());
+                sword.handle.owner.photon.radiate(new parried());
                 virtus.return_();
                 return;
             }
@@ -183,13 +183,13 @@ namespace Triheroes.Code {
             
             if (hitted.Contains(ray_hit.collider.cid())) return;
 
-            if (xenos.contains(ray_hit.collider.uid()) && xenos.is_enemy(ray_hit.collider.uid(), sword.owner.faction)) {
+            if (xenos.contains(ray_hit.collider.uid()) && xenos.is_enemy(ray_hit.collider.uid(), sword.handle.owner.faction)) {
 
                 xenos.damage ( ray_hit.collider.uid (), new damage ( ray_hit.point, vecteur.ldir( performer.roty,Vector3.forward ), sword.matter, vu, damage.slash ) );
                 hitted.Add(ray_hit.collider.cid());
 
                 photon.radiate( new hacked(ray_hit.collider.cid()) );
-                sword.owner.photon.radiate( new hacked(ray_hit.collider.cid()) );
+                sword.handle.owner.photon.radiate( new hacked(ray_hit.collider.cid()) );
 
             }
         }

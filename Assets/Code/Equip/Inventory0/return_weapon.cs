@@ -37,14 +37,16 @@ namespace Triheroes.Code.Inv0Act
             skin.play ( play );
         }
 
-        public void set ( weapon_place _place )
+        public return_weapon _ ( weapon_place _place )
         {
-            if (on) return;
+            if (on) return this;
 
             to = _place;
             return_animation = get_corresponding_animation ( equip.weapon_user.weapon_base );
 
             ready_for_tick ();
+
+            return this;
         }
 
         static term get_corresponding_animation ( weapon weapon )

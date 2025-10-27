@@ -114,7 +114,7 @@ namespace Triheroes.Code
             uvmax = new Vector2((tile.x + 1) * tex_size.x, (tile.y + 1) * tex_size.y);
 
             // Create vertices for a quad
-            float x = xys.x; float y = xys.y; float size = xys.z;
+            float x = xys.x + offset.x; float y = xys.y + offset.y; float size = xys.z;
 
             // Bottom-left vertex
             v4[0] = new UIVertex();
@@ -168,7 +168,7 @@ namespace Triheroes.Code
             }
 
             protected void shift ( Vector2 _offset ) {
-                offset += offset;
+                offset += _offset;
             }
 
             protected abstract void _draw ();

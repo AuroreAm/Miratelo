@@ -1,10 +1,12 @@
+
 using Lyra;
 using Triheroes.Code.Inv0Act;
+using UnityEngine;
 
 namespace Triheroes.Code
 {
     [path ("player controller")]
-    public class player_equip : action, act_handler
+    public class player_equip : action, act_handler, gold <_enter_interest>, gold <_exit_interest>
     {
         [link]
         motor motor;
@@ -33,8 +35,7 @@ namespace Triheroes.Code
                 var freeSword = get_usable_sword();
                 if (freeSword != -1 && equip.weapon_user == null)
                 {
-                    draw.set(inventory.sword_place[freeSword]);
-                    motor.start_act2nd(draw, this);
+                    motor.start_act2nd( draw._(inventory.sword_place[freeSword]) ,  this);
                 }
             }
 
@@ -43,23 +44,21 @@ namespace Triheroes.Code
                 var freeSword = get_usable_sword ();
                 if (freeSword != -1 && equip.weapon_user != null)
                 {
-                    @return.set(inventory.get_free_place_for(equip.weapon_user.weapon_base));
-                    draw.set(inventory.sword_place[freeSword]);
+                    @return._(inventory.get_free_place_for(equip.weapon_user.weapon_base));
+                    draw._(inventory.sword_place[freeSword]);
 
-                    motor.start_act2nd(@return, this);
+                    motor.start_act2nd (@return, this);
                 }
             }
 
             if (player.aim.down && inventory.bow_place[0].occupied && equip.weapon_user == null)
-            {
-                draw.set(inventory.bow_place[0]);
-                motor.start_act2nd(draw, this);
-            }
+                motor.start_act2nd(draw._(inventory.bow_place[0]), this);
 
             if (player.E.down && equip.weapon_user != null)
-            {
-                @return.set(inventory.get_free_place_for(equip.weapon_user.weapon_base));
-                motor.start_act2nd(@return, this);
+                motor.start_act2nd(@return._(inventory.get_free_place_for(equip.weapon_user.weapon_base)), this);
+
+            if ( player.E.down && equip.weapon_user == null && current_interest != null ) {
+                equip.link_weapon_user ( draw.get_corresponding_weapon_user ( current_interest )._ ( current_interest ) );
             }
         }
 
@@ -71,6 +70,20 @@ namespace Triheroes.Code
                     return i;
             }
             return -1;
+        }
+        
+        weapon current_interest;
+        public void _radiate(_exit_interest gleam) {
+            if (gleam.interest is weapon_handle.i_interest_handler weapon && weapon.weapon == current_interest) {
+                current_interest = null;
+                ui.o.player_hud.prompt.end();
+            }
+        }
+        public void _radiate(_enter_interest gleam) {
+            if (gleam.interest is weapon_handle.i_interest_handler weapon) {
+                current_interest = weapon.weapon;
+                ui.o.player_hud.prompt.start(current_interest.GetType().Name);
+            }
         }
     }
 }

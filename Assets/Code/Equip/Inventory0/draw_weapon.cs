@@ -14,10 +14,8 @@ namespace Triheroes.Code.Inv0Act
         sword_user sword_user;
         [link]
         bow_user bow_user;
-
         [link]
         equip equip;
-
         [link]
         skin skin;
 
@@ -41,20 +39,22 @@ namespace Triheroes.Code.Inv0Act
             skin.play ( play );
         }
 
-        public void set ( weapon_place _place )
+        public draw_weapon _ ( weapon_place _place )
         {
-            if (on) return;
+            if (on) return this;
 
             from = _place;
             draw_animation =  get_corresponding_animation ( _place.get() );
 
             ready_for_tick ();
+
+            return this;
         }
 
         protected override void _stop ()
         {
             var mwu = get_corresponding_weapon_user ( from.get() );
-            mwu.SetWeaponBase ( from.free() );
+            mwu._ ( from.free() );
             equip.link_weapon_user ( mwu );
 
             from = null;
@@ -75,7 +75,7 @@ namespace Triheroes.Code.Inv0Act
             return new term ();
         }
 
-        weapon_user get_corresponding_weapon_user ( weapon weapon )
+        public weapon_user get_corresponding_weapon_user ( weapon weapon )
         {
             if ( weapon is sword )
             return sword_user;

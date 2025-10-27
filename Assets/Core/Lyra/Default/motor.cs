@@ -39,7 +39,14 @@ namespace Lyra {
         }
 
         bool replaced;
-        public bool start_act(act _act, act_handler handler = null) {
+        public bool start ( act _act ) {
+            if ( _act.priority.level == 0 )
+            return start_act ( _act, null );
+            else
+            return start_act2nd ( _act, null );
+        }
+
+        public bool start_act(act _act, act_handler handler) {
             if (_act.priority.level != 0) {
                 Debug.LogError($"{_act} must have level 0");
                 return false;
@@ -107,7 +114,7 @@ namespace Lyra {
                 Dev.Break(" handler can't stop state ");
         }
 
-        public bool start_act2nd(act _act2nd, act_handler handler = null) {
+        public bool start_act2nd(act _act2nd, act_handler handler) {
             if (_act2nd.priority.level != 1) {
                 Debug.LogError($"{_act2nd} must have level 1");
                 return false;
@@ -212,8 +219,9 @@ namespace Lyra {
         public static readonly priority def3 = new priority(2, 0);
         public static readonly priority action = new priority(3, 0);
         public static readonly priority action2 = new priority(4, 0);
-        public static readonly priority reaction = new priority(5, 0);
-        public static readonly priority recovery = new priority(6, 0);
+        public static readonly priority action3 = new priority(5, 0);
+        public static readonly priority reaction = new priority(6, 0);
+        public static readonly priority recovery = new priority(7, 0);
 
         public static readonly priority sub = new priority(2, 1);
     }

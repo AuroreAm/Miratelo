@@ -14,6 +14,6 @@ namespace Triheroes.Code
             new slash.ink ( TrailMaterial, FrameNumber );
         }
 
-        public slash.w get_w () => get_bridge (ref w);
+        public slash.w get_w () => bridge_cache (ref w);
     }
 }

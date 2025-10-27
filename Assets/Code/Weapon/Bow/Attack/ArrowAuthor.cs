@@ -25,6 +25,6 @@ namespace Triheroes.Code {
                 a._created(s);
         }
 
-        public arrow.w get_w() => get_bridge(ref w);
+        public arrow.w get_w() => bridge_cache(ref w);
     }
 }

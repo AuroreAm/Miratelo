@@ -1,52 +1,47 @@
 using Lyra;
 using UnityEngine;
 
-namespace Triheroes.Code
-{
+namespace Triheroes.Code {
     [inked]
-    public class illusion : spectre
-    {
+    public class illusion : spectre {
         new ParticleSystem system;
 
-        public class ink : ink < illusion >
-        {
-            public ink ( ParticleSystem system )
-            {
+        public class ink : ink<illusion> {
+            public ink(ParticleSystem system) {
                 o.system = system;
             }
         }
 
+        protected override void __ready() {
+            system.gameObject.SetActive(false);
+        }
+
         static Vector3 _position;
-        public static int fire ( int name, Vector3 position )
-        {
-            _position = position;
-            return orion.rent (name);
+
+        public class w : bridge {
+            public int fire(Vector3 position) {
+                _position = position;
+                return orion.rent(name);
+            }
+
+            public void set_position (int id, Vector3 position) {
+                orion.get <illusion> (name, id).system.transform.position = position;
+            }
         }
 
-        public static void stop ( int name, int illusion_id )
-        {
-            orion.get <illusion> (name, illusion_id).stop ();
-        }
-
-        protected override void __ready()
-        {
-            system.gameObject.SetActive (false);
-        }
-
-        protected override void _start()
-        {
+        protected override void _start() {
             system.gameObject.transform.position = _position;
-            system.gameObject.SetActive (true);
+            system.time = 0;
+            system.gameObject.SetActive(true);
         }
 
-        protected override void _stop()
-        {
-            system.gameObject.SetActive (false);
+        protected override void _step() {
+            if ( !system.IsAlive () )
+           virtus.return_ ();
         }
 
-        void stop ()
-        {
-            virtus.return_ ();
+        protected override void _stop() {
+            system.gameObject.SetActive(false);
         }
     }
 }

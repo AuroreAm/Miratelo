@@ -22,7 +22,7 @@ namespace Triheroes.Code
         protected override void _step()
         {
             if (!ground && gravity < 0)
-                motor.start_act(fall);
+                motor.start(fall);
         }
     }
 
@@ -50,7 +50,7 @@ namespace Triheroes.Code
         {
             if ( !ground && gravity < 0 && !(motor.act is fall) )
             {
-                if (motor.start_act(fall))
+                if (motor.start(fall))
                     time = 0;
             }
             else if (motor.act == fall)
@@ -58,7 +58,7 @@ namespace Triheroes.Code
                 time += Time.deltaTime;
                 if (time > 0.5f)
                 {
-                    motor.start_act(fallHard);
+                    motor.start(fallHard);
                     time = 0;
                 }
             }

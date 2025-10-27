@@ -19,7 +19,7 @@ namespace Triheroes.Code
 
         protected override void _ready()
         {
-            sword.aquire ( warrior );
+            sword.handle.aquire ( warrior );
         }
 
         public class ink : ink < mecha_sword >

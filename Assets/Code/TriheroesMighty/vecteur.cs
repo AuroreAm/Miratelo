@@ -53,7 +53,7 @@ namespace Triheroes.Code
 			SolidHitAttack = LayerMask.GetMask("static", "decor", "hitbox", "attack");
 			Trigger = LayerMask.GetMask("trigger");
 
-			Application.targetFrameRate = 30;
+			Application.targetFrameRate = 90;
 		}
 
 		/// <summary> get a vector rotated by quaternion rotation </summary>

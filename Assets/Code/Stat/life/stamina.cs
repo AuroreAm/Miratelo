@@ -194,11 +194,11 @@ namespace Triheroes.Code {
         void draw_dot ( UILayer l, int i, float value, Color color, float dot_size ) {
             float angle = ( 360f / stamina.max_active ) * i;
             float size = Mathf.Clamp01 ( value - i ) * dot_size;
-            draw_stamina ( l, size, angle, 16, color );
+            draw_stamina ( l, size, angle, radius, color );
         }
 
         void draw_stamina ( UILayer l, float size, float angle, float distance, Color color ) {
-            Vector3 xys = new Vector3 (
+            Vector3 xys = UILayer.xyscenter (
                 Mathf.Cos(angle * Mathf.Deg2Rad) * distance,
                 Mathf.Sin(angle * Mathf.Deg2Rad) * distance,
                 size

@@ -11,6 +11,8 @@ namespace Triheroes.Code
         Transform bowstring;
         public term arrow;
 
+        public override weapon_handle handle => throw new System.NotImplementedException();
+
         public class ink : ink < bow >
         {
             public ink ( Transform bowstring, string arrow )

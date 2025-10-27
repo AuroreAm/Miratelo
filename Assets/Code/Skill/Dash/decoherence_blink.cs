@@ -66,6 +66,102 @@ namespace Triheroes.Code
     }
 
     public class dash_blink : act {
+        [link]
+        decoherence_trail trail;
+        public override priority priority => priority.action;
+        dash_core core;
+
+        protected override void _ready() {
+            core = with ( new dash_core (sh.decoherence_blink) );
+            core.set_animations ( anim.dash_forward, anim.dash_right, anim.dash_left, anim.dash_back );
+            core.lenght = 5;
+        }
+
+        public dash_blink _ ( direction direction ) {
+            core.prepare ( direction );
+            return this;
+        }
+
+        protected override void _start() {
+            core.start ( this, false, true, stop );
+            link (trail);
+        }
+
+        protected override void _step() {
+            core.skin_stand_update ();
+        }
+    }
+
+    public class decoherence_trail : controller {
+        [link]
+        capsule capsule;
+        [link]
+        graphic graphic;
+        
+        float t;
+        const float interval = .02f;
+
+        after_image.w trail;
+
+        protected override void _ready() {
+            trail = res.after_image.q (sh.after_image).get_w ();
+        }
+
+        protected override void _start() {
+            spark_trail ();
+        }
+
+        void spark_trail () {
+            graphic.set_layers_for_capture ();
+            trail.fire ( capsule.cc.transform.position + capsule.cc.center, .5f );
+            graphic.restore_layers ();  
+        }
+
+        protected override void _step() {
+            while (t <= 0) {
+                t += interval;
+                spark_trail ();
+            }
+
+            t -= Time.deltaTime;
+        }
+    }
+
+    public class decoherence_air : action {
+        [link]
+        decoherence_trail trail;
+
+        [link]
+        actor_speed actor_speed;
+
+        [link]
+        ground ground;
+
+        float t;
+
+        protected override void _start() {
+            link ( trail );
+            actor_speed.speed += 3f;
+
+            // small time offset before ground check
+            t = 0.1f;
+        }
+
+        protected override void _step() {
+            if ( t > 0 ) {
+                t -= Time.deltaTime;
+            } else if ( ground.raw ) {
+                stop ();
+            }
+        }
+
+        protected override void _stop() {
+            actor_speed.speed -= 3f;
+        }
+    }
+
+        /*
+    public class dash_blink : act {
         public override priority priority => priority.action;
 
         static term dash_animation_of(direction direction) => (direction == direction.forward) ? anim.dash_forward : (direction == direction.right) ? anim.dash_right : (direction == direction.left) ? anim.dash_left : anim.dash_back;
@@ -107,7 +203,7 @@ namespace Triheroes.Code
         }
 
         protected override void _ready() {
-            f = new force_curve_data (duration, res.curves.q ( sh.decoherence_blink ) );
+            f = new force_curve_data (duration, res.curves.q ( sh.decoherence_blink ), 1 );
         }
 
         protected override void _start() {
@@ -125,69 +221,5 @@ namespace Triheroes.Code
             a.deviate_main_force (vecteur.ldir(skin.roty, dir));
             stand.rotate_skin();
         }
-    }
-
-    public class decoherence_trail : controller {
-        [link]
-        capsule capsule;
-        [link]
-        graphic graphic;
-        
-        float t;
-        const float interval = .02f;
-
-        after_image.w trail;
-
-        protected override void _ready() {
-            trail = res.after_image.q (sh.after_image).get_w ();
-        }
-
-        protected override void _step() {
-
-            t -= Time.deltaTime;
-
-            while (t <= 0) {
-
-                t += interval;
-
-                graphic.set_layers_for_capture ();
-                trail.fire ( capsule.cc.transform.position + capsule.cc.center, .5f );
-                graphic.restore_layers ();
-
-            }
-        }
-    }
-
-    public class decoherence_air : action {
-        [link]
-        decoherence_trail trail;
-
-        [link]
-        actor_speed actor_speed;
-
-        [link]
-        ground ground;
-
-        float t;
-
-        protected override void _start() {
-            link ( trail );
-            actor_speed.speed += 3f;
-
-            // small time offset before ground check
-            t = 0.1f;
-        }
-
-        protected override void _step() {
-            if ( t > 0 ) {
-                t -= Time.deltaTime;
-            } else if ( ground.raw ) {
-                stop ();
-            }
-        }
-
-        protected override void _stop() {
-            actor_speed.speed -= 3f;
-        }
-    }
+    }*/
 }
