@@ -4,12 +4,29 @@ using Lyra;
 using System.Data;
 
 namespace Triheroes.Code {
+    [inked]
     public class health : controller {
         public health_system.primary primary {get; private set;}
         health_system.sub [] systems = new health_system.sub [0];
 
         protected override void _ready() {
             phoenix.core.execute (this);
+            if ( primary != null )
+            link ( primary );
+        }
+
+        public class ink : ink <health> {
+            public ink ( health_system.primary _primary, params health_system.sub [] _sub  ) {
+                o.primary = _primary;
+                o.systems = _sub;
+
+                if ( _sub.Length > 0 ) {
+                    _sub [0].set_previous ( _primary );
+                    for (int i = 1; i < _sub.Length; i++) {
+                        _sub [i].set_previous ( _sub [ i-1 ] );
+                    }
+                }
+            }
         }
 
         public void put_primary ( health_system.primary hs ) {

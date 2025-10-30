@@ -19,6 +19,8 @@ namespace Triheroes.Code
                 damage.value *= 10;
             }
 
+            nova.fire ( sp.impact_metal, damage.point );
+
             return damage;
         }
     }

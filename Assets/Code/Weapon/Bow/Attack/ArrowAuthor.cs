@@ -4,8 +4,7 @@ using Lyra;
 using UnityEngine;
 
 namespace Triheroes.Code {
-    public class ArrowAuthor : VirtusAuthor {
-        arrow.w w;
+    public class ArrowAuthor : VirtusAuthor <arrow.w> {
 
         public moon_paper <matter> Matter;
         List<AuthorModule> modules;
@@ -24,7 +23,5 @@ namespace Triheroes.Code {
             foreach (var a in modules)
                 a._created(s);
         }
-
-        public arrow.w get_w() => bridge_cache(ref w);
     }
 }

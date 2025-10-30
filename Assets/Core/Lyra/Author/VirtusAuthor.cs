@@ -27,15 +27,20 @@ namespace Lyra
 
         public virtual void _created(system s)
         {}
+    }
 
-        protected T bridge_cache <T> ( ref T w ) where T : bridge, new () {
+    public abstract class VirtusAuthor<T> : VirtusAuthor where T : bridge, new() {
+        protected T bridge_cache(ref T w) {
             if (w == null) {
-                var n = new term (name);
-                w = bridge.create <T> ( n );
-                orion.add ( this, name );
+                var n = new term(name);
+                w = bridge.create<T>(n);
+                orion.add(this, name);
             }
-            
+
             return w;
         }
+
+        T w;
+        public T get_w () =>  bridge_cache ( ref w );
     }
 }

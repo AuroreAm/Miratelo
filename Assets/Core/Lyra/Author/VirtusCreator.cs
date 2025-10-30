@@ -16,16 +16,21 @@ namespace Lyra {
 
         public void _created(system s) { }
         protected abstract void _virtus_create();
+    }
 
-        protected T bridge_cache <T> ( ref T w ) where T : bridge, new () {
+    public abstract class VirtusCreator<T> : VirtusCreator where T : bridge, new() {
+        protected T bridge_cache(ref T w) {
             if (w == null) {
-                var n = new term (name);
-                w = bridge.create <T> ( n );
-                orion.add ( this, name );
+                var n = new term(name);
+                w = bridge.create<T>(n);
+                orion.add(this, name);
             }
-            
+
             return w;
         }
+
+        T w;
+        public T get_w() => bridge_cache(ref w);
     }
 
 
@@ -51,6 +56,22 @@ namespace Lyra {
         public static T create <T> ( int name ) where T : bridge, new() {
             return new T() { name = name };
         }
+    }
+
+    public abstract class virtus_creator_simple<T> : virtus_creator_simple where T : bridge, new() {
+        public abstract string name {get;}
+        protected T bridge_cache(ref T w) {
+            if (w == null) {
+                var n = new term (name);
+                w = bridge.create<T>(n);
+                orion.add(this, name);
+            }
+
+            return w;
+        }
+
+        T w;
+        public T get_w() => bridge_cache(ref w);
     }
 
     public interface virtus_creator {

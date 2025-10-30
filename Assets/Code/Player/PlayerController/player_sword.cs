@@ -12,12 +12,9 @@ namespace Triheroes.Code
         [link]
         skills s;
 
-        [link]
-        player_camera pc;
-
         public void _radiate(hacked gleam)
         {
-            pc.cam.hit_pause.spam ();
+            camera.o.hit_pause.spam ();
         }
 
         protected override void _step()

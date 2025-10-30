@@ -1,7 +1,7 @@
 using Lyra;
 using UnityEngine;
 
-namespace Triheroes.Code {/*
+namespace Triheroes.Code {
     public class shielding : health_system.sub {
         const float hot_duration = 2;
         const float penetration_factor = 0.5f;
@@ -18,6 +18,10 @@ namespace Triheroes.Code {/*
         public float penetrationHP_ui => penetrationHP;
         
         metal matter;
+
+        protected override void _ready() {
+            with ( matter );
+        }
 
         public shielding (int _max, metal _matter) {
             matter = _matter;
@@ -41,8 +45,6 @@ namespace Triheroes.Code {/*
                 damage.value *= penetration_factor;
                 previous.damage ( damage );
             }
-
-            Debug.Log ( $"{HP} - {penetrationHP}" );
         }
 
         protected override void _step() {
@@ -56,10 +58,6 @@ namespace Triheroes.Code {/*
                 if (penetrationHP > penetrationHP_max)
                     penetrationHP = penetrationHP_max;
             }
-
-            if ( Input.GetKeyDown (KeyCode.R) ) {
-                new armor_hud ( this ).start ( ui.o.player_hud.alt_heart_container );
-            }
         }
-    }*/
+    }
 }

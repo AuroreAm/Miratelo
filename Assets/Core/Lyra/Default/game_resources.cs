@@ -50,6 +50,10 @@ namespace Lyra
             main.Add ( key, value );
         }
 
+        public T[] get_all () {
+            return main.Values.ToArray ();
+        }
+
         public T q ( term key ) {
             return main[key];
         }

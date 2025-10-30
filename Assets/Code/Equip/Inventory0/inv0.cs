@@ -39,9 +39,9 @@ namespace Triheroes.Code
             throw new InvalidOperationException("place not occupied");
 
             weapon w = weapon;
-            w.coord.SetParent(null);
             weapon = null;
-            weapon.handle.dispose ();
+            w.coord.SetParent(null);
+            w.handle.dispose ();
             return w;
         }
     }

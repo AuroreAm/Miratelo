@@ -3,6 +3,9 @@ using Lyra;
 namespace Triheroes.Code
 {
     public class SS1 : skill {
+        [link]
+        sword_user sword_user;
+
         combo_container combo;
 
         protected override void _ready() {
@@ -10,6 +13,7 @@ namespace Triheroes.Code
         }
 
         public void spam () {
+            if ( sword_user.on )
             combo.spam ();
         }
     }

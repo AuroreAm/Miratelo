@@ -18,8 +18,6 @@ namespace Triheroes.Code.Inv0Act
 
         term return_animation;
 
-        public bool prepared => to != null;
-
         protected override void _start()
         {
             if (equip.weapon_user == null)

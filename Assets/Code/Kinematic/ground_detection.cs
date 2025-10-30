@@ -30,7 +30,7 @@ namespace Triheroes.Code.Axeal {
                 capsule.r, Vector3.down,
                 out RaycastHit hit,
                 0.5f,
-                vecteur.Solid ));
+                vecteur.SolidHit ));
 
             if (on_ground) {
                 normal = hit.normal;

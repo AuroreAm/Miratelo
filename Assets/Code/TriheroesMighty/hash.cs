@@ -32,6 +32,8 @@ namespace Triheroes.Code
 
     public static class sp {
         public static readonly term red_bloom = new term ("red_bloom");
+        public static readonly term impact_metal = new term ("impact_metal");
+        public static readonly term explosion = new term ( "explosion" );
     }
 
     public static class anim
@@ -89,10 +91,6 @@ namespace Triheroes.Code
 
         public static readonly term begin_aim = new term("begin_aim");
         public static readonly term start_shoot = new term("start_shoot");
-    }
-
-    public static class skl {
-        public static readonly term SS1 = new term ( "SS1" );
     }
 
     public static class val

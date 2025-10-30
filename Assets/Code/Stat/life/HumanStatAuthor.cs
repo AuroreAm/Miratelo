@@ -8,16 +8,10 @@ namespace Triheroes.Code
 
         life l;
         public override void _create() {
-
-            new ink <health> ();
             new stamina.ink ( Stamina );
-
             l = new life ( Heart );
+            new health.ink ( l );
             
-        }
-
-        public override void _created(system s) {
-            s.get <health> ().put_primary (l);
         }
     }
 }

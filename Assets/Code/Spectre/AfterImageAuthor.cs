@@ -4,14 +4,11 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     [CreateAssetMenu(fileName = "---", menuName = "RPG/AfterImage")]
-    public class AfterImageAuthor : VirtusCreator {
+    public class AfterImageAuthor : VirtusCreator <after_image.w> {
         public Material Material;
 
         protected override void _virtus_create() {
             new after_image.ink ( Material );
         }
-
-        after_image.w w;
-        public after_image.w get_w () => bridge_cache (ref w);
     }
 }

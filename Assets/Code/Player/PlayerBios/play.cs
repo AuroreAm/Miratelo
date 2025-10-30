@@ -73,13 +73,13 @@ namespace Triheroes.Code {
     public class start_play : action {
 
         [link]
-        morai morai;
+        game_bios game_bios;
 
         [link]
         play play;
         
         protected override void _start() {
-            morai.change ( play );
+            game_bios.change ( play );
             stop ();
         }
     }

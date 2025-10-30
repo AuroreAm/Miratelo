@@ -124,20 +124,17 @@ namespace Triheroes.Code
         [link]
         warrior warrior;
 
-        [link]
-        player_camera pc;
-
         protected override void _start()
         {
             if (!warrior.target)
             Debug.LogWarning ("trying to target a target that doesn't exist");
 
-            pc.cam.transition_target ( warrior.target.c );
+            camera.o.transition_target ( warrior.target.c );
         }
 
         protected override void _stop()
         {
-            pc.cam.transition_tps ();
+            camera.o.transition_tps ();
         }
     }
 }

@@ -12,6 +12,10 @@ namespace Triheroes.Code
             list.Add ( pix );
         }
 
+        protected override void _exit(interest pix) {
+            list.Remove ( pix );
+        }
+
         public interest near_to ( Vector3 pos, float distance ) {
             interest current = null;
 
