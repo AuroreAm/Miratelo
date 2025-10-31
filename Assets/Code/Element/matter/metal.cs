@@ -9,8 +9,11 @@ namespace Triheroes.Code
         public bool _voltic;
         public bool voltic {get; private set;}
 
+        flash flash;
+
         protected override void __ready() {
-        voltic = _voltic;
+            voltic = _voltic;
+            flash = with ( new flash ( res.material.q ( sp.white ) ) );
         }
 
         protected override damage _reaction(damage damage) {
@@ -20,6 +23,8 @@ namespace Triheroes.Code
             }
 
             nova.fire ( sp.impact_metal, damage.point );
+            flash.start ( .01f );
+            
 
             return damage;
         }

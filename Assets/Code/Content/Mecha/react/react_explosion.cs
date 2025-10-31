@@ -52,7 +52,8 @@ namespace Triheroes.Code
         }
         protected override void _step() {
             if ( t <= 0 ) {
-
+                system.destroy ();
+                return;
             }
 
             t -= Time.deltaTime;

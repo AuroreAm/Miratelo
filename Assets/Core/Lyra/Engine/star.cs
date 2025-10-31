@@ -107,6 +107,12 @@ namespace Lyra {
                 Dev.Break($"double stop of {this.GetType()}");
         }
 
+        internal sealed override void destroy() {
+            if (on)
+            abort ();
+            base.destroy ();
+        }
+
         protected void ready_for_tick() {
             if (!on)
                 ready = true;

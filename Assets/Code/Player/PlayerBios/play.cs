@@ -37,7 +37,7 @@ namespace Triheroes.Code {
             camera.o.start_player_camera ( a.c );
             ui.o.player_hud.frame_player ( (actor) a );
 
-            a.system.get <behavior> ().set_behavior ( sh.player );
+            a.system.get <behavior> ().start ( sh.player );
         }
 
         void low_step_interest () {

@@ -15,6 +15,7 @@ namespace Lyra {
 
 
         #if UNITY_EDITOR
+        // note used by the debugger
         [link]
         script_indexor sci;
 

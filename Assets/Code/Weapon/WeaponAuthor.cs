@@ -19,8 +19,10 @@ namespace Triheroes.Code
 
         public void _create() {
             GameObject go = Instantiate ( WeaponGO );
-            WeaponGO.transform.SetPositionAndRotation ( transform.position, transform.rotation );
+            go.transform.SetPositionAndRotation ( transform.position, transform.rotation );
+
             new character.ink ( go );
+            new graphic.ink (go);
 
             weapon = __create ();
         }

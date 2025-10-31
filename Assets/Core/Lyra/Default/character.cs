@@ -17,5 +17,9 @@ namespace Lyra
                 o.coord = go.transform;
             }
         }
+
+        protected override void _destroy() {
+            Object.Destroy ( gameobject );
+        }
     }
 }

@@ -29,8 +29,12 @@ namespace Triheroes.Code
             o.warriors.Add ( new term ( ((actor) warrior).name ), warrior );
         }
 
-        public static List < warrior > get_foes ( int myfaction )
-        {
+        public static void unregister ( warrior warrior, int faction ) {
+            o.factions [faction].Remove ( warrior );
+        }
+
+        // NOTE direct list reference might trigger unwatted modification
+        public static List < warrior > get_foes ( int myfaction ) {
             return o.factions [ myfaction == 1? 0 : 1 ];
         }
         #endregion

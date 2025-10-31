@@ -1,7 +1,7 @@
 namespace Lyra
 {
     [path ("script")]
-    public sealed class replace : task, ruby < system_ready > {
+    public sealed class replace : task, ruby < system_written > {
         [export]
         public term term;
         
@@ -14,7 +14,7 @@ namespace Lyra
             return tasks.can_start ();
         }
 
-        public void _radiate(system_ready gleam) {
+        public void _radiate(system_written gleam) {
             tasks = (tasks) script [term];
         }
 

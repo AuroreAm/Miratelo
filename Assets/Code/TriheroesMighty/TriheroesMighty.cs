@@ -34,6 +34,7 @@ namespace Triheroes{
     [CreateAssetMenu(fileName = "TriheroesMighty", menuName = "Game/Main Resources")]
     public class TriheroesMighty : ScriptableObject {
         public List <GameObject> Prefabs;
+        public List <Material> Materials;
         public List <CurveRes> Curves;
         public List <StellarAuthor> Stellars;
         public List <IllusionAuthor> Illusions;
@@ -53,6 +54,9 @@ namespace Triheroes{
 
             foreach (var a in main.Prefabs)
                 go.add ( new term (a.name), a );
+
+            foreach (var a in main.Materials)
+                material.add ( new term (a.name), a );
 
             foreach (var a in main.Stellars)
                 stellars.add ( new term (a.name), a );
@@ -74,6 +78,7 @@ namespace Triheroes{
         }
 
         public static res <GameObject> go = new res<GameObject> ();
+        public static res <Material> material = new res<Material> ();
         public static res <StellarAuthor> stellars = new res<StellarAuthor> ();
         public static res <IllusionAuthor> illusions = new res<IllusionAuthor> ();
         public static res <ArrowAuthor> arrows = new res<ArrowAuthor> ();

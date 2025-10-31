@@ -57,6 +57,10 @@ namespace Lyra
             stop ();
         }
 
+        protected override void _destroy() {
+            Dev.Break ( "A virtus is never supposed to be destroyed" );
+        }
+
         public abstract class star : main
         {
             [link]

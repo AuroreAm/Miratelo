@@ -97,6 +97,10 @@ namespace Triheroes.Code
                 p.tick();
         }
 
+        protected override void _destroy() {
+            GameObject.Destroy ( ani.gameObject );
+        }
+
         #region Animation commands
         public float[] event_points(term key)
         {

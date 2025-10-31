@@ -27,13 +27,22 @@ namespace Lyra
         protected virtual void _ready ()
         { }
 
+        protected virtual void _destroy () { }
+
+        /// <summary> internal call only </summary>
+        internal virtual void destroy () {
+            _destroy ();
+            moon_destroyed (this);
+        }
+
         internal void set_orbit ( system structure )
         {
             if (GetType().GetCustomAttribute<inkedAttribute>() != null && !ready)
                 Debug.LogError($"{GetType().Name} was structured without package");
 
-            system = structure; 
+            system = structure;
             _ready ();
+            moon_ready (this);
         }
 
         public abstract class ink <T> where T : moon, new()
@@ -58,6 +67,20 @@ namespace Lyra
         protected T with <T> ( T moon ) where T : moon {
             system.add ( moon );
             return moon;
+        }
+
+        
+        // gloabl callback
+        event Action<moon> moon_ready = delegate { };
+        public event Action<moon> _moon_ready {
+            add { moon_ready += value; }
+            remove { moon_ready -= value; }
+        }
+
+        event Action<moon> moon_destroyed = delegate { };
+        public event Action<moon> _moon_destroyed {
+            add { moon_destroyed += value; }
+            remove { moon_destroyed -= value; }
         }
     }
 
@@ -150,7 +173,17 @@ namespace Lyra
             return null;
         }
 
+        /// <summary> stop all star and make this system invalid </summary>
+        public void destroy () {
+            foreach ( var s in satellites )
+            s.destroy ();
+
+            satellites = null;
+            planets = null;
+        }
+
         // local callback
+
         event Action<moon> new_member = delegate { };
         public event Action<moon> _new_member
         {
@@ -231,7 +264,7 @@ namespace Lyra
                 var s = new system ( founder, bricks );
                 author._created (s);
 
-                p.radiate ( new system_ready ());
+                p.radiate ( new system_written ());
 
                 return s;
             }
@@ -261,7 +294,7 @@ namespace Lyra
     public class inkedAttribute : Attribute
     { }
 
-    public struct system_ready {}
+    public struct system_written {}
 }
 
 // TODO: reflection for dependency

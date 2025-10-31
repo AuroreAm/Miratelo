@@ -8,8 +8,8 @@ namespace Lyra.Editor
 {
     public class ScriptAuthorEditor : EditorWindow
     {
-        [MenuItem ("GameObject/Script")]
-        static void CreateActionPaper ()
+        [MenuItem ("GameObject/ScriptAuthor")]
+        static void CreateScriptAuthor ()
         {
             var a = new GameObject ("---");
             a.AddComponent <ScriptAuthor> ();
@@ -19,6 +19,12 @@ namespace Lyra.Editor
 
             Selection.activeGameObject = a;
             Undo.RegisterCreatedObjectUndo (a, "Create Script");
+        }
+
+        [MenuItem ("GameObject/Action")]
+        static void CreateActionPaper() {
+            var go = Selection.activeGameObject;
+            ActionCursor.Show ( go );
         }
 
         [MenuItem ("Window/Lyra/Script Dock")]

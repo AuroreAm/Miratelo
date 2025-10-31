@@ -41,6 +41,10 @@ namespace Triheroes.Code
             xenos.register ( this, faction );
         }
 
+        protected override void _destroy() {
+            xenos.unregister ( this, faction );
+        }
+
         public void lock_target ( warrior actor )
         {
             if ( actor == null )
@@ -80,16 +84,15 @@ namespace Triheroes.Code
         public static explicit operator actor (warrior a) => a.actor;
     }
 
-    [path ("test")]
-    public class test_get_enemy : action
-    {
+    [path ("ai")]
+    public class if_have_target : action {
         [link]
         warrior warrior;
 
-        protected override void _start()
-        {
-            warrior.lock_target ( xenos.get_foes (warrior.faction) [0] );
+        protected override void _step() {
+            if ( warrior.target )
             stop ();
         }
     }
+
 }

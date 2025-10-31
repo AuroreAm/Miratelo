@@ -96,7 +96,7 @@ namespace Triheroes.Code
         [link]
         capsule capsule;
         [link]
-        graphic graphic;
+        skin_layer graphic;
         
         float t;
         const float interval = .02f;

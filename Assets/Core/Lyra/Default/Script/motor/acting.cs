@@ -68,7 +68,7 @@ namespace Lyra
         }
 
         // TODO bool can start
-        protected override void _start() {
+        protected sealed override void _start() {
             motor_start_act ();
 
             if (!on)
@@ -81,17 +81,21 @@ namespace Lyra
             return motor_can_start_act ();
         }
 
-        protected override void _step() {
+        protected sealed override void _step() {
             if (parallel.on)
                 parallel.tick (this);
         }
 
-        protected override void _stop() {
+        protected sealed override void _stop() {
             if (act.on)
             motor_stop_act ();
 
             if (parallel.on)
             parallel.abort (this);
+        }
+
+        protected sealed override void _abort() {
+            _stop ();
         }
 
         public void set(action[] child) {

@@ -66,8 +66,6 @@ Runtime fields must remain private.
 
 - Coding Style
 
-Always K&R bracket style for Lyra code.
-
 Public members should use shorter names.
 
 - For public methods on Star components:

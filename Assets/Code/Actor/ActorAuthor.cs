@@ -9,6 +9,7 @@ namespace Triheroes.Code
         public string Name;
         public int Faction;
         public SkinWriter Skin;
+        public ExtWriter [] Extension;
 
         Vector3 _spam_position;
         float _spam_roty;
@@ -49,8 +50,12 @@ namespace Triheroes.Code
 
         public void _created(system s) {
             _skin.Created (s);
+
             foreach (var a in modules)
             a._created (s);
+
+            foreach ( var e in Extension )
+            e.WriteTo (s);
         }
     }
 }

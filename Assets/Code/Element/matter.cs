@@ -57,4 +57,43 @@ namespace Triheroes.Code
     public sealed class wood : matter {
         public override float damage_factor => .06f;
     }
+
+    [need_ready]
+    public class flash : action {
+        Material material;
+        float t;
+
+        public flash ( Material _material ) {
+            material  = _material;
+        }
+
+        [link]
+        skin_material graphic;
+
+        public void start ( float duration ) {
+            t = duration;
+
+            if ( !on ) {
+            ready_for_tick ();
+            phoenix.core.start_action (this);
+            }
+        }
+
+        protected override void _start() {
+            graphic.push_temp_material (material);
+        }
+
+        protected override void _step() {
+            if ( t <= 0 ) {
+                stop ();
+                return;
+            }
+
+            t -= Time.deltaTime;
+        }
+
+        protected override void _stop() {
+            graphic.reset ();
+        }
+    }
 }

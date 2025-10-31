@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Lyra;
 using UnityEngine;
 
@@ -12,8 +10,8 @@ namespace Triheroes.Code
 
         protected override void _create ()
         {
+            new graphic.ink ( gameObject );
             new skin.ink ( gameObject, new Vector2 (OffsetRotationY, OffsetPositionY ) );
-            new ink <graphic> ();
 
             var modules = GetComponents<SkinWriterModule>();
             foreach (var a in modules)
@@ -22,10 +20,6 @@ namespace Triheroes.Code
 
         protected override void _created (system system)
         {
-            var meshes = GetComponentsInChildren <Renderer> ();
-            foreach (var m in meshes)
-            system.get <graphic> ().renderers.Add (m.gameObject);
-
             var modules = GetComponents<SkinWriterModule>();
             foreach (var a in modules)
             a.Created (system);
