@@ -11,8 +11,8 @@ namespace Lyra
             script script = s.get <script> ();
             for (int i = 0; i < transform.childCount; i++)
             {
-                if ( transform.GetChild (i).TryGetComponent <ActionPaper> ( out var c ) )
-                script.add_or_change_index ( c.Write (script), new term (c.gameObject.name) );
+                if ( transform.GetChild (i).TryGetComponent <ActionPaper> ( out var c ))
+                script.add_or_change ( c.Write (script), c.formal_term () );
             }
         }
     }

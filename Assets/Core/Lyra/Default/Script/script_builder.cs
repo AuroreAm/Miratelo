@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Lyra {
-    public class script_builder {
+    public class sb {
         
         system s;
         List <action> bricks = new List<action> ();
         action root;
         
-        public script_builder ( system _s ) {
+        public static sb _a_all ( system _s ) {
+            var sb = new sb ( _s );
+            sb._a <parallel.all> ();
+            return sb;
+        }
+
+        public sb ( system _s ) {
             s = _s;
         }
 
@@ -40,7 +46,7 @@ namespace Lyra {
             d.set ( decorator_content.Pop ().ToArray () );
         }
 
-        public action final () {
+        public action result () {
             foreach ( var b in bricks )
             s.add (b);
 

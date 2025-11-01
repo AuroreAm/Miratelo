@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using Lyra;
-using Triheroes.Code;
 
 namespace Triheroes.Code {
     public static partial class scr {
-        public static void add_player(actor player, script_builder sb) {
+        public static void add_player(actor player, sb sb) {
 
             // player movement, this is now just used for capsule based character.
             sb.a <player_move> ();
@@ -27,9 +25,6 @@ namespace Triheroes.Code {
 
             // face idle player
             sb.a <face_idle> ();
-
-            // normal reaction of an actor
-            add_actor ( sb );
         }
     }
 }

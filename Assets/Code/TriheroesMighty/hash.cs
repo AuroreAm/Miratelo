@@ -7,6 +7,15 @@ namespace Triheroes.Code
 {
     public static class sh
     {
+        // auto fill
+        static sh () {
+            var fields = typeof (sh).GetFields ( BindingFlags.Public | BindingFlags.Static ).Where(f => f.FieldType == typeof(term) &&  f.IsInitOnly);
+
+            foreach (var field in fields) {
+                field.SetValue ( null, new term (field.Name) );
+            }
+        }
+
         //----- ANIMATION VAR ------
         public static readonly int spd = Animator.StringToHash("spd");
         public static readonly int lik = Animator.StringToHash("lik");
@@ -17,18 +26,21 @@ namespace Triheroes.Code
         public static readonly int y = Animator.StringToHash("y");
         public static readonly int z = Animator.StringToHash("z");
 
-        //
-        public static readonly term camera = new term ("camera");
-        public static readonly term direct_capture = new term ("direct_capture");
-        public static readonly term hud = new term ("hud");
+        //---- IMPORTANT GAMEOBJECT ----
+        public static readonly term camera;
+        public static readonly term direct_capture;
+        public static readonly term hud;
 
-        //
-        public static readonly term force = new term ("force");
-        public static readonly term player = new term ("player");
-        public static readonly term after_image = new term ("after_image");
 
-        public static readonly term decoherence_blink = new term ("decoherence_blink");
-        public static readonly term red_blink = new term ("red_blink");
+        public static readonly term force;
+        public static readonly term after_image;
+
+        
+        public static readonly term main_controller;
+        public static readonly term player_controller;
+
+        public static readonly term decoherence_blink;
+        public static readonly term red_blink;
     }
 
     public static class sp {

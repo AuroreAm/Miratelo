@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Triheroes.Code
 {
     public partial class scr {
-        public static void add_mecha ( script_builder sb ) {
+        public static void add_mecha ( sb sb ) {
             sb.a < react_explosion > ();
         }
     }

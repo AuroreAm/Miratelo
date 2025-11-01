@@ -3,8 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Lyra {
-    public abstract class ActionPaper : MonoBehaviour {
+    public abstract class ActionPaper : ExtWriter {
+        
+        public const string _ = "-";
         public abstract action Write( moon host );
+        public term formal_term () {
+            return new term ( string.Equals ( gameObject.name , _ ) ? gameObject.GetInstanceID ().ToString () : gameObject.name );
+        }
+
+        protected override void WriteTo() {
+            script script = s.get <script> ();
+            var a = Write ( script );
+            script.add_or_change ( a, formal_term () );
+        }
         
         #if UNITY_EDITOR
         public bool IsDecoratorKind () {

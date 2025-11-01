@@ -999,7 +999,6 @@ GameObject:
   m_Component:
   - component: {fileID: 32633173}
   - component: {fileID: 32633174}
-  - component: {fileID: 32633175}
   m_Layer: 0
   m_Name: Mecha
   m_TagString: Untagged
@@ -1039,20 +1038,6 @@ MonoBehaviour:
   Skin: {fileID: 1038736792}
   Extension:
   - {fileID: 1586587510}
---- !u!114 &32633175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 32633172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3409ea6e89fa1dc41916a618a959f9c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Starts:
-  - main
 --- !u!1001 &34777442
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4325,7 +4310,9 @@ MonoBehaviour:
   Name: Faniry
   Faction: 0
   Skin: {fileID: 8254552120897566700}
-  Extension: []
+  Extension:
+  - {fileID: 9104860882654716842, guid: 57b81f95a2383d043943fac548355035, type: 3}
+  - {fileID: 3650985582229150884, guid: 57b81f95a2383d043943fac548355035, type: 3}
 --- !u!114 &245650269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7676,7 +7663,7 @@ GameObject:
   - component: {fileID: 405816776}
   - component: {fileID: 405816777}
   m_Layer: 0
-  m_Name: main
+  m_Name: sleep_look_for_target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

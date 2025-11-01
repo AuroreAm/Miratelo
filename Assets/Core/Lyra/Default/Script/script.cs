@@ -5,7 +5,7 @@ namespace Lyra {
     public class script : moon {
         Dictionary<term, action> library = new Dictionary<term, action>();
 
-        public void add_or_change_index(action ind, term name) {
+        public void add_or_change(action ind, term name) {
             ind.descend( new action.root () );
             library.AddOrChange (name, ind);
         }

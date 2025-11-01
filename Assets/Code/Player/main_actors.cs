@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Lyra;
 
@@ -18,12 +17,11 @@ namespace Triheroes.Code
         void add_player_controller ( actor a ) {
             var script = a.system.get <script> ();
 
-            var sb = new script_builder ( script.system );
-            sb._a < parallel.all > ();
-                scr.add_player ( a, sb );
-            sb._ ();
+            var s = sb._a_all ( a.system );
+                scr.add_player ( a, s );
+            s._ ();
 
-            script.add_or_change_index ( sb.final (), sh.player );
+            script.add_or_change ( s.result (), sh.player_controller );
         }
     }
 }
