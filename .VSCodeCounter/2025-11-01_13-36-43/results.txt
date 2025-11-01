@@ -1,0 +1,97 @@
+Date : 2025-11-01 13:36:43
+Directory : c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core
+Total : 58 files,  3406 codes, 263 comments, 792 blanks, all 4461 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C#       |         56 |      3,374 |        263 |        792 |      4,429 |
+| JSON     |          2 |         32 |          0 |          0 |         32 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                              | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                 |         58 |      3,406 |        263 |        792 |      4,461 |
+| Lyra                                                                                                              |         40 |      2,235 |        232 |        539 |      3,006 |
+| Lyra (Files)                                                                                                      |          1 |         14 |          0 |          0 |         14 |
+| Lyra.Editor                                                                                                       |         18 |      1,171 |         31 |        253 |      1,455 |
+| Lyra.Editor (Files)                                                                                               |          1 |         18 |          0 |          0 |         18 |
+| Lyra.Editor\Editor                                                                                                |         17 |      1,153 |         31 |        253 |      1,437 |
+| Lyra.Editor\Editor (Files)                                                                                        |         10 |        597 |         26 |        144 |        767 |
+| Lyra.Editor\Editor\LyraGUI                                                                                        |          7 |        556 |          5 |        109 |        670 |
+| Lyra\Author                                                                                                       |          3 |        156 |          0 |         40 |        196 |
+| Lyra\Data                                                                                                         |          1 |         68 |          0 |         16 |         84 |
+| Lyra\Default                                                                                                      |         29 |      1,367 |        197 |        331 |      1,895 |
+| Lyra\Default (Files)                                                                                              |          9 |        510 |          8 |        138 |        656 |
+| Lyra\Default\Script                                                                                               |         20 |        857 |        189 |        193 |      1,239 |
+| Lyra\Engine                                                                                                       |          3 |        492 |          8 |        127 |        627 |
+| Lyra\Helper                                                                                                       |          3 |        138 |         27 |         25 |        190 |
++-------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                          | language | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\ActionCursor.cs            | C#       |         57 |          1 |         11 |         69 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\ActionPaperBaseEditor.cs   | C#       |         34 |          0 |          7 |         41 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\Cursor.cs                  | C#       |         69 |          0 |         19 |         88 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\HierarchyFoldoutUtility.cs | C#       |         16 |          1 |          1 |         18 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\LyraGUI\Box.cs             | C#       |         47 |          0 |          8 |         55 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\LyraGUI\Button.cs          | C#       |         41 |          0 |          9 |         50 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\LyraGUI\Flex.cs            | C#       |         88 |          3 |         13 |        104 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\LyraGUI\Misc.cs            | C#       |         48 |          0 |         11 |         59 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\LyraGUI\PixGUI.cs          | C#       |        166 |          1 |         34 |        201 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\LyraGUI\Styles.cs          | C#       |         49 |          1 |         10 |         60 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\LyraGUI\Toggles.cs         | C#       |        117 |          0 |         24 |        141 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\MoonPaperEditor.cs         | C#       |         87 |          0 |         27 |        114 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\ScriptAuthorEditor.cs      | C#       |         79 |          0 |         22 |        101 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\ScriptDebugger.cs          | C#       |         89 |          0 |         26 |        115 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\TypeSelectionWindow.cs     | C#       |         40 |          0 |          8 |         48 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\moon_editor.cs             | C#       |        119 |          1 |         22 |        142 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Editor\type_paper.cs              | C#       |          7 |         23 |          1 |         31 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra.Editor\Lyra.Editor.asmdef                | JSON     |         18 |          0 |          0 |         18 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Author\Author.cs                         | C#       |         55 |          0 |         13 |         68 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Author\VirtusAuthor.cs                   | C#       |         38 |          0 |          9 |         47 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Author\VirtusCreator.cs                  | C#       |         63 |          0 |         18 |         81 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Data\moon_paper.cs                       | C#       |         68 |          0 |         16 |         84 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\ActStart.cs               | C#       |         16 |          0 |          1 |         17 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\ActionPaperBase.cs        | C#       |         59 |          0 |         15 |         74 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\IndexPaper.cs             | C#       |          3 |         23 |          1 |         27 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\ScriptAuthor.cs           | C#       |         18 |          0 |          1 |         19 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\Selector.cs               | C#       |         64 |          0 |         19 |         83 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\acting.cs                 | C#       |        108 |          3 |         25 |        136 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\action.cs                 | C#       |         67 |          1 |         12 |         80 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\action2.cs                | C#       |         48 |          0 |          9 |         57 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\condition.cs              | C#       |         11 |          0 |          1 |         12 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\decorator.cs              | C#       |         75 |         36 |         17 |        128 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\fail.cs                   | C#       |          9 |          0 |          0 |          9 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\parallel.cs               | C#       |         64 |          1 |         16 |         81 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\replace.cs                | C#       |         21 |          0 |          5 |         26 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\script.cs                 | C#       |         36 |          1 |         10 |         47 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\script_builder.cs         | C#       |         43 |          0 |         13 |         56 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\sequence.cs               | C#       |         43 |          1 |         10 |         54 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\task.cs                   | C#       |         33 |          0 |          5 |         38 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\task_decorator.cs         | C#       |         29 |          0 |          8 |         37 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\task_sequence.cs          | C#       |          7 |        123 |          2 |        132 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\Script\tasks.cs                  | C#       |        103 |          0 |         23 |        126 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\bios.cs                          | C#       |          9 |          0 |          2 |         11 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\character.cs                     | C#       |         22 |          0 |          3 |         25 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\controller.cs                    | C#       |          7 |          0 |          1 |          8 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\game_resources.cs                | C#       |         54 |          0 |         14 |         68 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\index.cs                         | C#       |         51 |          0 |         12 |         63 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\motor.cs                         | C#       |        167 |          6 |         56 |        229 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\phoenix.cs                       | C#       |         51 |          0 |         12 |         63 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\photon.cs                        | C#       |         32 |          1 |          8 |         41 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Default\virtus.cs                        | C#       |        117 |          1 |         30 |        148 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Engine\core.cs                           | C#       |        111 |          0 |         27 |        138 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Engine\moon.cs                           | C#       |        233 |          5 |         62 |        300 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Engine\star.cs                           | C#       |        148 |          3 |         38 |        189 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Helper\Utils.cs                          | C#       |         96 |          2 |         14 |        112 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Helper\term.cs                           | C#       |         38 |          0 |          9 |         47 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Helper\type_paper.cs                     | C#       |          4 |         25 |          2 |         31 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Core\Lyra\Lyra.asmdef                              | JSON     |         14 |          0 |          0 |         14 |
+| Total                                                                                                             |          |      3,406 |        263 |        792 |      4,461 |
++-------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

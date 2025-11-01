@@ -29,8 +29,12 @@ namespace Lyra {
     }
 
     public abstract class CustomActionPaper <T> : ActionPaper where T:action {
+        protected moon _host;
+
         public sealed override action Write(moon host) {
+            _host = host;
             var p = Instance ();
+            _host = null;
             host.system.add (p);
             return p;
         }

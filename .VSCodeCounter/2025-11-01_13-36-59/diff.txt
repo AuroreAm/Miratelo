@@ -1,0 +1,317 @@
+Date : 2025-11-01 13:36:59
+Directory : c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets
+Total : 214 files,  8554 codes, 2121 comments, 2076 blanks, all 12751 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C#       |        210 |      8,455 |      2,121 |      2,045 |     12,621 |
+| Markdown |          2 |         62 |          0 |         31 |         93 |
+| JSON     |          2 |         37 |          0 |          0 |         37 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                              | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                 |        214 |      8,554 |      2,121 |      2,076 |     12,751 |
+| . (Files)                                                                                                                         |          2 |         62 |          0 |         31 |         93 |
+| Code                                                                                                                              |        212 |      8,492 |      2,121 |      2,045 |     12,658 |
+| Code (Files)                                                                                                                      |          1 |         17 |          0 |          0 |         17 |
+| Code\Actor                                                                                                                        |         14 |        402 |          2 |         94 |        498 |
+| Code\Actor (Files)                                                                                                                |         12 |        362 |          2 |         84 |        448 |
+| Code\Actor\Acting                                                                                                                 |          1 |         18 |          0 |          5 |         23 |
+| Code\Actor\Target                                                                                                                 |          1 |         22 |          0 |          5 |         27 |
+| Code\Content                                                                                                                      |         30 |        922 |        441 |        249 |      1,612 |
+| Code\Content\Faniry                                                                                                               |          1 |         85 |          0 |         30 |        115 |
+| Code\Content\Head AI                                                                                                              |          1 |         39 |          0 |         15 |         54 |
+| Code\Content\Mecha                                                                                                                |         28 |        798 |        441 |        204 |      1,443 |
+| Code\Content\Mecha (Files)                                                                                                        |          9 |        468 |         58 |        120 |        646 |
+| Code\Content\Mecha\acting                                                                                                         |          7 |        221 |          5 |         59 |        285 |
+| Code\Content\Mecha\ai                                                                                                             |          9 |         33 |        378 |          3 |        414 |
+| Code\Content\Mecha\plasma                                                                                                         |          2 |         27 |          0 |          8 |         35 |
+| Code\Content\Mecha\react                                                                                                          |          1 |         49 |          0 |         14 |         63 |
+| Code\Editor                                                                                                                       |          4 |        385 |         13 |         68 |        466 |
+| Code\Editor (Files)                                                                                                               |          1 |         20 |          0 |          0 |         20 |
+| Code\Editor\Camera                                                                                                                |          1 |        100 |          1 |         21 |        122 |
+| Code\Editor\Skin                                                                                                                  |          2 |        265 |         12 |         47 |        324 |
+| Code\Element                                                                                                                      |         10 |        343 |         30 |         91 |        464 |
+| Code\Element (Files)                                                                                                              |          2 |         84 |         13 |         24 |        121 |
+| Code\Element\Character                                                                                                            |          4 |        146 |         17 |         42 |        205 |
+| Code\Element\Ground                                                                                                               |          2 |         74 |          0 |         15 |         89 |
+| Code\Element\matter                                                                                                               |          2 |         39 |          0 |         10 |         49 |
+| Code\Equip                                                                                                                        |          6 |        295 |          0 |         66 |        361 |
+| Code\Equip (Files)                                                                                                                |          2 |         46 |          0 |         13 |         59 |
+| Code\Equip\Inventory0                                                                                                             |          4 |        249 |          0 |         53 |        302 |
+| Code\Ground                                                                                                                       |         21 |        911 |        215 |        225 |      1,351 |
+| Code\Ground (Files)                                                                                                               |          8 |        520 |         23 |        117 |        660 |
+| Code\Ground\Acting                                                                                                                |          8 |        208 |          0 |         54 |        262 |
+| Code\Ground\Dash                                                                                                                  |          3 |        155 |          0 |         46 |        201 |
+| Code\Ground\Hook                                                                                                                  |          2 |         28 |        192 |          8 |        228 |
+| Code\Interest                                                                                                                     |          1 |         30 |          0 |          7 |         37 |
+| Code\Interface                                                                                                                    |         16 |        457 |        656 |        115 |      1,228 |
+| Code\Interface (Files)                                                                                                            |          2 |         46 |          0 |          8 |         54 |
+| Code\Interface\Debug                                                                                                              |          1 |         14 |          0 |          2 |         16 |
+| Code\Interface\GraphicElement                                                                                                     |          2 |         66 |          0 |         11 |         77 |
+| Code\Interface\PlayerHud                                                                                                          |          3 |        111 |          0 |         34 |        145 |
+| Code\Interface\StatHud                                                                                                            |          8 |        220 |        656 |         60 |        936 |
+| Code\Kinematic                                                                                                                    |          6 |        306 |          9 |         79 |        394 |
+| Code\Player                                                                                                                       |         22 |      1,019 |         80 |        231 |      1,330 |
+| Code\Player (Files)                                                                                                               |          2 |         40 |          4 |         14 |         58 |
+| Code\Player\Camera                                                                                                                |          9 |        379 |         73 |         73 |        525 |
+| Code\Player\Input                                                                                                                 |          1 |         54 |          0 |         16 |         70 |
+| Code\Player\PlayerBios                                                                                                            |          1 |         66 |          0 |         20 |         86 |
+| Code\Player\PlayerController                                                                                                      |          9 |        480 |          3 |        108 |        591 |
+| Code\Skill                                                                                                                        |          3 |        167 |         63 |         47 |        277 |
+| Code\Skill (Files)                                                                                                                |          1 |         33 |          0 |          9 |         42 |
+| Code\Skill\Dash                                                                                                                   |          2 |        134 |         63 |         38 |        235 |
+| Code\Skin                                                                                                                         |         12 |        738 |         33 |        154 |        925 |
+| Code\Skin (Files)                                                                                                                 |          7 |        529 |         17 |        106 |        652 |
+| Code\Skin\Anime                                                                                                                   |          2 |         39 |          3 |          9 |         51 |
+| Code\Skin\Humanoid                                                                                                                |          3 |        170 |         13 |         39 |        222 |
+| Code\Spectre                                                                                                                      |         11 |        343 |        135 |         75 |        553 |
+| Code\Spectre (Files)                                                                                                              |          8 |        208 |        128 |         42 |        378 |
+| Code\Spectre\AfterImage                                                                                                           |          3 |        135 |          7 |         33 |        175 |
+| Code\Stat                                                                                                                         |          8 |        384 |        135 |         97 |        616 |
+| Code\Stat (Files)                                                                                                                 |          2 |          6 |         94 |          1 |        101 |
+| Code\Stat\circuit                                                                                                                 |          1 |         41 |          0 |         13 |         54 |
+| Code\Stat\life                                                                                                                    |          3 |        266 |         41 |         69 |        376 |
+| Code\Stat\shielding                                                                                                               |          2 |         71 |          0 |         14 |         85 |
+| Code\TriheroesMighty                                                                                                              |         12 |        443 |         63 |        108 |        614 |
+| Code\TriheroesMighty (Files)                                                                                                      |          8 |        390 |         28 |         95 |        513 |
+| Code\TriheroesMighty\Action                                                                                                       |          4 |         53 |         35 |         13 |        101 |
+| Code\Utils                                                                                                                        |          3 |         97 |          0 |         26 |        123 |
+| Code\Weapon                                                                                                                       |         32 |      1,233 |        246 |        313 |      1,792 |
+| Code\Weapon (Files)                                                                                                               |          5 |        203 |         33 |         63 |        299 |
+| Code\Weapon\Bow                                                                                                                   |          9 |        316 |          1 |         72 |        389 |
+| Code\Weapon\Bow (Files)                                                                                                           |          3 |         52 |          0 |          8 |         60 |
+| Code\Weapon\Bow\Actor                                                                                                             |          2 |         95 |          1 |         21 |        117 |
+| Code\Weapon\Bow\Attack                                                                                                            |          4 |        169 |          0 |         43 |        212 |
+| Code\Weapon\Sword                                                                                                                 |         18 |        714 |        212 |        178 |      1,104 |
+| Code\Weapon\Sword (Files)                                                                                                         |          6 |        142 |          0 |         31 |        173 |
+| Code\Weapon\Sword\Actor                                                                                                           |          5 |        210 |        121 |         57 |        388 |
+| Code\Weapon\Sword\Attack                                                                                                          |          3 |        251 |         11 |         61 |        323 |
+| Code\Weapon\Sword\Skills                                                                                                          |          4 |        111 |         80 |         29 |        220 |
++-----------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                                          | language | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Actor\Acting\if_target_approach.cs                            | C#       |         18 |          0 |          5 |         23 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Actor\ActorAuthor.cs                                          | C#       |         46 |          1 |         14 |         61 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Actor\ActorAuthorModule.cs                                    | C#       |          9 |          0 |          1 |         10 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Actor\BehaviorExtAuthor1.cs                                   | C#       |         13 |          0 |          3 |         16 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Actor\BehaviorExtAuthor2.cs                                   | C#       |         18 |          0 |          6 |         24 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Actor\Inv0Author.cs                                           | C#       |         18 |          0 |          4 |         22 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Actor\SkillsAuthor.cs                                         | C#       |         19 |          0 |          4 |         23 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Actor\Target\lock_target.cs                                   | C#       |         22 |          0 |          5 |         27 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Actor\actor.cs                                                | C#       |         37 |          0 |          6 |         43 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Actor\actor_sfx.cs                                            | C#       |         21 |          0 |          6 |         27 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Actor\behavior.cs                                             | C#       |         22 |          0 |          5 |         27 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Actor\health.cs                                               | C#       |         67 |          0 |         13 |         80 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Actor\hud_pos.cs                                              | C#       |         15 |          0 |          2 |         17 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Actor\warrior.cs                                              | C#       |         77 |          1 |         20 |         98 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Faniry\red_bloom.cs                                   | C#       |         85 |          0 |         30 |        115 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Head AI\face_idle.cs                                  | C#       |         39 |          0 |         15 |         54 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\MechaSkinWriter.cs                              | C#       |         12 |          0 |          2 |         14 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\S1.cs                                           | C#       |         44 |          0 |         17 |         61 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\acting\S1.cs                                    | C#       |         17 |          0 |          2 |         19 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\acting\aim.cs                                   | C#       |         66 |          0 |         15 |         81 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\acting\choose_point_001_left_right_of_target.cs | C#       |         28 |          0 |         10 |         38 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\acting\dash_slay.cs                             | C#       |         11 |          0 |          3 |         14 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\acting\if_target_distance_less_than.cs          | C#       |         21 |          0 |          4 |         25 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\acting\point_001.cs                             | C#       |         42 |          1 |         13 |         56 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\acting\search_point_001_for_jump_out.cs         | C#       |         36 |          4 |         12 |         52 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\ai\ai_SS1.cs                                    | C#       |          4 |         35 |          0 |         39 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\ai\ai_aim.cs                                    | C#       |          4 |         62 |          0 |         66 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\ai\ai_burst.cs                                  | C#       |          4 |         39 |          0 |         43 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\ai\ai_charge.cs                                 | C#       |          1 |         21 |          0 |         22 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\ai\ai_dash.cs                                   | C#       |          4 |         63 |          0 |         67 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\ai\ai_dash_slash.cs                             | C#       |          4 |         28 |          1 |         33 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\ai\ai_jump_away.cs                              | C#       |          4 |         29 |          1 |         34 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\ai\if_target_approach_rappidly.cs               | C#       |          4 |         34 |          1 |         39 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\ai\mecha_aim_alternative.cs                     | C#       |          4 |         67 |          0 |         71 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\dash_slay.cs                                    | C#       |         52 |          1 |         13 |         66 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\jump_away.cs                                    | C#       |         43 |         49 |         15 |        107 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\mecha_buster.cs                                 | C#       |        103 |          5 |         21 |        129 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\mecha_eye.cs                                    | C#       |         18 |          0 |          3 |         21 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\mecha_sleep.cs                                  | C#       |        137 |          3 |         37 |        177 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\mecha_sword.cs                                  | C#       |         29 |          0 |          5 |         34 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\plasma\PlasmaDisolveAuthor.cs                   | C#       |         12 |          0 |          2 |         14 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\plasma\plasma_disolve.cs                        | C#       |         15 |          0 |          6 |         21 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\react\react_explosion.cs                        | C#       |         49 |          0 |         14 |         63 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Content\Mecha\stun.cs                                         | C#       |         30 |          0 |          7 |         37 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Editor\Camera\CameraShotCreator.cs                            | C#       |        100 |          1 |         21 |        122 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Editor\Skin\AniExtGenerator.cs                                | C#       |        121 |          9 |         20 |        150 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Editor\Skin\SlashSkinPathWriterEditor.cs                      | C#       |        144 |          3 |         27 |        174 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Editor\Triheroes.Editor.asmdef                                | JSON     |         20 |          0 |          0 |         20 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Element\Character\SkinHitBoxAuthor.cs                         | C#       |         25 |          0 |          9 |         34 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Element\Character\hitbox.cs                                   | C#       |         47 |          0 |         14 |         61 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Element\Character\skin.cs                                     | C#       |          3 |         14 |          1 |         18 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Element\Character\xenos.cs                                    | C#       |         71 |          3 |         18 |         92 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Element\ElementAuthor.cs                                      | C#       |          7 |         13 |          2 |         22 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Element\Ground\GroundAuthor.cs                                | C#       |         25 |          0 |          3 |         28 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Element\Ground\terra.cs                                       | C#       |         49 |          0 |         12 |         61 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Element\matter.cs                                             | C#       |         77 |          0 |         22 |         99 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Element\matter\flesh.cs                                       | C#       |          8 |          0 |          1 |          9 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Element\matter\metal.cs                                       | C#       |         31 |          0 |          9 |         40 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Equip\Inventory0\Inv0SkinAuthor.cs                            | C#       |         15 |          0 |          2 |         17 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Equip\Inventory0\draw_weapon.cs                               | C#       |         71 |          0 |         18 |         89 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Equip\Inventory0\inv0.cs                                      | C#       |        106 |          0 |         16 |        122 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Equip\Inventory0\return_weapon.cs                             | C#       |         57 |          0 |         17 |         74 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Equip\equip.cs                                                | C#       |         28 |          0 |          9 |         37 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Equip\inventory.cs                                            | C#       |         18 |          0 |          4 |         22 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\Acting\dash.cs                                         | C#       |         16 |          0 |          5 |         21 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\Acting\jump_away.cs                                    | C#       |          9 |          0 |          2 |         11 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\Acting\look.cs                                         | C#       |         26 |          0 |          9 |         35 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\Acting\look_target.cs                                  | C#       |         17 |          0 |          4 |         21 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\Acting\move.cs                                         | C#       |         21 |          0 |          5 |         26 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\Acting\move_around_target.cs                           | C#       |         52 |          0 |         15 |         67 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\Acting\move_to.cs                                      | C#       |         44 |          0 |         10 |         54 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\Acting\move_to_target.cs                               | C#       |         23 |          0 |          4 |         27 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\Dash\backflip.cs                                       | C#       |         30 |          0 |          9 |         39 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\Dash\dash.cs                                           | C#       |         46 |          0 |         15 |         61 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\Dash\dash_core.cs                                      | C#       |         79 |          0 |         22 |        101 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\Hook\hooked.cs                                         | C#       |         21 |         46 |          5 |         72 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\Hook\knocked_out.cs                                    | C#       |          7 |        146 |          3 |        156 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\fall.cs                                                | C#       |         74 |          2 |         15 |         91 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\footstep.cs                                            | C#       |         51 |          6 |         11 |         68 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\jump.cs                                                | C#       |         37 |          0 |         12 |         49 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\lateral.cs                                             | C#       |         91 |          3 |         16 |        110 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\move.cs                                                | C#       |        132 |          7 |         31 |        170 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\move_point.cs                                          | C#       |         49 |          2 |         14 |         65 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\react_fall.cs                                          | C#       |         55 |          0 |         12 |         67 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Ground\stand.cs                                               | C#       |         31 |          3 |          6 |         40 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interest\interest.cs                                          | C#       |         30 |          0 |          7 |         37 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interface\Debug\script_debugger.cs                            | C#       |         14 |          0 |          2 |         16 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interface\GraphicElement\full_overlay.cs                      | C#       |         49 |          0 |         10 |         59 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interface\GraphicElement\graphic_element.cs                   | C#       |         17 |          0 |          1 |         18 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interface\InterfaceWriter.cs                                  | C#       |         19 |          0 |          3 |         22 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interface\PlayerHud\character_label.cs                        | C#       |         31 |          0 |         12 |         43 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interface\PlayerHud\player_hud.cs                             | C#       |         49 |          0 |         12 |         61 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interface\PlayerHud\prompt.cs                                 | C#       |         31 |          0 |         10 |         41 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interface\StatHud\ArmorGraphic.cs                             | C#       |          1 |        175 |          0 |        176 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interface\StatHud\HeartGraphic.cs                             | C#       |          7 |         82 |          2 |         91 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interface\StatHud\StaminaGraphic.cs                           | C#       |          6 |         38 |          1 |         45 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interface\StatHud\UILayer.cs                                  | C#       |        124 |         36 |         36 |        196 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interface\StatHud\armor_hud.cs                                | C#       |          3 |         68 |          0 |         71 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interface\StatHud\health_hud.cs                               | C#       |         70 |          0 |         20 |         90 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interface\StatHud\life_hud.cs                                 | C#       |          3 |        168 |          0 |        171 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interface\StatHud\stamina_hud.cs                              | C#       |          6 |         89 |          1 |         96 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Interface\ui.cs                                               | C#       |         27 |          0 |          5 |         32 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Kinematic\AxealAuthor.cs                                      | C#       |         57 |          1 |         12 |         70 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Kinematic\axeal.cs                                            | C#       |         91 |          5 |         29 |        125 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Kinematic\capsule.cs                                          | C#       |         46 |          0 |         10 |         56 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Kinematic\curve.cs                                            | C#       |         47 |          1 |         10 |         58 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Kinematic\gravity.cs                                          | C#       |         32 |          2 |         10 |         44 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Kinematic\ground_detection.cs                                 | C#       |         33 |          0 |          8 |         41 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\Camera\CameraWriter.cs                                 | C#       |         15 |          0 |          2 |         17 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\Camera\camera.cs                                       | C#       |        110 |          3 |         22 |        135 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\Camera\hit_pause.cs                                    | C#       |         38 |          0 |          6 |         44 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\Camera\shake_camera.cs                                 | C#       |          5 |          0 |          1 |          6 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\Camera\subject.cs                                      | C#       |         28 |          1 |          3 |         32 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\Camera\target.cs                                       | C#       |         44 |          2 |         10 |         56 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\Camera\tps.cs                                          | C#       |         21 |          2 |          2 |         25 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\Camera\tps_shot.cs                                     | C#       |        114 |          0 |         27 |        141 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\Camera\transition.cs                                   | C#       |          4 |         65 |          0 |         69 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\Input\player.cs                                        | C#       |         54 |          0 |         16 |         70 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\PlayerBios\play.cs                                     | C#       |         66 |          0 |         20 |         86 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\PlayerController\player_bow.cs                         | C#       |         50 |          0 |         12 |         62 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\PlayerController\player_camera.cs                      | C#       |          5 |          0 |          1 |          6 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\PlayerController\player_dash.cs                        | C#       |         90 |          3 |         21 |        114 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\PlayerController\player_equip.cs                       | C#       |         75 |          0 |         14 |         89 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\PlayerController\player_jump.cs                        | C#       |         57 |          0 |         16 |         73 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\PlayerController\player_lateral.cs                     | C#       |         31 |          0 |          9 |         40 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\PlayerController\player_move.cs                        | C#       |         33 |          0 |          9 |         42 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\PlayerController\player_sword.cs                       | C#       |        113 |          0 |         22 |        135 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\PlayerController\player_target.cs                      | C#       |         26 |          0 |          4 |         30 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\main_actors.cs                                         | C#       |         22 |          0 |          6 |         28 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Player\scr_player.cs                                          | C#       |         18 |          4 |          8 |         30 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Skill\Dash\actor_speed.cs                                     | C#       |          9 |          0 |          1 |         10 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Skill\Dash\decoherence_blink.cs                               | C#       |        125 |         63 |         37 |        225 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Skill\skill.cs                                                | C#       |         33 |          0 |          9 |         42 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Skin\AniExt.cs                                                | C#       |         38 |          6 |          8 |         52 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Skin\Anime\SkinFaceWriter.cs                                  | C#       |         12 |          0 |          2 |         14 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Skin\Anime\face_animation.cs                                  | C#       |         27 |          3 |          7 |         37 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Skin\Humanoid\SkinIK.cs                                       | C#       |         49 |          3 |         11 |         63 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Skin\Humanoid\foot_ik.cs                                      | C#       |         98 |         10 |         24 |        132 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Skin\Humanoid\hands.cs                                        | C#       |         23 |          0 |          4 |         27 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Skin\SkinWriter.cs                                            | C#       |         24 |          0 |          5 |         29 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Skin\SkinWriterModule.cs                                      | C#       |          9 |          0 |          1 |         10 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Skin\graphic.cs                                               | C#       |         16 |          0 |          4 |         20 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Skin\skin.cs                                                  | C#       |        340 |         10 |         66 |        416 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Skin\skin_dir.cs                                              | C#       |         33 |          1 |          7 |         41 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Skin\skin_layer.cs                                            | C#       |         69 |          0 |         15 |         84 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Spectre\AfterImageAuthor.cs                                   | C#       |         12 |          0 |          2 |         14 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Spectre\AfterImage\DirectCaptureWriter.cs                     | C#       |         13 |          0 |          2 |         15 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Spectre\AfterImage\after_image.cs                             | C#       |         94 |          5 |         26 |        125 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Spectre\AfterImage\direct_capture.cs                          | C#       |         28 |          2 |          5 |         35 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Spectre\IllusionAuthor.cs                                     | C#       |         15 |          0 |          2 |         17 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Spectre\StellarAuthor.cs                                      | C#       |         14 |          0 |          2 |         16 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Spectre\illusion.cs                                           | C#       |         38 |          0 |         10 |         48 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Spectre\nova.cs                                               | C#       |         28 |          0 |          5 |         33 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Spectre\spectre.cs                                            | C#       |          9 |          0 |          1 |         10 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Spectre\stellar.cs                                            | C#       |         92 |          4 |         20 |        116 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Spectre\supernova.cs                                          | C#       |          0 |        124 |          0 |        124 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Stat\QuarterHP.cs                                             | C#       |          2 |         94 |          0 |         96 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Stat\circuit\circuit.cs                                       | C#       |         41 |          0 |         13 |         54 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Stat\life\HumanStatAuthor.cs                                  | C#       |         14 |          0 |          3 |         17 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Stat\life\life.cs                                             | C#       |         88 |         35 |         26 |        149 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Stat\life\stamina.cs                                          | C#       |        164 |          6 |         40 |        210 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Stat\shielding\MechaMatterWriter.cs                           | C#       |         19 |          0 |          3 |         22 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Stat\shielding\shielding.cs                                   | C#       |         52 |          0 |         11 |         63 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Stat\stat.cs                                                  | C#       |          4 |          0 |          1 |          5 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Triheroes.Code.asmdef                                         | JSON     |         17 |          0 |          0 |         17 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\TriheroesMighty\Action\SpawnCharacterGroup.cs                 | C#       |         23 |          0 |          6 |         29 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\TriheroesMighty\Action\WriteWriterGroup.cs                    | C#       |          0 |         35 |          1 |         36 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\TriheroesMighty\Action\set_main_actors.cs                     | C#       |         16 |          0 |          4 |         20 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\TriheroesMighty\Action\spawn_system_go.cs                     | C#       |         14 |          0 |          2 |         16 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\TriheroesMighty\SceneInitWriter.cs                            | C#       |         11 |          0 |          2 |         13 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\TriheroesMighty\TestGameLoader.cs                             | C#       |         12 |          0 |          3 |         15 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\TriheroesMighty\TriheroesMighty.cs                            | C#       |         68 |          0 |         22 |         90 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\TriheroesMighty\aeris.cs                                      | C#       |         65 |          1 |         12 |         78 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\TriheroesMighty\game.cs                                       | C#       |         23 |          0 |          4 |         27 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\TriheroesMighty\game_bios.cs                                  | C#       |         23 |          0 |          5 |         28 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\TriheroesMighty\hash.cs                                       | C#       |        101 |          3 |         26 |        130 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\TriheroesMighty\vecteur.cs                                    | C#       |         87 |         24 |         21 |        132 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Utils\CurveRes.cs                                             | C#       |         12 |          0 |          1 |         13 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Utils\buffer.cs                                               | C#       |         34 |          0 |         10 |         44 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Utils\delta_curve.cs                                          | C#       |         51 |          0 |         15 |         66 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Bow\Actor\aim.cs                                       | C#       |         46 |          1 |         11 |         58 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Bow\Actor\arrow_alert.cs                               | C#       |         49 |          0 |         10 |         59 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Bow\Attack\ArrowAuthor.cs                              | C#       |         21 |          0 |          7 |         28 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Bow\Attack\ArrowSkinAuthor.cs                          | C#       |         16 |          0 |          4 |         20 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Bow\Attack\arrow.cs                                    | C#       |        109 |          0 |         26 |        135 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Bow\Attack\arrow_billboard.cs                          | C#       |         23 |          0 |          6 |         29 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Bow\BowAuthor.cs                                       | C#       |         16 |          0 |          3 |         19 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Bow\bow.cs                                             | C#       |         24 |          0 |          4 |         28 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Bow\bow_user.cs                                        | C#       |         12 |          0 |          1 |         13 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\Actor\SlashSkinPathWriter.cs                     | C#       |         31 |          0 |          7 |         38 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\Actor\parry.cs                                   | C#       |         64 |          0 |         19 |         83 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\Actor\slash_alert.cs                             | C#       |         37 |          0 |          9 |         46 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\Actor\slay.cs                                    | C#       |         78 |          1 |         22 |        101 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\Actor\slay_hook.cs                               | C#       |          0 |        120 |          0 |        120 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\Attack\hook.cs                                   | C#       |         55 |          2 |         11 |         68 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\Attack\knock.cs                                  | C#       |         42 |          1 |          8 |         51 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\Attack\slash.cs                                  | C#       |        154 |          8 |         42 |        204 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\Skills\SS1.cs                                    | C#       |         16 |          0 |          4 |         20 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\Skills\SS9.cs                                    | C#       |         16 |          0 |          5 |         21 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\Skills\slay_combo.cs                             | C#       |         71 |         80 |         19 |        170 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\Skills\sword_mastery.cs                          | C#       |          8 |          0 |          1 |          9 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\SlashAuthor.cs                                   | C#       |         14 |          0 |          3 |         17 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\SwordAuthor.cs                                   | C#       |         29 |          0 |          5 |         34 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\SwordWriter.cs                                   | C#       |         20 |          0 |          3 |         23 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\sword.cs                                         | C#       |         37 |          0 |         11 |         48 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\sword_rb.cs                                      | C#       |         30 |          0 |          7 |         37 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\Sword\sword_user.cs                                    | C#       |         12 |          0 |          2 |         14 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\WeaponAuthor.cs                                        | C#       |         28 |         33 |         10 |         71 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\WeaponWriter.cs                                        | C#       |         10 |          0 |          2 |         12 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\damage.cs                                              | C#       |         27 |          0 |          6 |         33 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\weapon.cs                                              | C#       |         68 |          0 |         25 |         93 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\Code\Weapon\weapon_user.cs                                         | C#       |         70 |          0 |         20 |         90 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\bug.md                                                             | Markdown |         10 |          0 |          3 |         13 |
+| c:\Users\pixel\Desktop\Triheroes Mighty\TriheroesMighty\Assets\convention.md                                                      | Markdown |         52 |          0 |         28 |         80 |
+| Total                                                                                                                             |          |      8,554 |      2,121 |      2,076 |     12,751 |
++-----------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

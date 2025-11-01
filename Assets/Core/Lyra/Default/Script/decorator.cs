@@ -7,6 +7,7 @@ namespace Lyra {
         public interface handle { 
             public void set_childs ( action [] childs );
             public action [] get_childs ();
+            public bool radiate<T1>(T1 gleam) where T1 : struct;
         }
 
         public sealed class core<T> : handle where T : action {
@@ -53,14 +54,35 @@ namespace Lyra {
                 _set?.Invoke ( child );
             }
 
-            public void radiate<T1>(T1 gleam) where T1 : struct {
+            public bool radiate<T1>(T1 gleam) where T1 : struct {
                 foreach (var child in o) {
-                    if ((child as ruby<T1>) != null) {
-                        (child as ruby<T1>)._radiate(gleam);
-                        return;
+                    if ((child as mica<T1>) != null) {
+                        if ( (child as mica<T1>)._radiate(gleam) )
+                        return true;
                     }
                 }
+
+                var d = host.look_for_decorator_parent ();
+                if ( d != null )
+                return d.contract.radiate ( gleam );
+                return false;
             }
+        }
+    }
+
+    public interface mica <T> : photon.gem where T : struct
+    {
+        public bool _radiate ( T gleam );
+    }
+
+    public abstract class next_on_mica<T> : action, mica<T> where T : struct {
+        public bool _radiate(T gleam) {
+            if (on) {
+            stop ();
+            return true;
+            }
+
+            return false;
         }
     }
 
