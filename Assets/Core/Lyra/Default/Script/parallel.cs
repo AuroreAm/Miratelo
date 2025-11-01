@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Lyra {
-    public abstract class parallel : decorator {
+    public abstract class parallel : action_decorator {
         private parallel () {}
 
         protected override void _start() {

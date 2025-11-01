@@ -3,11 +3,14 @@ using System;
 
 namespace Lyra
 {
-    public abstract class acting : task , decorator_kind, core_kind, act_handler {
+    public abstract class acting : task , decorator, core_kind, act_handler {
+        public decorator.handle contract => core;
+        protected decorator.core <action> core;
+        action [] o => core.o;
+
         [link]
         motor motor;
         act act;
-        action [] o;
         parallel.all parallel;
         protected abstract act get_act();
 
@@ -22,7 +25,11 @@ namespace Lyra
 
         protected virtual void __ready () {}
 
-        private acting () {}
+        private acting () {
+            core = new decorator.core<action> (this);
+            core._set = set;
+        }
+        
         protected abstract void motor_stop_act ();
         protected abstract void motor_start_act ();
         protected abstract bool motor_can_start_act ();
@@ -98,13 +105,9 @@ namespace Lyra
             _stop ();
         }
 
-        public void set(action[] child) {
-            if (on)
-            throw new InvalidOperationException("can't set active acting");
-
-            o = child;
+        void set(action[] child) {
             parallel = with ( new parallel.all () );
-            parallel.set (child);
+            parallel.contract.set_childs (child);
         }
 
         public void _star_stop(star s) {}

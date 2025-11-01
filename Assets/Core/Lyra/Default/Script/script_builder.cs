@@ -28,9 +28,9 @@ namespace Lyra {
             return a;
         }
 
-        Stack <decorator_kind> decorator_domain = new Stack <decorator_kind> ();
+        Stack <decorator> decorator_domain = new Stack <decorator> ();
         Stack <List<action>> decorator_content = new Stack<List<action>> ();
-        public T _a <T> () where T : action , decorator_kind, new () {
+        public T _a <T> () where T : action , decorator, new () {
             T a = new T ();
             bricks.Add (a);
 
@@ -43,7 +43,7 @@ namespace Lyra {
 
         public void _ () {
             var d = decorator_domain.Pop ();
-            d.set ( decorator_content.Pop ().ToArray () );
+            d.contract.set_childs ( decorator_content.Pop ().ToArray () );
         }
 
         public action result () {

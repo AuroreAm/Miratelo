@@ -2,7 +2,7 @@ using System;
 
 namespace Lyra
 {
-    public sealed class sequence : decorator
+    public sealed class sequence : action_decorator
     {
         int ptr;
 

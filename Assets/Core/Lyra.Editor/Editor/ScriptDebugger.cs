@@ -69,7 +69,7 @@ namespace Lyra.Editor {
         }
 
         public static ActionGUIBase Create ( action a ) {
-            if (a is decorator_kind)
+            if (a is decorator)
                 return new DecoratorGUI (a);
             return new ActionGUI (a);
         }
@@ -94,15 +94,7 @@ namespace Lyra.Editor {
             SubContent.Padding ( new Vector4 (16,2+16,2,2) );
 
             if (a is decorator d)
-                child = (action []) GetChild (d);
-            else if (a is task_decorator t) {
-                action [] c = (action []) GetChild (t);
-                child = new action [c.Length];
-                for (int i = 0; i < c.Length; i++)
-                    child[i] = c[i];
-            } else if (a is acting aa) {
-                child = (action []) GetChild (aa);
-            }
+                child = d.contract.get_childs ();
 
             for (int i = 0; i < child.Length; i++)
                 SubContent.Add (Create (child[i]));
@@ -119,16 +111,5 @@ namespace Lyra.Editor {
             );
         }
 
-        object GetChild(action a) {
-            Type t = a.GetType();
-            FieldInfo fi = null;
-
-            while (fi == null) {
-                fi = t.GetField("o", BindingFlags.NonPublic | BindingFlags.Instance);
-                t = t.BaseType;
-            }
-
-            return fi.GetValue (a);
-        }
     }
 }

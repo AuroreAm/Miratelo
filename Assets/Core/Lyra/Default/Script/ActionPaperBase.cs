@@ -21,7 +21,7 @@ namespace Lyra {
         public bool IsDecoratorKind () {
             return
             GetPaperType () != null &&
-            typeof(decorator_kind).IsAssignableFrom ( GetPaperType () );
+            typeof(decorator).IsAssignableFrom ( GetPaperType () );
         }
 
         public virtual Type GetPaperType () => null;
@@ -47,12 +47,12 @@ namespace Lyra {
 
         public override action Write ( moon host ) {
             var a = Paper.write (host);
-            if (a is decorator_kind d)
+            if (a is decorator d)
                 PopulateDecorator(d, host);
             return a;
         }
 
-        public void PopulateDecorator(decorator_kind d, moon host) {
+        public void PopulateDecorator(decorator d, moon host) {
             List<action> Childs = new List<action>();
 
             for (int i = 0; i < transform.childCount; i++) {
@@ -60,7 +60,7 @@ namespace Lyra {
                     Childs.Add(c.Write(host));
             }
 
-            d.set(Childs.ToArray());
+            d.contract.set_childs (Childs.ToArray());
         }
 
         #if UNITY_EDITOR

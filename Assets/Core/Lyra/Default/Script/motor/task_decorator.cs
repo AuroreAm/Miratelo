@@ -2,27 +2,20 @@ using System;
 using UnityEngine;
 
 namespace Lyra {
-    public abstract class task_decorator : task, core_kind, decorator_kind {
+    public class task_decorator : task, decorator, core_kind {
+        public decorator.handle contract => core;
+        protected decorator.core<task> core;
+        protected task [] o => core.o;
 
-        protected sealed override void _descend() {
-            for (int i = 0; i < o.Length; i++) {
-                o[i].descend(this);
-            }
+        protected task_decorator () {
+            core = new decorator.core<task>(this);
         }
 
-        protected task[] o;
-        public abstract void _star_stop(star s);
+        protected sealed override void _descend() {
+            core._descend();
+        }
 
-        public void set(action[] child) {
-            if (on)
-                throw new InvalidOperationException("can't set active decorator");
-
-            o = new task[child.Length];
-
-            for (int i = 0; i < child.Length; i++)
-                if (child[i] is task t)
-                    o[i] = t;
-                else Debug.LogWarning($"direct child of task decorator {child[i].GetType()} is not a task");
+        public virtual void _star_stop(star s) {
         }
 
         internal void task_failed() {
@@ -36,7 +29,7 @@ namespace Lyra {
         public void replace_before(tasks t) {
             _replace_before(t);
         }
-
+        
         protected virtual void _task_fail() { }
         protected virtual void _replace(tasks t) { }
         protected virtual void _replace_before(tasks t) { }

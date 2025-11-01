@@ -25,6 +25,19 @@ namespace Lyra {
                 Debug.LogWarning("script is null");
         }
 
+        public decorator look_for_decorator_parent () {
+            decorator result = null;
+            for (int i = ancestors.Count - 1; i >= 0; i--)
+            {
+                if (ancestors[i] is decorator a)
+                {
+                    result = a;
+                    break;
+                }
+            }
+            return result;
+        }
+
         public sealed class root : action {
         }
     }
